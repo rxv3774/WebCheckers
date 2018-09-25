@@ -7,9 +7,9 @@ a web micro-framework.
 ## Team
 
 - Brett Patterson
-- Henry Larson    
-- Ryan Vasquez
-- Samuel Adams
+- MEMBER2
+- MEMBER3
+- MEMBER4
 
 
 ## Prerequisites
