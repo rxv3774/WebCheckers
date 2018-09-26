@@ -7,7 +7,7 @@ a web micro-framework.
 ## Team
 
 - Brett Patterson
-- MEMBER2
+- Henry Larson
 - MEMBER3
 - MEMBER4
 
