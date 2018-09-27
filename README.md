@@ -9,7 +9,7 @@ a web micro-framework.
 - Brett Patterson
 - Henry Larson
 - Ryan Vasquez
-- MEMBER4
+- Samuel Adams
 
 
 ## Prerequisites
