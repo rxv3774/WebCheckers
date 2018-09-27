@@ -8,7 +8,7 @@ a web micro-framework.
 
 - Brett Patterson
 - Henry Larson
-- MEMBER3
+- Ryan Vasquez
 - MEMBER4
 
 
