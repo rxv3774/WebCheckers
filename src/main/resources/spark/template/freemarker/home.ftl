@@ -12,10 +12,12 @@
     
     <div class="navigation">
       <a href="/">my home</a>
+        <a href="/">Sign-In</a>
     </div>
     
     <div class="body">
       <p>Welcome to the world of online Checkers.</p>
+        <p>Please sign-in with the button above.</p>
     </div>
     
   </div>
