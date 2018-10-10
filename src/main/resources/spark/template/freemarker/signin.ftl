@@ -9,7 +9,7 @@
 <body>
 <div class="page">
 
-    <h1>Web Checkers Sing-In</h1>
+    <h1>Web Checkers Sign-In</h1>
 
     <div class="navigation">
         <a href="/">my home</a>
@@ -17,6 +17,13 @@
 
     <div class="body">
         <p>Sign-In Screen!</p>
+    </div>
+
+    <div>
+        <form action="signin.ftl" method="post">
+            username: <input type="text" name="username"><br>
+            <input type="submit" value="Submit">
+        </form>
     </div>
 
 </div>
