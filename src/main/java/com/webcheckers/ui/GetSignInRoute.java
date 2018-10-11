@@ -28,8 +28,9 @@ public class GetSignInRoute implements Route {
         LOG.config("GetSignInRoute is initialized.");
     }
 
+
     /**
-     * Render the WebCheckers Home page.
+     * Render the WebCheckers SignIn page.
      *
      * @param request
      *   the HTTP request
@@ -41,6 +42,7 @@ public class GetSignInRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
+
         LOG.finer("GetSignInRoute is invoked.");
         //
         Map<String, Object> vm = new HashMap<>();
