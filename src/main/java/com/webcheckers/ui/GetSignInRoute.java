@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.PlayerLobby;
 import spark.*;
 
 import java.util.HashMap;
@@ -9,6 +10,8 @@ import java.util.logging.Logger;
 
 public class GetSignInRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
+
+    private static final String PLAYER_LOBBY_KEY = "playerLobby";
 
     private final TemplateEngine templateEngine;
 
@@ -42,9 +45,12 @@ public class GetSignInRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
+        final Session session = request.session();
+        final PlayerLobby playerLobby = session.attribute(PLAYER_LOBBY_KEY);
+
+        //TODO - Get player name from sign-in page and add to playerLobby
 
         LOG.finer("GetSignInRoute is invoked.");
-        //
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Sign-In");
         return templateEngine.render(new ModelAndView(vm , "signin.ftl"));

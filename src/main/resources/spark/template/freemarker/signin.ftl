@@ -12,7 +12,7 @@
     <h1>Web Checkers Sign-In</h1>
 
     <div class="navigation">
-        <a href="/">my home</a>
+        <a href="/">Home</a>
     </div>
 
     <div class="body">
