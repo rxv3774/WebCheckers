@@ -5,21 +5,21 @@ public class Player {
     /**
      * The players username.
      */
-    private String username;
+    private String name;
 
     /**
      * Player constructor
-     * @param username
+     * @param name
      */
-    public Player(String username) {
-        this.username = username;
+    public Player(String name) {
+        this.name = name;
     }
 
     /**
      * Gets the Player's username.
      * @return Player username.
      */
-    public String getUsername() {
-        return this.username;
+    public String getName() {
+        return this.name;
     }
 }

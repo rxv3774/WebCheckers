@@ -4,9 +4,6 @@ import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
 
-/**
- * Created by Brett Patterson on 10/11/2018.
- */
 public class PlayerLobby {
     /**
      * Array of all the players in the current lobby.
@@ -18,10 +15,9 @@ public class PlayerLobby {
      * @param player The new player that is being added.
      */
     public void addPlayer(Player player) {
-        if (isValidName(player.getUsername())) {
+        if (isValidName(player.getName())) {
             players.add(player);
-            System.out.println(player.getUsername() + " has been added"); // Print to website, not console
-
+            System.out.println(player.getName() + " has been added"); // Print to website, not console
         }
         else {
             System.out.println("Username is already taken");
@@ -35,7 +31,7 @@ public class PlayerLobby {
      */
     public boolean isValidName(String username) {
         for (Player player : players) {
-            if (player.getUsername().equals(username)) {
+            if (player.getName().equals(username)) {
                 return false;
             }
         }

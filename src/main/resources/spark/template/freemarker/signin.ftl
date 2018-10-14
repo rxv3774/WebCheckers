@@ -20,8 +20,8 @@
     </div>
 
     <div>
-        <form action="signin.ftl" method="post">
-            username: <input type="text" name="username"><br>
+        <form action="./signIn" method="post">
+            playerName: <input type="text" name="username"><br>
             <input type="submit" value="Submit">
         </form>
     </div>
