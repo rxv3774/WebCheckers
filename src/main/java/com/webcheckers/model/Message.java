@@ -20,7 +20,7 @@ public class Message {
         return this.text;
     }
 
-    public enum getType() {
-
-    }
+//    public enum getType() {
+//
+//    }
 }
