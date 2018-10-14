@@ -9,7 +9,7 @@ public class Message {
     public Message(String text, Type type) {
         this.text = text;
         if (type == Type.error) {
-
+            //
         }
         else {
 
