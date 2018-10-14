@@ -18,6 +18,9 @@ import javax.servlet.http.HttpSession;
 public class GetHomeRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
+
+    public static final String GAMEHOME_TITLE = "title";
+
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
 

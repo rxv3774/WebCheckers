@@ -1,18 +1,14 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Player;
 import spark.Route;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.logging.Logger;
 
-import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.Route;
-import spark.Session;
 import spark.TemplateEngine;
 import static spark.Spark.halt;
 
@@ -26,10 +22,10 @@ public class PostSignInRoute implements Route {
     private final PlayerLobby playerLobby;
     private final TemplateEngine templateEngine;
 
-    static final String INPUT_PARAM = "playerName";
-    static final String SIGNIN_PARAM = "signedin";
-    static final String MESSAGE_TYPE_ATTR = "messageType";
-    static final String MESSAGE_TYPE = "Current Player:";
+    private final static String PLAYER_NAME = "playerName";
+
+
+    private static final Logger LOG = Logger.getLogger( GetHomeRoute.class.getName() );
 
 
 
@@ -48,9 +44,11 @@ public class PostSignInRoute implements Route {
         // validation
         Objects.requireNonNull(playerLobby, "playerLobby must not be null");
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
-
+        //
         this.playerLobby = playerLobby;
         this.templateEngine = templateEngine;
+        //
+        LOG.config("PostSignInRoute is initialized.");
     }
 
 
@@ -67,31 +65,41 @@ public class PostSignInRoute implements Route {
     @Override
     public String handle(Request request, Response response) {
 
+//        final Session session = request.session();
+//        session.attribute("playerName", playerLobby);
+
+        String playerName = request.queryParams( PLAYER_NAME );
+
+        playerLobby.playerSignInProcess( playerName, request );
+
+        String tmp = request.attribute( "playerName" );
+        System.out.println( tmp );
+
+
+
         // start building the View-Model
-        final Map<String, Object> vm = new HashMap<>();
+//        final Map<String, Object> vm = new HashMap<>();
 
-        vm.put("title", "Welcome!");
-
-//        vm.put(GetHomeRoute.TITLE_ATTR, GetGameRoute.TITLE);
+//        vm.put("title", "Welcome!");
+//        vm.put( GetHomeRoute.GAMEHOME_TITLE , "testName" );
 //        vm.put(GetHomeRoute.NEW_PLAYER_ATTR, Boolean.FALSE);
 
-        // retrieve request parameter
-        final String guessStr = request.queryParams(INPUT_PARAM);
+//        ModelAndView mv;
 
-        //Add player to playerLobby
-        if(playerLobby.isValidName(guessStr)) {
-            playerLobby.addPlayer(new Player(guessStr));
-            vm.put(SIGNIN_PARAM, guessStr);
-            vm.put(MESSAGE_TYPE_ATTR, MESSAGE_TYPE);
-        }
+//        if( playerLobby.constainsPlayer( ) ){
 
-        ModelAndView mv = new ModelAndView(vm, GetHomeRoute.VIEW_NAME);
+//        }
 
-        System.out.println( "this is a test");
 
-        return templateEngine.render(mv);
+
+
+
+//        return templateEngine.render( mv );
+        return "STUB";
     }
 
+
+//    private ModelAndView error(){}
 
 
 }
