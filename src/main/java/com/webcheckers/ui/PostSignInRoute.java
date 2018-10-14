@@ -1,15 +1,14 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.appl.PlayerLobby;
-import spark.Route;
+import spark.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import spark.Request;
-import spark.Response;
-import spark.TemplateEngine;
 import static spark.Spark.halt;
 
 
@@ -23,6 +22,10 @@ public class PostSignInRoute implements Route {
     private final TemplateEngine templateEngine;
 
     private final static String PLAYER_NAME = "playerName";
+
+    public static final String HOME_URL = "/";
+    public static final String SIGNIN_URL = "/signIn";
+    public static final String POST_NAME = "/postName";
 
 
     private static final Logger LOG = Logger.getLogger( GetHomeRoute.class.getName() );
@@ -68,19 +71,21 @@ public class PostSignInRoute implements Route {
 //        final Session session = request.session();
 //        session.attribute("playerName", playerLobby);
 
+        final Map<String, Object> vm = new HashMap<>();
+        vm.put("title", "Welcome!");
+
+
         String playerName = request.queryParams( PLAYER_NAME );
 
-        playerLobby.playerSignInProcess( playerName, request );
-
-        String tmp = request.attribute( "playerName" );
-        System.out.println( tmp );
+        ModelAndView mv = playerLobby.playerSignInProcess( playerName, request, vm );
+        return templateEngine.render( mv );
 
 
 
         // start building the View-Model
 //        final Map<String, Object> vm = new HashMap<>();
 
-//        vm.put("title", "Welcome!");
+
 //        vm.put( GetHomeRoute.GAMEHOME_TITLE , "testName" );
 //        vm.put(GetHomeRoute.NEW_PLAYER_ATTR, Boolean.FALSE);
 
@@ -93,9 +98,8 @@ public class PostSignInRoute implements Route {
 
 
 
-
 //        return templateEngine.render( mv );
-        return "STUB";
+//        return "STUB";
     }
 
 
