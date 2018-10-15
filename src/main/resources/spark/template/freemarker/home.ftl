@@ -22,6 +22,14 @@
       <div class="message ${messageType}">${signedin}</div>
     </#if>
 
+    <#if playerNames??>
+        <ol>
+        <#list playerNames as n>
+            <li>${n}</li>
+        </#list>
+        </ol>
+    </#if>
+
     </div>
     
   </div>
