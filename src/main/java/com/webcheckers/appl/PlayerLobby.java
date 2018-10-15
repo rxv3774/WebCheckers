@@ -127,13 +127,8 @@ public class PlayerLobby {
     }
 
 
-//    mv = error(vm, makeInvalidArgMessage(guessStr));
-
-
     private ModelAndView invalidPlayerName(Map<String, Object> vm){
         vm.put( "title", "Sign-In" );
-//        vm.put(MESSAGE_ATTR, "Your name can not be a blank.");
-//        vm.put(MESSAGE_TYPE_ATTR, "Bad Name");
         return new ModelAndView(vm, VIEW_NAME);
     }
 
