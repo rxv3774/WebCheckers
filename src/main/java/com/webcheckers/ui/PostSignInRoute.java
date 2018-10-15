@@ -71,6 +71,7 @@ public class PostSignInRoute implements Route {
 //        final Session session = request.session();
 //        session.attribute("playerName", playerLobby);
 
+        // start building the View-Model
         final Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Welcome!");
 
@@ -81,9 +82,6 @@ public class PostSignInRoute implements Route {
         return templateEngine.render( mv );
 
 
-
-        // start building the View-Model
-//        final Map<String, Object> vm = new HashMap<>();
 
 
 //        vm.put( GetHomeRoute.GAMEHOME_TITLE , "testName" );
@@ -99,11 +97,5 @@ public class PostSignInRoute implements Route {
 
 
 //        return templateEngine.render( mv );
-//        return "STUB";
     }
-
-
-//    private ModelAndView error(){}
-
-
 }

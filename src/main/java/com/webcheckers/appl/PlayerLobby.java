@@ -3,15 +3,20 @@ package com.webcheckers.appl;
 import com.webcheckers.model.Player;
 import spark.ModelAndView;
 import spark.Request;
+import spark.Session;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+
+import static spark.Spark.halt;
 
 public class PlayerLobby {
     /**
      * Array of all the players in the current lobby.
      */
     private ArrayList<Player> players = new ArrayList<>();
+    private Map<String, Session> sessionMap = new HashMap<>();
 
 
     private static final String MESSAGE_ATTR = "message";
@@ -24,19 +29,20 @@ public class PlayerLobby {
      * Attempts to add a player to the array of players. Only works if new username is not already taken.
      * @param player The new player that is being added.
      */
-    public void addPlayer(Player player) {
-        if (isValidName( player.getName() ) ) {
+    private void addPlayer(Player player) {
+        if( isValidName( player.getName() ) ) {
             players.add(player);
-            System.out.println(player.getName() + " has been added"); // Print to website, not console
-
-        }
-        else {
-            System.out.println("Username is already taken");
+//            System.out.println( player.getName() + " has been added" ); // Print to website, not console
         }
     }
 
 
-    public boolean isValidName(String name) {
+    /**
+     * Desc: This method determines if the playerName fallows our naming convention.
+     * @param name the name that needs to be checked
+     * @return true if it fallows our rules, false otherwise
+     */
+    private boolean isValidName(String name) {
 
         if( name.equals( "" ) ){
             return false;
@@ -49,7 +55,6 @@ public class PlayerLobby {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -69,7 +74,6 @@ public class PlayerLobby {
     }
 
 
-
     /**
      * Prints out the list of all the players in the lobby.
      * @return List of players.
@@ -78,8 +82,9 @@ public class PlayerLobby {
         return players;
     }
 
+
     /**
-     * Gets the number of players in the lobby.
+     * Desc: Gets the number of players in the lobby.
      * @return Size of lobby.
      */
     public int getLobbySize() {
@@ -100,26 +105,20 @@ public class PlayerLobby {
 
             return playerNameUsedAlready( vm );
         }
-
-
         if( !playerNameInUse( name ) ){ // No one is using this name.
 
             Player newPlayer = new Player( name );
-            players.add( newPlayer );
+            addPlayer( newPlayer );
+//            players.add( newPlayer );
 
-            System.out.println( "made a new player" );
+            // retrieve the HTTP session
+            final Session httpSession = request.session( true );
 
-
-//            Session httpSession = request.session( true );
-//            httpSession.attribute( "playerName", name );
-
-
-//            String tmp = request.attribute( "playerName" );
-//            System.out.println( tmp );
-
+            // create the user playerName attribute and put into the playerName into the session
+            httpSession.attribute("playerName", name);
+            sessionMap.put( name, httpSession);
 
             return newPlayerAdded( vm, name);
-
         }
 
         System.out.println("reached this.... This is bad");
@@ -139,7 +138,6 @@ public class PlayerLobby {
     }
 
     private ModelAndView newPlayerAdded(Map<String, Object> vm, String name){
-
         vm.put( "title", name );
         return new ModelAndView(vm, HOME_NAME);
     }
