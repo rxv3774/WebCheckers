@@ -56,6 +56,7 @@ public class WebServer {
     public static final String HOME_URL = "/";
     public static final String SIGNIN_URL = "/signIn";
     public static final String POST_NAME = "/postName";
+    public static final String START_GAME = "/chooseName";
 
     //
     // Attributes
@@ -141,6 +142,9 @@ public class WebServer {
 
         //Shows the sign in page
         get(SIGNIN_URL, new GetSignInRoute(templateEngine));
+
+        //Send player to game
+        post(START_GAME, new PostStartGame(playerLobby, templateEngine));
 
         //Sends the player name to the player lobby
         post(SIGNIN_URL, new PostSignInRoute(playerLobby, templateEngine));

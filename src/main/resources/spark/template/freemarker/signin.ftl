@@ -20,7 +20,7 @@
     </div>
 
     <div>
-        <form action="./signIn" method="post">
+        <form action="/signIn" method="post">
             username: <input type="text" name="playerName"><br>
             <input type="submit" value="Submit">
         </form>

@@ -10,8 +10,11 @@
     <h1>Web Checkers</h1>
     
     <div class="navigation">
-      <a href="/">Home</a>
-        <a href="/signIn">Sign-In</a>
+        <a href="/">Home</a>
+
+        <#if signedin?? == false>
+            <a href="/signIn">Sign-In</a>
+        </#if>
     </div>
     
     <div class="body">
@@ -23,6 +26,14 @@
     </#if>
 
         <div class="message ${messageType}">${playerLst}</div>
+
+   <#if signedin??>
+       <form action='/chooseName' method='post'>
+           <label for='name'>Name of other player:</label>
+           <input name='name' placeholder='Enter a name' /> <button type='submit'>Start a game</button>
+       </form>
+   </#if>
+
 
     </div>
     
