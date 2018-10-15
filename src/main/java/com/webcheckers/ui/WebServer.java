@@ -142,8 +142,9 @@ public class WebServer {
         //Shows the sign in page
         get(SIGNIN_URL, new GetSignInRoute(templateEngine));
 
-        //Sends username to the player lobby
+        //Sends the player name to the player lobby
         post(SIGNIN_URL, new PostSignInRoute(playerLobby, templateEngine));
+
 
         //
         LOG.config("WebServer is initialized.");

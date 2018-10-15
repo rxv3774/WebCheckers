@@ -55,33 +55,20 @@ public class PostSignInRoute implements Route {
     }
 
 
-
-
-
-
     /**
      * {@inheritDoc}
      *
-     * @throws NoSuchElementException
-     *    when an invalid result is returned after making a guess
      */
     @Override
     public String handle(Request request, Response response) {
-
-//        final Session session = request.session();
-//        session.attribute("playerName", playerLobby);
 
         // start building the View-Model
         final Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Welcome!");
 
-
         String playerName = request.queryParams( PLAYER_NAME );
 
-        ModelAndView mv = playerLobby.playerSignInProcess( playerName, request.session(), vm );
+        ModelAndView mv = playerLobby.playerSignInProcess( playerName, response, request, vm );
         return templateEngine.render( mv );
-
     }
-
-
 }

@@ -3,6 +3,7 @@ package com.webcheckers.appl;
 import com.webcheckers.model.Player;
 import spark.ModelAndView;
 import spark.Request;
+import spark.Response;
 import spark.Session;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class PlayerLobby {
      * Array of all the players in the current lobby.
      */
     private ArrayList<Player> players = new ArrayList<>();
-    private Map<String, Session> sessionMap = new HashMap<>();
+//    private Map<String, Session> sessionMap = new HashMap<>();
 
 
     private static final String MESSAGE_ATTR = "message";
@@ -48,7 +49,7 @@ public class PlayerLobby {
             return false;
         }
 
-        String allowed = "abcdefghijklmnopqrtsuvwyxzABCDEFGHIJKLMNOPQRTSUVWYXZ0123456789";
+        String allowed = "abcdefghijklmnopqrtsuvwyxzABCDEFGHIJKLMNOPQRTSUVWYXZ0123456789 ";
 
         for( int i = 0; i < name.length(); i++){
             if( !allowed.contains( name.substring(i, i+1) )){
@@ -83,6 +84,16 @@ public class PlayerLobby {
     }
 
 
+    public ArrayList<String> getPlayersNames() {
+        ArrayList<String> names = new ArrayList<>();
+
+        for( Player player : players){
+            names.add( player.getName() );
+        }
+
+        return names;
+    }
+
     /**
      * Desc: Gets the number of players in the lobby.
      * @return Size of lobby.
@@ -92,7 +103,7 @@ public class PlayerLobby {
     }
 
 
-    public ModelAndView playerSignInProcess(String name, Session session, Map<String, Object> vm){
+    public ModelAndView playerSignInProcess(String name, Response response, Request request, Map<String, Object > vm){
 
         ModelAndView mv;
 
@@ -107,14 +118,11 @@ public class PlayerLobby {
         }
         if( !playerNameInUse( name ) ){ // No one is using this name.
 
-            // create the user playerName attribute and put into the playerName into the session
-            if(players.size() == 0)
-                session.attribute("playerNames", players);
 
-            //add player to players
+
+
             Player newPlayer = new Player( name );
             addPlayer( newPlayer );
-
 
             return newPlayerAdded( vm, name);
         }
@@ -122,6 +130,33 @@ public class PlayerLobby {
         System.out.println("reached this.... This is bad");
         return null;
     }
+
+    public String getPlayerNameLst(String name){
+
+
+        ArrayList<String> playerNameLst = new ArrayList<>( getPlayersNames() );
+        playerNameLst.remove( name );
+
+        String names = "";
+        if( playerNameLst.size() > 0) {
+
+            names += "Other Players signed in: ";
+
+            for (int x = 0; x < playerNameLst.size(); x++) {
+
+                if (x < playerNameLst.size() - 1) {
+                    names += playerNameLst.get(x) + ", ";
+                } else {
+                    names += playerNameLst.get(x);
+                }
+            }
+        }
+        else {
+            names = "Number of players signed in: " + getLobbySize();
+        }
+        return names;
+    }
+
 
 
     private ModelAndView invalidPlayerName(Map<String, Object> vm){
@@ -136,9 +171,15 @@ public class PlayerLobby {
     }
 
     private ModelAndView newPlayerAdded(Map<String, Object> vm, String name){
-        vm.put( "signedin", name );
-        vm.put("messageType", "Just Signed In:");
-        return new ModelAndView(vm, HOME_NAME);
+//        vm.put( "title", name );
+        vm.put( "title", "Sign-In" );
+
+        vm.put( "signedin", "The current signed in user is: " + name );
+        vm.put( "messageType", "info");
+        vm.put( "playerLst", getPlayerNameLst( name ) );
+
+        return new ModelAndView(vm, "home.ftl");
+//        return new ModelAndView(vm, HOME_NAME);
     }
 
 }

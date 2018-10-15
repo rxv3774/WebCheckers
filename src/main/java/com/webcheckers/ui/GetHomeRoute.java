@@ -8,8 +8,6 @@ import java.util.logging.Logger;
 import com.webcheckers.appl.PlayerLobby;
 import spark.*;
 
-import javax.servlet.http.HttpSession;
-
 /**
  * The UI Controller to GET the Home page.
  *
@@ -17,6 +15,9 @@ import javax.servlet.http.HttpSession;
  */
 public class GetHomeRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
+
+
+    public static final String GAMEHOME_TITLE = "title";
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
@@ -55,7 +56,27 @@ public class GetHomeRoute implements Route {
         //
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Welcome!");
+        vm.put( "messageType", "info");
 
+
+        System.out.println( session.attributes() );
+        PlayerLobby playerLobby = session.attribute( "playerLobby"  );
+        System.out.println( playerLobby.getLobbySize() );
+
+
+        if( session.attribute("playerName") != null){
+//        if( playerLobby.getLobbySize() > 0){
+
+            String currentPlayer = session.attribute( "playerName" );
+
+
+            vm.put( "signedin", "The current signed in user is: " +  currentPlayer);
+            vm.put( "playerLst", playerLobby.getPlayerNameLst( currentPlayer ) );
+
+        }
+        else{
+            vm.put("playerLst", "Number of players signed in: " + playerLobby.getLobbySize());
+        }
         return templateEngine.render(new ModelAndView(vm, "home.ftl"));
     }
 
