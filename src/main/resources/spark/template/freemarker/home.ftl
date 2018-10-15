@@ -19,8 +19,10 @@
         <p>Please sign-in with the button above.</p>
 
     <#if signedin??>
-      <div class="message ${messageType}">${signedin}</div>
+        <div class="message ${messageType}">${signedin}</div>
     </#if>
+
+        <div class="message ${messageType}">${playerLst}</div>
 
     </div>
     

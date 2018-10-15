@@ -8,9 +8,6 @@ import java.util.logging.Logger;
 import com.webcheckers.appl.PlayerLobby;
 import spark.*;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpSession;
-
 /**
  * The UI Controller to GET the Home page.
  *
@@ -59,26 +56,27 @@ public class GetHomeRoute implements Route {
         //
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Welcome!");
+        vm.put( "messageType", "info");
 
-        Session httpSession = request.session();
-        System.out.println( httpSession.attributes() );
-        String tmp = httpSession.attribute( "playerLobby" );
-        System.out.println( tmp );
 
-//        vm.put( "signedin", "")
+        System.out.println( session.attributes() );
+        PlayerLobby playerLobby = session.attribute( "playerLobby"  );
+        System.out.println( playerLobby.getLobbySize() );
 
-        if( playerLobby.getLobbySize() > 0) {
-//            vm.put("currentPlayer", );
 
-            String playerName = request.queryParams( "playerName" );
-            System.out.println( playerName );
+        if( session.attribute("playerName") != null){
+//        if( playerLobby.getLobbySize() > 0){
+
+            String currentPlayer = session.attribute( "playerName" );
+
+
+            vm.put( "signedin", "The current signed in user is: " +  currentPlayer);
+            vm.put( "playerLst", playerLobby.getPlayerNameLst( currentPlayer ) );
 
         }
-//        else{
-//
-//        }
-
-
+        else{
+            vm.put("playerLst", "Number of players signed in: " + playerLobby.getLobbySize());
+        }
         return templateEngine.render(new ModelAndView(vm, "home.ftl"));
     }
 
