@@ -13,9 +13,7 @@ public class Row implements Iterable<Space> {
         }
     }
 
-    public int getIndex() {
-        return index;
-    }
+    public int getIndex() { return index; }
 
     @Override
     public Iterator<Space> iterator() {
