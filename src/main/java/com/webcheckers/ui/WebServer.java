@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import spark.TemplateEngine;
 
@@ -59,6 +60,8 @@ public class WebServer {
     public static final String START_GAME = "/chooseName";
 
     public static final String HOME_FILE = "home.ftl";
+    public static final String GAME_CENTER = "gameCenter";
+    public static final String PLAYER_LOBBY = "playerLobby";
     public static final String PLAYERLST = "playerLst";
     public static final String SHOW_BUTTON = "showGameButton";
     public static final String SIGNEDIN = "signedin";
@@ -68,8 +71,8 @@ public class WebServer {
     //
 
     private final TemplateEngine templateEngine;
-    private final Gson gson;
-    private final PlayerLobby playerLobby = new PlayerLobby();
+    private final PlayerLobby playerLobby;
+    private final GameCenter gameCenter;
 
     //
     // Constructor
@@ -88,7 +91,8 @@ public class WebServer {
         Objects.requireNonNull(gson, "gson must not be null");
         //
         this.templateEngine = templateEngine;
-        this.gson = gson;
+        this.playerLobby = new PlayerLobby();
+        this.gameCenter = new GameCenter(gson);
     }
 
     //
@@ -143,8 +147,7 @@ public class WebServer {
         //// code clean; using small classes.
 
         // Shows the Checkers game Home page.
-        //TODO-Add GameCenter object
-        get(HOME_URL, new GetHomeRoute(playerLobby, templateEngine));
+        get(HOME_URL, new GetHomeRoute(playerLobby, gameCenter, templateEngine));
 
         //Shows the sign in page
         get(SIGNIN_URL, new GetSignInRoute(templateEngine));

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import spark.*;
@@ -19,10 +20,11 @@ public class GetHomeRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
 
-    public static final String GAMEHOME_TITLE = "title";
+    public static final String GAME_HOME_TITLE = "title";
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
+    private final GameCenter gameCenter;
 
     static final String VIEW_NAME = "home.ftl";
 
@@ -32,12 +34,13 @@ public class GetHomeRoute implements Route {
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public GetHomeRoute(final PlayerLobby playerLobby, final TemplateEngine templateEngine) {
+    public GetHomeRoute(final PlayerLobby playerLobby, final GameCenter gameCenter, final TemplateEngine templateEngine) {
         // validation
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
         //
         this.templateEngine = templateEngine;
         this.playerLobby = playerLobby;
+        this.gameCenter = gameCenter;
         //
         LOG.config("GetHomeRoute is initialized.");
     }
@@ -52,7 +55,8 @@ public class GetHomeRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
         final Session session = request.session();
-        session.attribute("playerLobby", playerLobby);
+        session.attribute(WebServer.PLAYER_LOBBY, playerLobby);
+        session.attribute(WebServer.GAME_CENTER, gameCenter);
 
         LOG.finer("GetHomeRoute is invoked.");
         //

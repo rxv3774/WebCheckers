@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
@@ -14,8 +15,6 @@ import java.util.logging.Logger;
 
 
 public class PostStartGame implements Route{
-
-    private final PlayerLobby playerLobby;
     private final TemplateEngine templateEngine;
 
     static final String VIEW_NAME = "game.ftl";
@@ -38,7 +37,6 @@ public class PostStartGame implements Route{
         Objects.requireNonNull(playerLobby, "playerLobby must not be null");
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
         //
-        this.playerLobby = playerLobby;
         this.templateEngine = templateEngine;
         //
         LOG.config("PostStartGame is initialized.");
@@ -52,8 +50,9 @@ public class PostStartGame implements Route{
     public String handle(Request request, Response response) {
         // start building the View-Model
         final Map<String, Object> vm = new HashMap<>();
-
-        Session session = request.session();
+        final Session session = request.session();
+        final PlayerLobby playerLobby = session.attribute(WebServer.PLAYER_LOBBY);
+        final GameCenter gameCenter = session.attribute(WebServer.GAME_CENTER);
 
         String currentPlayerName = session.attribute("name");
         Player currentPlayerObject = playerLobby.getPlayerObject(currentPlayerName);
@@ -68,6 +67,8 @@ public class PostStartGame implements Route{
 
         vm.put("viewMode", "PLAY");
         vm.put("activeColor", "RED");
+
+        //TODO - Add condition for when opponent is already in game
 
         vm.put("board", new BoardView());
 
