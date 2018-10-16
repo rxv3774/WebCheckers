@@ -146,14 +146,19 @@ public class WebServer {
         //// Create separate Route classes to handle each route; this keeps your
         //// code clean; using small classes.
 
+
+        //Send player to game
+        post(START_GAME, new PostStartGame(playerLobby, templateEngine));
+
         // Shows the Checkers game Home page.
         get(HOME_URL, new GetHomeRoute(playerLobby, gameCenter, templateEngine));
 
         //Shows the sign in page
         get(SIGNIN_URL, new GetSignInRoute(templateEngine));
 
-        //Send player to game
-        post(START_GAME, new PostStartGame(playerLobby, templateEngine));
+
+        get(START_GAME, new GetStartGameRoute( templateEngine) );
+
 
         //Sends the player name to the player lobby
         post(SIGNIN_URL, new PostSignInRoute(playerLobby, templateEngine));

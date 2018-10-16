@@ -11,6 +11,10 @@ import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import spark.*;
 
+import static spark.Spark.halt;
+import static spark.Spark.post;
+import static spark.Spark.redirect;
+
 /**
  * The UI Controller to GET the Home page.
  *
@@ -81,6 +85,25 @@ public class GetHomeRoute implements Route {
 
         if( playerLobby.getLobbySize() > 1){
             vm.put( WebServer.SHOW_BUTTON, true);
+
+            GameCenter gameCenter = session.attribute( WebServer.GAME_CENTER );
+
+            String currentPlayer = session.attribute( "name" );
+            Player player = playerLobby.getPlayerObject( currentPlayer );
+
+            if( gameCenter.containsPlayer( player ) ){
+                System.out.println("REDIRECT");
+
+
+
+                response.redirect(  WebServer.START_GAME );
+//                response.redirect(  WebServer.SIGNIN_URL );
+                halt();
+            }
+            else{
+                System.out.println("NO REDIRECT");
+            }
+
         }
         else{
             vm.put( WebServer.SHOW_BUTTON, false);
@@ -89,6 +112,17 @@ public class GetHomeRoute implements Route {
         if( playerLobby.getLobbySize() == 0){
             vm.put( WebServer.PLAYERLST, "There aren't any players signed in");
         }
+
+
+
+
+
+
+
+
+
+
+
 
         return templateEngine.render(new ModelAndView(vm, WebServer.HOME_FILE ) );
     }
