@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Space;
 import spark.*;
 
 import java.util.HashMap;
@@ -65,8 +66,11 @@ public class PostStartGame implements Route{
         vm.put("whitePlayer", opponentPlayerObject);
 
         //TODO - Fill in values
-        vm.put("viewMode", null);
+        vm.put("viewMode", "PLAY");
         vm.put("activeColor", "red");
+        vm.put("modeOptions", null);
+
+        vm.put("board", new Space[8][8]);
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
