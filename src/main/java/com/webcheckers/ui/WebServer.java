@@ -143,6 +143,7 @@ public class WebServer {
         //// code clean; using small classes.
 
         // Shows the Checkers game Home page.
+        //TODO-Add GameCenter object
         get(HOME_URL, new GetHomeRoute(playerLobby, templateEngine));
 
         //Shows the sign in page
