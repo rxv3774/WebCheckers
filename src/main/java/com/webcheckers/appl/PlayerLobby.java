@@ -123,10 +123,8 @@ public class PlayerLobby {
 
             if( !players.contains( name ) ) {
                 Session httpSession = request.session();
-//                sessionMap.put( name, httpSession );
-                httpSession.attribute("names", players);
-
-
+                httpSession.attribute("playerNames", players);
+                sessionMap.put( name, httpSession );
             }
 
             addPlayer( newPlayer );
@@ -141,6 +139,11 @@ public class PlayerLobby {
 
         System.out.println("reached this.... This is bad");
         return null;
+    }
+
+
+    public Map<String, Session> getSessionMap() {
+        return sessionMap;
     }
 
     public String getPlayerNameLst(String name){

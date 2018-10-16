@@ -1,11 +1,13 @@
 package com.webcheckers.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import spark.*;
 
 /**
@@ -64,14 +66,35 @@ public class GetHomeRoute implements Route {
         System.out.println( playerLobby.getLobbySize() );
 
 
-        if( session.attribute("playerName") != null){
+        HashMap<String, Session> sessionMap = new HashMap<>( playerLobby.getSessionMap() );
+
+        if( playerLobby.getLobbySize() > 0) {
+
+            ArrayList<Player> tmp = session.attribute("playerNames");
+
+            for (Player p : tmp) {
+                System.out.println(p.getName());
+            }
+        }
+
+//        String currentPlayer = session.attribute( "playerNames" );
+//        Session playerSession = sessionMap.get( currentPlayer );
+
+//        System.out.println( currentPlayer );
+
+        String playerSession = null;
+
+        if( playerSession != null){
+
+
+            System.out.println( "WORK" );
 //        if( playerLobby.getLobbySize() > 0){
 
-            String currentPlayer = session.attribute( "playerName" );
+//            String currentPlayer = session.attribute( "playerName" );
 
 
-            vm.put( "signedin", "The current signed in user is: " +  currentPlayer);
-            vm.put( "playerLst", playerLobby.getPlayerNameLst( currentPlayer ) );
+//            vm.put( "signedin", "The current signed in user is: " +  currentPlayer);
+//            vm.put( "playerLst", playerLobby.getPlayerNameLst( currentPlayer ) );
             vm.put( "showGameButton", true);
 
         }
