@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+    <meta http-equiv="refresh" content="10">
     <title>${title} | Web Checkers</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
@@ -27,16 +28,14 @@
 
         <div class="message ${messageType}">${playerLst}</div>
 
-   <#if signedin??>
-       <form action='/chooseName' method='post'>
-           <label for='name'>Name of other player:</label>
-           <input name='name' placeholder='Enter a name' /> <button type='submit'>Start a game</button>
-       </form>
-   </#if>
-
-
+       <#if signedin?? && showGameButton == true>
+           <form action='/chooseName' method='post'>
+               <label for='name'>Name of other player:</label>
+               <input name='name' placeholder='Enter a name' />
+               <button type='submit'>Start a game</button>
+           </form>
+       </#if>
     </div>
-    
   </div>
 </body>
 </html>

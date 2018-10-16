@@ -1,6 +1,7 @@
 package com.webcheckers.appl;
 
 import com.webcheckers.model.Player;
+import com.webcheckers.ui.WebServer;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -17,7 +18,7 @@ public class PlayerLobby {
      * Array of all the players in the current lobby.
      */
     private ArrayList<Player> players = new ArrayList<>();
-//    private Map<String, Session> sessionMap = new HashMap<>();
+    private Map<String, Session> sessionMap = new HashMap<>();
 
 
     private static final String MESSAGE_ATTR = "message";
@@ -103,7 +104,7 @@ public class PlayerLobby {
     }
 
 
-    public ModelAndView playerSignInProcess(String name, Response response, Request request, Map<String, Object > vm){
+    public ModelAndView playerSignInProcess(String name, Request request, Response response, Map<String, Object > vm){
 
         ModelAndView mv;
 
@@ -118,13 +119,24 @@ public class PlayerLobby {
         }
         if( !playerNameInUse( name ) ){ // No one is using this name.
 
-
-
-
             Player newPlayer = new Player( name );
+
+            if( !players.contains( name ) ) {
+                Session httpSession = request.session();
+//                sessionMap.put( name, httpSession );
+                httpSession.attribute("names", players);
+
+
+            }
+
             addPlayer( newPlayer );
 
-            return newPlayerAdded( vm, name);
+            response.redirect( WebServer.HOME_URL );
+            halt();
+            return null;
+
+
+//            return newPlayerAdded( vm, name);
         }
 
         System.out.println("reached this.... This is bad");
@@ -178,6 +190,12 @@ public class PlayerLobby {
         vm.put( "messageType", "info");
         vm.put( "playerLst", getPlayerNameLst( name ) );
 
+        if( players.size() > 1){
+            vm.put( "showGameButton", true);
+        }
+        else {
+            vm.put("showGameButton", false);
+        }
         return new ModelAndView(vm, "home.ftl");
 //        return new ModelAndView(vm, HOME_NAME);
     }

@@ -72,12 +72,13 @@ public class GetHomeRoute implements Route {
 
             vm.put( "signedin", "The current signed in user is: " +  currentPlayer);
             vm.put( "playerLst", playerLobby.getPlayerNameLst( currentPlayer ) );
+            vm.put( "showGameButton", true);
 
         }
         else{
             vm.put("playerLst", "Number of players signed in: " + playerLobby.getLobbySize());
+            vm.put( "showGameButton", false);
         }
         return templateEngine.render(new ModelAndView(vm, "home.ftl"));
     }
-
 }

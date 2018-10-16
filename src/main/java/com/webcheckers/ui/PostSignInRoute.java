@@ -64,11 +64,11 @@ public class PostSignInRoute implements Route {
 
         // start building the View-Model
         final Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Welcome!");
+        vm.put( "title", "Welcome!" );
 
         String playerName = request.queryParams( PLAYER_NAME );
 
-        ModelAndView mv = playerLobby.playerSignInProcess( playerName, response, request, vm );
+        ModelAndView mv = playerLobby.playerSignInProcess( playerName, request, response, vm );
         return templateEngine.render( mv );
     }
 }
