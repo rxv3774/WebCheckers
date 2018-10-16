@@ -22,7 +22,6 @@ public class GameCenter {
         for (Match match : matches) {
             if (match.getRedPlayer().equals(player) || match.getWhitePlayer().equals(player)) return true;
         }
-
         return false;
     }
 }

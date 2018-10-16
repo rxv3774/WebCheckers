@@ -61,22 +61,21 @@ public class PostStartGame implements Route{
         String opponentPlayerName = request.queryParams("name");
         Player opponentPlayerObject = playerLobby.getPlayerObject(opponentPlayerName);
 
-        vm.put("title", "Game!");
-        vm.put("currentPlayer", currentPlayerObject);
-        vm.put("redPlayer", currentPlayerObject);
-        vm.put("whitePlayer", opponentPlayerObject);
-
-        vm.put("viewMode", "PLAY");
-        vm.put("activeColor", "RED");
-
         if (gameCenter.containsPlayer(opponentPlayerObject)) {
             response.redirect(WebServer.HOME_URL);
             halt();
         } else {
+            vm.put("title", "Game!");
+            vm.put("currentPlayer", currentPlayerObject);
+            vm.put("redPlayer", currentPlayerObject);
+            vm.put("whitePlayer", opponentPlayerObject);
+            vm.put("viewMode", "PLAY");
+            vm.put("activeColor", "RED");
+            vm.put("board", new BoardView());
+
             gameCenter.addMatch(currentPlayerObject, opponentPlayerObject);
         }
 
-        vm.put("board", new BoardView());
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
