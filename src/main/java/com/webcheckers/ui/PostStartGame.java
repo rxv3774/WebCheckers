@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 
+
 public class PostStartGame implements Route{
 
     private final PlayerLobby playerLobby;
@@ -64,9 +65,8 @@ public class PostStartGame implements Route{
         vm.put("redPlayer", currentPlayerObject);
         vm.put("whitePlayer", opponentPlayerObject);
 
-        //TODO - Fill in values
-        vm.put("viewMode", null);
-        vm.put("activeColor", "red");
+        vm.put("viewMode", "PLAY");
+        vm.put("activeColor", "RED");
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
