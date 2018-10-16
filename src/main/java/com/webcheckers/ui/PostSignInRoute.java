@@ -65,6 +65,7 @@ public class PostSignInRoute implements Route {
         // start building the View-Model
         final Map<String, Object> vm = new HashMap<>();
         vm.put( "title", "Welcome!" );
+//        vm.put( "showErrorMessage", "bad" );
 
         String playerName = request.queryParams( PLAYER_NAME );
 

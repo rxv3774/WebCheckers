@@ -19,6 +19,11 @@
         <p>Sign-In Screen!</p>
     </div>
 
+
+    <#if showErrorMessage??>
+        <div class="message ${messageType}">${showErrorMessage}</div>
+    </#if>
+
     <div>
         <form action="/signIn" method="post">
             username: <input type="text" name="playerName"><br>
