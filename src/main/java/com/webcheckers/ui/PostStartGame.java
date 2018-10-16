@@ -74,6 +74,8 @@ public class PostStartGame implements Route{
             vm.put("board", new BoardView());
 
             gameCenter.addMatch(currentPlayerObject, opponentPlayerObject);
+
+            Session opponentSession = playerLobby.getPlayerSession(opponentPlayerName);
         }
 
 

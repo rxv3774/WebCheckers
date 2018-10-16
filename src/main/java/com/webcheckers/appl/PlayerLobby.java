@@ -65,7 +65,7 @@ public class PlayerLobby {
      * @param name The name of the player that is trying to be created.
      * @return Whether or not the user is taken.
      */
-    public boolean playerNameInUse( String name){
+    public boolean playerNameInUse(String name){
 
         for( Player player : players) {
             if( player.getName().equals( name )) {
@@ -155,8 +155,8 @@ public class PlayerLobby {
     }
 
 
-    public Map<String, Session> getSessionMap() {
-        return sessionMap;
+    public Session getPlayerSession(String playerName) {
+        return sessionMap.get(playerName);
     }
 
     public String getPlayerNameLst(String name){
