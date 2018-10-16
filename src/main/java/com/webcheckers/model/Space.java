@@ -12,10 +12,8 @@ public class Space {
     public int getCellIndex() { return cellIndex; }
 
     public boolean isValid() {
-        return (cellIndex >= 0 && cellIndex <= 7);
+        return cellIndex >= 0 && cellIndex <= 7;
     }
 
-    public Piece getPiece() {
-        return this.piece;
-    }
+    public Piece getPiece() { return this.piece; }
 }

@@ -17,4 +17,7 @@ public class Message {
         return this.text;
     }
 
+    public Type getType() {
+        return type;
+    }
 }
