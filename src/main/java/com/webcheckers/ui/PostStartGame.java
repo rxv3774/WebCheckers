@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import spark.*;
 
@@ -67,6 +68,8 @@ public class PostStartGame implements Route{
 
         vm.put("viewMode", "PLAY");
         vm.put("activeColor", "RED");
+
+        vm.put("board", new BoardView());
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
