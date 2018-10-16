@@ -50,6 +50,9 @@ public class PostStartGame implements Route{
     @Override
     public String handle(Request request, Response response) {
         // start building the View-Model
+
+        System.out.println(" making game!");
+
         final Map<String, Object> vm = new HashMap<>();
         final Session session = request.session();
         final PlayerLobby playerLobby = session.attribute(WebServer.PLAYER_LOBBY);
@@ -57,6 +60,15 @@ public class PostStartGame implements Route{
 
         String currentPlayerName = session.attribute("name");
         Player currentPlayerObject = playerLobby.getPlayerObject(currentPlayerName);
+
+        System.out.println( "Current player: " + currentPlayerObject.getName() );
+
+        if( currentPlayerName != null )
+            System.out.println("shhhhhhhhhhhhhhet");
+        else{
+            System.out.println( "ASdddddddddddddddd");
+        }
+
 
         /*
          *Checks if current player isn't apart of a game with a board that's been initialized

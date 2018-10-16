@@ -142,6 +142,7 @@ public class PlayerLobby {
 
             addPlayer( newPlayer );
 
+//            response.redirect( "chooseName" );
             response.redirect( WebServer.HOME_URL );
             halt();
             return null;
@@ -155,6 +156,11 @@ public class PlayerLobby {
     }
 
 
+    /**
+     * Desc: gets the players session
+     * @param playerName the players name to be used to get the session
+     * @return returns the players session
+     */
     public Session getPlayerSession(String playerName) {
         return sessionMap.get(playerName);
     }
