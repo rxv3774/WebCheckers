@@ -60,29 +60,32 @@ public class GetHomeRoute implements Route {
         vm.put("title", "Welcome!");
         vm.put( "messageType", "info");
 
-
-        System.out.println( session.attributes() );
         PlayerLobby playerLobby = session.attribute( "playerLobby"  );
-        System.out.println( playerLobby.getLobbySize() );
-
-
-        HashMap<String, Session> sessionMap = new HashMap<>( playerLobby.getSessionMap() );
 
         if( playerLobby.getLobbySize() > 0 ){
 
             String currentPlayer = session.attribute( "name" );
 
             if( currentPlayer != null ) {
-                vm.put("signedin", "The current signed in user is: " + currentPlayer);
+                vm.put( WebServer.SIGNEDIN, "The current signed in user is: " + currentPlayer);
+                vm.put( WebServer.PLAYERLST, playerLobby.getPlayerNameLst( currentPlayer ) );
             }
-            vm.put( "playerLst", playerLobby.getPlayerNameLst( currentPlayer ) );
-            vm.put( "showGameButton", true);
+            else {
+                vm.put( WebServer.PLAYERLST, "The number of players signed in is: " + playerLobby.getLobbySize());
+            }
+        }
 
+        if( playerLobby.getLobbySize() > 1){
+            vm.put( WebServer.SHOW_BUTTON, true);
         }
         else{
-            vm.put("playerLst", "Number of players signed in: " + playerLobby.getLobbySize());
-            vm.put( "showGameButton", false);
+            vm.put( WebServer.SHOW_BUTTON, false);
         }
-        return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+
+        if( playerLobby.getLobbySize() == 0){
+            vm.put( WebServer.PLAYERLST, "There aren't any players signed in");
+        }
+
+        return templateEngine.render(new ModelAndView(vm, WebServer.HOME_FILE ) );
     }
 }

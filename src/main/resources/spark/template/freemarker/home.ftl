@@ -26,7 +26,9 @@
         <div class="message ${messageType}">${signedin}</div>
     </#if>
 
+    <#if playerLst??>
         <div class="message ${messageType}">${playerLst}</div>
+    </#if>
 
        <#if signedin?? && showGameButton == true>
            <form action='/chooseName' method='post'>

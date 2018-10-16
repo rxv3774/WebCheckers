@@ -189,12 +189,16 @@ public class PlayerLobby {
 
     private ModelAndView invalidPlayerName(Map<String, Object> vm){
         vm.put( "title", "Sign-In" );
+        vm.put("messageType", "error" );
+        vm.put( "showErrorMessage", "you entered illegal characters in the name. Please enter a different name");
         return new ModelAndView(vm, VIEW_NAME);
     }
 
 
     private ModelAndView playerNameUsedAlready(Map<String, Object> vm){
         vm.put( "title", "Sign-In" );
+        vm.put("messageType", "error" );
+        vm.put( "showErrorMessage", "you entered an already used name. Please enter a different name");
         return new ModelAndView(vm, VIEW_NAME);
     }
 
