@@ -58,23 +58,33 @@ public class PostStartGame implements Route{
         String currentPlayerName = session.attribute("name");
         Player currentPlayerObject = playerLobby.getPlayerObject(currentPlayerName);
 
-        String opponentPlayerName = request.queryParams("name");
-        Player opponentPlayerObject = playerLobby.getPlayerObject(opponentPlayerName);
+        /*
+         *Checks if current player isn't apart of a game with a board that's been initialized
+         */
+        if( !gameCenter.containsPlayer(currentPlayerObject) ) {
 
-        if (gameCenter.containsPlayer(opponentPlayerObject)) {
-            response.redirect(WebServer.HOME_URL);
-            halt();
-        } else {
-            vm.put("title", "Game!");
-            vm.put("currentPlayer", currentPlayerObject);
-            vm.put("redPlayer", currentPlayerObject);
-            vm.put("whitePlayer", opponentPlayerObject);
-            vm.put("viewMode", "PLAY");
-            vm.put("activeColor", "RED");
-            vm.put("board", new BoardView());
+            String opponentPlayerName = request.queryParams("name");
+            Player opponentPlayerObject = playerLobby.getPlayerObject(opponentPlayerName);
 
-            gameCenter.addMatch(currentPlayerObject, opponentPlayerObject);
+            if (gameCenter.containsPlayer(opponentPlayerObject)) {
+                response.redirect(WebServer.HOME_URL);
+                halt();
+            } else {
+                vm.put("title", "Game!");
+                vm.put("currentPlayer", currentPlayerObject);
+                vm.put("redPlayer", currentPlayerObject);
+                vm.put("whitePlayer", opponentPlayerObject);
+                vm.put("viewMode", "PLAY");
+                vm.put("activeColor", "RED");
+                vm.put("board", new BoardView());
+
+                gameCenter.addMatch(currentPlayerObject, opponentPlayerObject);
+            }
         }
+        else {
+
+        }
+
 
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
