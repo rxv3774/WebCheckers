@@ -57,6 +57,10 @@ public class WebServer {
     public static final String SIGNIN_URL = "/signIn";
     public static final String POST_NAME = "/postName";
     public static final String START_GAME = "/chooseName";
+    public static final String HOME_FILE = "home.ftl";
+    public static final String PLAYERLST = "playerLst";
+    public static final String SHOW_BUTTON = "showButton";
+    public static final String SIGNEDIN = "signedin";
 
     //
     // Attributes
