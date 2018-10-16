@@ -9,7 +9,7 @@ public class Space {
         this.piece = piece;
     }
 
-    public int getCellIndex() { return cellIndex; }
+    public int getCellIdx() { return cellIndex; }
 
     public boolean isValid() {
         return cellIndex >= 0 && cellIndex <= 7;

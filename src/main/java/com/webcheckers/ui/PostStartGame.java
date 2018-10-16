@@ -2,14 +2,10 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import spark.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static spark.Spark.halt;
@@ -58,6 +54,8 @@ public class PostStartGame implements Route{
         String currentPlayerName = session.attribute("name");
         Player currentPlayerObject = playerLobby.getPlayerObject(currentPlayerName);
 
+
+
         /*
          *Checks if current player isn't apart of a game with a board that's been initialized
          */
@@ -76,7 +74,11 @@ public class PostStartGame implements Route{
                 vm.put("whitePlayer", opponentPlayerObject);
                 vm.put("viewMode", "PLAY");
                 vm.put("activeColor", "RED");
-                vm.put("board", new BoardView());
+
+                BoardView boardView = new BoardView();
+                System.out.println(boardView.getRowsSize());
+
+                vm.put("board", boardView);
 
                 gameCenter.addMatch(currentPlayerObject, opponentPlayerObject);
             }
