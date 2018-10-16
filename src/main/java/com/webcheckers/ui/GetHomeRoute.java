@@ -72,7 +72,7 @@ public class GetHomeRoute implements Route {
 
             String currentPlayer = session.attribute( "name" );
 
-            if( !currentPlayer.equals( null ) ) {
+            if( currentPlayer != null ) {
                 vm.put("signedin", "The current signed in user is: " + currentPlayer);
             }
             vm.put( "playerLst", playerLobby.getPlayerNameLst( currentPlayer ) );
