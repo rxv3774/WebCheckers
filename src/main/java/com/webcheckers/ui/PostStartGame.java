@@ -72,6 +72,8 @@ public class PostStartGame implements Route{
         if (gameCenter.containsPlayer(opponentPlayerObject)) {
             response.redirect(WebServer.HOME_URL);
             halt();
+        } else {
+            gameCenter.addMatch(currentPlayerObject, opponentPlayerObject);
         }
 
         vm.put("board", new BoardView());
