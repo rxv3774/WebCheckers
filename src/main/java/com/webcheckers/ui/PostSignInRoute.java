@@ -56,7 +56,9 @@ public class PostSignInRoute implements Route {
 
 
     /**
-     * {@inheritDoc}
+     * @param request  the HTTP request
+     * @param response the HTTP response}
+     * @return the rendered HTML for the Home page
      *
      */
     @Override

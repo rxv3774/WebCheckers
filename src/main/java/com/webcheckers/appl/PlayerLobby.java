@@ -13,6 +13,10 @@ import java.util.Map;
 
 import static spark.Spark.halt;
 
+
+/*
+ * Signs in and stores all users and their sessions.
+ */
 public class PlayerLobby {
     /**
      * Array of all the players in the current lobby.
@@ -115,7 +119,13 @@ public class PlayerLobby {
         return players.size();
     }
 
-
+    /*
+     *Signin the user if their chosen username is valid. Store the players list and current player
+     * name in the session.
+     *
+     * @param name: The chosen name of the player who wants to sign in
+     * @param request:
+     */
     public ModelAndView playerSignInProcess(String name, Request request, Response response, Map<String, Object > vm){
 
         ModelAndView mv;

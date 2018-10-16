@@ -157,7 +157,7 @@ public class WebServer {
         get(SIGNIN_URL, new GetSignInRoute(templateEngine));
 
 
-        get(START_GAME, new GetStartGameRoute( templateEngine) );
+        //get(START_GAME, new GetStartGameRoute( templateEngine) );
 
 
         //Sends the player name to the player lobby

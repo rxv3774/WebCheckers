@@ -10,7 +10,11 @@ import java.util.logging.Logger;
 
 import static spark.Spark.halt;
 
-
+/*
+ * UI controller to post the game
+ *
+ * Author: TeamD
+ */
 public class PostStartGame implements Route{
     private final TemplateEngine templateEngine;
 
@@ -40,8 +44,9 @@ public class PostStartGame implements Route{
     }
 
     /**
-     * {@inheritDoc}
-     *
+     * @param request  the HTTP request
+     * @param response the HTTP response}
+     * @return the rendered HTML for the Home page
      */
     @Override
     public String handle(Request request, Response response) {
@@ -76,15 +81,15 @@ public class PostStartGame implements Route{
                 vm.put("activeColor", "RED");
 
                 BoardView boardView = new BoardView();
-                System.out.println(boardView.getRowsSize());
 
                 vm.put("board", boardView);
 
+                //add two players to a match
                 gameCenter.addMatch(currentPlayerObject, opponentPlayerObject);
             }
         }
         else {
-            //TODO
+
         }
 
 
