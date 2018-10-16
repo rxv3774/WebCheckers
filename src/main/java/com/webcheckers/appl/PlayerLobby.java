@@ -95,6 +95,18 @@ public class PlayerLobby {
         return names;
     }
 
+    /*
+     * return player object given name of player
+     */
+    public Player getPlayerObject(String name){
+        for (int i=0; i<players.size(); i++){
+            if(players.get(i).getName().equals(name))
+                return players.get(i);
+        }
+        return null;
+    }
+
+
     /**
      * Desc: Gets the number of players in the lobby.
      * @return Size of lobby.

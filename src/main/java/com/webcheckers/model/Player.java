@@ -5,7 +5,7 @@ public class Player {
     /**
      * The players username.
      */
-    private String name;
+    public String name;
 
     /**
      * Player constructor

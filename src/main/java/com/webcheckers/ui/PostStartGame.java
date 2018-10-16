@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import spark.*;
 
 import java.util.HashMap;
@@ -53,10 +54,12 @@ public class PostStartGame implements Route{
         Session session = request.session();
 
         String currentPlayer = session.attribute("name");
+        Player currentPlayerObject = playerLobby.getPlayerObject(currentPlayer);
 
-        String playerName = request.queryParams( "name" );
+        String opponentName = request.queryParams( "name" );
 
-        vm.put("currentPlayer.name", currentPlayer);
+        vm.put("title", "Game!");
+        vm.put("currentPlayer", currentPlayerObject);
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
