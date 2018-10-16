@@ -124,6 +124,7 @@ public class PlayerLobby {
             if( !players.contains( name ) ) {
                 Session httpSession = request.session();
                 httpSession.attribute("playerNames", players);
+                httpSession.attribute("name", name);
                 sessionMap.put( name, httpSession );
             }
 

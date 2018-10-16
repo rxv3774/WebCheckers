@@ -68,33 +68,14 @@ public class GetHomeRoute implements Route {
 
         HashMap<String, Session> sessionMap = new HashMap<>( playerLobby.getSessionMap() );
 
-        if( playerLobby.getLobbySize() > 0) {
+        if( playerLobby.getLobbySize() > 0 ){
 
-            ArrayList<Player> tmp = session.attribute("playerNames");
+            String currentPlayer = session.attribute( "name" );
 
-            for (Player p : tmp) {
-                System.out.println(p.getName());
+            if( !currentPlayer.equals( null ) ) {
+                vm.put("signedin", "The current signed in user is: " + currentPlayer);
             }
-        }
-
-//        String currentPlayer = session.attribute( "playerNames" );
-//        Session playerSession = sessionMap.get( currentPlayer );
-
-//        System.out.println( currentPlayer );
-
-        String playerSession = null;
-
-        if( playerSession != null){
-
-
-            System.out.println( "WORK" );
-//        if( playerLobby.getLobbySize() > 0){
-
-//            String currentPlayer = session.attribute( "playerName" );
-
-
-//            vm.put( "signedin", "The current signed in user is: " +  currentPlayer);
-//            vm.put( "playerLst", playerLobby.getPlayerNameLst( currentPlayer ) );
+            vm.put( "playerLst", playerLobby.getPlayerNameLst( currentPlayer ) );
             vm.put( "showGameButton", true);
 
         }
