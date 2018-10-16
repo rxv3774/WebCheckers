@@ -152,13 +152,10 @@ public class PlayerLobby {
 
             addPlayer( newPlayer );
 
-//            response.redirect( "chooseName" );
             response.redirect( WebServer.HOME_URL );
             halt();
             return null;
 
-
-//            return newPlayerAdded( vm, name);
         }
 
         System.out.println("reached this.... This is bad");

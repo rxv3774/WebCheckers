@@ -97,7 +97,6 @@ public class GetHomeRoute implements Route {
 
 
                 response.redirect(  WebServer.START_GAME );
-//                response.redirect(  WebServer.SIGNIN_URL );
                 halt();
             }
             else{
@@ -112,17 +111,6 @@ public class GetHomeRoute implements Route {
         if( playerLobby.getLobbySize() == 0){
             vm.put( WebServer.PLAYERLST, "There aren't any players signed in");
         }
-
-
-
-
-
-
-
-
-
-
-
 
         return templateEngine.render(new ModelAndView(vm, WebServer.HOME_FILE ) );
     }
