@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import static spark.Spark.halt;
 
 
 public class PostStartGame implements Route{
@@ -68,7 +69,10 @@ public class PostStartGame implements Route{
         vm.put("viewMode", "PLAY");
         vm.put("activeColor", "RED");
 
-        //TODO - Add condition for when opponent is already in game
+        if (gameCenter.containsPlayer(opponentPlayerObject)) {
+            response.redirect(WebServer.HOME_URL);
+            halt();
+        }
 
         vm.put("board", new BoardView());
 
