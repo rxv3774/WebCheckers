@@ -53,13 +53,20 @@ public class PostStartGame implements Route{
 
         Session session = request.session();
 
-        String currentPlayer = session.attribute("name");
-        Player currentPlayerObject = playerLobby.getPlayerObject(currentPlayer);
+        String currentPlayerName = session.attribute("name");
+        Player currentPlayerObject = playerLobby.getPlayerObject(currentPlayerName);
 
-        String opponentName = request.queryParams( "name" );
+        String opponentPlayerName = request.queryParams("name");
+        Player opponentPlayerObject = playerLobby.getPlayerObject(opponentPlayerName);
 
         vm.put("title", "Game!");
         vm.put("currentPlayer", currentPlayerObject);
+        vm.put("redPlayer", currentPlayerObject);
+        vm.put("whitePlayer", opponentPlayerObject);
+
+        //TODO - Fill in values
+        vm.put("viewMode", null);
+        vm.put("activeColor", "red");
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }

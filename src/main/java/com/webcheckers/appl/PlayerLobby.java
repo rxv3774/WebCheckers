@@ -133,7 +133,7 @@ public class PlayerLobby {
 
             Player newPlayer = new Player( name );
 
-            if( !players.contains( name ) ) {
+            if( !players.contains( newPlayer ) ) {
                 Session httpSession = request.session();
                 httpSession.attribute("playerNames", players);
                 httpSession.attribute("name", name);
