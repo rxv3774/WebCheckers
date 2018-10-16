@@ -19,6 +19,16 @@ public class Row implements Iterable<Space> {
 
     @Override
     public Iterator<Space> iterator() {
-        return null;
+        return new Iterator<Space>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Space next() {
+                return null;
+            }
+        };
     }
 }
