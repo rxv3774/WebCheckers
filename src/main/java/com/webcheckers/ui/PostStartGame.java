@@ -15,6 +15,8 @@ public class PostStartGame implements Route{
     private final PlayerLobby playerLobby;
     private final TemplateEngine templateEngine;
 
+    static final String VIEW_NAME = "game.ftl";
+
     private static final Logger LOG = Logger.getLogger( GetHomeRoute.class.getName() );
 
     /**
@@ -48,8 +50,14 @@ public class PostStartGame implements Route{
         // start building the View-Model
         final Map<String, Object> vm = new HashMap<>();
 
+        Session session = request.session();
+
+        String currentPlayer = session.attribute("name");
+
         String playerName = request.queryParams( "name" );
 
-        return templateEngine.render( mv );
+        vm.put("currentPlayer.name", currentPlayer);
+
+        return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
 }
