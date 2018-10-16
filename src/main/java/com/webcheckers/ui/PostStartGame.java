@@ -47,11 +47,9 @@ public class PostStartGame implements Route{
     public String handle(Request request, Response response) {
         // start building the View-Model
         final Map<String, Object> vm = new HashMap<>();
-        vm.put( "title", "Welcome!" );
 
-        String playerName = request.queryParams( PLAYER_NAME );
+        String playerName = request.queryParams( "name" );
 
-        ModelAndView mv = playerLobby.playerSignInProcess( playerName, request, response, vm );
         return templateEngine.render( mv );
     }
 }
