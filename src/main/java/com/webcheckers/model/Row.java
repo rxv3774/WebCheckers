@@ -1,6 +1,6 @@
 package com.webcheckers.model;
 
-public class Row extends BoardView{
+public class Row {
     private int index;
 
     public Row(int index) {
