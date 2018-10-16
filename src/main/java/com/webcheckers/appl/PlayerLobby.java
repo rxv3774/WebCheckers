@@ -202,7 +202,12 @@ public class PlayerLobby {
     }
 
 
-
+    /*
+     * Error message for when requested user name contains illegal characters
+     *
+     * @param vm: virtual map for the modelandview
+     * @return ModelAndView: updated modelandview with error message
+     */
     private ModelAndView invalidPlayerName(Map<String, Object> vm){
         vm.put( "title", "Sign-In" );
         vm.put("messageType", "error" );
@@ -210,30 +215,17 @@ public class PlayerLobby {
         return new ModelAndView(vm, VIEW_NAME);
     }
 
-
+    /*
+     * Error message for when requested user name is already in use
+     *
+     * @param vm: virtual map for the modelandview
+     * @return ModelAndView: updated modelandview with error message
+     */
     private ModelAndView playerNameUsedAlready(Map<String, Object> vm){
         vm.put( "title", "Sign-In" );
         vm.put("messageType", "error" );
         vm.put( "showErrorMessage", "you entered an already used name. Please enter a different name");
         return new ModelAndView(vm, VIEW_NAME);
-    }
-
-    private ModelAndView newPlayerAdded(Map<String, Object> vm, String name){
-//        vm.put( "title", name );
-        vm.put( "title", "Sign-In" );
-
-        vm.put( "signedin", "The current signed in user is: " + name );
-        vm.put( "messageType", "info");
-        vm.put( "playerLst", getPlayerNameLst( name ) );
-
-        if( players.size() > 1){
-            vm.put( "showGameButton", true);
-        }
-        else {
-            vm.put("showGameButton", false);
-        }
-        return new ModelAndView(vm, "home.ftl");
-//        return new ModelAndView(vm, HOME_NAME);
     }
 
 }
