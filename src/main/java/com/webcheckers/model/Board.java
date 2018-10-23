@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class BoardView implements Iterable<Row> {
-    private ArrayList<Row> rows = new ArrayList<>();
+public class Board implements Iterable<Row>{
+    private Row board[];
     private int current;
 
-    public BoardView(){
+    public Board(){
+        this.board = new Row[8];
         for(int i=0; i<8; i++){
-            rows.add(new Row(i));
+            board[i] = new Row(i);
         }
     }
 
@@ -21,7 +22,7 @@ public class BoardView implements Iterable<Row> {
         return new Iterator<Row>() {
             @Override
             public boolean hasNext() {
-                if(current < rows.size())
+                if(current < board.length)
                     return true;
                 else
                     return false;
@@ -32,7 +33,7 @@ public class BoardView implements Iterable<Row> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                Row temp = rows.get(current);
+                Row temp = board[current];
                 current++;
                 return temp;
             }
@@ -40,6 +41,6 @@ public class BoardView implements Iterable<Row> {
     }
 
     public int getRowsSize() {
-        return rows.size();
+        return board.length;
     }
 }

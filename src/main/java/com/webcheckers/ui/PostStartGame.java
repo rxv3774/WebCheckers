@@ -50,7 +50,7 @@ public class PostStartGame implements Route{
      */
     @Override
     public String handle(Request request, Response response) {
-        // start building the View-Model
+        // start building the BoardView-Model
         final Map<String, Object> vm = new HashMap<>();
         final Session session = request.session();
         final PlayerLobby playerLobby = session.attribute(WebServer.PLAYER_LOBBY);
@@ -80,16 +80,15 @@ public class PostStartGame implements Route{
                 vm.put("viewMode", "PLAY");
                 vm.put("activeColor", "RED");
 
-                BoardView boardView = new BoardView();
+                Board board = new Board();
 
-                vm.put("board", boardView);
+                vm.put("board", board);
 
                 //add two players to a match
                 gameCenter.addMatch(currentPlayerObject, opponentPlayerObject);
             }
         }
         else {
-
         }
 
 

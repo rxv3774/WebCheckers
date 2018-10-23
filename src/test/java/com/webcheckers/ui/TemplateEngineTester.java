@@ -17,9 +17,9 @@ import spark.ModelAndView;
  */
 public class TemplateEngineTester {
 
-  /** Holds the View-Model map from the Spark ModelAndView object. */
+  /** Holds the BoardView-Model map from the Spark ModelAndView object. */
   private Object model;
-  /** Holds the View name from the Spark ModelAndView object. */
+  /** Holds the BoardView name from the Spark ModelAndView object. */
   private String viewName;
 
   /**
@@ -42,21 +42,21 @@ public class TemplateEngineTester {
   }
 
   /**
-   * Assert that the View-Model object exists.
+   * Assert that the BoardView-Model object exists.
    */
   public void assertViewModelExists() {
-    assertNotNull(model, "the View-Model exists");
+    assertNotNull(model, "the BoardView-Model exists");
   }
 
   /**
-   * Assert that the View-Model object exists.
+   * Assert that the BoardView-Model object exists.
    */
   public void assertViewModelIsaMap() {
-    assertTrue(model instanceof Map, "the View-Model is a Map");
+    assertTrue(model instanceof Map, "the BoardView-Model is a Map");
   }
 
   /**
-   * Assert that the View-Model attributes matches the expected value.
+   * Assert that the BoardView-Model attributes matches the expected value.
    */
   public void assertViewModelAttribute(final String attrName, final Object expectedValue) {
     @SuppressWarnings("unchecked")
@@ -65,7 +65,7 @@ public class TemplateEngineTester {
   }
 
   /**
-   * Assert that the View-Model attribute is absent.
+   * Assert that the BoardView-Model attribute is absent.
    */
   public void assertViewModelAttributeIsAbsent(final String attrName) {
     @SuppressWarnings("unchecked")
@@ -74,12 +74,12 @@ public class TemplateEngineTester {
   }
 
   /**
-   * Assert that the View name exists and matches the expected value.
+   * Assert that the BoardView name exists and matches the expected value.
    */
   public void assertViewName(final String expectedName) {
-    assertAll("View assertions",
-        () -> { assertNotNull(viewName, "the View name exists"); },
-        () -> { assertEquals(expectedName, viewName, "the View name matches"); }
+    assertAll("BoardView assertions",
+        () -> { assertNotNull(viewName, "the BoardView name exists"); },
+        () -> { assertEquals(expectedName, viewName, "the BoardView name matches"); }
         );
   }
 }

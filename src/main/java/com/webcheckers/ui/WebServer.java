@@ -36,7 +36,7 @@ import spark.TemplateEngine;
  *
  * <p>Design choices for generating a response to a request include:
  * <ul>
- * <li>View templates with conditional elements</li>
+ * <li>BoardView templates with conditional elements</li>
  * <li>Use different view templates based on results of executing the client request</li>
  * <li>Redirecting to a different application URL</li>
  * </ul>
