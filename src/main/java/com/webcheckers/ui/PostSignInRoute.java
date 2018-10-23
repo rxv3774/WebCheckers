@@ -56,13 +56,15 @@ public class PostSignInRoute implements Route {
 
 
     /**
-     * {@inheritDoc}
+     * @param request  the HTTP request
+     * @param response the HTTP response}
+     * @return the rendered HTML for the Home page
      *
      */
     @Override
     public String handle(Request request, Response response) {
 
-        // start building the View-Model
+        // start building the BoardView-Model
         final Map<String, Object> vm = new HashMap<>();
         vm.put( "title", "Welcome!" );
 //        vm.put( "showErrorMessage", "bad" );
