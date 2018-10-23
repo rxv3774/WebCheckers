@@ -9,18 +9,24 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: td
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Ryan Vasquez
+  * Brett Patterson
+  * Samuel Adams
+  * Henry Larson
 
 ## Executive Summary
 
-This is a summary of the project.
+_The application allows players to play checkers with other players who are currently signed-in. The game user 
+interface (UI) supports a game experience using drag-and-drop browser capabilities for making moves. Beyond this 
+minimal set of features, we have grand vision for how we could further enhance the player experience with some 
+additional features beyond the basic checkers game._
+
 
 ### Purpose
+The Web Checkers webapp was created to enhance our knowledge and implementation of object oriented design principles,
+team-based software development skills, and 
 > _Provide a very brief statement about the project and the most
 > important user group and user goals._
 
@@ -34,27 +40,46 @@ This is a summary of the project.
 
 ## Requirements
 
-This section describes the features of the application.
+* Player must be able to sign in.
+* Player must be able to play against another player who is also signed in.
+* American rules of checkers must be implemented into the game.
+* Either player must be able to resign, at any point, which ends the game.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
 
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+The Minimal Viable Product should allow the user to sign in, play a game of checkers through the American rules, 
+and resign at any point which ends the game.
 
 ### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
+
+###### Epics: 
+* Checker movement
+* Resignation
+
+###### User Stories: 
+* Move first
+* Move on turn
+* Single move
+* Multi direction
+* Single jump move
+* Multi jump move
+* Resignation
+
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
+* Player sign-in
+* Start a game
+* Checker piece movement
+* Resignation
+* Spectator
+* Tournament play
 
 
 ## Application Domain
 
 This section describes the application domain.
 
-![The WebCheckers Domain Model](domain-model-placeholder.png)
+![The WebCheckers Domain Model](Desktop/SWEN 261/Domain-Model.png)
 
 > _Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
@@ -63,7 +88,8 @@ This section describes the application domain.
 
 ## Architecture and Design
 
-This section describes the application architecture.
+The Web Checkers webapp uses a Java-based web server and was built using the Spark web micro framework and the 
+FreeMarker template engine to handle HTTP requests and generate HTML responses.
 
 ### Summary
 
