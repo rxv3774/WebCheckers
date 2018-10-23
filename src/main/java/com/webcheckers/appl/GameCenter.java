@@ -17,6 +17,10 @@ public class GameCenter {
         this.gson = gson;
     }
 
+    public Gson getGson() {
+        return gson;
+    }
+
     /*
      * Create a new match between two players
      *

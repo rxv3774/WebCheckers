@@ -6,44 +6,16 @@ import java.util.NoSuchElementException;
 
 public class Row implements Iterable<Space> {
     private int index, current;
-    private ArrayList<Space> spaces = new ArrayList<>();
+    private Space row[];
 
     public Row(int index) {
         if (index < 0 || index > 7) {
             throw new IllegalArgumentException();
         } else {
             this.index = index;
+            this.row = new Space[8];
             for(int i=0; i<8; i++){
-                if(index<3) {
-                    if(index%2 == 0) {
-                        if(i%2 == 1)
-                            spaces.add(new Space(i, new Piece(Piece.Type.SINGLE, Piece.Color.WHITE)));
-                        else
-                            spaces.add(new Space(i, null));
-                    }
-                    else if(index%2 == 1){
-                        if(i%2 == 0)
-                            spaces.add(new Space(i, new Piece(Piece.Type.SINGLE, Piece.Color.WHITE)));
-                        else
-                            spaces.add(new Space(i, null));
-                    }
-                }
-                else if (index>=5)
-                    if(index%2 == 0) {
-                        if(i%2 == 1)
-                            spaces.add(new Space(i, new Piece(Piece.Type.SINGLE, Piece.Color.RED)));
-                        else
-                            spaces.add(new Space(i, null));
-                    }
-                    else if(index%2 == 1){
-                        if(i%2 == 0)
-                            spaces.add(new Space(i, new Piece(Piece.Type.SINGLE, Piece.Color.RED)));
-                        else
-                            spaces.add(new Space(i, null));
-                    }
-                else
-                    spaces.add(new Space(i, null));
-
+                row[i] = new Space(i, index);
             }
         }
     }
@@ -57,7 +29,7 @@ public class Row implements Iterable<Space> {
         return new Iterator<Space>() {
             @Override
             public boolean hasNext() {
-                if(current < spaces.size())
+                if(current < row.length)
                     return true;
                 else
                     return false;
@@ -68,7 +40,7 @@ public class Row implements Iterable<Space> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                Space temp = spaces.get(current);
+                Space temp = row[current];
                 current++;
                 return temp;
             }
