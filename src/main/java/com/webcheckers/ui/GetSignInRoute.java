@@ -48,6 +48,8 @@ public class GetSignInRoute implements Route {
         final Session session = request.session();
         final PlayerLobby playerLobby = session.attribute(PLAYER_LOBBY_KEY);
 
+        //TODO - Get player name from sign-in page and add to playerLobby
+
         LOG.finer("GetSignInRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Sign-In");
