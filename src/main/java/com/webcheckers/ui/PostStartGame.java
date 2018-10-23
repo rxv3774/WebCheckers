@@ -80,7 +80,8 @@ public class PostStartGame implements Route{
                 vm.put("viewMode", "PLAY");
                 vm.put("activeColor", "RED");
 
-                Board board = new Board();
+                BoardView boardView = new BoardView();
+                Board board = boardView.getBoard();
 
                 vm.put("board", board);
 
