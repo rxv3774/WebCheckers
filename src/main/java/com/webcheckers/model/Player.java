@@ -22,4 +22,8 @@ public class Player {
     public String getName() {
         return this.name;
     }
+
+    public String toString() {
+        return "{Player: " + name + "}";
+    }
 }
