@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Manage the match between players, using Json
  */
 public class GameCenter {
-    private static final Gson gson = new Gson();
+    private final Gson gson;
     private ArrayList<Match> matches = new ArrayList<>();
 
     public GameCenter(Gson gson) {

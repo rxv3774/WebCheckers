@@ -79,7 +79,7 @@ and resign at any point which ends the game.
 
 This section describes the application domain.
 
-![The WebCheckers Domain Model](Desktop/SWEN 261/Domain-Model.png)
+![The WebCheckers Domain Model](<#--Link to image on GitHub repo-->)
 
 > _Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
