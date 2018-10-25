@@ -95,6 +95,8 @@ The following Tiers/Layers model shows a high-level view of the webapp's archite
 
 ![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
 
+
+
 As a web application, the user interacts with the system using a
 browser.  The client-side of the UI is composed of HTML pages with
 some minimal CSS for styling the page.  There is also some JavaScript
@@ -112,6 +114,8 @@ This section describes the web interface flow; this is how the user views and in
 with the WebCheckers application.
 
 ![The WebCheckers Web Interface Statechart](StateChart.png)
+
+
 
 From the Perspective of the user, the Application's user interface begins on the home page
 where the user will see a welcome screen and a button to sign in. When the user clicks the button,
