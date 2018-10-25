@@ -153,7 +153,7 @@ public class PlayerLobby {
             addPlayer( newPlayer );
 
             response.redirect( WebServer.HOME_URL );
-//            halt();
+            halt();
             return null;
 
         }
