@@ -93,7 +93,7 @@ FreeMarker template engine to handle HTTP requests and generate HTML responses.
 
 The following Tiers/Layers model shows a high-level view of the webapp's architecture.
 
-![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
+![The Tiers & Layers of the Architecture](StateChart.png)
 
 As a web application, the user interacts with the system using a
 browser.  The client-side of the UI is composed of HTML pages with
