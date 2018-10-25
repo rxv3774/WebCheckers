@@ -79,11 +79,11 @@ and resign at any point which ends the game.
 
 This section describes the application domain.
 
-![The WebCheckers Domain Model](https://github.com/RIT-SWEN-261-04/team-project-2181-swen-261-04-d-td/blob/master/docs/Domain-Model.png)
+![The WebCheckers Domain Model](/docs/Domain-Model.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
+_There are two main entities: the game and the player(s). The game creates the board and hosts the game for two players.
+The players then play the game and movement information is sent to the game, validated, and executed. A user can become
+a player by signing into the application to initiate games with other players._
 
 
 ## Architecture and Design
