@@ -14,7 +14,7 @@ public class GameCenter {
     private ArrayList<Match> matches = new ArrayList<>();
 
     public GameCenter(Gson gson) {
-        this.gson = gson;
+        gson = gson;
     }
 
     public Gson getGson() {
