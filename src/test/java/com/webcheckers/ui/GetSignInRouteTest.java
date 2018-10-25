@@ -74,7 +74,7 @@ class GetSignInRouteTest {
         //   * test view name
         testHelper.assertViewName(VIEW_NAME);
         // Verify that the Player Lobby object is stored in the session
-        verify(session).attribute(eq(PLAYER_LOBBY_KEY), any(PlayerLobby.class));
+        verify(session).attribute(eq(PLAYER_LOBBY_KEY));
     }
 
 }
