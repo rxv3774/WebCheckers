@@ -113,8 +113,15 @@ with the WebCheckers application.
 
 ![The WebCheckers Web Interface Statechart](StateChart.png)
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
+From the Perspective of the user, the Application's user interface begins on the home page
+where the user will see a welcome screen and a button to sign in. When the user clicks the button,
+the interface then flows to the sign-in page, where the user is prompted to enter a unique name.
+If the user enters an invalid name or name that's already being used, the user will stay on the sign-in
+page but with the appropriate error message. If the user enters a valid name, the interface flows back to the home page, where the
+user can see his name as the current player, along with a number or list of other players in the lobby. When the 
+user chooses a player to enter a game with or a different player chooses the user to play a game with, 
+the user is transitioned to the game page, where the board is laid out in game form. If a player wins or 
+if either player resigns, both are taken back to the home page.  
 
 
 ### UI Tier
