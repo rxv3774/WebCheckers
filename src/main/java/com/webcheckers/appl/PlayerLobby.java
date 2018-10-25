@@ -35,7 +35,7 @@ public class PlayerLobby {
      * Attempts to add a player to the array of players. Only works if new username is not already taken.
      * @param player The new player that is being added.
      */
-    private void addPlayer(Player player) {
+    public void addPlayer(Player player) {
         if( isValidName( player.getName() ) ) {
             players.add(player);
 //            System.out.println( player.getName() + " has been added" ); // Print to website, not console
@@ -153,7 +153,7 @@ public class PlayerLobby {
             addPlayer( newPlayer );
 
             response.redirect( WebServer.HOME_URL );
-            halt();
+//            halt();
             return null;
 
         }
