@@ -26,9 +26,7 @@ additional features beyond the basic checkers game._
 
 ### Purpose
 The Web Checkers webapp was created to enhance our knowledge and implementation of object oriented design principles,
-team-based software development skills, and 
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+team-based software development skills, and provide a functional game of online checkers.
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
