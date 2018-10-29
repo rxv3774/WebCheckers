@@ -82,6 +82,7 @@ public class GetGameRoute implements Route{
                 halt();
             }
             if(opponent.isInGame()){
+                //add code about spectator
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
