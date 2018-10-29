@@ -30,7 +30,7 @@ public class Match {
     }
 
     /**
-     * add a player to the game.
+     * add a player to the match.
      * @param player the player to add
      * @return true if the player could be added, false if not.
      */
