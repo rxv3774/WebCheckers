@@ -56,15 +56,12 @@ public class GetHomeRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
         final Session session = request.session();
-        session.attribute(WebServer.PLAYER_LOBBY, playerLobby);
 
         LOG.finer("GetHomeRoute is invoked.");
         //
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Welcome!");
         vm.put( "messageType", "info");
-
-        PlayerLobby playerLobby = session.attribute( "playerLobby"  );
 
         if( playerLobby.getLobbySize() > 0 ){
 
