@@ -41,6 +41,10 @@ public class Row implements Iterable<Space> {
 
     public int getIndex() { return index; }
 
+    /**
+     * and iterator so iterable works
+     * @return an Iterator
+     */
     @Override
     public Iterator<Space> iterator() {
         current = 0;
@@ -61,6 +65,34 @@ public class Row implements Iterable<Space> {
                 }
                 Space temp = row[current];
                 current++;
+                return temp;
+            }
+        };
+    }
+
+    /**
+     * reverse the iterator so that we can display the other side fo the board easily
+     * @return the reversed iterator
+     */
+    public Iterator<Space> reverseIterator() {
+        current = row.length-1;
+
+        return new Iterator<Space>() {
+            @Override
+            public boolean hasNext() {
+                if(current >= 0)
+                    return true;
+                else
+                    return false;
+            }
+
+            @Override
+            public Space next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                Space temp = row[current];
+                current--;
                 return temp;
             }
         };

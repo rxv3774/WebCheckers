@@ -36,6 +36,10 @@ public class Board implements Iterable<Row>{
         }
     }
 
+    /**
+     * and iterator so iterable works
+     * @return an Iterator
+     */
     @Override
     public Iterator<Row> iterator() {
         current = 0;
@@ -56,6 +60,34 @@ public class Board implements Iterable<Row>{
                 }
                 Row temp = board[current];
                 current++;
+                return temp;
+            }
+        };
+    }
+
+    /**
+     * reverse the iterator so that we can display the other side fo the board easily
+     * @return the reversed iterator
+     */
+    public Iterator<Row> reverseIterator() {
+        current = board.length-1;
+
+        return new Iterator<Row>() {
+            @Override
+            public boolean hasNext() {
+                if(current >= 0)
+                    return true;
+                else
+                    return false;
+            }
+
+            @Override
+            public Row next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                Row temp = board[current];
+                current--;
                 return temp;
             }
         };
