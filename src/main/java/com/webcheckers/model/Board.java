@@ -9,10 +9,30 @@ public class Board implements Iterable<Row>{
     private Row board[];
     private int current;
 
+    private int Size = 8;
+    private int Init_Rows = 3;
+
     public Board(){
-        this.board = new Row[8];
-        for(int i=0; i<8; i++){
+        this.board = new Row[Size];
+        for(int i=0; i<Size; i++){
             board[i] = new Row(i);
+        }
+    }
+
+    /**
+     * Initialize the game.
+     * @param color the color to initilize the pieces for
+     */
+    public void initialize(Piece.Color color){
+        if(color == Piece.Color.RED){
+            for(int i = 0; i <= Init_Rows; i++){
+                board[i].initialize();
+            }
+        }
+        if(color == Piece.Color.WHITE){
+            for(int i = Size - 1; i >= Size-Init_Rows; i--){
+                board[i].initialize();
+            }
         }
     }
 

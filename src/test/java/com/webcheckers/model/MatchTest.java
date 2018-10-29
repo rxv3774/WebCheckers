@@ -6,7 +6,8 @@ package com.webcheckers.model;
  * Author: TeamD
  */
 
-import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.appl.Match;
+import com.webcheckers.appl.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

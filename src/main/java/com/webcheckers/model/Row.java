@@ -20,6 +20,25 @@ public class Row implements Iterable<Space> {
         }
     }
 
+    /**
+     * Initialize.
+     * Initialize spaces.
+     */
+    public void initialize(){
+        for(Space space : row){
+            space.initialize();
+        }
+    }
+
+    /**
+     * Get space at col.
+     * @param col the col
+     * @return the space
+     */
+    public Space getSpace(int col){
+        return row[col];
+    }
+
     public int getIndex() { return index; }
 
     @Override

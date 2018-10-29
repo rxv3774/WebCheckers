@@ -77,7 +77,7 @@ and resign at any point which ends the game.
 
 This section describes the application domain.
 
-![The WebCheckers Domain Model](Domain-Model.png)
+:![The WebCheckers Domain Model](Domain-Model.png)
 
 _There are two main entities: the game and the player(s). The game creates the board and hosts the game for two players.
 The players then play the game and movement information is sent to the game, validated, and executed. A user can become
@@ -93,9 +93,7 @@ FreeMarker template engine to handle HTTP requests and generate HTML responses.
 
 The following Tiers/Layers model shows a high-level view of the webapp's architecture.
 
-![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
-
-
+:![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
 
 As a web application, the user interacts with the system using a
 browser.  The client-side of the UI is composed of HTML pages with
@@ -113,8 +111,7 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-![The WebCheckers Web Interface Statechart](StateChart.png)
-
+:![The WebCheckers Web Interface Statechart](StateChart.png)
 
 
 From the Perspective of the user, the Application's user interface begins on the home page

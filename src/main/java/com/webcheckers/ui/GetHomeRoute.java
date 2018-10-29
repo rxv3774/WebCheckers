@@ -1,6 +1,5 @@
 package com.webcheckers.ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,12 +7,11 @@ import java.util.logging.Logger;
 
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Player;
+import com.webcheckers.appl.Player;
 import spark.*;
 
 import static spark.Spark.halt;
 import static spark.Spark.post;
-import static spark.Spark.redirect;
 
 /**
  * The UI Controller to GET the Home page.

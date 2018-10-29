@@ -1,8 +1,8 @@
 package com.webcheckers.model;
 
 public class Piece {
-    enum Type {SINGLE, KING}
-    enum Color {RED, WHITE}
+    public enum Type {SINGLE, KING}
+    public enum Color {RED, WHITE}
 
     private Type type;
     private Color color;

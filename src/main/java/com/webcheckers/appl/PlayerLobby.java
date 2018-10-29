@@ -1,6 +1,5 @@
 package com.webcheckers.appl;
 
-import com.webcheckers.model.Player;
 import com.webcheckers.ui.WebServer;
 import spark.ModelAndView;
 import spark.Request;

@@ -1,8 +1,8 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
+import com.webcheckers.appl.Player;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.*;
 import spark.*;
 
 import java.util.*;
@@ -79,9 +79,6 @@ public class PostStartGame implements Route{
                 vm.put("whitePlayer", opponentPlayerObject);
                 vm.put("viewMode", "PLAY");
                 vm.put("activeColor", "RED");
-
-                BoardView boardView = new BoardView();
-                Board board = boardView.getBoard();
 
                 vm.put("board", board);
 
