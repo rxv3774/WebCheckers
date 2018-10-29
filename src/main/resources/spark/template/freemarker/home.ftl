@@ -31,7 +31,7 @@
     </#if>
 
        <#if signedin?? && showGameButton == true>
-           <form action='/chooseName' method='post'>
+           <form action='/game' method='get'>
                <label for='name'>Name of other player:</label>
                <input name='name' placeholder='Enter a name' />
                <button type='submit'>Start a game</button>

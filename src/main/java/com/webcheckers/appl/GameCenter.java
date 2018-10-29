@@ -33,32 +33,27 @@ public class GameCenter {
         Match game = new Match();
         game.join(player1);
         game.join(player2);
-        runningGames.add(game);
+        matches.add(game);
         game.start();
         return game;
     }
 
 
-    /*
-     * Create a new match between two players
-     *
-     * @param redPlayer: user who requested the match
-     * @param whitePlayer: player who was selected to compete
+    /**
+     * Running game.
+     * @param match the match
+     * @return true if game is running
      */
-    public void addMatch(Player redPlayer, Player whitePlayer) {
-        matches.add(new Match(redPlayer, whitePlayer));
+    public boolean runningMatches(Match match){
+        return matches.contains(match);
     }
 
-    /*
-     * If the player is already in a match
-     *
-     * @Param player: player object in question
-     * @return boolean if the player is in a match already
+    /**
+     * End the game.
+     * @param match the match
      */
-    public boolean containsPlayer(Player player) {
-        for (Match match : matches) {
-            if (match.getRedPlayer().equals(player) || match.getWhitePlayer().equals(player)) return true;
-        }
-        return false;
+    public void endGame(Match match){
+        match.close();
+        matches.remove(match);
     }
 }

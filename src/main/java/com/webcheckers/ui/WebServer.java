@@ -57,7 +57,7 @@ public class WebServer {
     public static final String HOME_URL = "/";
     public static final String SIGNIN_URL = "/signIn";
     public static final String POST_NAME = "/postName";
-    public static final String START_GAME = "/chooseName";
+    public static final String START_GAME = "/game";
 
     public static final String HOME_FILE = "home.ftl";
     public static final String GAME_CENTER = "gameCenter";
@@ -73,6 +73,7 @@ public class WebServer {
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
     private final GameCenter gameCenter;
+    private final Gson gson;
 
     //
     // Constructor
@@ -92,7 +93,8 @@ public class WebServer {
         //
         this.templateEngine = templateEngine;
         this.playerLobby = new PlayerLobby();
-        this.gameCenter = new GameCenter(gson);
+        this.gameCenter = new GameCenter();
+        this.gson = gson;
     }
 
     //
@@ -148,10 +150,10 @@ public class WebServer {
 
 
         //Send player to game
-        post(START_GAME, new PostStartGame(playerLobby, templateEngine));
+        get(START_GAME, new GetGameRoute(gameCenter, playerLobby, templateEngine));
 
         // Shows the Checkers game Home page.
-        get(HOME_URL, new GetHomeRoute(playerLobby, gameCenter, templateEngine));
+        get(HOME_URL, new GetHomeRoute(playerLobby, templateEngine));
 
         //Shows the sign in page
         get(SIGNIN_URL, new GetSignInRoute(templateEngine));

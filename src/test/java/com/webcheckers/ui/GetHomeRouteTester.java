@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
+import com.webcheckers.appl.Player;
 import com.webcheckers.appl.PlayerLobby;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.*;
  */
 @Tag("UI-tier")
 class GetHomeRouteTester {
-    private static final String GAME_URL = "/chooseName";
+    private static final String GAME_URL = "/game";
 
     private static final String VIEW_NAME = "home.ftl";
 
@@ -52,14 +53,14 @@ class GetHomeRouteTester {
         session = mock(Session.class);
         engine = mock(TemplateEngine.class);
 
-        gameCenter = new GameCenter(new Gson());
+        gameCenter = new GameCenter();
         playerLobby = new PlayerLobby();
-        getHomeRoute = new GetHomeRoute(playerLobby, gameCenter, engine);
+        getHomeRoute = new GetHomeRoute(playerLobby, engine);
     }
 
     @Test
     void test_constructor() {
-        new GetHomeRoute(playerLobby, gameCenter, engine);
+        new GetHomeRoute(playerLobby, engine);
     }
 
     @Test
@@ -110,10 +111,11 @@ class GetHomeRouteTester {
 
         if (playerLobby.getLobbySize() > 1) {
             tester.assertViewModelAttribute(BUTTON_ATTR, true);
-
+            /*
             if (gameCenter.containsPlayer(session.attribute(NAME_ATTR))) {
                 verify(response).redirect(GAME_URL);
             }
+            */
         }
 
         // Test the view name

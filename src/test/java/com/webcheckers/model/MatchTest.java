@@ -31,15 +31,15 @@ public class MatchTest {
         redPlayer = mock( Player.class );
         whitePlayer = mock( Player.class );
 
-        match = new Match( redPlayer, whitePlayer);
+        //match = new Match( redPlayer, whitePlayer);
     }
 
-
+/*
     @Test
     public void constructorNotNull() {
         assertNotNull( new Match( redPlayer, whitePlayer) ) ;
     }
-
+*/
     @Test
     public void getRedPlayerNotNull() {
         assertNotNull( match.getRedPlayer() ) ;

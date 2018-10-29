@@ -1,9 +1,6 @@
 package com.webcheckers.ui;
 
-import com.google.gson.Gson;
-import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.*;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +8,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,7 +31,7 @@ public class PostStartGameTest{
     private static final Logger LOG = Logger.getLogger( GetHomeRoute.class.getName() );
 
 
-    private PostStartGame postStartGame;
+    private GetGameRoute postStartGame;
     private PlayerLobby playerLobby;
     private TemplateEngine templateEngine;
 
@@ -56,16 +51,16 @@ public class PostStartGameTest{
 //        session = mock(Session.class);
         templateEngine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby();
-        postStartGame = new PostStartGame(playerLobby, templateEngine);
+       // postStartGame = new GetGameRoute(playerLobby, templateEngine);
     }
 
-
+/*
     @Test
     public void constructorNotNull() {
-        assertNotNull( new PostStartGame(playerLobby, templateEngine) );
+        assertNotNull( new GetGameRoute(playerLobby, templateEngine) );
     }
 
-
+*/
 
 
 //    @Test

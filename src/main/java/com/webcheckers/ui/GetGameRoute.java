@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
+import com.webcheckers.appl.Match;
 import com.webcheckers.appl.Player;
 import com.webcheckers.appl.PlayerLobby;
 import spark.*;
@@ -15,15 +16,17 @@ import static spark.Spark.halt;
  *
  * Author: TeamD
  */
-public class PostStartGame implements Route{
+public class GetGameRoute implements Route{
     private final TemplateEngine templateEngine;
+    private final PlayerLobby playerLobby;
+    private final GameCenter gameCenter;
 
     static final String VIEW_NAME = "game.ftl";
 
     private static final Logger LOG = Logger.getLogger( GetHomeRoute.class.getName() );
 
     /**
-     * The constructor for the {@code POST /chooseName} route handler.
+     * The constructor for the {@code Get /game} route handler.
      *
      * @param playerLobby
      *    {@Link playerLobby} CHANGE ME!!!
@@ -33,14 +36,16 @@ public class PostStartGame implements Route{
      * @throws NullPointerException
      *    when the {@code gameCenter} or {@code templateEngine} parameter is null
      */
-    public PostStartGame(PlayerLobby playerLobby, TemplateEngine templateEngine) {
+    public GetGameRoute(GameCenter gameCenter, PlayerLobby playerLobby, TemplateEngine templateEngine) {
         // validation
         Objects.requireNonNull(playerLobby, "playerLobby must not be null");
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
         //
         this.templateEngine = templateEngine;
+        this.playerLobby = playerLobby;
+        this.gameCenter = gameCenter;
         //
-        LOG.config("PostStartGame is initialized.");
+        LOG.config("GetGameRoute is initialized.");
     }
 
     /**
@@ -53,42 +58,47 @@ public class PostStartGame implements Route{
         // start building the BoardView-Model
         final Map<String, Object> vm = new HashMap<>();
         final Session session = request.session();
-        final PlayerLobby playerLobby = session.attribute(WebServer.PLAYER_LOBBY);
-        final GameCenter gameCenter = session.attribute(WebServer.GAME_CENTER);
+
+        vm.put("title", "Game!");
 
         String currentPlayerName = session.attribute("name");
-        Player currentPlayerObject = playerLobby.getPlayerObject(currentPlayerName);
+        Player player = playerLobby.getPlayerObject(currentPlayerName);
 
-
+        if(player == null){
+            response.redirect(WebServer.SIGNIN_URL);
+            return null;
+        }
 
         /*
          *Checks if current player isn't apart of a game with a board that's been initialized
          */
-        if( !gameCenter.containsPlayer(currentPlayerObject) ) {
+        if( !player.isInGame() ) {
 
             String opponentPlayerName = request.queryParams("name");
-            Player opponentPlayerObject = playerLobby.getPlayerObject(opponentPlayerName);
+            Player opponent = playerLobby.getPlayerObject(opponentPlayerName);
 
-            if (gameCenter.containsPlayer(opponentPlayerObject)) {
+            if (opponent == null) {
                 response.redirect(WebServer.HOME_URL);
                 halt();
-            } else {
-                vm.put("title", "Game!");
-                vm.put("currentPlayer", currentPlayerObject);
-                vm.put("redPlayer", currentPlayerObject);
-                vm.put("whitePlayer", opponentPlayerObject);
-                vm.put("viewMode", "PLAY");
-                vm.put("activeColor", "RED");
-
-                vm.put("board", board);
-
-                //add two players to a match
-                gameCenter.addMatch(currentPlayerObject, opponentPlayerObject);
             }
+            if(opponent.isInGame()){
+                response.redirect(WebServer.HOME_URL);
+                halt();
+            }
+            gameCenter.createGame(player, opponent);
+            response.redirect(WebServer.START_GAME);
+            halt();
         }
-        else {
-        }
+        Match match = player.getMatch();
 
+        vm.put("currentPlayer", player);
+        vm.put("redPlayer", match.getRedPlayer());
+        vm.put("whitePlayer", match.getWhitePlayer());
+        vm.put("viewMode", player.getViewMode());
+        vm.put("activeColor", match.getActiveColor());
+
+        //Board
+        vm.put("board", match.getBoard());
 
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));

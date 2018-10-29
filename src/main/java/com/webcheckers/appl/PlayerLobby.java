@@ -8,6 +8,7 @@ import spark.Session;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.halt;
@@ -161,6 +162,18 @@ public class PlayerLobby {
         return null;
     }
 
+    /**
+     * Gets in game player names.
+     * @return copied TreeSet of players names if those players are in game.
+     */
+    public List<String> getInGamePlayerNames() {
+        ArrayList<String> playersOut  = new ArrayList<>();
+        for(Player p : this.players) {
+            if (p.isInGame())
+                playersOut.add(p.getName());
+        }
+        return playersOut;
+    }
 
     /**
      * Desc: gets the players session
