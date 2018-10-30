@@ -1,4 +1,4 @@
-package com.webcheckers.model;
+package com.webcheckers.appl;
 
 import com.webcheckers.appl.Player;
 import org.junit.jupiter.api.Tag;

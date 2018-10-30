@@ -1,4 +1,4 @@
-package com.webcheckers.model;
+package com.webcheckers.appl;
 
 /*
  * Object for the data of the match between two players
