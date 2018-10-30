@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 //import static org.junit.jupiter.api.AssertTrue.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static spark.Spark.halt;
@@ -54,7 +55,20 @@ class GetGameRouteTest {
         getGameRoute = new GetGameRoute(gameCenter, playerLobby, engine);
     }
 
+    /**
+     * Test that getGameRoute shows the Home view when the session is brand new.
+     */
+    @Test
+    public void new_session() {
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
+
+    }
 
 
 }
