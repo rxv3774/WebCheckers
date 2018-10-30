@@ -126,7 +126,7 @@ public class Match {
     }
 
     /**
-     * Start game.
+     * Start match.
      * @return true if the game was started otherwise false.
      */
     public boolean start(){
@@ -137,14 +137,14 @@ public class Match {
     }
 
     /**
-     * End the game.
+     * End the match.
      */
     public void end(){
         running = false;
     }
 
     /**
-     * Delete the game.
+     * Delete the match.
      */
     public void close(){
         if(redPlayer != null) redPlayer.endGame();
