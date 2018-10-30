@@ -8,13 +8,15 @@ public class Row implements Iterable<Space> {
     private int index, current;
     private Space row[];
 
+    private int spaceArraySize = 8;
+
     public Row(int index) {
         if (index < 0 || index > 7) {
             throw new IllegalArgumentException();
         } else {
             this.index = index;
-            this.row = new Space[8];
-            for(int i=0; i<8; i++){
+            this.row = new Space[spaceArraySize];
+            for(int i=0; i<spaceArraySize; i++){
                 row[i] = new Space(i, index);
             }
         }

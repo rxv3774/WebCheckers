@@ -9,12 +9,12 @@ public class Board implements Iterable<Row>{
     private Row board[];
     private int current;
 
-    private int Size = 8;
+    private int rowArraySize = 8;
     private int Init_Rows = 3;
 
     public Board(){
-        this.board = new Row[Size];
-        for(int i=0; i<Size; i++){
+        this.board = new Row[rowArraySize];
+        for(int i=0; i<rowArraySize; i++){
             board[i] = new Row(i);
         }
     }
@@ -30,7 +30,7 @@ public class Board implements Iterable<Row>{
             }
         }
         if(color == Piece.Color.WHITE){
-            for(int i = Size - 1; i >= Size-Init_Rows; i--){
+            for(int i = rowArraySize - 1; i >= rowArraySize-Init_Rows; i--){
                 board[i].initialize();
             }
         }
