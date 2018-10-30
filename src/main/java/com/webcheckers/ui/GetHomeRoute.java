@@ -83,19 +83,10 @@ public class GetHomeRoute implements Route {
             Player player = playerLobby.getPlayerObject( currentPlayer );
 
             if( player.isInGame() ){
-                System.out.println("REDIRECT");
-
-
-
                 response.redirect(  WebServer.START_GAME );
                 halt();
             }
-            else{
-                System.out.println("NO REDIRECT");
-            }
-
-        }
-        else{
+        } else{
             vm.put( WebServer.SHOW_BUTTON, false);
         }
 
