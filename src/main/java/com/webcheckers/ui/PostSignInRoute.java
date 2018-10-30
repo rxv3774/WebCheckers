@@ -63,6 +63,7 @@ public class PostSignInRoute implements Route {
      */
     @Override
     public String handle(Request request, Response response) {
+        final Session session = request.session();
 
         // start building the BoardView-Model
         final Map<String, Object> vm = new HashMap<>();
@@ -70,7 +71,10 @@ public class PostSignInRoute implements Route {
 
         String playerName = request.queryParams( PLAYER_NAME );
 
-        ModelAndView mv = playerLobby.playerSignInProcess( playerName, request, response, vm );
+        session.attribute("name", playerName); //add playerName to session
+
+        ModelAndView mv = playerLobby.playerSignInProcess( playerName, response, vm );
+
         return templateEngine.render( mv );
     }
 }

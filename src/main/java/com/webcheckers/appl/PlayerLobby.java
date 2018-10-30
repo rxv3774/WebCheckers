@@ -4,10 +4,8 @@ import com.webcheckers.ui.WebServer;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.Session;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +13,7 @@ import static spark.Spark.halt;
 
 
 /*
- * Signs in and stores all users and their sessions.
+ * Signs in and stores all users
  */
 public class PlayerLobby {
     /**
@@ -112,13 +110,12 @@ public class PlayerLobby {
     }
 
     /*
-     *Signin the user if their chosen username is valid. Store the players list and current player
-     * name in the session.
+     *Signin the user if their chosen username is valid.
      *
      * @param name: The chosen name of the player who wants to sign in
-     * @param request:
+     * @return ModelAndView based on outcome of signing in player
      */
-    public ModelAndView playerSignInProcess(String name, Request request, Response response, Map<String, Object > vm){
+    public ModelAndView playerSignInProcess(String name, Response response, Map<String, Object > vm){
 
         ModelAndView mv;
 
@@ -134,9 +131,6 @@ public class PlayerLobby {
         if( !playerNameInUse( name ) ){ // No one is using this name.
 
             Player newPlayer = new Player( name );
-
-            Session httpSession = request.session();
-            httpSession.attribute("name", name);
 
             addPlayer( newPlayer );
 
