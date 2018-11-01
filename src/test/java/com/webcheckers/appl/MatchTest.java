@@ -8,13 +8,16 @@ package com.webcheckers.appl;
 
 import com.webcheckers.appl.Match;
 import com.webcheckers.appl.Player;
+import com.webcheckers.model.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.TemplateEngine;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @Tag("Model-tier")
 public class MatchTest {
@@ -31,22 +34,69 @@ public class MatchTest {
         redPlayer = mock( Player.class );
         whitePlayer = mock( Player.class );
 
-        //match = new Match( redPlayer, whitePlayer);
+        match = mock( Match.class );
     }
 
-/*
     @Test
     public void constructorNotNull() {
-        assertNotNull( new Match( redPlayer, whitePlayer) ) ;
+
+        //Test1
+        assertNotNull( new Match() ) ;
     }
-*/
+
+
+//    @Test
+//    public void joinWorks(){
+//
+//        Player player = mock( Player.class );
+//        when( player.playGame( match ) ).thenReturn( true );
+//
+//        assertEquals( true, player.playGame( match ) );
+//
+//        assertEquals( true, match.join( player ) );
+////        assertEquals( true, match.join( player ) );
+////        assertEquals( false, match.join( player ) );
+//    }
+
     @Test
     public void getRedPlayerNotNull() {
+
+        when( match.getRedPlayer() ).thenReturn( redPlayer );
+
+        //Test1
         assertNotNull( match.getRedPlayer() ) ;
+
+        //Test2
+        assertEquals( redPlayer, match.getRedPlayer() );
+
     }
 
     @Test
     public void getWhitePlayerNotNull() {
+        when( match.getWhitePlayer() ).thenReturn( whitePlayer );
+
+        //Test1
         assertNotNull( match.getWhitePlayer() ) ;
+
+        //Test2
+        assertEquals( whitePlayer, match.getWhitePlayer() );
+    }
+
+
+    @Test
+    public void getActiveColorWorks(){
+
+        when( match.getActiveColor() ).thenReturn( Piece.Color.RED );
+
+        //Test1
+        assertNotNull( match.getActiveColor() );
+
+        //Test2
+        assertEquals(Piece.Color.RED, match.getActiveColor() );
+
+        when( match.getActiveColor() ).thenReturn( Piece.Color.WHITE );
+
+        //Test3
+        assertEquals(Piece.Color.WHITE, match.getActiveColor() );
     }
 }

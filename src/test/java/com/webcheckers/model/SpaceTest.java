@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @Tag("MODEL-tier")
 class SpaceTest {
@@ -22,16 +23,21 @@ class SpaceTest {
         cellIndex = 1;
         rowIndex = 0;
         piece = mock( Piece.class );
-        space = new Space(cellIndex, rowIndex);
+
+//        space = new Space(cellIndex, rowIndex);
+        space = mock( Space.class );
     }
 
     @Test
     public void constructorNotNull(){
-        assertNotNull( new Space(cellIndex, rowIndex ) );
+        assertNotNull( new Space(cellIndex, rowIndex) );
     }
 
     @Test
     public void getPieceNotNull(){
+
+        when( space.getPiece() ).thenReturn( piece );
+
         assertNotNull( space.getPiece() );
     }
 

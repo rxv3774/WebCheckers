@@ -9,6 +9,8 @@ import spark.Response;
 import spark.Session;
 import spark.TemplateEngine;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -40,16 +42,6 @@ public class PlayerLobbyTester {
         when(request.session()).thenReturn(session);
 //        engine = mock(TemplateEngine.class);
         response = mock(Response.class);
-    }
-
-    /**
-     * Tests that the {@link PlayerLobby}.isValidName method works
-     */
-    @Test
-    public void test_isValidName() {
-//        assertTrue(playerLobby.isValidName(VALID_NAME));
-//        assertFalse(playerLobby.isValidName(INVALID_NAME));
-//        assertFalse(playerLobby.isValidName(NULL_NAME));
     }
 
 
@@ -110,18 +102,69 @@ public class PlayerLobbyTester {
         final String NAME0 = "Kevin";
         final String NAME1 = "123";
 
-        //test1
+
         when( request.queryParams(any(String.class) ) ).thenReturn( NAME0 );
         playerLobby.addPlayer( new Player( NAME0 ) );
 
-//        when( request.queryParams(any(String.class) ) ).thenReturn( NAME1 );
-//        playerLobby.addPlayer( new Player( NAME1 ) );
-
+        //test1
         assertEquals( true, playerLobby.playerNameInUse( NAME0 ) );
 
-//        assertEquals( false, playerLobby.playerNameInUse( NAME1 ) );
+        //test2
+        assertEquals( false, playerLobby.playerNameInUse( NAME1 ) );
     }
 
+    @Test
+    public void getPlayerNamesWorks(){
+
+        final String NAME0 = "Kevin";
+        final String NAME1 = "123";
+
+        ArrayList<String> arr = new ArrayList<>();
+
+        arr.add( NAME0 );
+        arr.add( NAME1 );
+
+        when( request.queryParams(any(String.class) ) ).thenReturn( NAME0 );
+        playerLobby.addPlayer( new Player( NAME0 ) );
+
+        when( request.queryParams(any(String.class) ) ).thenReturn( NAME1 );
+        playerLobby.addPlayer( new Player( NAME1 ) );
+
+        //Test1
+        assertNotNull( playerLobby.getPlayersNames() );
+
+        //Test2
+        assertEquals( arr, playerLobby.getPlayersNames() );
+    }
+
+    @Test
+    public void getPlayerObjectWorks(){
+
+        final String [] arr = {"Kevin", "123", "456", "789", "Brad"};
+
+        for( String name : arr){
+            when( request.queryParams(any(String.class) ) ).thenReturn( name );
+            playerLobby.addPlayer( new Player( name ) );
+        }
+
+        //Test1
+        assertNotNull( playerLobby.getPlayerObject( arr[0] ) );
+
+        //Test2
+        assertEquals( new Player( arr[0] ), playerLobby.getPlayerObject( arr[0] ) );
+    }
+
+    @Test
+    public void getLobbySizeWorks(){
+        final String [] arr = {"Kevin", "123", "456", "789", "Brad"};
+
+        for( String name : arr){
+            when( request.queryParams(any(String.class) ) ).thenReturn( name );
+            playerLobby.addPlayer( new Player( name ) );
+        }
+
+        assertEquals( arr.length, playerLobby.getLobbySize() );
+    }
 
 
     @Test
@@ -131,12 +174,7 @@ public class PlayerLobbyTester {
         when( request.queryParams(any(String.class) ) ).thenReturn( NAME );
         playerLobby.addPlayer( new Player( NAME ) );
 
-        System.out.println( playerLobby.getPlayerNameLst( NAME ) );
 
         assertNotNull( playerLobby.getPlayerNameLst( NAME ) );
-
-//        playerLobby.getPlayerNameLst()
     }
-
-
 }
