@@ -66,7 +66,13 @@ public class PlayerLobby {
      */
     public boolean playerNameInUse(String name){
 
-        return players.contains(name);
+        for( Player player : players){
+            if( player.getName().equals( name ) ){
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
@@ -135,9 +141,8 @@ public class PlayerLobby {
             addPlayer( newPlayer );
 
             response.redirect( WebServer.HOME_URL );
-            halt();
+//            halt();
             return null;
-
         }
 
         System.out.println("reached this.... This is bad");
@@ -157,6 +162,11 @@ public class PlayerLobby {
         return playersOut;
     }
 
+    /**
+     * Desc: This method makes a string of all the players that are online
+     * @param name The player session name, removes the name from the list since they are the same
+     * @return if they are signed it, shows all the players signed in excluding themselves, else shows the number of players signed in
+     */
     public String getPlayerNameLst(String name){
         ArrayList<String> playerNameLst = new ArrayList<>( getPlayersNames() );
         playerNameLst.remove( name );

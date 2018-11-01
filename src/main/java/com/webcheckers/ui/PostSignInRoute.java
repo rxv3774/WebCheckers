@@ -75,6 +75,10 @@ public class PostSignInRoute implements Route {
 
         ModelAndView mv = playerLobby.playerSignInProcess( playerName, response, vm );
 
+        if( mv == null){
+            return "";
+        }
+
         return templateEngine.render( mv );
     }
 }
