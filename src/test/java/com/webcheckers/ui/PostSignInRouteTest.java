@@ -27,7 +27,6 @@ public class PostSignInRouteTest {
     private Session session;
     private Response response;
     private TemplateEngine engine;
-
     private Player playerMock;
 
     /**
