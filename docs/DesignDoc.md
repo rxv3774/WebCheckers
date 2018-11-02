@@ -177,14 +177,11 @@ If given the opportunity to
 > and the results of the testing._
 
 ### Acceptance Testing
-Up until now, we have completed and passed all necessary acceptance criteria tests besides one for 
-the first two user stories. In user story number two, we have had trouble pulling players into a game 
-once a match up has been requested by the opposite player. 
-> _Report on the number of user stories that have passed all their
-> acceptance criteria tests, the number that have some acceptance
-> criteria tests failing, and the number of user stories that
-> have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
+As of now, we have completed and passed all necessary acceptance criteria tests for 
+the first two user stories. All acceptance criteria tests for the Player sign-in and start 
+game user stories are complete and functional. We are currently working on tests for further 
+user stories.
+
 
 ### Unit Testing and Code Coverage
 > _Discuss your unit testing strategy. Report on the code coverage
