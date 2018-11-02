@@ -104,21 +104,6 @@ public class Row implements Iterable<Space> {
         };
     }
 
-    /**
-     * Has jumpable piece.
-     *
-     * @param color     the color
-     * @param gameBoard the game board
-     * @return true if the row contains a jumpable piece.
-     */
-    public boolean hasJumpablePiece(Piece.Color color, Board gameBoard) {
-        for (Space space : row) {
-            if (space.pieceColorMatch(color) && space.hasJumpablePiece(gameBoard)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Deep copy row.

@@ -108,55 +108,6 @@ public class Space {
         return tmp;
     }
 
-    /**
-     * Checif the poiece in the space can move to the space space.
-     *
-     * @param space the space
-     * @return true if the piece can move false if not
-     */
-    public boolean canMoveTo(Space space) {
-        //If this piece is the same piece thats trying to move, that's a circular jump, its fine.
-        if (space.hasPiece() && space.piece != this.piece) return false;
-        return piece.canMakeMove(space.getRowIndex() - this.rowIndex, space.getCellIdx() - this.cellIndex);
-    }
-
-    /**
-     * Move piece in the space to space space.
-     *
-     * @param space the space
-     */
-    public void movePieceTo(Space space) {
-        space.piece = this.piece;
-        this.piece = null;
-    }
-
-    /**
-     * chekc if the piece in the space is jumpable
-     *
-     * @param gameBoard the game board
-     * @return true if piece is jumpable
-     */
-    public boolean hasJumpablePiece(Board gameBoard) {
-        if (piece == null) return false;
-        List<Move> moves = piece.getPossibleMoves(this, gameBoard);
-        for (Move move : moves) {
-            if (move.isJump()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * check if the piece in the space
-     *
-     * @param gameBoard the game board
-     * @return the boolean
-     */
-    public boolean hasMoves(Board gameBoard) {
-        if (piece == null) return false;
-        return piece.getPossibleMoves(this, gameBoard).size() > 0;
-    }
 
     /**
      * Check if space has a piece

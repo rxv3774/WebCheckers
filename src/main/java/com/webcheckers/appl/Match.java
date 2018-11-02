@@ -88,17 +88,6 @@ public class Match {
         }
     }
 
-    /**
-     * End turn.
-     * Swaps active player.
-     */
-    public void endTurn() {
-        if (activePlayer == redPlayer) {
-            activePlayer = whitePlayer;
-        } else {
-            activePlayer = redPlayer;
-        }
-    }
 
     /**
      * Gets opponent.
@@ -128,47 +117,6 @@ public class Match {
         return redPlayer != null && whitePlayer != null;
     }
 
-    /**
-     * Is jump availible boolean.
-     *
-     * @return true if jump availible
-     */
-    public boolean isJumpAvailible() {
-        return board.isJumpAvailible(getActiveColor());
-    }
-
-    /**
-     * Add a pending move.
-     *
-     * @param move the move
-     */
-    public void addPendingMove(Move move) {
-        if (this.pendingMove == null) {
-            this.pendingMove = move;
-        } else {
-            this.pendingMove.addMove(move);
-        }
-    }
-
-    /**
-     * Check if game has pending move.
-     *
-     * @return true if game has a move
-     */
-    public boolean hasPendingMove() {
-        return this.pendingMove != null;
-    }
-
-    /**
-     * Validate the move.
-     *
-     * @param move the move
-     * @return true if move is valid
-     */
-    public boolean validateMoveOnChain(Move move) {
-        if (this.pendingMove == null) return false;
-        return move.isValid(pendingMove);
-    }
 
     /**
      * Start match.

@@ -108,20 +108,6 @@ public class Board implements Iterable<Row> {
         return board[row].getSpace(col);
     }
 
-    /**
-     * Is jump availible.
-     *
-     * @param color the color
-     * @return true if color player has a jump availible
-     */
-    public boolean isJumpAvailible(Piece.Color color) {
-        for (Row row : board) {
-            if (row.hasJumpablePiece(color, this)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Deep copy game board.
