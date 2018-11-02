@@ -62,6 +62,7 @@ public class GetGameRoute implements Route {
 
         if (player == null) {
             response.redirect(WebServer.SIGNIN_URL);
+            halt();
             return null;
         }
 

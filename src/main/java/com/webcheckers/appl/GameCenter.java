@@ -62,7 +62,7 @@ public class GameCenter {
         matches.remove(match);
     }
 
-    /*
+    /**
      * If the player is already in a match
      *
      * @Param player: player object in question

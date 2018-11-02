@@ -35,7 +35,7 @@ public class Space {
     }
 
 
-    public int getCellIdx() {
+    public int getCellIndex() {
         return cellIndex;
     }
 
@@ -59,7 +59,7 @@ public class Space {
      *
      * @return color of the piece
      */
-    public Piece.Color pieceColor() {
+    public Piece.Color getPieceColor() {
         if (piece == null) return null;
         return piece.getColor();
     }
@@ -100,7 +100,7 @@ public class Space {
     /**
      * remove the piece in this space
      *
-     * @return the piece that previsouly occupied the space
+     * @return the piece that previously occupied the space
      */
     public Piece removePiece() {
         Piece tmp = this.piece;

@@ -68,7 +68,7 @@ public class PlayerLobby {
         return names;
     }
 
-    /*
+    /**
      * Gets player object given name of player
      */
     public Player getPlayerObject(String name) {

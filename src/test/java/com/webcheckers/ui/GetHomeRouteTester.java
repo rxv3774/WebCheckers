@@ -103,7 +103,7 @@ class GetHomeRouteTester {
             tester.assertViewModelAttribute(SIGNED_IN_ATTR, true);
             tester.assertViewModelAttribute(PLAYER_LIST_ATTR, playerLobby
                     .getPlayersNamesAsArrayList()
-                    .remove(session.attribute(NAME_ATTR))
+                    .remove(session.attribute(NAME_ATTR) )
             );
         }
 

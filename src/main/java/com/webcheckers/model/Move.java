@@ -1,7 +1,5 @@
 package com.webcheckers.model;
 
-import java.util.List;
-
 /**
  * The type Move.
  *
@@ -42,7 +40,7 @@ public class Move {
      * @return string rep
      */
     public String toString() {
-        return "Start: (" + start.getRowIndex() + "," + start.getCellIdx() + ") End: (" + end.getRowIndex() + "," + end.getCellIdx() + ")";
+        return "Start: (" + start.getRowIndex() + "," + start.getCellIndex() + ") End: (" + end.getRowIndex() + "," + end.getCellIndex() + ")";
         //return null;
     }
 
@@ -57,9 +55,9 @@ public class Move {
         if (!(other instanceof Move)) return false;
         Move move = (Move) other;
         return this.start.getRowIndex() == move.start.getRowIndex() &&
-                this.start.getCellIdx() == move.start.getCellIdx() &&
+                this.start.getCellIndex() == move.start.getCellIndex() &&
                 this.end.getRowIndex() == move.end.getRowIndex() &&
-                this.end.getCellIdx() == move.end.getCellIdx();
+                this.end.getCellIndex() == move.end.getCellIndex();
     }
 
     /**
@@ -70,8 +68,8 @@ public class Move {
      */
     public boolean reverseEquals(Move move) {
         return this.start.getRowIndex() == move.end.getRowIndex() &&
-                this.start.getCellIdx() == move.end.getCellIdx() &&
+                this.start.getCellIndex() == move.end.getCellIndex() &&
                 this.end.getRowIndex() == move.start.getRowIndex() &&
-                this.end.getCellIdx() == move.start.getCellIdx();
+                this.end.getCellIndex() == move.start.getCellIndex();
     }
 }
