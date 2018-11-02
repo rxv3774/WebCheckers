@@ -36,7 +36,7 @@ class BoardTest {
      * Tests that the Iterator hasNext functions correctly
      */
     @Test
-    void test_hasNext(){
+    void test_hasNext() {
         final Board board1 = new Board();
         Iterator itr = board1.iterator();
         assertTrue(itr.hasNext());

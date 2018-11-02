@@ -16,25 +16,21 @@ import static spark.Spark.halt;
  *
  * Author: TeamD
  */
-public class GetGameRoute implements Route{
+public class GetGameRoute implements Route {
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
     private final GameCenter gameCenter;
 
     static final String VIEW_NAME = "game.ftl";
 
-    private static final Logger LOG = Logger.getLogger( GetHomeRoute.class.getName() );
+    private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
     /**
      * The constructor for the {@code Get /game} route handler.
      *
-     * @param playerLobby
-     *    {@Link playerLobby} CHANGE ME!!!
-     * @param templateEngine
-     *    template engine to use for rendering HTML page
-     *
-     * @throws NullPointerException
-     *    when the {@code gameCenter} or {@code templateEngine} parameter is null
+     * @param playerLobby    {@Link playerLobby} CHANGE ME!!!
+     * @param templateEngine template engine to use for rendering HTML page
+     * @throws NullPointerException when the {@code gameCenter} or {@code templateEngine} parameter is null
      */
     public GetGameRoute(GameCenter gameCenter, PlayerLobby playerLobby, TemplateEngine templateEngine) {
         // validation
@@ -64,7 +60,7 @@ public class GetGameRoute implements Route{
         String currentPlayerName = session.attribute("name");
         Player player = playerLobby.getPlayerObject(currentPlayerName);
 
-        if(player == null){
+        if (player == null) {
             response.redirect(WebServer.SIGNIN_URL);
             return null;
         }
@@ -72,7 +68,7 @@ public class GetGameRoute implements Route{
         /*
          *Checks if current player isn't apart of a game with a board that's been initialized
          */
-        if( !player.isInGame() ) {
+        if (!player.isInGame()) {
 
             String opponentPlayerName = request.queryParams("name");
             Player opponent = playerLobby.getPlayerObject(opponentPlayerName);
@@ -81,7 +77,7 @@ public class GetGameRoute implements Route{
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
-            if(opponent.isInGame()){
+            if (opponent.isInGame()) {
                 //add code about spectator
                 response.redirect(WebServer.HOME_URL);
                 halt();

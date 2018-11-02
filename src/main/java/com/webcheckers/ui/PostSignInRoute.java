@@ -81,7 +81,7 @@ public class PostSignInRoute implements Route {
             session.attribute(PLAYER_NAMES_ATTR, playerLobby.getPlayersNames());
             session.attribute(SESSION_NAME_ATTR, playerName);
 
-            playerLobby.addPlayer(newPlayer, session);
+            playerLobby.addPlayer(newPlayer);
 
             response.redirect(WebServer.HOME_URL);
             halt();

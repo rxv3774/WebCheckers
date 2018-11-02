@@ -1,8 +1,6 @@
 package com.webcheckers.ui;
 
-import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
-import com.webcheckers.appl.Player;
 import com.webcheckers.appl.PlayerLobby;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -55,12 +53,12 @@ class GetHomeRouteTester {
 
         gameCenter = new GameCenter();
         playerLobby = new PlayerLobby();
-        getHomeRoute = new GetHomeRoute(playerLobby, engine);
+        getHomeRoute = new GetHomeRoute(playerLobby, gameCenter, engine);
     }
 
     @Test
     void test_constructor() {
-        new GetHomeRoute(playerLobby, engine);
+        new GetHomeRoute(playerLobby, gameCenter, engine);
     }
 
     @Test

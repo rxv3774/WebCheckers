@@ -1,6 +1,5 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.appl.PlayerLobby;
 import spark.*;
 
 import java.util.HashMap;
@@ -19,8 +18,7 @@ public class GetSignInRoute implements Route {
      * Create the Spark Route (UI controller) for the
      * {@code GET /} HTTP request.
      *
-     * @param templateEngine
-     *   the HTML template rendering engine
+     * @param templateEngine the HTML template rendering engine
      */
     public GetSignInRoute(final TemplateEngine templateEngine) {
         // validation
@@ -35,24 +33,15 @@ public class GetSignInRoute implements Route {
     /**
      * Render the WebCheckers SignIn page.
      *
-     * @param request
-     *   the HTTP request
-     * @param response
-     *   the HTTP response
-     *
-     * @return
-     *   the rendered HTML for the Home page
+     * @param request  the HTTP request
+     * @param response the HTTP response
+     * @return the rendered HTML for the Home page
      */
     @Override
     public Object handle(Request request, Response response) {
-        final Session session = request.session();
-        final PlayerLobby playerLobby = session.attribute(PLAYER_LOBBY_KEY);
-
-        //TODO - Get player name from sign-in page and add to playerLobby
-
         LOG.finer("GetSignInRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Sign-In");
-        return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
+        return templateEngine.render(new ModelAndView(vm, "signin.ftl"));
     }
 }

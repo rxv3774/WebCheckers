@@ -41,19 +41,34 @@ public class GameCenter {
 
     /**
      * Running game.
+     *
      * @param match the match
      * @return true if game is running
      */
-    public boolean runningMatches(Match match){
+    public boolean runningMatches(Match match) {
         return matches.contains(match);
     }
 
     /**
      * End the game.
+     *
      * @param match the match
      */
-    public void endGame(Match match){
+    public void endGame(Match match) {
         match.close();
         matches.remove(match);
+    }
+
+    /*
+     * If the player is already in a match
+     *
+     * @Param player: player object in question
+     * @return boolean if the player is in a match already
+     */
+    public boolean containsPlayer(Player player) {
+        for (Match match : matches) {
+            if (match.getRedPlayer().equals(player) || match.getWhitePlayer().equals(player)) return true;
+        }
+        return false;
     }
 }

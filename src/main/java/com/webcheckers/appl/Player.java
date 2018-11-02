@@ -1,6 +1,6 @@
 package com.webcheckers.appl;
 
-public class Player implements Comparable{
+public class Player implements Comparable {
 
     /**
      * The players username.
@@ -10,6 +10,7 @@ public class Player implements Comparable{
 
     /**
      * Player constructor
+     *
      * @param name
      */
     public Player(String name) {
@@ -19,11 +20,12 @@ public class Player implements Comparable{
 
     /**
      * Play game boolean.
+     *
      * @param match the match
      * @return true if the player was able to join the match.
      */
-    public boolean playGame(Match match){
-        if(this.match == null) {
+    public boolean playGame(Match match) {
+        if (this.match == null) {
             this.match = match;
             return true;
         }
@@ -32,6 +34,7 @@ public class Player implements Comparable{
 
     /**
      * if the player is in a game return true.
+     *
      * @return true if player is in game
      */
     public boolean isInGame() {
@@ -41,8 +44,8 @@ public class Player implements Comparable{
     /**
      * End game.
      */
-    public void endGame(){
-        if(match != null)
+    public void endGame() {
+        if (match != null)
             this.match.end();
         this.match = null;
     }
@@ -50,13 +53,14 @@ public class Player implements Comparable{
     /**
      * Player objects with the same name
      * are considered equal.
+     *
      * @param obj object ot compare to
      * @return true if Player's have the same name
      */
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) return true;
-        if(!(obj instanceof Player)) return false;
+        if (obj == this) return true;
+        if (!(obj instanceof Player)) return false;
         Player that = (Player) obj;
         return this.name.equals(that.name);
     }
@@ -64,12 +68,13 @@ public class Player implements Comparable{
     /**
      * compares the name to name if other player object
      * else compares the name to the result of to String
+     *
      * @param o - other object
      * @return 0 if player names match
      */
     @Override
     public int compareTo(Object o) {
-        if(o instanceof Player) {
+        if (o instanceof Player) {
             Player that = (Player) o;
             return this.name.compareTo(that.name);
         } else {
@@ -79,19 +84,20 @@ public class Player implements Comparable{
 
     /**
      * Get view mode string.
+     *
      * @return the string
      */
-    public String getViewMode(){
-        if (!match.getWhitePlayer().equals(this) && !match.getRedPlayer().equals(this)){
+    public String getViewMode() {
+        if (!match.getWhitePlayer().equals(this) && !match.getRedPlayer().equals(this)) {
             return "SPECTATOR";
-        }
-        else {
+        } else {
             return "PLAY";
         }
     }
 
     /**
      * Gets the Player's username.
+     *
      * @return Player username.
      */
     public String getName() {
