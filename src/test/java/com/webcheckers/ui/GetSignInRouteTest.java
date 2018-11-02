@@ -22,12 +22,10 @@ class GetSignInRouteTest {
     private static final String VIEW_NAME = "signin.ftl";
 
     private static final String TITLE_ATTR = "title";
-    private static final String PLAYER_LOBBY_KEY = "playerLobby";
 
     private static final String TITLE = "Sign-In";
 
     private GetSignInRoute getSignInRoute;
-    private PlayerLobby playerLobby;
 
     private Request request;
     private Response response;
@@ -46,7 +44,6 @@ class GetSignInRouteTest {
         engine = mock(TemplateEngine.class);
 
         // create a unique getSignInRoute for each test
-        playerLobby = new PlayerLobby();
         getSignInRoute = new GetSignInRoute(engine);
     }
 
@@ -73,8 +70,6 @@ class GetSignInRouteTest {
         testHelper.assertViewModelAttribute(TITLE_ATTR, TITLE);
         //   * test view name
         testHelper.assertViewName(VIEW_NAME);
-        // Verify that the Player Lobby object is stored in the session
-        verify(session).attribute(eq(PLAYER_LOBBY_KEY));
     }
 
 }

@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 public class GetSignInRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
-    private static final String PLAYER_LOBBY_KEY = "playerLobby";
 
     private final TemplateEngine templateEngine;
 
