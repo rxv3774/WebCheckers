@@ -1,6 +1,5 @@
 package com.webcheckers.model;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -16,7 +15,7 @@ public class Row implements Iterable<Space> {
         } else {
             this.index = index;
             this.row = new Space[spaceArraySize];
-            for(int i=0; i<spaceArraySize; i++){
+            for (int i = 0; i < spaceArraySize; i++) {
                 row[i] = new Space(i, index);
             }
         }
@@ -26,25 +25,29 @@ public class Row implements Iterable<Space> {
      * Initialize.
      * Initialize spaces.
      */
-    public void initialize(){
-        for(Space space : row){
+    public void initialize() {
+        for (Space space : row) {
             space.initialize();
         }
     }
 
     /**
      * Get space at col.
+     *
      * @param col the col
      * @return the space
      */
-    public Space getSpace(int col){
+    public Space getSpace(int col) {
         return row[col];
     }
 
-    public int getIndex() { return index; }
+    public int getIndex() {
+        return index;
+    }
 
     /**
      * and iterator so iterable works
+     *
      * @return an Iterator
      */
     @Override
@@ -54,7 +57,7 @@ public class Row implements Iterable<Space> {
         return new Iterator<Space>() {
             @Override
             public boolean hasNext() {
-                if(current < row.length)
+                if (current < row.length)
                     return true;
                 else
                     return false;
@@ -74,15 +77,16 @@ public class Row implements Iterable<Space> {
 
     /**
      * reverse the iterator so that we can display the other side fo the board easily
+     *
      * @return the reversed iterator
      */
     public Iterator<Space> reverseIterator() {
-        current = row.length-1;
+        current = row.length - 1;
 
         return new Iterator<Space>() {
             @Override
             public boolean hasNext() {
-                if(current >= 0)
+                if (current >= 0)
                     return true;
                 else
                     return false;
@@ -102,13 +106,14 @@ public class Row implements Iterable<Space> {
 
     /**
      * Has jumpable piece.
+     *
      * @param color     the color
      * @param gameBoard the game board
      * @return true if the row contains a jumpable piece.
      */
-    public boolean hasJumpablePiece(Piece.Color color, Board gameBoard){
-        for(Space space : row){
-            if(space.pieceColorMatch(color) && space.hasJumpablePiece(gameBoard)){
+    public boolean hasJumpablePiece(Piece.Color color, Board gameBoard) {
+        for (Space space : row) {
+            if (space.pieceColorMatch(color) && space.hasJumpablePiece(gameBoard)) {
                 return true;
             }
         }
@@ -117,6 +122,7 @@ public class Row implements Iterable<Space> {
 
     /**
      * Deep copy row.
+     *
      * @return deepcopy of the row
      */
     public Row deepCopy() {

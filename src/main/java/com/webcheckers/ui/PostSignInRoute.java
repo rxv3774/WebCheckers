@@ -5,12 +5,8 @@ import spark.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.logging.Logger;
-
-import static spark.Spark.halt;
-
 
 
 public class PostSignInRoute implements Route {
@@ -28,20 +24,15 @@ public class PostSignInRoute implements Route {
     public static final String POST_NAME = "/postName";
 
 
-    private static final Logger LOG = Logger.getLogger( GetHomeRoute.class.getName() );
-
+    private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
 
     /**
      * The constructor for the {@code POST /signin} route handler.
      *
-     * @param playerLobby
-     *    {@Link playerLobby} CHANGE ME!!!
-     * @param templateEngine
-     *    template engine to use for rendering HTML page
-     *
-     * @throws NullPointerException
-     *    when the {@code gameCenter} or {@code templateEngine} parameter is null
+     * @param playerLobby    {@Link playerLobby} CHANGE ME!!!
+     * @param templateEngine template engine to use for rendering HTML page
+     * @throws NullPointerException when the {@code gameCenter} or {@code templateEngine} parameter is null
      */
     public PostSignInRoute(PlayerLobby playerLobby, TemplateEngine templateEngine) {
         // validation
@@ -59,7 +50,6 @@ public class PostSignInRoute implements Route {
      * @param request  the HTTP request
      * @param response the HTTP response}
      * @return the rendered HTML for the Home page
-     *
      */
     @Override
     public String handle(Request request, Response response) {
@@ -67,18 +57,18 @@ public class PostSignInRoute implements Route {
 
         // start building the BoardView-Model
         final Map<String, Object> vm = new HashMap<>();
-        vm.put( "title", "Welcome!" );
+        vm.put("title", "Welcome!");
 
-        String playerName = request.queryParams( PLAYER_NAME );
+        String playerName = request.queryParams(PLAYER_NAME);
 
         session.attribute("name", playerName); //add playerName to session
 
-        ModelAndView mv = playerLobby.playerSignInProcess( playerName, response, vm );
+        ModelAndView mv = playerLobby.playerSignInProcess(playerName, response, vm);
 
-        if( mv == null){
+        if (mv == null) {
             return "";
         }
 
-        return templateEngine.render( mv );
+        return templateEngine.render(mv);
     }
 }

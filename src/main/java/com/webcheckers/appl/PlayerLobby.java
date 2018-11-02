@@ -1,6 +1,5 @@
 package com.webcheckers.appl;
 
-import com.webcheckers.model.Player;
 import spark.Session;
 
 import java.util.ArrayList;

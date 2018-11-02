@@ -41,18 +41,20 @@ public class GameCenter {
 
     /**
      * Running game.
+     *
      * @param match the match
      * @return true if game is running
      */
-    public boolean runningMatches(Match match){
+    public boolean runningMatches(Match match) {
         return matches.contains(match);
     }
 
     /**
      * End the game.
+     *
      * @param match the match
      */
-    public void endGame(Match match){
+    public void endGame(Match match) {
         match.close();
         matches.remove(match);
     }

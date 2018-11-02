@@ -2,8 +2,6 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -11,12 +9,11 @@ import spark.*;
 
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.*;
-//import static org.junit.jupiter.api.AssertTrue.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static spark.Spark.halt;
+
+//import static org.junit.jupiter.api.AssertTrue.assertTrue;
 
 /*
  * UI controller to post the game
@@ -29,7 +26,7 @@ import static spark.Spark.halt;
 class GetGameRouteTest {
 
     static final String VIEW_NAME = "game.ftl";
-    private static final Logger LOG = Logger.getLogger( GetHomeRoute.class.getName() );
+    private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
 
     private GetGameRoute getGameRoute;

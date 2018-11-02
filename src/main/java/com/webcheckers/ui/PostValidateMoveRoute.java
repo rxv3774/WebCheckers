@@ -17,9 +17,10 @@ public class PostValidateMoveRoute implements Route {
 
     /**
      * Initializes post validate move Route
+     *
      * @param gson
      */
-    public PostValidateMoveRoute(Gson gson){
+    public PostValidateMoveRoute(Gson gson) {
 
         this.gson = gson;
 
@@ -28,42 +29,43 @@ public class PostValidateMoveRoute implements Route {
 
     /**
      * this is to get around gson not being mockable
+     *
      * @param json - json to turn into move
      * @return Move generate from json
      */
-    protected Move moveFromJson(String json){
-        return gson.fromJson(json ,Move.class);
+    protected Move moveFromJson(String json) {
+        return gson.fromJson(json, Move.class);
     }
 
     @Override
-    public Object handle(Request request, Response response){
+    public Object handle(Request request, Response response) {
         LOG.finer("PostValidateMoveRoute is invoked.");
 
         final Session session = request.session();
         Player player = session.attribute("name");
 
-        if(player != null){
+        if (player != null) {
             Match match = player.getMatch();
 
-            if(match == null){
+            if (match == null) {
                 return Message.ERR_NO_OPPONENT;
             }
 
             Move move = moveFromJson(request.body());
             move.connectToBoard(match.getBoard());
 
-            if(match.isJumpAvailible()){
-                if(!move.isJump()){
+            if (match.isJumpAvailible()) {
+                if (!move.isJump()) {
                     return Message.ERR_INVALID_MOVE;
                 }
             }
-            if(match.hasPendingMove()){
-                if(match.validateMoveOnChain(move)){
+            if (match.hasPendingMove()) {
+                if (match.validateMoveOnChain(move)) {
                     match.addPendingMove(move);
                     return Message.VALID_MOVE;
                 }
                 return Message.ERR_INVALID_MOVE;
-            }else if(move.isValid()){
+            } else if (move.isValid()) {
                 match.addPendingMove(move);
                 return Message.VALID_MOVE;
             } else {

@@ -1,36 +1,35 @@
 package com.webcheckers.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Board implements Iterable<Row>{
+public class Board implements Iterable<Row> {
     private Row board[];
     private int current;
 
     private int rowArraySize = 8;
     private int Init_Rows = 3;
 
-    public Board(){
+    public Board() {
         this.board = new Row[rowArraySize];
-        for(int i=0; i<rowArraySize; i++){
+        for (int i = 0; i < rowArraySize; i++) {
             board[i] = new Row(i);
         }
     }
 
     /**
      * Initialize the game.
+     *
      * @param color the color to initilize the pieces for
      */
-    public void initialize(Piece.Color color){
-        if(color == Piece.Color.RED){
-            for(int i = 0; i <= Init_Rows; i++){
+    public void initialize(Piece.Color color) {
+        if (color == Piece.Color.RED) {
+            for (int i = 0; i <= Init_Rows; i++) {
                 board[i].initialize();
             }
         }
-        if(color == Piece.Color.WHITE){
-            for(int i = rowArraySize - 1; i >= rowArraySize-Init_Rows; i--){
+        if (color == Piece.Color.WHITE) {
+            for (int i = rowArraySize - 1; i >= rowArraySize - Init_Rows; i--) {
                 board[i].initialize();
             }
         }
@@ -38,6 +37,7 @@ public class Board implements Iterable<Row>{
 
     /**
      * and iterator so iterable works
+     *
      * @return an Iterator
      */
     @Override
@@ -47,7 +47,7 @@ public class Board implements Iterable<Row>{
         return new Iterator<Row>() {
             @Override
             public boolean hasNext() {
-                if(current < board.length)
+                if (current < board.length)
                     return true;
                 else
                     return false;
@@ -67,15 +67,16 @@ public class Board implements Iterable<Row>{
 
     /**
      * reverse the iterator so that we can display the other side fo the board easily
+     *
      * @return the reversed iterator
      */
     public Iterator<Row> reverseIterator() {
-        current = board.length-1;
+        current = board.length - 1;
 
         return new Iterator<Row>() {
             @Override
             public boolean hasNext() {
-                if(current >= 0)
+                if (current >= 0)
                     return true;
                 else
                     return false;
@@ -95,12 +96,13 @@ public class Board implements Iterable<Row>{
 
     /**
      * Get space at row, col.
+     *
      * @param row the row
      * @param col the col
      * @return the space
      */
-    public Space getSpace(int row, int col){
-        if(row < 0 || row >= rowArraySize || col < 0 || col >= rowArraySize){
+    public Space getSpace(int row, int col) {
+        if (row < 0 || row >= rowArraySize || col < 0 || col >= rowArraySize) {
             return null;
         }
         return board[row].getSpace(col);
@@ -108,12 +110,13 @@ public class Board implements Iterable<Row>{
 
     /**
      * Is jump availible.
+     *
      * @param color the color
      * @return true if color player has a jump availible
      */
-    public boolean isJumpAvailible(Piece.Color color){
-        for(Row row : board){
-            if(row.hasJumpablePiece(color, this)){
+    public boolean isJumpAvailible(Piece.Color color) {
+        for (Row row : board) {
+            if (row.hasJumpablePiece(color, this)) {
                 return true;
             }
         }
@@ -122,9 +125,10 @@ public class Board implements Iterable<Row>{
 
     /**
      * Deep copy game board.
+     *
      * @return a deep copy of the game board
      */
-    public Board deepCopy(){
+    public Board deepCopy() {
         Board cp = new Board();
         for (int i = 0; i < board.length; i++) {
             cp.board[i] = board[i].deepCopy();
