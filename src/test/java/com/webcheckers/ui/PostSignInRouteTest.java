@@ -40,7 +40,6 @@ public class PostSignInRouteTest {
         engine = mock(TemplateEngine.class);
         response = mock(Response.class);
         playerLobby = new PlayerLobby();
-
         CuT = new PostSignInRoute(playerLobby, engine);
     }
 
