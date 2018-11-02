@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /*
  * Signs in and stores all users and their sessions.
  */
@@ -17,13 +16,6 @@ public class PlayerLobby {
      */
     private ArrayList<Player> players = new ArrayList<>();
     private Map<String, Session> sessionMap = new HashMap<>();
-
-
-    private static final String MESSAGE_ATTR = "message";
-    private static final String MESSAGE_TYPE_ATTR = "messageType";
-    private static final String VIEW_NAME = "signin.ftl";
-    private static final String HOME_NAME = "home.ftl";
-
 
     /**
      * Attempts to add a player to the array of players. Only works if new username is not already taken.
@@ -40,9 +32,8 @@ public class PlayerLobby {
         sessionMap.put(player.getName(), session);
     }
 
-
     /**
-     * Desc: This method determines if the playerName fallows our naming convention.
+     * Determines if the playerName fallows our naming convention.
      *
      * @param name the name that needs to be checked
      * @return true if it fallows our rules, false otherwise
@@ -75,18 +66,6 @@ public class PlayerLobby {
         return false;
     }
 
-
-    /**
-     * Prints out the list of all the players in the lobby.
-     *
-     * @return List of players.
-     */
-    //TODO - Fix so that it prints to the to the website, not the console.
-    public ArrayList<Player> printPlayers() {
-        return players;
-    }
-
-
     public ArrayList<String> getPlayersNames() {
         ArrayList<String> names = new ArrayList<>();
 
@@ -98,19 +77,19 @@ public class PlayerLobby {
     }
 
     /*
-     * return player object given name of player
+     * Gets player object given name of player
      */
     public Player getPlayerObject(String name) {
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).getName().equals(name))
-                return players.get(i);
+        for (Player player : players) {
+            if (player.getName().equals(name))
+                return player;
         }
         return null;
     }
 
 
     /**
-     * Desc: Gets the number of players in the lobby.
+     * Gets the number of players in the lobby.
      *
      * @return Size of lobby.
      */
@@ -118,19 +97,7 @@ public class PlayerLobby {
         return players.size();
     }
 
-    /**
-     * Desc: gets the players session
-     *
-     * @param playerName the players name to be used to get the session
-     * @return returns the players session
-     */
-    public Session getPlayerSession(String playerName) {
-        return sessionMap.get(playerName);
-    }
-
     public String getPlayerNameLst(String name) {
-
-
         ArrayList<String> playerNameLst = new ArrayList<>(getPlayersNames());
         playerNameLst.remove(name);
 

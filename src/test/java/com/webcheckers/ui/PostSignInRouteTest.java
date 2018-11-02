@@ -1,6 +1,5 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,11 +10,9 @@ import spark.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("UI-tier")
 public class PostSignInRouteTest {
-
     private PostSignInRoute CuT;
 
     private PlayerLobby playerLobby;
@@ -25,9 +22,6 @@ public class PostSignInRouteTest {
     private Session session;
     private Response response;
     private TemplateEngine engine;
-    private GameCenter gameCenter;
-
-    private Player playerMock;
 
     @BeforeEach
     public void setup() {
@@ -40,21 +34,18 @@ public class PostSignInRouteTest {
         playerLobbyMock = mock(PlayerLobby.class);
         playerLobby = new PlayerLobby();
 
-
         CuT = new PostSignInRoute(playerLobby, engine);
     }
 
     @Test
     public void valid_username() {
-
-
         when(request.queryParams(any(String.class))).thenReturn("Ryan");
         playerLobbyMock.addPlayer(new Player("Ryan"));
 
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
-         CuT.handle(request, response);
+        CuT.handle(request, response);
 
         //Analyze the results
         //  * model is a non-null Map
@@ -68,7 +59,6 @@ public class PostSignInRouteTest {
 
     @Test
     public void invalid_username_emptySpaces() {
-
         when(request.queryParams(any(String.class))).thenReturn("");
         playerLobbyMock.addPlayer(new Player(""));
 
@@ -85,12 +75,10 @@ public class PostSignInRouteTest {
         //Username can not be empty, error message must be present.
         testHelper.assertViewModelAttribute("showErrorMessage",
                 "you entered illegal characters in the name. Please enter a different name");
-
     }
 
     @Test
     public void invalid_username_specialCharacters() {
-
         when(request.queryParams(any(String.class))).thenReturn("@#$");
         playerLobbyMock.addPlayer(new Player("@#$"));
 
@@ -111,7 +99,6 @@ public class PostSignInRouteTest {
 
     @Test
     public void invalid_username_repeatingName() {
-
         when(request.queryParams(any(String.class))).thenReturn("Ryan");
         playerLobbyMock.addPlayer(new Player("Ryan"));
         playerLobbyMock.addPlayer(new Player("Ryan"));
@@ -130,6 +117,5 @@ public class PostSignInRouteTest {
         // error message must be present.
         testHelper.assertViewModelAttribute("showErrorMessage",
                 "you entered an already used name. Please enter a different name");
-
     }
 }
