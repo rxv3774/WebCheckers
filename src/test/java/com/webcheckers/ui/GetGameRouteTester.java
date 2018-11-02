@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 
 @Tag("UItier")
-class GetGameRouteTest {
+class GetGameRouteTester {
 
     static final String VIEW_NAME = "game.ftl";
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());

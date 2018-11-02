@@ -1,4 +1,4 @@
-package com.webcheckers.appl;
+package com.webcheckers.model;
 
 /*
  * Object for the data of the match between two players
@@ -6,9 +6,6 @@ package com.webcheckers.appl;
  * Author: TeamD
  */
 
-import com.webcheckers.appl.Match;
-import com.webcheckers.appl.Player;
-import com.webcheckers.model.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -20,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @Tag("Model-tier")
-public class MatchTest {
+public class MatchTester {
 
     private Player redPlayer;
     private Player whitePlayer;

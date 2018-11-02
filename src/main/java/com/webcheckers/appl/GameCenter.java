@@ -1,5 +1,8 @@
 package com.webcheckers.appl;
 
+import com.webcheckers.model.Match;
+import com.webcheckers.model.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;

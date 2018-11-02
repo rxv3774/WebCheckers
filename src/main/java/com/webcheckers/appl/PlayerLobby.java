@@ -1,5 +1,7 @@
 package com.webcheckers.appl;
 
+import com.webcheckers.model.Player;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -20,7 +22,6 @@ public class PlayerLobby {
     public void addPlayer(Player player) throws NullPointerException {
         Objects.requireNonNull(player);
         players.add(player);
-//            System.out.println( player.getName() + " has been added" ); // Print to website, not console
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.appl.Player;
+import com.webcheckers.model.Player;
 import com.webcheckers.appl.PlayerLobby;
 import spark.*;
 
@@ -64,8 +64,6 @@ public class PostSignInRoute implements Route {
         final String playerName = request.queryParams(PLAYER_NAME_ATTR);
 
         vm.put(TITLE_ATTR, TITLE);
-//        vm.put("title", "Welcome!");
-//        vm.put( "showErrorMessage", "bad" );
 
         // Check name validity
         if (!playerLobby.isValidName(playerName)) {

@@ -1,8 +1,8 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
-import com.webcheckers.appl.Match;
-import com.webcheckers.appl.Player;
+import com.webcheckers.model.Match;
+import com.webcheckers.model.Player;
 import com.webcheckers.appl.PlayerLobby;
 import spark.*;
 

@@ -1,6 +1,6 @@
 package com.webcheckers.ui;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.appl.Player;
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @Tag("UI-tier")
-public class PostSignInRouteTest {
+public class PostSignInRouteTester {
 
     //Error messages given by the view-model.
     private PostSignInRoute CuT;

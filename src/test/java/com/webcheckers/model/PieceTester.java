@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @Tag("Model-tier")
-public class PieceTest {
+public class PieceTester {
 
     // Test piece
     private final Piece piece = new Piece(Type.SINGLE, Color.RED);

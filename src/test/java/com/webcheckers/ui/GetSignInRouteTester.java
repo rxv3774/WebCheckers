@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
  * The unit test suite for the {@link GetSignInRoute} component
  */
 @Tag("UI-tier")
-class GetSignInRouteTest {
+class GetSignInRouteTester {
     private static final String VIEW_NAME = "signin.ftl";
 
     private static final String TITLE_ATTR = "title";
