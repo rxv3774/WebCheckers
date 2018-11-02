@@ -1,10 +1,6 @@
 package com.webcheckers.appl;
 
-import spark.Session;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /*
@@ -61,7 +57,7 @@ public class PlayerLobby {
         return false;
     }
 
-    public ArrayList<String> getPlayersNames() {
+    public ArrayList<String> getPlayersNamesAsArrayList() {
         ArrayList<String> names = new ArrayList<>();
 
         for (Player player : players) {
@@ -82,7 +78,6 @@ public class PlayerLobby {
         return null;
     }
 
-
     /**
      * Gets the number of players in the lobby.
      *
@@ -92,26 +87,26 @@ public class PlayerLobby {
         return players.size();
     }
 
-    public String getPlayerNameLst(String name) {
-        ArrayList<String> playerNameLst = new ArrayList<>(getPlayersNames());
+    public String getPlayerNamesAsString(String name) {
+        ArrayList<String> playerNameLst = new ArrayList<>(getPlayersNamesAsArrayList());
         playerNameLst.remove(name);
 
-        String names = "";
+        StringBuilder names = new StringBuilder();
         if (playerNameLst.size() > 0) {
 
-            names += "Other Players signed in: ";
+            names.append("Other Players signed in: ");
 
             for (int x = 0; x < playerNameLst.size(); x++) {
 
                 if (x < playerNameLst.size() - 1) {
-                    names += playerNameLst.get(x) + ", ";
+                    names.append(playerNameLst.get(x)).append(", ");
                 } else {
-                    names += playerNameLst.get(x);
+                    names.append(playerNameLst.get(x));
                 }
             }
         } else {
-            names = "Number of players signed in: " + getLobbySize();
+            names.append("Number of players signed in: ").append(getLobbySize());
         }
-        return names;
+        return names.toString();
     }
 }

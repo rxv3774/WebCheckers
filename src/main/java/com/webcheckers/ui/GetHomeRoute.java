@@ -79,7 +79,7 @@ public class GetHomeRoute implements Route {
 
             if (currentPlayer != null) {
                 vm.put(WebServer.SIGNEDIN, "The current signed in user is: " + currentPlayer);
-                vm.put(WebServer.PLAYER_LST, playerLobby.getPlayerNameLst(currentPlayer));
+                vm.put(WebServer.PLAYER_LST, playerLobby.getPlayerNamesAsString(currentPlayer));
             } else {
                 vm.put(WebServer.PLAYER_LST, "The number of players signed in is: " + playerLobby.getLobbySize());
             }

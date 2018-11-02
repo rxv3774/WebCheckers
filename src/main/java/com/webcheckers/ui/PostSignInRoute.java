@@ -78,7 +78,7 @@ public class PostSignInRoute implements Route {
         if (!playerLobby.playerNameInUse(playerName)) {
             Player newPlayer = new Player(playerName);
 
-            session.attribute(PLAYER_NAMES_ATTR, playerLobby.getPlayersNames());
+            session.attribute(PLAYER_NAMES_ATTR, playerLobby.getPlayersNamesAsArrayList());
             session.attribute(SESSION_NAME_ATTR, playerName);
 
             playerLobby.addPlayer(newPlayer);
