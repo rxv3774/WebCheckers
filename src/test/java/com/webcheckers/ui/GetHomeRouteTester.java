@@ -102,7 +102,7 @@ class GetHomeRouteTester {
         if (playerLobby.getLobbySize() > 0) {
             tester.assertViewModelAttribute(SIGNED_IN_ATTR, true);
             tester.assertViewModelAttribute(PLAYER_LIST_ATTR, playerLobby
-                    .getPlayersNames()
+                    .getPlayersNamesAsArrayList()
                     .remove(session.attribute(NAME_ATTR))
             );
         }

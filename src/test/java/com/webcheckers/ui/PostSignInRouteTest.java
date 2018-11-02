@@ -63,7 +63,7 @@ public class PostSignInRouteTest {
         testHelper.assertViewModelIsaMap();
 
         //Player name should be valid, so the player should be added into the playerLobby.
-        assertTrue(playerLobby.getPlayersNames().contains("Ryan"));
+        assertTrue(playerLobby.getPlayersNamesAsArrayList().contains("Ryan"));
     }
 
     /**

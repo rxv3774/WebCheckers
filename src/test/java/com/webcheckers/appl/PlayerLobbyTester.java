@@ -44,7 +44,7 @@ public class PlayerLobbyTester {
 
     @Test
     void test_addPlayer() {
-
+        assertThrows(NullPointerException.class, () -> playerLobby.addPlayer(null));
     }
 
     @Test
@@ -54,27 +54,57 @@ public class PlayerLobbyTester {
         assertFalse(playerLobby.isValidName(NULL_NAME));
     }
 
+    @Test
+    void test_playerNameInUse() {
+        playerLobby.addPlayer(new Player(VALID_NAME));
+        assertTrue(playerLobby.playerNameInUse(VALID_NAME));
+    }
 
     @Test
-    public void addPlayerAddsPlayer(){
+    void test_getPlayerObject() {
+        assertSame(null, playerLobby.getPlayerObject(VALID_NAME));
+
+        Player validPlayer = new Player(VALID_NAME);
+        playerLobby.addPlayer(validPlayer);
+        assertSame(validPlayer, playerLobby.getPlayerObject(VALID_NAME));
+    }
+
+    @Test
+    void test_getLobbySize() {
+        playerLobby.addPlayer(new Player(VALID_NAME));
+        assertSame(1, playerLobby.getLobbySize());
+    }
+
+    @Test
+    void test_getPlayerNamesAsArrayList() {
+
+    }
+
+    @Test
+    void test_getPlayerNamesAsList() {
+
+    }
+
+    @Test
+    public void addPlayerAddsPlayer() {
         final String NAME = "Kevin";
 
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME );
-        playerLobby.addPlayer( new Player( NAME ) );
+        when(request.queryParams(any(String.class))).thenReturn(NAME);
+        playerLobby.addPlayer(new Player(NAME));
 
-        assertTrue( playerLobby.getLobbySize() == 1);
+        assertEquals(1, playerLobby.getLobbySize());
 
         final String NAME2 = "Chad";
 
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME2 );
-        playerLobby.addPlayer( new Player( NAME2 ) );
+        when(request.queryParams(any(String.class))).thenReturn(NAME2);
+        playerLobby.addPlayer(new Player(NAME2));
 
         assertEquals(2, playerLobby.getLobbySize());
 
     }
 
     @Test
-    public void isValidWorks(){
+    public void isValidWorks() {
 
         final String NAME0 = "";
         final String NAME1 = ")(*&^%$#@#!";
@@ -82,109 +112,109 @@ public class PlayerLobbyTester {
         final String NAME3 = "123";
 
         //test1
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME0 );
-        playerLobby.addPlayer( new Player( NAME0 ) );
+        when(request.queryParams(any(String.class))).thenReturn(NAME0);
+        playerLobby.addPlayer(new Player(NAME0));
 
-        assertEquals( 0, playerLobby.getLobbySize() );
+        assertEquals(0, playerLobby.getLobbySize());
 
         //test2
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME1 );
-        playerLobby.addPlayer( new Player( NAME1 ) );
+        when(request.queryParams(any(String.class))).thenReturn(NAME1);
+        playerLobby.addPlayer(new Player(NAME1));
 
-        assertEquals( 0, playerLobby.getLobbySize() );
-
-        //test3
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME2 );
-        playerLobby.addPlayer( new Player( NAME2 ) );
-
-        assertEquals( 1, playerLobby.getLobbySize() );
+        assertEquals(0, playerLobby.getLobbySize());
 
         //test3
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME3 );
-        playerLobby.addPlayer( new Player( NAME3 ) );
+        when(request.queryParams(any(String.class))).thenReturn(NAME2);
+        playerLobby.addPlayer(new Player(NAME2));
 
-        assertEquals( 2, playerLobby.getLobbySize() );
+        assertEquals(1, playerLobby.getLobbySize());
+
+        //test3
+        when(request.queryParams(any(String.class))).thenReturn(NAME3);
+        playerLobby.addPlayer(new Player(NAME3));
+
+        assertEquals(2, playerLobby.getLobbySize());
 
     }
 
     @Test
-    public void playerNameInUseWorks(){
+    public void playerNameInUseWorks() {
         final String NAME0 = "Kevin";
         final String NAME1 = "123";
 
 
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME0 );
-        playerLobby.addPlayer( new Player( NAME0 ) );
+        when(request.queryParams(any(String.class))).thenReturn(NAME0);
+        playerLobby.addPlayer(new Player(NAME0));
 
         //test1
-        assertEquals( true, playerLobby.playerNameInUse( NAME0 ) );
+        assertEquals(true, playerLobby.playerNameInUse(NAME0));
 
         //test2
-        assertEquals( false, playerLobby.playerNameInUse( NAME1 ) );
+        assertEquals(false, playerLobby.playerNameInUse(NAME1));
     }
 
     @Test
-    public void getPlayerNamesWorks(){
+    public void getPlayerNamesWorks() {
 
         final String NAME0 = "Kevin";
         final String NAME1 = "123";
 
         ArrayList<String> arr = new ArrayList<>();
 
-        arr.add( NAME0 );
-        arr.add( NAME1 );
+        arr.add(NAME0);
+        arr.add(NAME1);
 
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME0 );
-        playerLobby.addPlayer( new Player( NAME0 ) );
+        when(request.queryParams(any(String.class))).thenReturn(NAME0);
+        playerLobby.addPlayer(new Player(NAME0));
 
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME1 );
-        playerLobby.addPlayer( new Player( NAME1 ) );
+        when(request.queryParams(any(String.class))).thenReturn(NAME1);
+        playerLobby.addPlayer(new Player(NAME1));
 
         //Test1
-        assertNotNull( playerLobby.getPlayersNames() );
+        assertNotNull(playerLobby.getPlayersNamesAsArrayList());
 
         //Test2
-        assertEquals( arr, playerLobby.getPlayersNames() );
+        assertEquals(arr, playerLobby.getPlayersNamesAsArrayList());
     }
 
     @Test
-    public void getPlayerObjectWorks(){
+    public void getPlayerObjectWorks() {
 
-        final String [] arr = {"Kevin", "123", "456", "789", "Brad"};
+        final String[] arr = {"Kevin", "123", "456", "789", "Brad"};
 
-        for( String name : arr){
-            when( request.queryParams(any(String.class) ) ).thenReturn( name );
-            playerLobby.addPlayer( new Player( name ) );
+        for (String name : arr) {
+            when(request.queryParams(any(String.class))).thenReturn(name);
+            playerLobby.addPlayer(new Player(name));
         }
 
         //Test1
-        assertNotNull( playerLobby.getPlayerObject( arr[0] ) );
+        assertNotNull(playerLobby.getPlayerObject(arr[0]));
 
         //Test2
-        assertEquals( new Player( arr[0] ), playerLobby.getPlayerObject( arr[0] ) );
+        assertEquals(new Player(arr[0]), playerLobby.getPlayerObject(arr[0]));
     }
 
     @Test
-    public void getLobbySizeWorks(){
-        final String [] arr = {"Kevin", "123", "456", "789", "Brad"};
+    public void getLobbySizeWorks() {
+        final String[] arr = {"Kevin", "123", "456", "789", "Brad"};
 
-        for( String name : arr){
-            when( request.queryParams(any(String.class) ) ).thenReturn( name );
-            playerLobby.addPlayer( new Player( name ) );
+        for (String name : arr) {
+            when(request.queryParams(any(String.class))).thenReturn(name);
+            playerLobby.addPlayer(new Player(name));
         }
 
-        assertEquals( arr.length, playerLobby.getLobbySize() );
+        assertEquals(arr.length, playerLobby.getLobbySize());
     }
 
 
     @Test
-    public void getPlayerNamelstNotNull(){
+    public void getPlayerNameListNotNull() {
         final String NAME = "Kevin";
 
-        when( request.queryParams(any(String.class) ) ).thenReturn( NAME );
-        playerLobby.addPlayer( new Player( NAME ) );
+        when(request.queryParams(any(String.class))).thenReturn(NAME);
+        playerLobby.addPlayer(new Player(NAME));
 
 
-        assertNotNull( playerLobby.getPlayerNameLst( NAME ) );
+        assertNotNull(playerLobby.getPlayerNamesAsString(NAME));
     }
 }
