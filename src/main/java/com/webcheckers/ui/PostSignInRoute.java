@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.Player;
 import com.webcheckers.appl.PlayerLobby;
 import spark.*;
 
@@ -8,23 +9,28 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import static spark.Spark.halt;
+
 
 public class PostSignInRoute implements Route {
-
     //
     // Attributes
     //
+    private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
+
+    private static final String SESSION_NAME_ATTR = "name";
+    private static final String PLAYER_NAMES_ATTR = "playerNames";
+    private final static String PLAYER_NAME_ATTR = "playerName";
+    private static final String TITLE_ATTR = "title";
+    private static final String MESSAGE_TYPE_ATTR = "messageType";
+    private static final String ERROR_MESSAGE_ATTR = "showErrorMessage";
+
+    private static final String TITLE = "Sign-In";
+    private static final String ERROR = "error";
+    private static final String VIEW_NAME = "signin.ftl";
+
     private final PlayerLobby playerLobby;
     private final TemplateEngine templateEngine;
-
-    private final static String PLAYER_NAME = "playerName";
-
-    public static final String HOME_URL = "/";
-    public static final String SIGNIN_URL = "/signIn";
-    public static final String POST_NAME = "/postName";
-
-
-    private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
 
     /**
@@ -34,7 +40,7 @@ public class PostSignInRoute implements Route {
      * @param templateEngine template engine to use for rendering HTML page
      * @throws NullPointerException when the {@code gameCenter} or {@code templateEngine} parameter is null
      */
-    public PostSignInRoute(PlayerLobby playerLobby, TemplateEngine templateEngine) {
+    PostSignInRoute(PlayerLobby playerLobby, TemplateEngine templateEngine) {
         // validation
         Objects.requireNonNull(playerLobby, "playerLobby must not be null");
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
@@ -54,21 +60,36 @@ public class PostSignInRoute implements Route {
     @Override
     public String handle(Request request, Response response) {
         final Session session = request.session();
-
-        // start building the BoardView-Model
         final Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Welcome!");
+        final String playerName = request.queryParams(PLAYER_NAME_ATTR);
 
-        String playerName = request.queryParams(PLAYER_NAME);
+        vm.put(TITLE_ATTR, TITLE);
+//        vm.put("title", "Welcome!");
+//        vm.put( "showErrorMessage", "bad" );
 
-        session.attribute("name", playerName); //add playerName to session
-
-        ModelAndView mv = playerLobby.playerSignInProcess(playerName, response, vm);
-
-        if (mv == null) {
-            return "";
+        // Check name validity
+        if (!playerLobby.isValidName(playerName)) {
+            vm.put(MESSAGE_TYPE_ATTR, ERROR);
+            vm.put(ERROR_MESSAGE_ATTR, "The name you entered contains illegal characters.");
+            return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
         }
 
-        return templateEngine.render(mv);
+        // Checks if name is in use
+        if (!playerLobby.playerNameInUse(playerName)) {
+            Player newPlayer = new Player(playerName);
+
+            session.attribute(PLAYER_NAMES_ATTR, playerLobby.getPlayersNames());
+            session.attribute(SESSION_NAME_ATTR, playerName);
+
+            playerLobby.addPlayer(newPlayer, session);
+
+            response.redirect(WebServer.HOME_URL);
+            halt();
+            return null;
+        } else {
+            vm.put(MESSAGE_TYPE_ATTR, ERROR);
+            vm.put(ERROR_MESSAGE_ATTR, "That name is already in use");
+            return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
+        }
     }
 }
