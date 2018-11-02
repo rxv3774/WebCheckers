@@ -1,13 +1,11 @@
 package com.webcheckers.appl;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.Request;
 import spark.Response;
 import spark.Session;
-import spark.TemplateEngine;
 
 import java.util.ArrayList;
 
@@ -42,6 +40,18 @@ public class PlayerLobbyTester {
         when(request.session()).thenReturn(session);
 //        engine = mock(TemplateEngine.class);
         response = mock(Response.class);
+    }
+
+    @Test
+    void test_addPlayer() {
+
+    }
+
+    @Test
+    void test_isValidName() {
+        assertTrue(playerLobby.isValidName(VALID_NAME));
+        assertFalse(playerLobby.isValidName(INVALID_NAME));
+        assertFalse(playerLobby.isValidName(NULL_NAME));
     }
 
 

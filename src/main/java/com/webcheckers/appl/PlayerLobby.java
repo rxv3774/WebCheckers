@@ -5,6 +5,7 @@ import spark.Session;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /*
  * Signs in and stores all users and their sessions.
@@ -14,21 +15,16 @@ public class PlayerLobby {
      * Array of all the players in the current lobby.
      */
     private ArrayList<Player> players = new ArrayList<>();
-    private Map<String, Session> sessionMap = new HashMap<>();
 
     /**
      * Attempts to add a player to the array of players. Only works if new username is not already taken.
      *
      * @param player The new player that is being added.
      */
-    public void addPlayer(Player player) {
+    public void addPlayer(Player player) throws NullPointerException {
+        Objects.requireNonNull(player);
         players.add(player);
 //            System.out.println( player.getName() + " has been added" ); // Print to website, not console
-    }
-
-    public void addPlayer(Player player, Session session) {
-        players.add(player);
-        sessionMap.put(player.getName(), session);
     }
 
     /**
