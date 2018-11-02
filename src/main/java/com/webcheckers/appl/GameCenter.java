@@ -58,4 +58,17 @@ public class GameCenter {
         match.close();
         matches.remove(match);
     }
+
+    /*
+     * If the player is already in a match
+     *
+     * @Param player: player object in question
+     * @return boolean if the player is in a match already
+     */
+    public boolean containsPlayer(Player player) {
+        for (Match match : matches) {
+            if (match.getRedPlayer().equals(player) || match.getWhitePlayer().equals(player)) return true;
+        }
+        return false;
+    }
 }
