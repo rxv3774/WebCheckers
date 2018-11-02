@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 
 @Tag("UItier")
-class GetGameRouteTester {
+class GetGameRouteTest {
 
     static final String VIEW_NAME = "game.ftl";
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
@@ -61,7 +61,7 @@ class GetGameRouteTester {
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
         // that captures the ModelAndView data passed to the template engine
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
 

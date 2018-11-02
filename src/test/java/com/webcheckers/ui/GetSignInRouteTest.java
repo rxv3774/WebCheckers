@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
  * The unit test suite for the {@link GetSignInRoute} component
  */
 @Tag("UI-tier")
-class GetSignInRouteTester {
+class GetSignInRouteTest {
     private static final String VIEW_NAME = "signin.ftl";
 
     private static final String TITLE_ATTR = "title";
@@ -56,7 +56,7 @@ class GetSignInRouteTester {
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
         // that captures the ModelAndView data passed to the template engine
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         // Invoke the test

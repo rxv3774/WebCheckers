@@ -11,7 +11,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @Tag("UI-tier")
-public class PostSignInRouteTester {
+public class PostSignInRouteTest {
 
     //Error messages given by the view-model.
     private PostSignInRoute CuT;
@@ -52,7 +52,7 @@ public class PostSignInRouteTester {
         when(request.queryParams(any(String.class))).thenReturn("Ryan");
         playerLobby.addPlayer(playerMock);
 
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         CuT.handle(request, response);
@@ -75,7 +75,7 @@ public class PostSignInRouteTester {
         when(request.queryParams(any(String.class))).thenReturn("");
         playerLobby.addPlayer(playerMock);
 
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         CuT.handle(request, response);
@@ -98,7 +98,7 @@ public class PostSignInRouteTester {
         when(request.queryParams(any(String.class))).thenReturn("@#$");
         playerLobby.addPlayer(new Player("@#$"));
 
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         CuT.handle(request, response);
@@ -123,7 +123,7 @@ public class PostSignInRouteTester {
         playerLobby.addPlayer(new Player("Ryan"));
         playerLobby.addPlayer(new Player("Ryan"));
 
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         CuT.handle(request, response);

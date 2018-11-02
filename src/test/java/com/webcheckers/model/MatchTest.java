@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @Tag("Model-tier")
-public class MatchTester {
+public class MatchTest {
 
     private Player redPlayer;
     private Player whitePlayer;

@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
  * The unit test suite for the {@link PlayerLobby} component
  */
 @Tag("Application-tier")
-public class PlayerLobbyTester {
+public class PlayerLobbyTest {
     private static final String VALID_NAME = "Test Name";
     private static final String INVALID_NAME = "~~~~";
     private static final String NULL_NAME = "";

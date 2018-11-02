@@ -9,7 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @Tag("MODEL-tier")
-class SpaceTester {
+class SpaceTest {
 
 
     private int cellIndex, rowIndex;

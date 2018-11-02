@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Henry Larson
  */
 @Tag("Model-tier")
-class PlayerTester {
+class PlayerTest {
     private static final String TEST_PLAYER_NAME = "TestPlayer";
 
     /**

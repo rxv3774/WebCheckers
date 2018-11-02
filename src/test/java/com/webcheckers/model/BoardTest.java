@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * The unit test suite for the {@link Board} component
  */
 @Tag("Model-tier")
-class BoardTester {
+class BoardTest {
     private Row board[];
 
     /**
