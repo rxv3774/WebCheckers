@@ -120,9 +120,9 @@ class SpaceTest {
         Space tmpSpace3 = new Space(11,11);
 
         Piece piece0 = new Piece( Piece.Type.SINGLE, Piece.Color.RED );
-        Space tmpSpace4 = new Space( 0,0, piece0);
-        Space tmpSpace5 = new Space( 1,5, piece0);
 
+        Space tmpSpace4 = new Space( 1,0, piece0);
+        Space tmpSpace5 = new Space( 0,5, piece0);
 
 
         //Test1
@@ -140,10 +140,10 @@ class SpaceTest {
         //Test5
         assertFalse( tmpSpace3.isValid() );
 
-        //Test6
+        //Test6 checking for piece not null rowIndex % 2 == 0
         assertFalse( tmpSpace4.isValid() );
 
-        //Test7
+        //Test7 checking for piece not null rowIndex % 2 == 1
         assertFalse( tmpSpace5.isValid() );
     }
 

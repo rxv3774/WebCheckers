@@ -59,17 +59,4 @@ public class Move {
                 this.end.getRowIndex() == move.end.getRowIndex() &&
                 this.end.getCellIndex() == move.end.getCellIndex();
     }
-
-    /**
-     * Checks if this move is the opposite of another move
-     *
-     * @param move - Other move to check with
-     * @return if the moves are opposite
-     */
-    public boolean reverseEquals(Move move) {
-        return this.start.getRowIndex() == move.end.getRowIndex() &&
-                this.start.getCellIndex() == move.end.getCellIndex() &&
-                this.end.getRowIndex() == move.start.getRowIndex() &&
-                this.end.getCellIndex() == move.start.getCellIndex();
-    }
 }
