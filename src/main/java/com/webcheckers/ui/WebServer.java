@@ -64,6 +64,7 @@ public class WebServer {
     public static final String PLAYER_LST = "playerLst";
     public static final String SHOW_BUTTON = "showGameButton";
     public static final String SIGNEDIN = "signedin";
+    public static final String ERROR_MESSAGE = "errorMessage";
 
     //
     // Attributes

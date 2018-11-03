@@ -25,6 +25,7 @@ public class GetHomeRoute implements Route {
     private static final String MESSAGE_TYPE_ATTR = "messageType";
     private static final String PLAYER_LOBBY_ATTR = "playerLobby";
     private static final String NAME_ATTR = "name";
+    private static final String ERROR_ATTR = "errorMessage";
 
     private static final String REDIRECT = "REDIRECT";
     private static final String NO_REDIRECT = "NO REDIRECT";
@@ -83,6 +84,11 @@ public class GetHomeRoute implements Route {
             } else {
                 vm.put(WebServer.PLAYER_LST, "The number of players signed in is: " + playerLobby.getLobbySize());
             }
+
+            String errorMessage = session.attribute(ERROR_ATTR);
+
+            if(errorMessage != null)
+                    vm.put(WebServer.ERROR_MESSAGE, "ERROR: " + errorMessage);
         }
 
         if (playerLobby.getLobbySize() > 1) {

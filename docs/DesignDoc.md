@@ -1,12 +1,7 @@
 ---
 geometry: margin=1in
 ---
-# PROJECT Design Documentation
-
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
+# Web Checkers Design Documentation
 
 ## Team Information
 * Team name: td
@@ -29,7 +24,6 @@ The Web Checkers webapp was created to enhance our knowledge and implementation 
 team-based software development skills, and provide a functional game of online checkers.
 
 ### Glossary and Acronyms
-> _Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
@@ -45,7 +39,7 @@ team-based software development skills, and provide a functional game of online 
 
 
 ### Definition of MVP
-The Minimal Viable Product should allow the user to sign in, play a game of checkers through the American rules, 
+The Minimal Viable Product should allow the user to sign in to a web-based system, play a game of checkers through the American rules, 
 and resign at any point which ends the game.
 
 ### MVP Features
@@ -65,12 +59,9 @@ and resign at any point which ends the game.
 
 
 ### Roadmap of Enhancements
-* Player sign-in
-* Start a game
-* Checker piece movement
-* Resignation
-* Spectator
-* Tournament play
+* Spectator: User can enter a game already in progress and watch, but not play.
+
+* Tournament play: User can choose to play in tournament mode, where a group of players compete in a system of games that ends with one winner. 
 
 
 ## Application Domain

@@ -30,13 +30,17 @@
         <div class="message ${messageType}">${playerLst}</div>
     </#if>
 
-       <#if signedin?? && showGameButton == true>
-           <form action='/game' method='get'>
-               <label for='name'>Name of other player:</label>
-               <input name='name' placeholder='Enter a name' />
-               <button type='submit'>Start a game</button>
-           </form>
-       </#if>
+    <#if errorMessage??>
+        <div class="message ${messageType}">${errorMessage}</div>
+    </#if>
+
+   <#if signedin?? && showGameButton == true>
+       <form action='/game' method='get'>
+           <label for='name'>Name of other player:</label>
+           <input name='name' placeholder='Enter a name' />
+           <button type='submit'>Start a game</button>
+       </form>
+   </#if>
     </div>
   </div>
 </body>

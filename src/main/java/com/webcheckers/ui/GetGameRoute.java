@@ -75,11 +75,13 @@ public class GetGameRoute implements Route {
             Player opponent = playerLobby.getPlayerObject(opponentPlayerName);
 
             if (opponent == null) {
+                request.session().attribute("errorMessage", "Player doesn't exist.");
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
             if (opponent.isInGame()) {
                 //add code about spectator
+                request.session().attribute("errorMessage", "Player is already in a game.");
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
