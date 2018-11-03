@@ -102,7 +102,7 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-:![The WebCheckers Web Interface Statechart](StateChart.png)
+:![The WebCheckers Web Interface Statechart](Statechart.png)
 
 
 From the Perspective of the user, the Application's user interface begins on the home page
