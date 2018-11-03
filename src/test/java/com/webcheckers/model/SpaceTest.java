@@ -1,5 +1,6 @@
 package com.webcheckers.model;
 
+import javafx.scene.input.PickResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,14 @@ class SpaceTest {
 
     @Test
     public void constructorNotNull() {
-        assertNotNull(new Space(cellIndex, rowIndex));
+
+        //Test1
+        assertNotNull( new Space(cellIndex, rowIndex) );
+
+        Piece testPiece = new Piece( Piece.Type.SINGLE, Piece.Color.RED );
+
+        //Test2
+        assertNotNull( new Space(cellIndex, rowIndex, testPiece) );
     }
 
     @Test
@@ -39,6 +47,38 @@ class SpaceTest {
         when(space.getPiece()).thenReturn(piece);
 
         assertNotNull(space.getPiece());
+    }
+
+    @Test
+    public void initializeWorks(){
+        Space testSpace0 = new Space( 1,0);
+        Space testSpace1 = new Space( 0,0);
+
+        Space testSpace2W = new Space( 0,5);
+        Space testSpace3R = new Space( 1,2);
+
+        testSpace0.initialize();
+        testSpace1.initialize();
+        testSpace2W.initialize();
+        testSpace3R.initialize();
+
+        //Test1
+        assertNotNull( testSpace0.getPiece() );
+
+        //Test2
+        assertNull( testSpace1.getPiece() );
+
+        //Test3
+        assertEquals( Piece.Color.WHITE, testSpace2W.getPieceColor() );
+
+        //Test4
+        assertEquals( Piece.Type.SINGLE, testSpace2W.getPiece().getType() );
+
+        //Test5
+        assertEquals( Piece.Color.RED, testSpace3R.getPieceColor() );
+
+        //Test6
+        assertEquals( Piece.Type.SINGLE, testSpace3R.getPiece().getType() );
     }
 
 
@@ -74,11 +114,16 @@ class SpaceTest {
     @Test
     public void isValidTrue() {
 
-//        System.out.println( space.getRowIndex() );
-//        System.out.println( space.getCellIndex() );
-
         Space tmpSpace0 = new Space(0,0);
         Space tmpSpace1 = new Space(0,1);
+        Space tmpSpace2 = new Space(3,2);
+        Space tmpSpace3 = new Space(11,11);
+
+        Piece piece0 = new Piece( Piece.Type.SINGLE, Piece.Color.RED );
+        Space tmpSpace4 = new Space( 0,0, piece0);
+        Space tmpSpace5 = new Space( 1,5, piece0);
+
+
 
         //Test1
         assertNotNull( tmpSpace0.isValid() );
@@ -88,11 +133,25 @@ class SpaceTest {
 
         //Test3
         assertTrue( tmpSpace1.isValid() );
+
+        //Test4
+        assertTrue( tmpSpace2.isValid() );
+
+        //Test5
+        assertFalse( tmpSpace3.isValid() );
+
+        //Test6
+        assertFalse( tmpSpace4.isValid() );
+
+        //Test7
+        assertFalse( tmpSpace5.isValid() );
     }
 
     @Test
     public void isValidTrueNotNull() {
-        assertNotNull(space.isValid());
+        Space testSpace = new Space(1,3);
+
+        assertNotNull( testSpace.isValid() );
     }
 
 
@@ -109,11 +168,14 @@ class SpaceTest {
     }
 
 
-
     @Test
     public void pieceColorMatchWorks(){
         Piece piece = new Piece( Piece.Type.SINGLE, Piece.Color.RED);
         Space tmp = new Space(1,1, piece);
+
+        Piece pieceNull = null;
+        Space tmpSpace1 = new Space(10,10, pieceNull);
+
 
         //Test1
         assertNotNull( tmp.getPiece() );
@@ -123,35 +185,37 @@ class SpaceTest {
 
         //Test3
         assertEquals(false, tmp.pieceColorMatch( Piece.Color.WHITE) );
+
+        assertFalse( tmpSpace1.pieceColorMatch( Piece.Color.RED ) );
     }
 
-    @Test
-    public void getPieceColorWorks(){
-        Piece pieceR = new Piece( Piece.Type.SINGLE, Piece.Color.RED);
-        Piece pieceW = new Piece( Piece.Type.SINGLE, Piece.Color.WHITE);
-        Piece pieceNull = null;
 
-        Space spaceR = new Space(1,1, pieceR );
-        Space spaceW = new Space(1,1, pieceW );
-        Space spaceNull = new Space(1,1, pieceNull );
+    @Test
+    public void deepCopyWorks(){
+        Piece piece = new Piece( Piece.Type.SINGLE, Piece.Color.RED);
+        Space tmp = new Space(1,1, piece);
 
         //Test1
-        assertNotNull( spaceR.getPiece() );
+        assertNotNull( tmp.getPiece() );
 
         //Test2
-        assertEquals( Piece.Color.RED, spaceR.getPieceColor() );
+        assertNotNull( tmp.deepCopy() );
+        Space deepCopy = tmp.deepCopy();
 
         //Test3
-        assertNotEquals( Piece.Color.WHITE, spaceR.getPieceColor() );
+        assertEquals( tmp.getPiece().getColor() , deepCopy.getPiece().getColor() );
 
         //Test4
-        assertEquals( Piece.Color.WHITE, spaceW.getPieceColor() );
+        assertEquals( tmp.getPiece().getType() , deepCopy.getPiece().getType() );
 
         //Test5
-        assertNotEquals( Piece.Color.RED, spaceW.getPieceColor() );
+        assertEquals( tmp.getRowIndex() , deepCopy.getRowIndex() );
 
         //Test6
-        assertNull( spaceNull.getPieceColor() );
+        assertEquals( tmp.getCellIndex() , deepCopy.getCellIndex() );
+
+        //Test7
+        assertEquals( tmp.getPieceColor() , deepCopy.getPieceColor() );
     }
 
 
@@ -180,6 +244,36 @@ class SpaceTest {
 
         //Test2
         assertEquals( false, spaceNull.hasPiece() );
+    }
+
+
+    @Test
+    public void getPieceColorWorks(){
+        Piece pieceR = new Piece( Piece.Type.SINGLE, Piece.Color.RED);
+        Piece pieceW = new Piece( Piece.Type.SINGLE, Piece.Color.WHITE);
+        Piece pieceNull = null;
+
+        Space spaceR = new Space(1,1, pieceR );
+        Space spaceW = new Space(1,1, pieceW );
+        Space spaceNull = new Space(1,1, pieceNull );
+
+        //Test1
+        assertNotNull( spaceR.getPiece() );
+
+        //Test2
+        assertEquals( Piece.Color.RED, spaceR.getPieceColor() );
+
+        //Test3
+        assertNotEquals( Piece.Color.WHITE, spaceR.getPieceColor() );
+
+        //Test4
+        assertEquals( Piece.Color.WHITE, spaceW.getPieceColor() );
+
+        //Test5
+        assertNotEquals( Piece.Color.RED, spaceW.getPieceColor() );
+
+        //Test6
+        assertNull( spaceNull.getPieceColor() );
     }
 
 

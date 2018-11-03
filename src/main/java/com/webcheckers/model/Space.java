@@ -77,13 +77,13 @@ public class Space {
                 return true;
             else
                 return false;
-        } else if (rowIndex % 2 == 1) {
+        }
+        else{
             if (cellIndex % 2 == 0 && piece == null)
                 return true;
             else
                 return false;
         }
-        return false;
     }
 
     /**
