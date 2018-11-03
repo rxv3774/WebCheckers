@@ -31,17 +31,21 @@ public class Match {
      * @return true if the player could be added, false if not.
      */
     public boolean join(Player player) {
-        if (player.playGame(this)) {
-            if (this.redPlayer == null) {
-                this.redPlayer = player;
-                board.initialize(Piece.Color.RED);
-                return true;
+        if ( player != null ){
+            if(player.playGame(this) ){
+
+                if (this.redPlayer == null) {
+                    this.redPlayer = player;
+                    board.initialize(Piece.Color.RED);
+                    return true;
+                }
+                if (this.whitePlayer == null) {
+                    this.whitePlayer = player;
+                    board.initialize(Piece.Color.WHITE);
+                    return true;
+                }
             }
-            if (this.whitePlayer == null) {
-                this.whitePlayer = player;
-                board.initialize(Piece.Color.WHITE);
-                return true;
-            }
+            return false;
         }
         return false;
     }
@@ -152,5 +156,13 @@ public class Match {
      */
     public boolean isRunning() {
         return running;
+    }
+
+
+    /**
+     * Changes the current player. if it's red, makes it white and vise versa
+     */
+    public void changeActivePlayer(){
+        activePlayer = activePlayer == redPlayer ? whitePlayer : redPlayer;
     }
 }
