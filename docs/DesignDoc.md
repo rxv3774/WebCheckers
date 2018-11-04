@@ -19,8 +19,10 @@ This is a web-based application where players, who are signed in, have the abili
 
 
 ### Purpose
-The Web Checkers webapp was created to enhance our knowledge and implementation of object oriented design principles,
-team-based software development skills, and provide a functional game of online checkers.
+Web Checkers exists to allow users of all skill levels to play a web-based version of checkers. This enables
+individuals to play with others in different locations, instead of limiting them to a face to face board game.
+Whether someone is interested in playing against a friend or even just a player in the lobby they've never met 
+before, Web Checkers offers a fun and challenging way to pass time. 
 
 ### Glossary and Acronyms
 
