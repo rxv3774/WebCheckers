@@ -53,6 +53,110 @@ class PlayerTest {
 
         //Test3 should be false since they aren't in a match
         assertFalse( p3.isInGame() );
+    }
 
+
+    @Test
+    public void playGameWorks(){
+        Match match = new Match();
+        Match nullMatch = null;
+
+        Player p1 = new Player( "Brett" );
+        Player p2 = new Player( "Kevin" );
+
+        match.join( p1 );
+        match.join( p2 );
+
+        //Test1 playGame doesn't return a null
+        assertNotNull( p1.playGame( match ) );
+
+        //Test2 playGame has a valid match so it should return false
+        assertFalse( p1.playGame( match ) );
+
+        //Test3 playGame has a valid match so it should return true
+        assertFalse( p1.playGame( nullMatch ) );
+    }
+
+    @Test
+    public void equalsWorks(){
+        Player p1 = new Player( "Brett" );
+        Player p2 = new Player( "Kevin" );
+        Player p3 = new Player( "Kevin" );
+
+        Board board = new Board();
+
+        //Test1 board is not a player object will fail
+        assertFalse( p1.equals( board ) );
+
+        //Test2 different names will fail
+        assertFalse( p1.equals( p2 ) );
+
+        //Test3 same name so it will be true
+        assertTrue( p2.equals( p3 ) );
+    }
+
+    @Test
+    public void compareToWorks(){
+        Player p1 = new Player( "Brett" );
+        Player p2 = new Player( "Kevin" );
+
+        Board board = new Board();
+
+        assertNotNull( p1.compareTo( board ) );
+        assertNotNull( p1.compareTo( p2 ) );
+    }
+
+
+    @Test
+    public void getViewModeWorks(){
+        Player p1 = new Player( "Brett" );
+        Player p2 = new Player( "Kevin" );
+
+        Player p3 = new Player( "Batman" );
+
+
+        Match match = new Match();
+//        Match match1 = new Match();
+
+        match.join( p1 );
+        match.join( p2 );
+
+        match.start();
+
+        //Test1 doesn't return a null value
+        assertNotNull( p1.getViewMode() );
+
+        //Test2 playerOne is a player
+        assertEquals( "PLAY", p1.getViewMode() );
+
+//        assertEquals( "SPECTATOR", p3.getViewMode());
+
+    }
+
+
+    @Test
+    public void endGameWorks(){
+        Player p1 = new Player( "Brett" );
+        Player p2 = new Player( "Kevin" );
+        Player p3 = new Player( "Batman" );
+
+        Match match = new Match();
+
+        match.join( p1 );
+        match.join( p2 );
+
+        match.start();
+
+        //Test1 p1 does have a match
+        assertNotNull( p1.getMatch() );
+
+        p1.endGame();
+        p3.endGame();
+
+        //Test2 p1 doesn't have a match anymore
+        assertNull( p1.getMatch() );
+
+        //Test3 never had a match so it's still null
+        assertNull( p3.getMatch() );
     }
 }

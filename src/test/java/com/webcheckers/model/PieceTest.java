@@ -42,4 +42,13 @@ public class PieceTest {
     public void test_getType() {
         assertEquals(actualType, piece.getType());
     }
+
+//    @Test
+//    public void directionWorks(){
+//        Piece p1 = new Piece( Type.SINGLE, Color.RED );
+//        Piece p2 = new Piece( Type.SINGLE, Color.WHITE );
+//
+//        assertEquals( 1, p1.d );
+//
+//    }
 }

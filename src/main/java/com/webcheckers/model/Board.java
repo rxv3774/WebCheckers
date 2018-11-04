@@ -109,18 +109,18 @@ public class Board implements Iterable<Row> {
     }
 
 
-    /**
-     * Deep copy game board.
-     *
-     * @return a deep copy of the game board
-     */
-    public Board deepCopy() {
-        Board cp = new Board();
-        for (int i = 0; i < board.length; i++) {
-            cp.board[i] = board[i].deepCopy();
-        }
-        return cp;
-    }
+//    /**
+//     * Deep copy game board.
+//     *
+//     * @return a deep copy of the game board
+//     */
+//    public Board deepCopy() {
+//        Board cp = new Board();
+//        for (int i = 0; i < board.length; i++) {
+//            cp.board[i] = board[i].deepCopy();
+//        }
+//        return cp;
+//    }
 
     public int getRowsSize() {
         return board.length;

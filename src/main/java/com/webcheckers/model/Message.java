@@ -4,9 +4,9 @@ public class Message {
 
     private String text;
 
-    private enum Type {info, error}
+    public enum Type {info, error}
 
-    private Type type;
+    public Type type;
 
     /**
      * The constant ERR_NO_OPPONENT.

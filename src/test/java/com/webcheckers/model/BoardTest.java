@@ -52,4 +52,16 @@ class BoardTest {
         assertNotNull(itr.next());
     }
 
+    @Test
+    public void getSpaceWorks(){
+        Board board = new Board();
+
+        assertNull( board.getSpace( 100, 100) );
+
+        assertNotNull( board.getSpace( 0,0) );
+    }
+
+//    @Test
+//    public void
+
 }
