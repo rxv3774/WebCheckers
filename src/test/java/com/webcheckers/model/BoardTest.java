@@ -56,12 +56,29 @@ class BoardTest {
     public void getSpaceWorks(){
         Board board = new Board();
 
-        assertNull( board.getSpace( 100, 100) );
+        //Test1 row < 0
+        assertNull( board.getSpace( -100, 5) );
+
+        //Test2 row >= rowArraySize
+        assertNull( board.getSpace( 100, 5) );
+
+        //Test3 col < 0
+        assertNull( board.getSpace( 2, -100) );
+
+        //Test4 col >= rowArraySize
+        assertNull( board.getSpace( 2, 100) );
 
         assertNotNull( board.getSpace( 0,0) );
     }
 
-//    @Test
-//    public void
+    @Test
+    public void reverseIteratorWorks(){
+        Board board = new Board();
+
+        //Test1 doesn't return Null
+        assertNotNull( board.reverseIterator() );
+
+        
+    }
 
 }

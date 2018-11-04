@@ -116,7 +116,6 @@ class PlayerTest {
 
 
         Match match = new Match();
-//        Match match1 = new Match();
 
         match.join( p1 );
         match.join( p2 );
@@ -129,7 +128,7 @@ class PlayerTest {
         //Test2 playerOne is a player
         assertEquals( "PLAY", p1.getViewMode() );
 
-//        assertEquals( "SPECTATOR", p3.getViewMode());
+        assertEquals( "SPECTATOR", p3.getViewMode());
 
     }
 

@@ -43,12 +43,19 @@ public class PieceTest {
         assertEquals(actualType, piece.getType());
     }
 
-//    @Test
-//    public void directionWorks(){
-//        Piece p1 = new Piece( Type.SINGLE, Color.RED );
-//        Piece p2 = new Piece( Type.SINGLE, Color.WHITE );
-//
-//        assertEquals( 1, p1.d );
-//
-//    }
+    @Test
+    public void directionWorks(){
+        Piece p1 = new Piece( Type.SINGLE, Color.RED );
+        Piece p2 = new Piece( Type.SINGLE, Color.WHITE );
+
+        //Test1 see if the direction doesn't return a null
+        assertNotNull( p1.direction() );
+
+        //Test2 see if it returns the correct value for red
+        assertEquals( 1, p1.direction() );
+
+        //Test3 see if it returns the correct value for white
+        assertEquals( -1, p2.direction() );
+
+    }
 }

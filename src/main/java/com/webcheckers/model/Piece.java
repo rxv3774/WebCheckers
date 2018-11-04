@@ -22,7 +22,7 @@ public class Piece {
      *
      * @return direction offset
      */
-    private int direction() {
+    public int direction() {
         return color == Color.RED ? 1 : -1;
     }
 

@@ -105,16 +105,16 @@ public class Row implements Iterable<Space> {
     }
 
 
-    /**
-     * Deep copy row.
-     *
-     * @return deepcopy of the row
-     */
-    public Row deepCopy() {
-        Row cp = new Row(this.index);
-        for (int i = 0; i < row.length; i++) {
-            cp.row[i] = row[i].deepCopy();
-        }
-        return cp;
-    }
+//    /**
+//     * Deep copy row.
+//     *
+//     * @return deepcopy of the row
+//     */
+//    public Row deepCopy() {
+//        Row cp = new Row(this.index);
+//        for (int i = 0; i < row.length; i++) {
+//            cp.row[i] = row[i].deepCopy();
+//        }
+//        return cp;
+//    }
 }

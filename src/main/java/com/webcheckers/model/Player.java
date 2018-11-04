@@ -88,7 +88,7 @@ public class Player implements Comparable {
      * @return the string
      */
     public String getViewMode() {
-        if (!match.getWhitePlayer().equals(this) && !match.getRedPlayer().equals(this)) {
+        if ( match == null/*!match.getWhitePlayer().equals(this) && !match.getRedPlayer().equals(this)*/ ) {
             return "SPECTATOR";
         } else {
             return "PLAY";

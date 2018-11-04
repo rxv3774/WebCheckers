@@ -23,6 +23,7 @@ public class PlayerLobbyTest {
     private static final String VALID_NAME = "Test Name";
     private static final String INVALID_NAME = "~~~~";
     private static final String NULL_NAME = "";
+    private static final String NO_EXIST_NAME = "Tarzan";
 
     private PlayerLobby playerLobby;
     private Player validPlayer;
@@ -51,7 +52,8 @@ public class PlayerLobbyTest {
     @Test
     void test_playerNameInUse() {
         playerLobby.addPlayer(validPlayer);
-        assertTrue(playerLobby.playerNameInUse(VALID_NAME));
+        assertTrue(playerLobby.playerNameInUse(VALID_NAME) );
+        assertFalse(playerLobby.playerNameInUse( NO_EXIST_NAME ) );
     }
 
     @Test
