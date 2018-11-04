@@ -62,6 +62,8 @@ public class PlayerLobbyTest {
 
         playerLobby.addPlayer(validPlayer);
         assertSame(validPlayer, playerLobby.getPlayerObject(VALID_NAME));
+
+        assertSame(null, playerLobby.getPlayerObject(NO_EXIST_NAME));
     }
 
     @Test
@@ -83,6 +85,11 @@ public class PlayerLobbyTest {
                 playerLobby.getPlayerNamesAsString(VALID_NAME));
         assertEquals(String.format("Other Players signed in: %s", validPlayer.getName()),
                 playerLobby.getPlayerNamesAsString(INVALID_NAME));
+
+        playerLobby.addPlayer( new Player( NO_EXIST_NAME ) );
+        playerLobby.addPlayer( new Player( "Chad" ) );
+
+        assertEquals( "Other Players signed in: " + validPlayer.getName()+ ", " + "Chad", playerLobby.getPlayerNamesAsString( NO_EXIST_NAME ) );
     }
 
 //    @Test

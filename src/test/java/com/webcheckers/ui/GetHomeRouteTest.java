@@ -124,4 +124,14 @@ class GetHomeRouteTest {
 //        verify(session).attribute(eq(PLAYER_LOBBY_ATTR), any(PlayerLobby.class));
 //        verify(session).attribute(eq(NAME_ATTR), any(String.class));
 //    }
+
+
+
+    @Test
+    public void handleWorks(){
+
+        when( request.session() ).thenReturn( session );
+
+
+    }
 }
