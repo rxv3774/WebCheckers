@@ -13,10 +13,9 @@ geometry: margin=1in
 
 ## Executive Summary
 
-_The application allows players to play checkers with other players who are currently signed-in. The game user 
-interface (UI) supports a game experience using drag-and-drop browser capabilities for making moves. Beyond this 
-minimal set of features, we have grand vision for how we could further enhance the player experience with some 
-additional features beyond the basic checkers game._
+This is a web-based application where players, who are signed in, have the ability to play checkers with other players.
+ The user interface for the game will implement drag-and-drop functionality for making moves. Furthermore, the additional
+ features of "Spectator Mode" and "Tournament Play" will be implemented to enhance the user experience.
 
 
 ### Purpose
