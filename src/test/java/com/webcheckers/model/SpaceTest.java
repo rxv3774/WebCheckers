@@ -1,6 +1,5 @@
 package com.webcheckers.model;
 
-import javafx.scene.input.PickResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -88,10 +87,10 @@ class SpaceTest {
         Space tmpSpace1 = new Space(0,1);
 
         //Test0
-        assertNotNull( tmpSpace1.getRowIndex() );
+        assertNotNull( tmpSpace1.getRowIdx() );
 
         //Test1
-        assertEquals(1, tmpSpace1.getRowIndex() );
+        assertEquals(1, tmpSpace1.getRowIdx() );
     }
 
     @Test
@@ -100,15 +99,15 @@ class SpaceTest {
         Space tmpSpace1 = new Space(1,0);
 
         //Test0
-        assertNotNull( tmpSpace1.getCellIndex() );
+        assertNotNull( tmpSpace1.getCellIdx() );
 
         //Test1
-        assertEquals(1, tmpSpace1.getCellIndex() );
+        assertEquals(1, tmpSpace1.getCellIdx() );
     }
 
     @Test
     public void getCellIdxNotNull() {
-        assertNotNull(space.getCellIndex());
+        assertNotNull(space.getCellIdx());
     }
 
     @Test
@@ -209,10 +208,10 @@ class SpaceTest {
         assertEquals( tmp.getPiece().getType() , deepCopy.getPiece().getType() );
 
         //Test5
-        assertEquals( tmp.getRowIndex() , deepCopy.getRowIndex() );
+        assertEquals( tmp.getRowIdx() , deepCopy.getRowIdx() );
 
         //Test6
-        assertEquals( tmp.getCellIndex() , deepCopy.getCellIndex() );
+        assertEquals( tmp.getCellIdx() , deepCopy.getCellIdx() );
 
         //Test7
         assertEquals( tmp.getPieceColor() , deepCopy.getPieceColor() );

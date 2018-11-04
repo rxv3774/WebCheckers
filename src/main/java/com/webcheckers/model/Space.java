@@ -1,20 +1,18 @@
 package com.webcheckers.model;
 
-import java.util.List;
-
 public class Space {
-    private int cellIndex, rowIndex;
+    private int cellIdx, rowIdx;
     private Piece piece;
 
-    public Space(int cellIndex, int rowIndex) {
-        this.cellIndex = cellIndex;
-        this.rowIndex = rowIndex;
+    public Space(int cellIdx, int rowIdx) {
+        this.cellIdx = cellIdx;
+        this.rowIdx = rowIdx;
         this.piece = null;
     }
 
-    public Space(int cellIndex, int rowIndex, Piece piece) {
-        this.cellIndex = cellIndex;
-        this.rowIndex = rowIndex;
+    public Space(int cellIdx, int rowIdx, Piece piece) {
+        this.cellIdx = cellIdx;
+        this.rowIdx = rowIdx;
         this.piece = piece;
     }
 
@@ -24,10 +22,10 @@ public class Space {
     public void initialize() {
         Piece piece = null;
         if (isValid()) {
-            if (rowIndex < 3) {
+            if (rowIdx < 3) {
                 piece = new Piece(Piece.Type.SINGLE, Piece.Color.RED);
             }
-            if (rowIndex > 4) {
+            if (rowIdx > 4) {
                 piece = new Piece(Piece.Type.SINGLE, Piece.Color.WHITE);
             }
         }
@@ -35,12 +33,12 @@ public class Space {
     }
 
 
-    public int getCellIndex() {
-        return cellIndex;
+    public int getCellIdx() {
+        return cellIdx;
     }
 
-    public int getRowIndex() {
-        return rowIndex;
+    public int getRowIdx() {
+        return rowIdx;
     }
 
     /**
@@ -72,14 +70,14 @@ public class Space {
      * @return true if the space can have a piece on it.
      */
     public boolean isValid() {
-        if (rowIndex % 2 == 0) {
-            if (cellIndex % 2 == 1 && piece == null)
+        if (rowIdx % 2 == 0) {
+            if (cellIdx % 2 == 1 && piece == null)
                 return true;
             else
                 return false;
         }
         else{
-            if (cellIndex % 2 == 0 && piece == null)
+            if (cellIdx % 2 == 0 && piece == null)
                 return true;
             else
                 return false;
@@ -92,7 +90,7 @@ public class Space {
      * @return deep copy of the space
      */
     public Space deepCopy() {
-        Space cp = new Space(this.cellIndex, this.rowIndex);
+        Space cp = new Space(this.cellIdx, this.rowIdx);
         cp.setPiece(this.piece);
         return cp;
     }

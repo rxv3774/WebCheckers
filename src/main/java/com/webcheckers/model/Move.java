@@ -40,7 +40,7 @@ public class Move {
      * @return string rep
      */
     public String toString() {
-        return "Start: (" + start.getRowIndex() + "," + start.getCellIndex() + ") End: (" + end.getRowIndex() + "," + end.getCellIndex() + ")";
+        return "Start: (" + start.getRowIdx() + "," + start.getCellIdx() + ") End: (" + end.getRowIdx() + "," + end.getCellIdx() + ")";
         //return null;
     }
 
@@ -54,9 +54,9 @@ public class Move {
     public boolean equals(Object other) {
         if (!(other instanceof Move)) return false;
         Move move = (Move) other;
-        return this.start.getRowIndex() == move.start.getRowIndex() &&
-                this.start.getCellIndex() == move.start.getCellIndex() &&
-                this.end.getRowIndex() == move.end.getRowIndex() &&
-                this.end.getCellIndex() == move.end.getCellIndex();
+        return this.start.getRowIdx() == move.start.getRowIdx() &&
+                this.start.getCellIdx() == move.start.getCellIdx() &&
+                this.end.getRowIdx() == move.end.getRowIdx() &&
+                this.end.getCellIdx() == move.end.getCellIdx();
     }
 }

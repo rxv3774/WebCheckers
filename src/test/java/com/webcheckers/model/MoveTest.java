@@ -44,7 +44,7 @@ public class MoveTest {
 
         Move move = new Move( start, end );
 
-        final String compareString = "Start: (" + start.getRowIndex() + "," + start.getCellIndex() + ") End: (" + end.getRowIndex() + "," + end.getCellIndex() + ")";
+        final String compareString = "Start: (" + start.getRowIdx() + "," + start.getCellIdx() + ") End: (" + end.getRowIdx() + "," + end.getCellIdx() + ")";
 
         //Test1 not null toString()
         assertNotNull( move.toString() );
