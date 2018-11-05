@@ -5,6 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -16,11 +19,12 @@ public class PostSignInRouteTest {
     //Error messages given by the view-model.
     private PostSignInRoute CuT;
     private final String SHOW_ERROR_MESSAGE = "showErrorMessage";
-    private final String ILLEGAL_CHARACTER_MESSAGE =
-            "The name you entered contains illegal characters.";
+    private final String ILLEGAL_CHARACTER_MESSAGE = "The name you entered contains illegal characters.";
     private final String REPEATING_NAMES_ERROR_MESSAGE = "That name is already in use";
     private final String MESSAGE_TYPE = "messageType";
     private final String ERROR_TYPE = "error";
+
+    private final static String PLAYER_NAME_ATTR = "playerName";
 
     private PlayerLobby playerLobby;
     private Request request;
@@ -37,8 +41,10 @@ public class PostSignInRouteTest {
         request = mock(Request.class);
         session = mock(Session.class);
         when(request.session()).thenReturn(session);
-        engine = mock(TemplateEngine.class);
         response = mock(Response.class);
+
+
+        engine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby();
         CuT = new PostSignInRoute(playerLobby, engine);
     }
@@ -48,19 +54,18 @@ public class PostSignInRouteTest {
      */
     @Test
     public void valid_username() {
-        playerMock = new Player("Ryan");
-        when(request.queryParams(any(String.class))).thenReturn("Ryan");
-        playerLobby.addPlayer(playerMock);
+        when( request.queryParams( PLAYER_NAME_ATTR ) ).thenReturn("Ryan");
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
-        CuT.handle(request, response);
+        //Test1 a valid player is added so a exception is thrown
+        assertThrows(spark.HaltException.class, () -> CuT.handle(request, response) );
+
 
         //Analyze the results
-        //  * model is a non-null Map
-        testHelper.assertViewModelExists();
-        testHelper.assertViewModelIsaMap();
+        //  * model is a null Map
+        testHelper.assertViewModelDoesNotExists();
 
         //Player name should be valid, so the player should be added into the playerLobby.
         assertTrue(playerLobby.getPlayersNamesAsArrayList().contains("Ryan"));
@@ -118,14 +123,16 @@ public class PostSignInRouteTest {
      */
     @Test
     public void invalid_username_repeatingName() {
-        when(request.queryParams(any(String.class))).thenReturn("Ryan");
-        when(request.queryParams(any(String.class))).thenReturn("Ryan");
-        playerLobby.addPlayer(new Player("Ryan"));
-        playerLobby.addPlayer(new Player("Ryan"));
+
+        when( request.queryParams( PLAYER_NAME_ATTR ) ).thenReturn("Ryan");
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
+        //Test1 a new player is added, it will throw a halt exception
+        assertThrows(spark.HaltException.class, () -> CuT.handle(request, response) );
+
+        //This is where the duplicate is added.
         CuT.handle(request, response);
 
         //Analyze the results

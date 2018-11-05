@@ -51,6 +51,14 @@ public class TemplateEngineTest {
   /**
    * Assert that the BoardView-Model object exists.
    */
+  public void assertViewModelDoesNotExists() {
+    assertNull(model, "the BoardView-Model doesn't exists");
+  }
+
+
+  /**
+   * Assert that the BoardView-Model object exists.
+   */
   public void assertViewModelIsaMap() {
     assertTrue(model instanceof Map, "the BoardView-Model is a Map");
   }
