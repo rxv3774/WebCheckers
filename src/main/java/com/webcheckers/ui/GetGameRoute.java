@@ -79,6 +79,11 @@ public class GetGameRoute implements Route {
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
+            if(opponent.equals(player)){
+                request.session().attribute("errorMessage", "Must play with player other than yourself.");
+                response.redirect(WebServer.HOME_URL);
+                halt();
+            }
             if (opponent.isInGame()) {
                 //add code about spectator
                 request.session().attribute("errorMessage", "Player is already in a game.");

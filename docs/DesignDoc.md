@@ -121,7 +121,7 @@ if either player resigns, both are taken back to the home page.
 ### UI Tier
 The UI Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP Routes that make up the web application.
 When a client navigates to the Web Checkers page, he will be starting in the GetHomeRoute component of the UI Tier.
-If client attempts to start at a page that is not the home page, the client will be redirected to the home page. 
+If client attempts to start at a page that is not the home page, the client will be redirected to the sign in page. 
 GetHomeRoute is responsible for displaying the home page, with a Sign In button at the top and additional information in the body. When the Sign In button is clicked, the client will be sent
 to GetSignInRoute, which is responsible for displaying the sign in page. On the sign in page, the client can type a name into the space provided and press the submit button, 
 which will send the client to PostSignInRoute. In PostSignInRoute, if the username is invalid or already taken, the user will remain on the sign in page but with an error message; 
@@ -196,8 +196,8 @@ user stories.
 
 
 ### Unit Testing and Code Coverage
-For our unit tests, our goal was to reach at least 80% coverage on all tiers(model, application, and UI). 
-We decided on 80% because, it would give us confidence that we are properly implementing the different tiers. 
+For our unit tests, our goal was to reach at least 90% coverage on all tiers(model, application, and UI). 
+We decided on 90% because, it would give us confidence that we are properly implementing the different tiers. 
 As we created tests, we began to realize that we had certain coupling issues which we were able to quickly fix. 
 This fix was necessary, as these issues were preventing us from creating a proper testing seam between our classes. 
 This was due to that fact that we had not followed the Pure Fabrication pattern. These issues helped us improve our 
