@@ -126,6 +126,11 @@ GetHomeRoute is responsible for displaying the home page, with a Sign In button 
 to GetSignInRoute, which is responsible for displaying the sign in page. On the sign in page, the client can type a name into the space provided and press the submit button, 
 which will send the client to PostSignInRoute. In PostSignInRoute, if the username is invalid or already taken, the user will remain on the sign in page but with an error message; 
 if the username is valid and unique, the player will be signed in and redirected back to the home page.
+This process of signing in can be seen in the following sequence diagram:
+
+:![Sign In Sequence Diagram](Sign%20In%20Sequence%20Diagram.png)
+
+
 Back in GetHomeRoute, the current lobby will now be displayed and, if there is more than one in the lobby, there will be
 an option to select a player and start a game. Once the client chooses an opponent and clicks the start game button, the client is sent to GetGameRoute.
 GetGameRoute is responsible for creating a match in GameCenter (if one does not already exist) and displaying the game page
