@@ -149,7 +149,7 @@ if either player resigns, both are taken back to the home page.
 
 
 ### Model Tier
-> _Provide a summary of the Application tier of your architecture. This
+> _Provide a summary of the Model tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
 
