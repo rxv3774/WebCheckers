@@ -28,8 +28,9 @@ before, Web Checkers offers a fun and challenging way to pass time.
 
 | Term | Definition |
 |------|------------|
-| VO | Value Object |
-
+| VO | Value Object 
+| Web-based |
+| Pure Fabrication pattern | 
 
 ## Requirements
 
@@ -176,6 +177,12 @@ user stories.
 
 
 ### Unit Testing and Code Coverage
+For our unit tests, our goal was to reach at least 80% coverage on all tiers(model, application, and UI). 
+We decided on 80% because, it would give us confidence that we are properly implementing the different tiers. 
+As we created tests, we began to realize that we had certain coupling issues which we were able to quickly fix. 
+This fix was necessary, as these issues were preventing us from creating a proper testing seam between our classes. 
+This was due to that fact that we had not followed the Pure Fabrication pattern. These issues helped us improve our code, as we realized that hard to test 
+code is code that could use some improvements.
 > _Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
 > coverage targets, why you selected those values, and how well your
