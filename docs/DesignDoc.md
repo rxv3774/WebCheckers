@@ -29,8 +29,8 @@ before, Web Checkers offers a fun and challenging way to pass time.
 | Term | Definition |
 |------|------------|
 | VO | Value Object 
-| Web-based |
-| Pure Fabrication pattern | 
+| Web-based application | A web-based application is a program that is accessed over a network connection using HTTP, rather than existing within a device's memory.
+| Pure Fabrication pattern | A Pure Fabrication is a set of responsibilities held within a separate class that does not represent an entity in the model.
 
 ## Requirements
 
@@ -181,10 +181,5 @@ For our unit tests, our goal was to reach at least 80% coverage on all tiers(mod
 We decided on 80% because, it would give us confidence that we are properly implementing the different tiers. 
 As we created tests, we began to realize that we had certain coupling issues which we were able to quickly fix. 
 This fix was necessary, as these issues were preventing us from creating a proper testing seam between our classes. 
-This was due to that fact that we had not followed the Pure Fabrication pattern. These issues helped us improve our code, as we realized that hard to test 
-code is code that could use some improvements.
-> _Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets. If there are any anomalies, discuss
-> those._
+This was due to that fact that we had not followed the Pure Fabrication pattern. These issues helped us improve our 
+code, as we realized that hard to test code is code that could use some improvements.
