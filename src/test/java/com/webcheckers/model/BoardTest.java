@@ -52,6 +52,7 @@ class BoardTest {
         assertNotNull(itr.next());
     }
 
+    /*
     @Test
     public void getSpaceWorks(){
         Board board = new Board();
@@ -70,6 +71,7 @@ class BoardTest {
 
         assertNotNull( board.getSpace( 0,0) );
     }
+    */
 
     @Test
     public void reverseIteratorWorks(){

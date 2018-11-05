@@ -89,11 +89,13 @@ public class Space {
      *
      * @return deep copy of the space
      */
+    /*
     public Space deepCopy() {
         Space cp = new Space(this.cellIdx, this.rowIdx);
         cp.setPiece(this.piece);
         return cp;
     }
+    */
 
     /**
      * remove the piece in this space
@@ -120,10 +122,13 @@ public class Space {
         return this.piece;
     }
 
+
     /**
      * Testing to set piece.
      */
+    /*
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
+    */
 }

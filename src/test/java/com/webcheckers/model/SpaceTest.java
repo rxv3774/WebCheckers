@@ -188,7 +188,7 @@ class SpaceTest {
         assertFalse( tmpSpace1.pieceColorMatch( Piece.Color.RED ) );
     }
 
-
+/*
     @Test
     public void deepCopyWorks(){
         Piece piece = new Piece( Piece.Type.SINGLE, Piece.Color.RED);
@@ -216,7 +216,7 @@ class SpaceTest {
         //Test7
         assertEquals( tmp.getPieceColor() , deepCopy.getPieceColor() );
     }
-
+*/
 
     @Test
     public void removePieceWorks(){
@@ -275,7 +275,7 @@ class SpaceTest {
         assertNull( spaceNull.getPieceColor() );
     }
 
-
+/*
     @Test
     public void setPieceWorks(){
         Piece pieceR = new Piece( Piece.Type.SINGLE, Piece.Color.RED);
@@ -294,5 +294,5 @@ class SpaceTest {
         //Test3
         assertEquals( pieceR, spaceNull.getPiece() );
     }
-
+*/
 }

@@ -101,13 +101,14 @@ public class Board implements Iterable<Row> {
      * @param col the col
      * @return the space
      */
+    /*
     public Space getSpace(int row, int col) {
         if (row < 0 || row >= rowArraySize || col < 0 || col >= rowArraySize) {
             return null;
         }
         return board[row].getSpace(col);
     }
-
+*/
 
 //    /**
 //     * Deep copy game board.

@@ -37,9 +37,11 @@ public class Row implements Iterable<Space> {
      * @param col the col
      * @return the space
      */
+    /*
     public Space getSpace(int col) {
         return row[col];
     }
+    */
 
     public int getIndex() {
         return index;
