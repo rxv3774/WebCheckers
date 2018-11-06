@@ -130,7 +130,7 @@ which will send the client to PostSignInRoute. In PostSignInRoute, if the userna
 if the username is valid and unique, the player will be signed in and redirected back to the home page.
 This process of signing in, from the perspective of the User Interface, can be seen in the following sequence diagram:
 
-:![Sign In Sequence Diagram](Sign%20In%20Sequence%20Diagram.png)
+![Sign In Sequence Diagram](Sign%20In%20Sequence%20Diagram.png)
 _(Figure 131)_
 
 
@@ -164,7 +164,15 @@ to the client. More about the sign-in process can be found in the "Significant F
 
 
 ### Application Tier
-The application tier contains two components: GameCenter and PlayerLobby. When a player signs in, 
+The application tier contains two components: GameCenter and PlayerLobby. These components can be seen in the following class diagram:
+
+:![Application Tier Class Diagram](Application-Tier-Class-Diagram.png) 
+_(Figure 169)_
+
+PlayerLobby is responsible for storing all players that have signed in, and in turn is used to check if a player name is valid when a user
+is attempting to sign in. Referring back to _Figure 131_ in the UI Tier, when a user submits a username to sign in with, PostSignInRoute validates
+that the username is valid and is not already being used. If the name passes both of these tests, PostSignInRoute adds the new player to PlayerLobby. 
+With the players now being stored in PlayerLobby, those players can choose to start a game with 
 
 
 ### Model Tier

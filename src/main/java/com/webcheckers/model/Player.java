@@ -78,7 +78,7 @@ public class Player implements Comparable {
             Player that = (Player) o;
             return this.name.compareTo(that.name);
         } else {
-            return this.name.compareTo(o.toString());
+            return -1;
         }
     }
 
@@ -104,6 +104,7 @@ public class Player implements Comparable {
     public String getName() {
         return this.name;
     }
+
 
     public Match getMatch() {
         return match;

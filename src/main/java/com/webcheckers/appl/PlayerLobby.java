@@ -50,8 +50,9 @@ public class PlayerLobby {
      * @return Whether or not the user is taken.
      */
     public boolean playerNameInUse(String name) {
+        Player other = new Player(name);
         for (Player player : players) {
-            if (player.getName().equals(name)) {
+            if (other.compareTo(player) == 0) {
                 return true;
             }
         }
