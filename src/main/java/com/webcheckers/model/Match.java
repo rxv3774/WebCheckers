@@ -15,7 +15,6 @@ public class Match {
     private Move pendingMove;
     private boolean running;
 
-
     /**
      * Match object defined
      */
@@ -56,10 +55,8 @@ public class Match {
      * @param player the player to check for
      * @return if the match contains the player
      */
-    public Boolean matchContains(Player player){
-        if(this.redPlayer.equals(player) || this.whitePlayer.equals(player))
-            return true;
-        return false;
+   public boolean matchContains(Player player) {
+        return this.redPlayer.equals(player) || this.whitePlayer.equals(player);
     }
 
     /**
@@ -162,7 +159,7 @@ public class Match {
     }
 
     /**
-     * Is runnning.
+     * Is running.
      *
      * @return true if game is running
      */
@@ -174,7 +171,7 @@ public class Match {
     /**
      * Changes the current player. if it's red, makes it white and vise versa
      */
-    public void changeActivePlayer(){
+    public void changeActivePlayer() {
         activePlayer = activePlayer == redPlayer ? whitePlayer : redPlayer;
     }
 }
