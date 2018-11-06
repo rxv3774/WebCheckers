@@ -21,7 +21,9 @@
 
 
     <#if showErrorMessage??>
-        <div class="message ${messageType}">${showErrorMessage}</div>
+        <div class="${messageType}">
+            ${showErrorMessage}
+        </div>
     </#if>
 
     <div>
