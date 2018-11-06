@@ -123,7 +123,11 @@ if either player resigns, both are taken back to the home page.
 
 
 ### UI Tier
-The UI Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP Routes that make up the web application.
+This tier of the Web Checkers application can be shown in the following class diagram:
+
+:![UI Tier Class Diagram](User-Interface-Tier-Class-Diagram.png)
+
+The User Interface Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP Routes that make up the web application.
 When a client navigates to the Web Checkers page, he will be starting in the GetHomeRoute component of the UI Tier.
 If client attempts to start at a page that is not the home page, the client will be redirected to the sign in page. 
 GetHomeRoute is responsible for displaying the home page, with a Sign In button at the top and additional information in the body, as well as checking if a player is already in a game and redirecting to the game page if so. 
