@@ -70,7 +70,6 @@ that ends with one winner.
 ## Application Domain
 
 This section describes the application domain:
-
 :![The WebCheckers Domain Model](Domain-Model.png)
 _(Figure 74)_
 
@@ -87,7 +86,6 @@ FreeMarker template engine to handle HTTP requests and generate HTML responses.
 ### Summary
 
 The following Tiers/Layers model shows a high-level view of the webapp's architecture:
-
 :![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
 _(Figure 90)_
 
@@ -106,7 +104,6 @@ Details of the components within these tiers are supplied below.
 
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application: 
-
 :![The WebCheckers Web Interface Statechart](State-Chart.png)
 _(Figure 108)_
 
@@ -123,7 +120,6 @@ if either player resigns, both are taken back to the home page.
 
 ### UI Tier
 This tier of the Web Checkers application can be shown in the following class diagram:
-
 :![UI Tier Class Diagram](User-Interface-Tier-Class-Diagram.png)
 
 The User Interface Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP Routes that make up the web application.
@@ -135,7 +131,6 @@ to GetSignInRoute, which is responsible for displaying the sign in page. On the 
 which will send the client to PostSignInRoute. In PostSignInRoute, if the username is invalid or already taken, the user will remain on the sign in page but with an error message; 
 if the username is valid and unique, the player will be signed in and redirected back to the home page.
 This process of signing in, from the perspective of the User Interface, can be seen in the following sequence diagram:
-
 :![Sign In Sequence Diagram](Sign-In-Sequence-Diagram.png)
 _(Figure 131)_
 
@@ -147,14 +142,12 @@ to the client. More about the sign-in process can be found in the "Significant F
 
 ### Application Tier
 The application tier contains two components: GameCenter and PlayerLobby. These components can be seen in the following class diagram:
-
 :![Application Tier Class Diagram](Application-Tier-Class-Diagram.png) 
 _(Figure 169)_
 
 PlayerLobby is responsible for storing all players that have signed in, and in turn is used to check if a player name is valid when a user
 is attempting to sign in. Referring back to the figure below (_Figure 177_), when a user submits a username to sign in with, PostSignInRoute validates
 that the username is valid and is not already being used. If the name passes both of these tests, PostSignInRoute adds the new player to PlayerLobby: 
-
 :![Sign In Application Perspective Sequence Diagram](Sign%20In%20from%20Perspective%20of%20Application%20Sequence%20Diagram.png)
 _(Figure 177)_
 
@@ -162,7 +155,6 @@ GameCenter is responsible for managing the matches between players. A match can 
 by other related components. When a player wants to start a game with another signed-in player, the chosen player is checked to see if it is already in a match;
 if it is not, a match is created through GameCenter between the two players. After the game is finished, or if a player resigns, GameCenter ends the match. 
 This sequence of events involving GameCenter can be seen in the following diagram:
-
 :![Create A Match In GameCenter](Create%20a%20Match%20in%20Game%20Center.png)
 _(Figure 184)_
 
@@ -176,8 +168,6 @@ The Model tier contains 8 components which include:
 * Player
 * Row
 * Space
-
-These classes along with their methods can clearly be seen in the figure(171) below:
 
 ![Model Tier Class Diagram](Model-tier-class-diagram.png)
 _(Figure 171)_
@@ -202,7 +192,6 @@ is valid or not. The message will contain a text, and a type: info or error.
 ### Significant Features
 
 The process for starting a game can be seen by the following sequence diagram:
-
 :![Start A Game Sequence Diagram](Start-A-Game-Sequence-Diagram.png)
 _(Figure 176)_
 
