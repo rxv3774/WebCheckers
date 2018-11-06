@@ -20,7 +20,6 @@ import static spark.Spark.halt;
 public class GetHomeRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
-
     private static final String TITLE_ATTR = "title";
     private static final String MESSAGE_TYPE_ATTR = "messageType";
     private static final String PLAYER_LOBBY_ATTR = "playerLobby";
@@ -30,11 +29,11 @@ public class GetHomeRoute implements Route {
     private static final String REDIRECT = "REDIRECT";
     private static final String NO_REDIRECT = "NO REDIRECT";
 
+    private static final String VIEW_NAME = "home.ftl";
+
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
     private final GameCenter gameCenter;
-
-    private static final String VIEW_NAME = "home.ftl";
 
     /**
      * Create the Spark Route (UI controller) for the

@@ -40,7 +40,7 @@ public class PostSignInRoute implements Route {
      * @param templateEngine template engine to use for rendering HTML page
      * @throws NullPointerException when the {@code gameCenter} or {@code templateEngine} parameter is null
      */
-    PostSignInRoute(PlayerLobby playerLobby, TemplateEngine templateEngine) {
+    public PostSignInRoute(PlayerLobby playerLobby, TemplateEngine templateEngine) {
         // validation
         Objects.requireNonNull(playerLobby, "playerLobby must not be null");
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
