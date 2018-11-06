@@ -55,8 +55,8 @@ public class GetGameRoute implements Route {
 
         vm.put("title", "Game!");
 
-        String currentPlayerName = session.attribute("name" );
-        Player player = playerLobby.getPlayerObject( currentPlayerName );
+        String currentPlayerName = session.attribute("name");
+        Player player = playerLobby.getPlayerObject(currentPlayerName);
 
         if (player == null) {
             response.redirect(WebServer.SIGN_IN_URL);
@@ -77,7 +77,7 @@ public class GetGameRoute implements Route {
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
-            if(opponent.equals(player)){
+            if (opponent.equals(player)) {
                 request.session().attribute("errorMessage", "Must play with player other than yourself.");
                 response.redirect(WebServer.HOME_URL);
                 halt();
