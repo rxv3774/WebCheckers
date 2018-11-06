@@ -74,9 +74,9 @@ This section describes the application domain:
 :![The WebCheckers Domain Model](Domain-Model.png)
 _(Figure 74)_
 
-_There are two main entities: the game and the player(s). The game creates the board and hosts the game for two players.
+There are two main entities: the game and the player(s). The game creates the board and hosts the game for two players.
 The players then play the game and movement information is sent to the game, validated, and executed. A user can become
-a player by signing into the application to initiate games with other players._
+a player by signing into the application to initiate games with other players.
 
 
 ## Architecture and Design
@@ -110,7 +110,6 @@ with the WebCheckers application:
 :![The WebCheckers Web Interface Statechart](State-Chart.png)
 _(Figure 108)_
 
-
 From the Perspective of the user, the Application's user interface begins on the home page
 where the user will see a welcome screen and a button to sign in. When the user clicks the button,
 the interface then flows to the sign-in page, where the user is prompted to enter a unique name.
@@ -140,34 +139,10 @@ This process of signing in, from the perspective of the User Interface, can be s
 :![Sign In Sequence Diagram](Sign-In-Sequence-Diagram.png)
 _(Figure 131)_
 
-
 Back in GetHomeRoute, the current lobby will now be displayed and, if there is more than one player in the lobby, there will be
 an option to select a player and start a game. Once the client chooses an opponent and clicks the start game button, the client is sent to GetGameRoute.
 GetGameRoute is responsible for creating a match in GameCenter (if one does not already exist) and displaying the game page
 to the client. More about the sign-in process can be found in the "Significant Features" section (Figure 176).
-
-
-> _Provide a summary of the Server-side UI tier of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
-
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class structure or object diagrams) with some
-> details such as critical attributes and methods._
-
-> _You must also provide any dynamic models, such as statechart and
-> sequence diagrams, as is relevant to a particular aspect of the design
-> that you are describing.  For example, in WebCheckers you might create
-> a sequence diagram of the `POST /validateMove` HTTP request processing
-> or you might show a statechart diagram if the Game component uses a
-> state machine to manage the game._
-
-> _If a dynamic model, such as a statechart describes a feature that is
-> not mostly in this tier and cuts across multiple tiers, you can
-> consider placing the narrative description of that feature in a
-> separate section for describing significant features. Place this after
-> you describe the design of the three tiers._
 
 
 ### Application Tier
@@ -197,14 +172,19 @@ _(Figure 184)_
 :![Model Tier Class Diagram](Model-tier-class-diagram.png)
 _(Figure 171)_
 
-> _Provide a summary of the Model tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
-
 ### Significant Features
+
+The process for starting a game can be seen by the following sequence diagram:
 
 :![Start A Game Sequence Diagram](Start-A-Game-Sequence-Diagram.png)
 _(Figure 176)_
+
+This sequence of events begins when a player clicks the "Start A Game" button on the home page, sending the user to GetGameRoute.
+In GetGameRoute, the opponent player object is obtained using the name submitted when the initial player clicked the "Start A Game" button.
+If the opponent doesn't exist or is already in a game, the player is sent back to the home page with an error message.
+If the opponent exists and isn't already in a game, a new match is created in GameCenter with the two players and the player is sent to the game page. 
+While this is happening, the opponent is still in GetHomeRoute and consistently checking its status. Once the opponent is added to the match that's
+created in GameCenter, the opponent sees that it now exists in GameCenter and sends the user to the game page.  
 
 ### Design Improvements
 
