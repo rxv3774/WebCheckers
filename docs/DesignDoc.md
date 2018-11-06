@@ -207,7 +207,7 @@ have been improved by maybe using a 2D array or a collection.
 > analysis of where there are problems in the code base which could be
 > addressed with design changes, and describe those suggested design
 > improvements. After completion of the Code metrics exercise, you
-> will also discuss the resutling metric measurements.  Indicate the
+> will also discuss the resulting metric measurements.  Indicate the
 > hot spots the metrics identified in your code base, and your
 > suggested design improvements to address those hot spots._
 
@@ -215,7 +215,9 @@ have been improved by maybe using a 2D array or a collection.
 > _This section will provide information about the testing performed
 > and the results of the testing._
 
-At the moment we have the UI tier at
+At the moment we have the UI tier at : 63% Code Coverage and 58% missed branches.
+the model tier is at 89% code coverage and 83% missed branches. 
+the application tier is at
 
 ### Acceptance Testing
 Currently we have completed and passed all necessary acceptance criteria tests for 

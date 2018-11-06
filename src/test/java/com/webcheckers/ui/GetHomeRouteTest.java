@@ -163,9 +163,11 @@ class GetHomeRouteTest {
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
 
+        when( session.attribute(NAME_ATTR) ).thenReturn( testPlayer2.getName() );
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
         getHomeRoute.handle(request, response);
 
-        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
