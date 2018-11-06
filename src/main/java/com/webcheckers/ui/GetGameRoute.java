@@ -20,6 +20,7 @@ public class GetGameRoute implements Route {
     private final GameCenter gameCenter;
 
     private static final String VIEW_NAME = "game.ftl";
+    private static final String ERROR = "error";
 
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
@@ -79,6 +80,7 @@ public class GetGameRoute implements Route {
             }
             if (opponent.equals(player)) {
                 request.session().attribute("errorMessage", "Must play with player other than yourself.");
+                request.session().attribute("messageType", ERROR);
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
