@@ -69,9 +69,10 @@ that ends with one winner.
 
 ## Application Domain
 
-This section describes the application domain.
+This section describes the application domain:
 
 :![The WebCheckers Domain Model](Domain-Model.png)
+_(Figure 74)_
 
 _There are two main entities: the game and the player(s). The game creates the board and hosts the game for two players.
 The players then play the game and movement information is sent to the game, validated, and executed. A user can become
@@ -85,9 +86,10 @@ FreeMarker template engine to handle HTTP requests and generate HTML responses.
 
 ### Summary
 
-The following Tiers/Layers model shows a high-level view of the webapp's architecture.
+The following Tiers/Layers model shows a high-level view of the webapp's architecture:
 
 :![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
+_(Figure 90)_
 
 As a web application, the user interacts with the system using a
 browser.  The client-side of the UI is composed of HTML pages with
@@ -103,9 +105,10 @@ Details of the components within these tiers are supplied below.
 ### Overview of User Interface
 
 This section describes the web interface flow; this is how the user views and interacts
-with the WebCheckers application.
+with the WebCheckers application: 
 
 :![The WebCheckers Web Interface Statechart](State-Chart.png)
+_(Figure 108)_
 
 
 From the Perspective of the user, the Application's user interface begins on the home page
@@ -120,7 +123,11 @@ if either player resigns, both are taken back to the home page.
 
 
 ### UI Tier
-The UI Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP Routes that make up the web application.
+This tier of the Web Checkers application can be shown in the following class diagram:
+
+:![UI Tier Class Diagram](User-Interface-Tier-Class-Diagram.png)
+
+The User Interface Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP Routes that make up the web application.
 When a client navigates to the Web Checkers page, he will be starting in the GetHomeRoute component of the UI Tier.
 If client attempts to start at a page that is not the home page, the client will be redirected to the sign in page. 
 GetHomeRoute is responsible for displaying the home page, with a Sign In button at the top and additional information in the body, as well as checking if a player is already in a game and redirecting to the game page if so. 
@@ -130,7 +137,7 @@ which will send the client to PostSignInRoute. In PostSignInRoute, if the userna
 if the username is valid and unique, the player will be signed in and redirected back to the home page.
 This process of signing in, from the perspective of the User Interface, can be seen in the following sequence diagram:
 
-![Sign In Sequence Diagram](Sign%20In%20Sequence%20Diagram.png)
+:![Sign In Sequence Diagram](Sign-In-Sequence-Diagram.png)
 _(Figure 131)_
 
 
@@ -170,10 +177,19 @@ The application tier contains two components: GameCenter and PlayerLobby. These 
 _(Figure 169)_
 
 PlayerLobby is responsible for storing all players that have signed in, and in turn is used to check if a player name is valid when a user
-is attempting to sign in. Referring back to _Figure 131_ in the UI Tier, when a user submits a username to sign in with, PostSignInRoute validates
-that the username is valid and is not already being used. If the name passes both of these tests, PostSignInRoute adds the new player to PlayerLobby. 
-With the players now being stored in PlayerLobby, those players can choose to start a game with 
+is attempting to sign in. Referring back to the figure below (_Figure 177_), when a user submits a username to sign in with, PostSignInRoute validates
+that the username is valid and is not already being used. If the name passes both of these tests, PostSignInRoute adds the new player to PlayerLobby: 
 
+:![Sign In Application Perspective Sequence Diagram](Sign%20In%20from%20Perspective%20of%20Application%20Sequence%20Diagram.png)
+_(Figure 177)_
+
+GameCenter is responsible for managing the matches between players. A match can be created in GameCenter, at which point the match is stored and can be accessed
+by other related components. When a player wants to start a game with another signed-in player, the chosen player is checked to see if it is already in a match;
+if it is not, a match is created through GameCenter between the two players. After the game is finished, or if a player resigns, GameCenter ends the match. 
+This sequence of events involving GameCenter can be seen in the following diagram:
+
+:![Create A Match In GameCenter](Create%20a%20Match%20in%20Game%20Center.png)
+_(Figure 184)_
 
 ### Model Tier
 
@@ -187,29 +203,32 @@ _(Figure 171)_
 
 ### Significant Features
 
-:![Start A Game Sequence Diagram](Start%20A%20Game%20Sequence%20Diagram.png)
+:![Start A Game Sequence Diagram](Start-A-Game-Sequence-Diagram.png)
 _(Figure 176)_
 
 ### Design Improvements
 
 If given the opportunity to improve upon our current design, there are a few design details that we would change.
-For example, we have had some issues with our implementation of our board. We created our board using an iterator 
-of iterators, this caused some issues in our unit tests. Our tests helped us realize that our implementation could 
-have been improved by maybe using a 2D array or a collection.
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements. After completion of the Code metrics exercise, you
-> will also discuss the resutling metric measurements.  Indicate the
-> hot spots the metrics identified in your code base, and your
-> suggested design improvements to address those hot spots._
+For example, we have had some issues with our implementation of our board. We created our board using an iterable 
+of iterables, this caused some issues in our unit tests. Our tests helped us realize that our implementation could 
+have been improved by maybe using a collection when creating our board. Our original code metrics 
+measurements were not great, however, after going back and fixing our implementation and unit tests, we were able 
+to improve them significantly. Our main issues in testing was our iterators. As you can see, the iterators had caused 
+us more than one problem, however, we were able to get past this issue.
+
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
 
-At the moment we have the UI tier at
+Some of the tests that are performed: 
+checking if the constructors creates the object correctly, stores the attributes accordingly, checking
+to see if the getter methods are returning the correct values, seeing if the player is being redirected
+appropriately and requests are being halted.
+
+
+At the current moment, we have the UI tier at 83% code coverage and 92% missed branches.
+The model tier is at 89% code coverage and 83% missed branches. 
+The application tier is at 100% code coverage and the missed branches is at 100%.
+
 
 ### Acceptance Testing
 Currently we have completed and passed all necessary acceptance criteria tests for 

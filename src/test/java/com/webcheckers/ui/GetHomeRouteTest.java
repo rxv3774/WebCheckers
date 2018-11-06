@@ -163,14 +163,30 @@ class GetHomeRouteTest {
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
 
+        when( session.attribute(NAME_ATTR) ).thenReturn( testPlayer2.getName() );
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
         getHomeRoute.handle(request, response);
 
-        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
         testHelper.assertViewName(VIEW_NAME);
 
         testHelper.assertViewModelAttribute(SHOW_BUTTON_ATTR, true);
+    }
+
+    @Test
+    public void gameCenterContainsPlayer(){
+        final Player testPlayer1 = new Player(VALID_NAME_ONE);
+        final Player testPlayer2 = new Player(VALID_NAME_TWO);
+        playerLobby.addPlayer(testPlayer1);
+        playerLobby.addPlayer(testPlayer2);
+
+        gameCenter.createGame( testPlayer1, testPlayer2);
+
+        when( session.attribute(NAME_ATTR) ).thenReturn( testPlayer2.getName() );
+
+        assertThrows(spark.HaltException.class, () -> getHomeRoute.handle(request, response) );
     }
 }

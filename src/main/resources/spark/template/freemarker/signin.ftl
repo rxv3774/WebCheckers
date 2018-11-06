@@ -25,7 +25,7 @@
     </#if>
 
     <div>
-        <form action="/signIn" method="post">
+        <form class="sign-in" action="/signIn" method="post">
             username: <input type="text" name="playerName"><br>
             <input type="submit" value="Submit">
         </form>

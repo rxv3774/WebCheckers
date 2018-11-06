@@ -88,26 +88,4 @@ class GameCenterTest {
         assertFalse(gameCenter.runningMatches(match));
     }
 
-
-    @Test
-    public void getMatchesWorks(){
-
-        Player p1 = new Player("Batman");
-        Player p2 = new Player("Brian");
-
-        GameCenter gameCenter = new GameCenter();
-
-        Match match = gameCenter.createGame(p1, p2);
-
-        List<Match> matchLst = new ArrayList<>();
-
-        matchLst.add( match );
-
-        //Test1 shows that the returned value isn't null
-        assertNotNull( gameCenter.getMatches() );
-
-        //Test2 the matchLst equals gameCenters matches
-        assertEquals( matchLst, gameCenter.getMatches() );
-
-    }
 }
