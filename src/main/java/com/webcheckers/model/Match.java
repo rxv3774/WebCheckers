@@ -50,6 +50,12 @@ public class Match {
         return false;
     }
 
+    public Boolean matchContains(Player player){
+        if(this.redPlayer.equals(player) || this.whitePlayer.equals(player))
+            return true;
+        return false;
+    }
+
     /**
      * Get active player player.
      *

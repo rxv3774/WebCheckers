@@ -66,7 +66,8 @@ public class GameCenter {
      */
     public boolean containsPlayer(Player player) {
         for (Match match : matches) {
-            if (match.getRedPlayer().equals(player) || match.getWhitePlayer().equals(player)) return true;
+            if (match.matchContains(player))
+                return true;
         }
         return false;
     }
