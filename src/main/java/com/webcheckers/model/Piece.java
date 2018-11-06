@@ -4,13 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Piece {
-    public enum Type {SINGLE, KING}
+    public enum Type {SINGLE, KING} //Type of Piece
 
-    public enum Color {RED, WHITE}
+    public enum Color {RED, WHITE} //Color of Piece
 
     private Type type;
     private Color color;
 
+    /*
+     * New Piece
+     *
+     * @param type - the type of piece
+     * @param color - color of the piece
+     *
+     * @return Piece - the piece object
+     */
     public Piece(Type type, Color color) {
         this.type = type;
         this.color = color;

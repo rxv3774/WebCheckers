@@ -31,17 +31,6 @@ public class Row implements Iterable<Space> {
         }
     }
 
-    /**
-     * Get space at col.
-     *
-     * @param col the col
-     * @return the space
-     */
-    /*
-    public Space getSpace(int col) {
-        return row[col];
-    }
-    */
 
     public int getIndex() {
         return index;
@@ -105,18 +94,4 @@ public class Row implements Iterable<Space> {
             }
         };
     }
-
-
-//    /**
-//     * Deep copy row.
-//     *
-//     * @return deepcopy of the row
-//     */
-//    public Row deepCopy() {
-//        Row cp = new Row(this.index);
-//        for (int i = 0; i < row.length; i++) {
-//            cp.row[i] = row[i].deepCopy();
-//        }
-//        return cp;
-//    }
 }

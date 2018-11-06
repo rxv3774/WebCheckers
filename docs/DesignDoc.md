@@ -34,6 +34,7 @@ before, Web Checkers offers a fun and challenging way to pass time.
 | Spark | open-source web application framework |
 | CSS (Cascading Style Sheet) | A style sheet language used for describing the presentation of a document written in a markup language like HTML. |
 | UI Controller | Object that coordinates system operations |
+| Information Expert | Assigning responsibility to the class that has the information |
 ## Requirements
 * Player must be able to sign in.
 * Player must be able to play against another player who is also signed in.
