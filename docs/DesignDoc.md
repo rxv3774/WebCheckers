@@ -199,7 +199,7 @@ iterates through the spaces and creates a new piece on each valid space location
 an an owner: red player or white player, and a type: single or king. These features may be seen in the sequence diagram 
 below: 
 
-:![Make A Board Sequence Diagram](Make-A-Board-Sequence-Diagram.png)
+:![Make A Board Sequence Diagram](make-a-board-sequence-diagram.png)
 
 When a player wants to make a move, the move object holds the responsibility of moving the piece from its starting 
 space to ending space. The red player always makes the first move. When a move is available then it must be made, 
