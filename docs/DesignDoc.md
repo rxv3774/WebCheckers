@@ -129,6 +129,7 @@ if the username is valid and unique, the player will be signed in and redirected
 This process of signing in, from the perspective of the User Interface, can be seen in the following sequence diagram:
 
 :![Sign In Sequence Diagram](Sign%20In%20Sequence%20Diagram.png)
+_(Figure 131)_
 
 
 Back in GetHomeRoute, the current lobby will now be displayed and, if there is more than one player in the lobby, there will be
@@ -173,8 +174,8 @@ The application tier contains two components: GameCenter and PlayerLobby. When a
 
 ### Significant Features
 
-_(Figure 176)_
 :![Start A Game Sequence Diagram](Start%20A%20Game%20Sequence%20Diagram.png)
+_(Figure 176)_
 
 ### Design Improvements
 
