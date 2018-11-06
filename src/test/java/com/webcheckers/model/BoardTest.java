@@ -50,37 +50,30 @@ class BoardTest {
         final Board board1 = new Board();
         Iterator itr = board1.iterator();
         assertNotNull(itr.next());
+        board1.initialize(Piece.Color.RED);
+        assertTrue(itr.next() instanceof Row);
     }
 
     /*
+     * Tests that the Reverse Iterator hasNext functions correctly
+     */
     @Test
-    public void getSpaceWorks(){
-        Board board = new Board();
-
-        //Test1 row < 0
-        assertNull( board.getSpace( -100, 5) );
-
-        //Test2 row >= rowArraySize
-        assertNull( board.getSpace( 100, 5) );
-
-        //Test3 col < 0
-        assertNull( board.getSpace( 2, -100) );
-
-        //Test4 col >= rowArraySize
-        assertNull( board.getSpace( 2, 100) );
-
-        assertNotNull( board.getSpace( 0,0) );
+    public void test_hasNextReverse(){
+        final Board board1 = new Board();
+        Iterator itr = board1.reverseIterator();
+        assertTrue(itr.hasNext());
     }
-    */
 
+    /*
+     * Tests that the Reverse Iterator next functions correctly
+     */
     @Test
-    public void reverseIteratorWorks(){
-        Board board = new Board();
-
-        //Test1 doesn't return Null
-        assertNotNull( board.reverseIterator() );
-
-        
+    void test_nextReverse() {
+        final Board board1 = new Board();
+        Iterator itr = board1.reverseIterator();
+        assertNotNull(itr.next());
+        board1.initialize(Piece.Color.RED);
+        assertTrue(itr.next() instanceof Row);
     }
 
 }
