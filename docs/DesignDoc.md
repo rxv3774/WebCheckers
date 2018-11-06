@@ -201,15 +201,11 @@ _(Figure 176)_
 If given the opportunity to improve upon our current design, there are a few design details that we would change.
 For example, we have had some issues with our implementation of our board. We created our board using an iterator 
 of iterators, this caused some issues in our unit tests. Our tests helped us realize that our implementation could 
-have been improved by maybe using a 2D array or a collection.
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements. After completion of the Code metrics exercise, you
-> will also discuss the resulting metric measurements.  Indicate the
-> hot spots the metrics identified in your code base, and your
-> suggested design improvements to address those hot spots._
+have been improved by maybe using a 2D array or a collection when creating our board. Our original code metrics 
+measurements were not great, however, after going back and fixing our implementation and unit tests, we were able 
+to improve them significantly. Our main issues in testing was our iterators. As you can see, the iterators had caused 
+us more than one problem, however, we were able to get past this issue.
+
 
 ## Testing
 > _This section will provide information about the testing performed
