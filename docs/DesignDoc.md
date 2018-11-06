@@ -14,8 +14,8 @@ geometry: margin=1in
 ## Executive Summary
 
 This is a web-based application where players, who are signed in, have the ability to play checkers with other players.
- The user interface for the game will implement drag-and-drop functionality for making moves. Furthermore, the additional
- features of "Spectator Mode" and "Tournament Play" will be implemented to enhance the user experience.
+ The user interface for the game will implement drag-and-drop functionality for making moves. Furthermore, the 
+ additional features of "Spectator Mode" and "Tournament Play" will be implemented to enhance the user experience.
 
 
 ### Purpose
@@ -71,13 +71,18 @@ that ends with one winner.
 
 This section describes the application domain:
 
-:![The WebCheckers Domain Model](Domain-Model.png)
+:![The WebCheckers Domain Model](domain-model.png)
 _(Figure 74)_
 
-_There are two main entities: the game and the player(s). The game creates the board and hosts the game for two players.
-The players then play the game and movement information is sent to the game, validated, and executed. A user can become
-a player by signing into the application to initiate games with other players._
-
+The main elements of the domain are the Player, Game, and Tournament entities. The Player entity represents the player,
+whether they are human, a spectator, or an AI bot. A player plays the game and makes moves, but only watches if they are
+a spectator. The Move entity has multiple sub-types: single, single jump, multi jump, and multi direction moves. Each 
+move is validated by the rules of the game. The jump rule determines the validity of all the moves besides the multi 
+direction move, which is validated by the king rule. Before the player can even make a move, the board must be created.
+The Game entity creates a Board, which then creates eight Row entities, which creates eight Space entities. The Space
+entity creates a single Piece entity if it is initialized to contain one. There are two types of pieces: single pieces
+and king pieces. A Tournament entity is a series of games played by multiple different players. The functionality of the
+tournament follows the basic principle of a regular sports tournament.
 
 ## Architecture and Design
 
@@ -97,7 +102,8 @@ some minimal CSS for styling the page.  There is also some JavaScript
 that has been provided to the team by the architect.
 
 The server-side tiers include the UI Tier that is composed of UI Controllers and Views.
-Controllers are built using the Spark framework and View are built using the FreeMarker framework.  The Application and Model tiers are built using plain-old Java objects (POJOs).
+Controllers are built using the Spark framework and View are built using the FreeMarker framework.  The Application and 
+Model tiers are built using plain-old Java objects (POJOs).
 
 Details of the components within these tiers are supplied below.
 
@@ -107,7 +113,7 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application: 
 
-:![The WebCheckers Web Interface Statechart](State-Chart.png)
+:![The WebCheckers Web Interface State Chart](state-chart.png)
 _(Figure 108)_
 
 
@@ -115,9 +121,9 @@ From the Perspective of the user, the Application's user interface begins on the
 where the user will see a welcome screen and a button to sign in. When the user clicks the button,
 the interface then flows to the sign-in page, where the user is prompted to enter a unique name.
 If the user enters an invalid name or a name that's already being used, the user will stay on the sign-in
-page but with the appropriate error message. If the user enters a valid name, the interface flows back to the home page, where the
-user can see his name as the current player, along with a number or list of other players in the lobby. When the 
-user chooses a player to enter a game with or a different player chooses the user to play a game with, 
+page but with the appropriate error message. If the user enters a valid name, the interface flows back to the home page,
+where the user can see his name as the current player, along with a number or list of other players in the lobby. When 
+the user chooses a player to enter a game with or a different player chooses the user to play a game with, 
 the user is transitioned to the game page, where the board is laid out in game form. If a player wins or 
 if either player resigns, both are taken back to the home page.  
 
@@ -125,26 +131,29 @@ if either player resigns, both are taken back to the home page.
 ### UI Tier
 This tier of the Web Checkers application can be shown in the following class diagram:
 
-:![UI Tier Class Diagram](User-Interface-Tier-Class-Diagram.png)
+:![UI Tier Class Diagram](user-interface-tier-class-diagram.png)
 
-The User Interface Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP Routes that make up the web application.
-When a client navigates to the Web Checkers page, he will be starting in the GetHomeRoute component of the UI Tier.
-If client attempts to start at a page that is not the home page, the client will be redirected to the sign in page. 
-GetHomeRoute is responsible for displaying the home page, with a Sign In button at the top and additional information in the body, as well as checking if a player is already in a game and redirecting to the game page if so. 
-When the Sign In button is clicked, the client will be sent
-to GetSignInRoute, which is responsible for displaying the sign in page. On the sign in page, the client can type a name into the space provided and press the submit button, 
-which will send the client to PostSignInRoute. In PostSignInRoute, if the username is invalid or already taken, the user will remain on the sign in page but with an error message; 
-if the username is valid and unique, the player will be signed in and redirected back to the home page.
-This process of signing in, from the perspective of the User Interface, can be seen in the following sequence diagram:
+The User Interface Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP 
+Routes that make up the web application. When a client navigates to the Web Checkers page, he will be starting in the 
+GetHomeRoute component of the UI Tier. If client attempts to start at a page that is not the home page, the client will 
+be redirected to the sign in page. GetHomeRoute is responsible for displaying the home page, with a Sign In button at 
+the top and additional information in the body, as well as checking if a player is already in a game and redirecting to 
+the game page if so. When the Sign In button is clicked, the client will be sent to GetSignInRoute, which is responsible
+for displaying the sign in page. On the sign in page, the client can type a name into the space provided and press the 
+submit button, which will send the client to PostSignInRoute. In PostSignInRoute, if the username is invalid or already 
+taken, the user will remain on the sign in page but with an error message; if the username is valid and unique, the 
+player will be signed in and redirected back to the home page. This process of signing in, from the perspective of the
+User Interface, can be seen in the following sequence diagram:
 
-:![Sign In Sequence Diagram](Sign-In-Sequence-Diagram.png)
+:![Sign In Sequence Diagram](sign-in-sequence-diagram.png)
 _(Figure 131)_
 
 
-Back in GetHomeRoute, the current lobby will now be displayed and, if there is more than one player in the lobby, there will be
-an option to select a player and start a game. Once the client chooses an opponent and clicks the start game button, the client is sent to GetGameRoute.
-GetGameRoute is responsible for creating a match in GameCenter (if one does not already exist) and displaying the game page
-to the client. More about the sign-in process can be found in the "Significant Features" section (Figure 176).
+Back in GetHomeRoute, the current lobby will now be displayed and, if there is more than one player in the lobby, there 
+will be an option to select a player and start a game. Once the client chooses an opponent and clicks the start game 
+button, the client is sent to GetGameRoute. GetGameRoute is responsible for creating a match in GameCenter 
+(if one does not already exist) and displaying the game page to the client. More about the sign-in process can be found 
+in the "Significant Features" section (Figure 176).
 
 
 > _Provide a summary of the Server-side UI tier of your architecture.
@@ -156,14 +165,14 @@ to the client. More about the sign-in process can be found in the "Significant F
 > static models (UML class structure or object diagrams) with some
 > details such as critical attributes and methods._
 
-> _You must also provide any dynamic models, such as statechart and
+> _You must also provide any dynamic models, such as state chart and
 > sequence diagrams, as is relevant to a particular aspect of the design
 > that you are describing.  For example, in WebCheckers you might create
 > a sequence diagram of the `POST /validateMove` HTTP request processing
-> or you might show a statechart diagram if the Game component uses a
+> or you might show a state chart diagram if the Game component uses a
 > state machine to manage the game._
 
-> _If a dynamic model, such as a statechart describes a feature that is
+> _If a dynamic model, such as a state chart describes a feature that is
 > not mostly in this tier and cuts across multiple tiers, you can
 > consider placing the narrative description of that feature in a
 > separate section for describing significant features. Place this after
@@ -173,14 +182,14 @@ to the client. More about the sign-in process can be found in the "Significant F
 ### Application Tier
 The application tier contains two components: GameCenter and PlayerLobby. These components can be seen in the following class diagram:
 
-:![Application Tier Class Diagram](Application-Tier-Class-Diagram.png) 
+:![Application Tier Class Diagram](application-tier-class-diagram.png) 
 _(Figure 169)_
 
 PlayerLobby is responsible for storing all players that have signed in, and in turn is used to check if a player name is valid when a user
 is attempting to sign in. Referring back to the figure below (_Figure 177_), when a user submits a username to sign in with, PostSignInRoute validates
 that the username is valid and is not already being used. If the name passes both of these tests, PostSignInRoute adds the new player to PlayerLobby: 
 
-:![Sign In Application Perspective Sequence Diagram](Sign%20In%20from%20Perspective%20of%20Application%20Sequence%20Diagram.png)
+:![Sign In Application Perspective Sequence Diagram](sign-in-from-perspective-of-application-sequence-diagram.png)
 _(Figure 177)_
 
 GameCenter is responsible for managing the matches between players. A match can be created in GameCenter, at which point the match is stored and can be accessed
@@ -188,13 +197,13 @@ by other related components. When a player wants to start a game with another si
 if it is not, a match is created through GameCenter between the two players. After the game is finished, or if a player resigns, GameCenter ends the match. 
 This sequence of events involving GameCenter can be seen in the following diagram:
 
-:![Create A Match In GameCenter](Create%20a%20Match%20in%20Game%20Center.png)
+:![Create A Match In GameCenter](create-a-match-in-game-center.png)
 _(Figure 184)_
 
 ### Model Tier
 
 
-:![Model Tier Class Diagram](Model-tier-class-diagram.png)
+:![Model Tier Class Diagram](model-tier-class-diagram.png)
 _(Figure 171)_
 
 > _Provide a summary of the Model tier of your architecture. This
@@ -203,7 +212,7 @@ _(Figure 171)_
 
 ### Significant Features
 
-:![Start A Game Sequence Diagram](Start-A-Game-Sequence-Diagram.png)
+:![Start A Game Sequence Diagram](start-a-game-sequence-diagram.png)
 _(Figure 176)_
 
 ### Design Improvements
