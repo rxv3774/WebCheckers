@@ -122,7 +122,8 @@ if either player resigns, both are taken back to the home page.
 The UI Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP Routes that make up the web application.
 When a client navigates to the Web Checkers page, he will be starting in the GetHomeRoute component of the UI Tier.
 If client attempts to start at a page that is not the home page, the client will be redirected to the sign in page. 
-GetHomeRoute is responsible for displaying the home page, with a Sign In button at the top and additional information in the body. When the Sign In button is clicked, the client will be sent
+GetHomeRoute is responsible for displaying the home page, with a Sign In button at the top and additional information in the body, as well as checking if a player is already in a game and redirecting to the game page if so. 
+When the Sign In button is clicked, the client will be sent
 to GetSignInRoute, which is responsible for displaying the sign in page. On the sign in page, the client can type a name into the space provided and press the submit button, 
 which will send the client to PostSignInRoute. In PostSignInRoute, if the username is invalid or already taken, the user will remain on the sign in page but with an error message; 
 if the username is valid and unique, the player will be signed in and redirected back to the home page.
@@ -135,9 +136,7 @@ _(Figure 131)_
 Back in GetHomeRoute, the current lobby will now be displayed and, if there is more than one player in the lobby, there will be
 an option to select a player and start a game. Once the client chooses an opponent and clicks the start game button, the client is sent to GetGameRoute.
 GetGameRoute is responsible for creating a match in GameCenter (if one does not already exist) and displaying the game page
-to the client. The second player is added to the game page after the match is created in GameCenter, since the opponent is still in GetHomeRoute; this
-works by GetHomeRoute consistently checking if the player is contained in GameCenter, and if it is then it will 
-redirect the player to the game page.
+to the client. More about the sign-in process can be found in the "Significant Features" section (Figure 176).
 
 
 > _Provide a summary of the Server-side UI tier of your architecture.
