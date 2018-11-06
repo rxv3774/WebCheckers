@@ -170,10 +170,16 @@ The application tier contains two components: GameCenter and PlayerLobby. These 
 _(Figure 169)_
 
 PlayerLobby is responsible for storing all players that have signed in, and in turn is used to check if a player name is valid when a user
-is attempting to sign in. Referring back to _Figure 131_ in the UI Tier, when a user submits a username to sign in with, PostSignInRoute validates
+is attempting to sign in. Referring back to the figure below (_Figure 177_), when a user submits a username to sign in with, PostSignInRoute validates
 that the username is valid and is not already being used. If the name passes both of these tests, PostSignInRoute adds the new player to PlayerLobby. 
-With the players now being stored in PlayerLobby, those players can choose to start a game with 
 
+:![Sign In Application Perspective Sequence Diagram](Sign%20In%20from%20Perspective%20of%20Application%20Sequence%20Diagram.png)
+_(Figure 177)_
+
+GameCenter is responsible for managing the matches between players. A match can be created in GameCenter, at which point the match is stored and can be accessed
+by other related components. When a player starts a game with another signed-in player, createGame in GameCenter is called and then the match is initialized 
+with both players and the game is started. Being that GameCenter is the controller for all matches, this component can also check
+if a player is currently in a match 
 
 ### Model Tier
 > _Provide a summary of the Model tier of your architecture. This

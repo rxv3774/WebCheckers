@@ -20,10 +20,6 @@ public class GameCenter {
         this.unmatched = new ArrayList<>();
     }
 
-    public List<Match> getMatches() {
-        return matches;
-    }
-
     /**
      * Creates a game and adds it to the games list. This calls the player start game.
      * methods as well.
