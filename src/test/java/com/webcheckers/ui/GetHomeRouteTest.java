@@ -33,6 +33,7 @@ class GetHomeRouteTest {
     private static final String PLAYER_LOBBY_ATTR = "playerLobby";
     private static final String NAME_ATTR = "name";
     private static final String SIGNED_IN_ATTR = "signedin";
+    public static final String PLAYER_LIST = "playerLst";
 
     private static final String TITLE = "Welcome!";
     private static final String MESSAGE_TYPE = "info";
@@ -111,16 +112,16 @@ class GetHomeRouteTest {
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
         getHomeRoute.handle(request, response);
 
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
         testHelper.assertViewName(VIEW_NAME);
 
-        when(session.attribute(NAME_ATTR)).thenReturn(VALID_NAME);
+        when( session.attribute(NAME_ATTR) ).thenReturn(VALID_NAME);
 
-        testHelper.assertViewModelAttribute(SIGNED_IN_ATTR, "The current signed in user is: " + VALID_NAME);
-        testHelper.assertViewModelAttribute(PLAYER_LIST_ATTR, playerLobby.getPlayerNamesAsString(VALID_NAME));
+        testHelper.assertViewModelAttribute(PLAYER_LIST, "The number of players signed in is: " + playerLobby.getLobbySize() );
     }
 
 //    @Test

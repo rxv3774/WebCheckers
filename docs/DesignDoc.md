@@ -209,7 +209,7 @@ have been improved by maybe using a 2D array or a collection.
 > _This section will provide information about the testing performed
 > and the results of the testing._
 
-At the moment we have
+At the moment we have the UI tier at
 
 ### Acceptance Testing
 Currently we have completed and passed all necessary acceptance criteria tests for 
