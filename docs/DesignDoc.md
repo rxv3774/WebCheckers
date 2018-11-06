@@ -73,7 +73,7 @@ This section describes the application domain:
 _(Figure 1)_
 
 The main elements of the domain are the Player, Game, and Tournament entities. The Player entity represents the player,
-whether they are human, a spectator, or an AI bot. A player plays the game and makes moves, but only watches if they are
+whether they are human or a spectator. A player plays the game and makes moves, but only watches if they are
 a spectator. The Move entity has multiple sub-types: single, single jump, multi jump, and multi direction moves. Each 
 move is validated by the rules of the game. The jump rule determines the validity of all the moves besides the multi 
 direction move, which is validated by the king rule. Before the player can even make a move, the board must be created.
@@ -190,7 +190,7 @@ The Model tier contains 8 components which include:
 :![Model Tier Class Diagram](model-tier-class-diagram.png)
 _(Figure 9)_
 
-In the domain model we have a match, which is an object that can start and end a game. A match is compromised of 
+In the Model Tier we have a Match, which is an object that can start and end a game. A match is compromised of 
 two players. A player is an object that has a name and a current match that they are in. A player is not initially 
 in a match, but can get pulled into one by another player. A match is responsible for holding a board and both 
 players(red and white). A board is an object comprised of 8 rows. Each row is an object which is comprised of 8 spaces.
