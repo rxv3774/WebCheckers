@@ -130,7 +130,7 @@ which will send the client to PostSignInRoute. In PostSignInRoute, if the userna
 if the username is valid and unique, the player will be signed in and redirected back to the home page.
 This process of signing in, from the perspective of the User Interface, can be seen in the following sequence diagram:
 
-![Sign In Sequence Diagram](Sign%20In%20Sequence%20Diagram.png)
+![Sign In Sequence Diagram](Sign-In-Sequence-Diagram.png)
 _(Figure 131)_
 
 
@@ -195,7 +195,7 @@ _(Figure 171)_
 
 ### Significant Features
 
-:![Start A Game Sequence Diagram](Start%20A%20Game%20Sequence%20Diagram.png)
+:![Start A Game Sequence Diagram](Start-A-Game-Sequence-Diagram.png)
 _(Figure 176)_
 
 ### Design Improvements
