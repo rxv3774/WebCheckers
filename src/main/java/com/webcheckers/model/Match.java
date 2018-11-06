@@ -50,6 +50,12 @@ public class Match {
         return false;
     }
 
+    /*
+     * Check if match contains the specified player
+     *
+     * @param player the player to check for
+     * @return if the match contains the player
+     */
     public Boolean matchContains(Player player){
         if(this.redPlayer.equals(player) || this.whitePlayer.equals(player))
             return true;
