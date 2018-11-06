@@ -3,6 +3,8 @@ package com.webcheckers.model;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("Model-tier")
@@ -32,19 +34,47 @@ class RowTest {
         assertEquals(2, new Row( 2).getIndex() );
     }
 
+    /*
+     * Tests that the Iterator hasNext functions correctly
+     */
     @Test
-    public void iteratorWorks(){
-        Row row = new Row(2);
-
-        //Test1 doesn't return Null
-        assertNotNull( row.iterator() );
+    void test_hasNext() {
+        final Row row = new Row(1);
+        Iterator itr = row.iterator();
+        assertTrue(itr.hasNext());
     }
 
+    /*
+     * Tests that the Iterator next functions correctly
+     */
     @Test
-    public void reverseIteratorWorks(){
-        Row row = new Row(2);
+    void test_next() {
+        final Row row = new Row(1);
+        Iterator itr = row.iterator();
+        assertNotNull(itr.next());
+        row.initialize();
+        assertTrue(itr.next() instanceof Space);
+    }
 
-        //Test1 doesn't return Null
-        assertNotNull( row.reverseIterator() );
+    /*
+     * Tests that the Reverse Iterator hasNext functions correctly
+     */
+    @Test
+    public void test_hasNextReverse(){
+        final Row row = new Row(1);
+        Iterator itr = row.reverseIterator();
+        assertTrue(itr.hasNext());
+    }
+
+    /*
+     * Tests that the Reverse Iterator next functions correctly
+     */
+    @Test
+    void test_nextReverse() {
+        final Row row = new Row(1);
+        Iterator itr = row.reverseIterator();
+        assertNotNull(itr.next());
+        row.initialize();
+        assertTrue(itr.next() instanceof Space);
     }
 }
