@@ -54,16 +54,16 @@ public class WebServer {
      * The URL pattern to request the Home page.
      */
     public static final String HOME_URL = "/";
-    public static final String SIGNIN_URL = "/signIn";
+    public static final String SIGN_IN_URL = "/signIn";
     public static final String POST_NAME = "/postName";
     public static final String START_GAME = "/game";
 
     public static final String HOME_FILE = "home.ftl";
     public static final String GAME_CENTER = "gameCenter";
     public static final String PLAYER_LOBBY = "playerLobby";
-    public static final String PLAYER_LST = "playerLst";
+    public static final String PLAYER_LIST = "playerLst";
     public static final String SHOW_BUTTON = "showGameButton";
-    public static final String SIGNEDIN = "signedin";
+    public static final String SIGNED_IN = "signedin";
     public static final String ERROR_MESSAGE = "errorMessage";
 
     //
@@ -156,11 +156,11 @@ public class WebServer {
         get(HOME_URL, new GetHomeRoute(playerLobby, gameCenter, templateEngine));
 
         //Shows the sign in page
-        get(SIGNIN_URL, new GetSignInRoute(templateEngine));
+        get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
 
 
         //Sends the player name to the player lobby
-        post(SIGNIN_URL, new PostSignInRoute(playerLobby, templateEngine));
+        post(SIGN_IN_URL, new PostSignInRoute(playerLobby, templateEngine));
 
         //
         LOG.config("WebServer is initialized.");

@@ -4,7 +4,7 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 @Tag("UI-tier")
 class GetGameRouteTest {
 
-    private final String SESSION_ABTTRIBUTE_NAME = "name";
+    private final String SESSION_ATTRIBUTE_NAME = "name";
     static final String VIEW_NAME = "game.ftl";
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
@@ -73,7 +73,7 @@ class GetGameRouteTest {
 
     @Test
     public void playerIsNull(){
-        when( session.attribute( SESSION_ABTTRIBUTE_NAME ) ).thenReturn( null );
+        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( null );
 
         //Test1 This throws a holt error since they are redirected.
         assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response) );
@@ -87,10 +87,10 @@ class GetGameRouteTest {
         playerLobby.addPlayer( p1 );
 
         //This is for the current Player
-        when( session.attribute( SESSION_ABTTRIBUTE_NAME ) ).thenReturn( p1.getName() );
+        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
 
         //This is for the Opponent
-        when( request.queryParams( SESSION_ABTTRIBUTE_NAME) ).thenReturn( null );
+        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( null );
 
         //Test1 catches the halt since the opponent doesn't exist
         assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response) );
@@ -104,10 +104,10 @@ class GetGameRouteTest {
         playerLobby.addPlayer( p1 );
 
         //This is for the current Player
-        when( session.attribute( SESSION_ABTTRIBUTE_NAME ) ).thenReturn( p1.getName() );
+        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
 
         //This is for the Opponent
-        when( request.queryParams( SESSION_ABTTRIBUTE_NAME) ).thenReturn( p1.getName() );
+        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
 
         //Test1 catches the halt since the opponent name has the same
         assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response) );
@@ -126,10 +126,10 @@ class GetGameRouteTest {
         gameCenter.createGame( p2, p3);
 
         //This is for the current Player
-        when( session.attribute( SESSION_ABTTRIBUTE_NAME ) ).thenReturn( p1.getName() );
+        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
 
         //This is for the Opponent
-        when( request.queryParams( SESSION_ABTTRIBUTE_NAME) ).thenReturn( p2.getName() );
+        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( p2.getName() );
 
         //Test1 catches the halt since the opponent name is in a match
         assertThrows( spark.HaltException.class, () -> getGameRoute.handle(request, response) );
@@ -146,10 +146,10 @@ class GetGameRouteTest {
         playerLobby.addPlayer( p2 );
 
         //This is for the current Player
-        when( session.attribute( SESSION_ABTTRIBUTE_NAME ) ).thenReturn( p1.getName() );
+        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
 
         //This is for the Opponent
-        when( request.queryParams( SESSION_ABTTRIBUTE_NAME) ).thenReturn( p2.getName() );
+        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( p2.getName() );
 
         //Test1 catches the halt since the opponent name is the same
         assertThrows( spark.HaltException.class, () -> getGameRoute.handle(request, response) );
@@ -167,10 +167,10 @@ class GetGameRouteTest {
         gameCenter.createGame( p1, p2);
 
         //This is for the current Player
-        when( session.attribute( SESSION_ABTTRIBUTE_NAME ) ).thenReturn( p1.getName() );
+        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
 
         //This is for the Opponent
-        when( request.queryParams( SESSION_ABTTRIBUTE_NAME) ).thenReturn( p2.getName() );
+        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( p2.getName() );
 
 
         TemplateEngineTest testHelper = new TemplateEngineTest();

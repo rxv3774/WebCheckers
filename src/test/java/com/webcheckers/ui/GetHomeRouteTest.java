@@ -2,11 +2,14 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -35,7 +38,8 @@ class GetHomeRouteTest {
     private static final String MESSAGE_TYPE = "info";
     private static final String NO_PLAYERS = "There aren't any players signed in";
 
-    private GetHomeRoute getHomeRoute;
+    private static final String VALID_NAME = "Test Name";
+
     private GameCenter gameCenter;
     private PlayerLobby playerLobby;
 
@@ -44,21 +48,79 @@ class GetHomeRouteTest {
     private Session session;
     private TemplateEngine engine;
 
+    private GetHomeRoute getHomeRoute;
+
     @BeforeEach
     void setup() {
         request = mock(Request.class);
         response = mock(Response.class);
         session = mock(Session.class);
+        when(request.session()).thenReturn(session);
         engine = mock(TemplateEngine.class);
 
         gameCenter = new GameCenter();
         playerLobby = new PlayerLobby();
+
         getHomeRoute = new GetHomeRoute(playerLobby, gameCenter, engine);
     }
 
     @Test
-    void test_constructor() {
+    void test_validConstructor() {
         new GetHomeRoute(playerLobby, gameCenter, engine);
+    }
+
+    @Test
+    void test_invalidConstructor() {
+        assertThrows(NullPointerException.class, () -> {
+            new GetHomeRoute(playerLobby, gameCenter, null);
+        });
+    }
+
+    @Test
+    void test_lobbySizeZero() {
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        getHomeRoute.handle(request, response);
+
+        testHelper.assertViewModelExists();
+        testHelper.assertViewModelIsaMap();
+        testHelper.assertViewName(VIEW_NAME);
+
+        testHelper.assertViewModelAttribute(PLAYER_LIST_ATTR, "There aren't any players signed in");
+    }
+
+    @Test
+    void test_lobbySizeOneNotSignedIn() {
+        playerLobby.addPlayer(new Player(VALID_NAME));
+
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        getHomeRoute.handle(request, response);
+
+        testHelper.assertViewModelExists();
+        testHelper.assertViewModelIsaMap();
+        testHelper.assertViewName(VIEW_NAME);
+
+        testHelper.assertViewModelAttribute(PLAYER_LIST_ATTR, "The number of players signed in is: 1");
+    }
+
+    @Test
+    void test_lobbySizeOneSignedIn() {
+        final Player testPlayer = new Player(VALID_NAME);
+        playerLobby.addPlayer(testPlayer);
+
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        getHomeRoute.handle(request, response);
+
+        testHelper.assertViewModelExists();
+        testHelper.assertViewModelIsaMap();
+        testHelper.assertViewName(VIEW_NAME);
+
+        when(session.attribute(NAME_ATTR)).thenReturn(VALID_NAME);
+
+        testHelper.assertViewModelAttribute(SIGNED_IN_ATTR, "The current signed in user is: " + VALID_NAME);
+        testHelper.assertViewModelAttribute(PLAYER_LIST_ATTR, playerLobby.getPlayerNamesAsString(VALID_NAME));
     }
 
 //    @Test
@@ -125,13 +187,8 @@ class GetHomeRouteTest {
 //        verify(session).attribute(eq(NAME_ATTR), any(String.class));
 //    }
 
-
-
     @Test
-    public void handleWorks(){
-
-        when( request.session() ).thenReturn( session );
-
-
+    public void handleWorks() {
+        when(request.session()).thenReturn(session);
     }
 }

@@ -29,7 +29,7 @@ public class GetHomeRoute implements Route {
     private static final String REDIRECT = "REDIRECT";
     private static final String NO_REDIRECT = "NO REDIRECT";
 
-    private static final String VIEW_NAME = "home.ftl";
+//    private static final String VIEW_NAME = "home.ftl";
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
@@ -67,8 +67,6 @@ public class GetHomeRoute implements Route {
         session.attribute(WebServer.PLAYER_LOBBY, playerLobby);
         session.attribute(WebServer.GAME_CENTER, gameCenter);
 
-        final PlayerLobby playerLobby = session.attribute(PLAYER_LOBBY_ATTR);
-
         Map<String, Object> vm = new HashMap<>();
         vm.put(TITLE_ATTR, "Welcome!");
         vm.put(MESSAGE_TYPE_ATTR, "info");
@@ -78,16 +76,15 @@ public class GetHomeRoute implements Route {
             String currentPlayer = session.attribute(NAME_ATTR);
 
             if (currentPlayer != null) {
-                vm.put(WebServer.SIGNEDIN, "The current signed in user is: " + currentPlayer);
-                vm.put(WebServer.PLAYER_LST, playerLobby.getPlayerNamesAsString(currentPlayer));
+                vm.put(WebServer.SIGNED_IN, "The current signed in user is: " + currentPlayer);
+                vm.put(WebServer.PLAYER_LIST, playerLobby.getPlayerNamesAsString(currentPlayer));
             } else {
-                vm.put(WebServer.PLAYER_LST, "The number of players signed in is: " + playerLobby.getLobbySize());
+                vm.put(WebServer.PLAYER_LIST, "The number of players signed in is: " + playerLobby.getLobbySize());
             }
 
             String errorMessage = session.attribute(ERROR_ATTR);
 
-            if(errorMessage != null)
-                    vm.put(WebServer.ERROR_MESSAGE, "ERROR: " + errorMessage);
+            if(errorMessage != null) vm.put(WebServer.ERROR_MESSAGE, "ERROR: " + errorMessage);
         }
 
         if (playerLobby.getLobbySize() > 1) {
@@ -110,7 +107,7 @@ public class GetHomeRoute implements Route {
         }
 
         if (playerLobby.getLobbySize() == 0) {
-            vm.put(WebServer.PLAYER_LST, "There aren't any players signed in");
+            vm.put(WebServer.PLAYER_LIST, "There aren't any players signed in");
         }
 
         return templateEngine.render(new ModelAndView(vm, WebServer.HOME_FILE));
