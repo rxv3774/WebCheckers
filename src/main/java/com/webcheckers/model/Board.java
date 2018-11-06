@@ -94,35 +94,6 @@ public class Board implements Iterable<Row> {
         };
     }
 
-    /**
-     * Get space at row, col.
-     *
-     * @param row the row
-     * @param col the col
-     * @return the space
-     */
-    /*
-    public Space getSpace(int row, int col) {
-        if (row < 0 || row >= rowArraySize || col < 0 || col >= rowArraySize) {
-            return null;
-        }
-        return board[row].getSpace(col);
-    }
-*/
-
-//    /**
-//     * Deep copy game board.
-//     *
-//     * @return a deep copy of the game board
-//     */
-//    public Board deepCopy() {
-//        Board cp = new Board();
-//        for (int i = 0; i < board.length; i++) {
-//            cp.board[i] = board[i].deepCopy();
-//        }
-//        return cp;
-//    }
-
     public int getRowsSize() {
         return board.length;
     }

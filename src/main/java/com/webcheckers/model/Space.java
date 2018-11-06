@@ -32,11 +32,20 @@ public class Space {
         this.piece = piece;
     }
 
-
+    /*
+     * Get the Column index of the Space
+     *
+     * @return the column index
+     */
     public int getCellIdx() {
         return cellIdx;
     }
 
+    /*
+     * Get the Row index of the Space
+     *
+     * @return the row index
+     */
     public int getRowIdx() {
         return rowIdx;
     }
@@ -85,19 +94,6 @@ public class Space {
     }
 
     /**
-     * Deep copy space.
-     *
-     * @return deep copy of the space
-     */
-    /*
-    public Space deepCopy() {
-        Space cp = new Space(this.cellIdx, this.rowIdx);
-        cp.setPiece(this.piece);
-        return cp;
-    }
-    */
-
-    /**
      * remove the piece in this space
      *
      * @return the piece that previously occupied the space
@@ -121,14 +117,4 @@ public class Space {
     public Piece getPiece() {
         return this.piece;
     }
-
-
-    /**
-     * Testing to set piece.
-     */
-    /*
-    public void setPiece(Piece piece) {
-        this.piece = piece;
-    }
-    */
 }
