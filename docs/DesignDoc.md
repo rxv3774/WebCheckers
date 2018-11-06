@@ -126,17 +126,17 @@ GetHomeRoute is responsible for displaying the home page, with a Sign In button 
 to GetSignInRoute, which is responsible for displaying the sign in page. On the sign in page, the client can type a name into the space provided and press the submit button, 
 which will send the client to PostSignInRoute. In PostSignInRoute, if the username is invalid or already taken, the user will remain on the sign in page but with an error message; 
 if the username is valid and unique, the player will be signed in and redirected back to the home page.
-This process of signing in can be seen in the following sequence diagram:
+This process of signing in, from the perspective of the User Interface, can be seen in the following sequence diagram:
 
 :![Sign In Sequence Diagram](Sign%20In%20Sequence%20Diagram.png)
 
 
-Back in GetHomeRoute, the current lobby will now be displayed and, if there is more than one in the lobby, there will be
+Back in GetHomeRoute, the current lobby will now be displayed and, if there is more than one player in the lobby, there will be
 an option to select a player and start a game. Once the client chooses an opponent and clicks the start game button, the client is sent to GetGameRoute.
 GetGameRoute is responsible for creating a match in GameCenter (if one does not already exist) and displaying the game page
-to the client. The second player is added to the game page after the match is created in GameCenter, since the opponent is in GetHomeRoute; this
-works by GetHomeRoute consistently checking if the player is contained in game center, and if it is then it will 
-redirect the player to the page.
+to the client. The second player is added to the game page after the match is created in GameCenter, since the opponent is still in GetHomeRoute; this
+works by GetHomeRoute consistently checking if the player is contained in GameCenter, and if it is then it will 
+redirect the player to the game page.
 
 
 > _Provide a summary of the Server-side UI tier of your architecture.
@@ -163,9 +163,7 @@ redirect the player to the page.
 
 
 ### Application Tier
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
+The application tier contains two components: GameCenter and PlayerLobby. When a player signs in, 
 
 
 ### Model Tier
@@ -175,6 +173,7 @@ redirect the player to the page.
 
 ### Significant Features
 
+_(Figure 176)_
 :![Start A Game Sequence Diagram](Start%20A%20Game%20Sequence%20Diagram.png)
 
 ### Design Improvements
