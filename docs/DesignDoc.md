@@ -4,7 +4,7 @@ geometry: margin=1in
 # Web Checkers Design Documentation
 
 ## Team Information
-* Team name: Team D
+* Team name: TeamD
 * Team members
     * Samuel Adams
     * Henry Larson
@@ -35,6 +35,8 @@ before, Web Checkers offers a fun and challenging way to pass time.
 | CSS (Cascading Style Sheet) | A style sheet language used for describing the presentation of a document written in a markup language like HTML. |
 | UI Controller | Object that coordinates system operations |
 | Information Expert | Assigning responsibility to the class that has the information |
+| Controller | A non-user interface object responsible for receiving or handling a system event. |
+
 ## Requirements
 * Player must be able to sign in.
 * Player must be able to play against another player who is also signed in.
@@ -52,6 +54,8 @@ American rules, and resign at any point which ends the game.
 * Resignation
 
 ###### User Stories: 
+* Start a game
+* Player Sign-in
 * Move first
 * Move on turn
 * Single move
@@ -126,6 +130,7 @@ This tier of the Web Checkers application can be shown in the following class di
 :![UI Tier Class Diagram](user-interface-tier-class-diagram.png)
 _(Figure 4)_
 
+*Class Structure of UI Tier:*\
 The User Interface Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP 
 Routes that make up the web application. When a client navigates to the Web Checkers page, he will be starting in the 
 GetHomeRoute component of the UI Tier. If client attempts to start at a page that is not the home page, the client will 
@@ -141,6 +146,7 @@ User Interface, can be seen in the following sequence diagram:
 :![Sign In Sequence Diagram](sign-in-sequence-diagram.png)
 _(Figure 5)_
 
+*GetGameRoute Component of UI Tier:*\
 Back in GetHomeRoute, the current lobby will now be displayed and, if there is more than one player in the lobby, there 
 will be an option to select a player and start a game. Once the client chooses an opponent and clicks the start game 
 button, the client is sent to GetGameRoute. GetGameRoute is responsible for creating a match in GameCenter 
@@ -153,6 +159,7 @@ The application tier contains two components: GameCenter and PlayerLobby. These 
 :![Application Tier Class Diagram](application-tier-class-diagram.png) 
 _(Figure 6)_
 
+*PlayerLobby Component of Application Tier:*\
 PlayerLobby is responsible for storing all players that have signed in, and in turn is used to check if a player name is valid when a user
 is attempting to sign in. Seen in the figure below, when a user submits a username to sign in with, PostSignInRoute asks PlayerLobby to validate
 that the username is valid and is not already being used. If the name passes both of these tests, PostSignInRoute adds the new player to PlayerLobby: 
@@ -160,17 +167,21 @@ that the username is valid and is not already being used. If the name passes bot
 :![Sign In Application Perspective Sequence Diagram](sign-in-from-perspective-of-application-sequence-diagram.png)
 _(Figure 7)_
 
+*Design Elements of PlayerLobby:*\
 We chose this design so that the responsibility of managing players is kept in a single, non-domain entity, following the principle of Pure Fabrication. 
 This supports high-cohesion by keeping classes, like Player or GameCenter, small and with narrowly defined responsibilities.
 
+*GameCenter Component of Application Tier:*\
 GameCenter is responsible for managing the matches between players. A match can be created in GameCenter, at which point the match is stored and can be accessed
 by other related components. When a player wants to start a game with another signed-in player, the chosen player is checked to see if it is already in a match;
-if it is not, a match is created through GameCenter between the two players. After the game is finished, or if a player resigns, GameCenter ends the match. 
+if it is not, a match is created through GameCenter between the two players. This is an example of a Controller, because the GameCenter is beyond the UI and handles the creation
+of a game; more specifically, it does this by using methods in other classes such as Match. After the game is finished, or if a player resigns, GameCenter ends the match. 
 This sequence of events involving GameCenter can be seen in the following diagram:
 
 :![Create A Match In GameCenter](create-a-match-in-game-center.png)
 _(Figure 8)_
 
+*Design Elements of GameCenter:*\
 Important to note about the design of GameCenter is the use of Information Expert. When the GameCenter checks if it contains a player,
 it loops through all of the matches and calls a method in Match that checks if the specific match contains the player. This is
 instead of calling get methods from Match and doing the comparison in GameCenter. This follows Information Expert because this concept states
@@ -190,6 +201,7 @@ The Model tier contains 8 components which include:
 :![Model Tier Class Diagram](model-tier-class-diagram.png)
 _(Figure 9)_
 
+*Class Structure of Model Tier:*\
 In the Model Tier we have a Match, which is an object that can start and end a game. A match is compromised of 
 two players. A player is an object that has a name and a current match that they are in. A player is not initially 
 in a match, but can get pulled into one by another player. A match is responsible for holding a board and both 
@@ -202,6 +214,11 @@ below:
 :![Make A Board Sequence Diagram](make-a-board-sequence-diagram.png)
 _(Figure 10)_
 
+*Design Elements of Model Tier:*\
+This implementation of the Model Tier follows High Cohesion by creating smaller classes that have specific responsibilities. 
+Additionally, by separating these responsibilities, change in one of the classes has a lower impact on the other classes.
+
+*Move Component of Model Tier:*\
 When a player wants to make a move, the move object holds the responsibility of moving the piece from its starting 
 space to ending space. The red player always makes the first move. When a move is available then it must be made, 
 the same goes for double jumps. When a move is attempted, the message object lets the board know whether or not the move 
@@ -227,7 +244,8 @@ of iterables, this caused some issues in our unit tests. Our tests helped us rea
 have been improved by maybe using a collection when creating our board. Our original code metrics 
 measurements were not great, however, after going back and fixing our implementation and unit tests, we were able 
 to improve them significantly. Our main issues in testing was our iterators. As you can see, the iterators had caused 
-us more than one problem, however, we were able to get past this issue.
+us more than one problem, however, we were able to get past this issue. Another improvement we could make is implementing
+single responsibility for a Piece, by creating separate Single and King Piece classes.
 
 ## Testing
 Some of the tests that are performed: 
