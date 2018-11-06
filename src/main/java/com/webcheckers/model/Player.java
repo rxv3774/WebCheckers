@@ -1,6 +1,6 @@
 package com.webcheckers.model;
 
-public class Player implements Comparable {
+public class Player {
 
     /**
      * The players username.
@@ -57,29 +57,11 @@ public class Player implements Comparable {
      * @param obj object ot compare to
      * @return true if Player's have the same name
      */
-    @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (!(obj instanceof Player)) return false;
         Player that = (Player) obj;
         return this.name.equals(that.name);
-    }
-
-    /**
-     * compares the name to name if other player object
-     * else compares the name to the result of to String
-     *
-     * @param o - other object
-     * @return 0 if player names match
-     */
-    @Override
-    public int compareTo(Object o) {
-        if (o instanceof Player) {
-            Player that = (Player) o;
-            return this.name.compareTo(that.name);
-        } else {
-            return -1;
-        }
     }
 
     /**
