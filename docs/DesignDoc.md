@@ -177,9 +177,11 @@ that the username is valid and is not already being used. If the name passes bot
 _(Figure 177)_
 
 GameCenter is responsible for managing the matches between players. A match can be created in GameCenter, at which point the match is stored and can be accessed
-by other related components. When a player starts a game with another signed-in player, createGame in GameCenter is called and then the match is initialized 
-with both players and the game is started. Being that GameCenter is the controller for all matches, this component can also check
-if a player is currently in a match 
+by other related components. When a player wants to start a game with another signed-in player, the chosen player is checked to see if it is already in a match;
+if it is not, a match is created through GameCenter between the two players. After the game is finished, or if a player resigns, GameCenter ends the match. 
+This sequence of events involving GameCenter can be seen in the following diagram:
+
+:![Create A Match In GameCenter](Create%20a%20Match%20in%20Game%20Center.png)
 
 ### Model Tier
 
