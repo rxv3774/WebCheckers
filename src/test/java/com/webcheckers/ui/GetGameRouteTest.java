@@ -153,6 +153,7 @@ class GetGameRouteTest {
 
         //Test1 catches the halt since the opponent name is the same
         assertThrows( spark.HaltException.class, () -> getGameRoute.handle(request, response) );
+
     }
 
     @Test //Player is in a match

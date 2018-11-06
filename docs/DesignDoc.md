@@ -111,7 +111,7 @@ with the WebCheckers application.
 From the Perspective of the user, the Application's user interface begins on the home page
 where the user will see a welcome screen and a button to sign in. When the user clicks the button,
 the interface then flows to the sign-in page, where the user is prompted to enter a unique name.
-If the user enters an invalid name or name that's already being used, the user will stay on the sign-in
+If the user enters an invalid name or a name that's already being used, the user will stay on the sign-in
 page but with the appropriate error message. If the user enters a valid name, the interface flows back to the home page, where the
 user can see his name as the current player, along with a number or list of other players in the lobby. When the 
 user chooses a player to enter a game with or a different player chooses the user to play a game with, 
@@ -200,6 +200,8 @@ If given the opportunity to
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
+
+At the moment we have
 
 ### Acceptance Testing
 Currently we have completed and passed all necessary acceptance criteria tests for 

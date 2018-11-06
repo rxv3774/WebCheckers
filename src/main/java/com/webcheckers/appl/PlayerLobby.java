@@ -52,7 +52,7 @@ public class PlayerLobby {
     public boolean playerNameInUse(String name) {
         Player other = new Player(name);
         for (Player player : players) {
-            if (other.compareTo(player) == 0) {
+            if (other.equals(player) ) {
                 return true;
             }
         }

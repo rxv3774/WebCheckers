@@ -96,24 +96,11 @@ class PlayerTest {
     }
 
     @Test
-    public void compareToWorks(){
-        Player p1 = new Player( "Brett" );
-        Player p2 = new Player( "Kevin" );
-
-        Board board = new Board();
-
-        assertNotNull( p1.compareTo( board ) );
-        assertNotNull( p1.compareTo( p2 ) );
-    }
-
-
-    @Test
     public void getViewModeWorks(){
         Player p1 = new Player( "Brett" );
         Player p2 = new Player( "Kevin" );
 
         Player p3 = new Player( "Batman" );
-
 
         Match match = new Match();
 
@@ -125,11 +112,11 @@ class PlayerTest {
         //Test1 doesn't return a null value
         assertNotNull( p1.getViewMode() );
 
-        //Test2 playerOne is a player
+        //Test2 p1 is a player
         assertEquals( "PLAY", p1.getViewMode() );
 
+        //Test3 p3 is a Spectator
         assertEquals( "SPECTATOR", p3.getViewMode());
-
     }
 
 
