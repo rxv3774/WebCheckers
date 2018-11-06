@@ -165,5 +165,4 @@ public class WebServer {
         //
         LOG.config("WebServer is initialized.");
     }
-
 }

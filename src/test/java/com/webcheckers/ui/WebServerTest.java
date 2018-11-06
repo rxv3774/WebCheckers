@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import spark.TemplateEngine;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 public class WebServerTest {
@@ -15,6 +16,8 @@ public class WebServerTest {
     //Attributes
     private final String TEMPLATE_ENGINE_NULL_ERROR = "templateEngine must not be null";
     private final String GSON_NULL_ERROR = "gson must not be null";
+    private PlayerLobby playerLobby;
+    private GameCenter gameCenter;
     private TemplateEngine engine;
     private Gson gson;
 
@@ -24,26 +27,33 @@ public class WebServerTest {
     @BeforeEach
     void setup() {
         engine = mock(TemplateEngine.class);
+        playerLobby = new PlayerLobby();
+        gameCenter = new GameCenter();
+        gson = new Gson();
+    }
+
+    @Test
+    void test_validConstructor() {
+        new WebServer(engine, gson);
     }
 
     /**
      * Checks to ensure that the template engine is not null.
      */
     @Test
-    public void test_constructor_templateEngine() {
-        TemplateEngine templateEngine = null;
-        gson = new Gson();
-
-        assertThrows( NullPointerException.class, () -> {new WebServer(templateEngine, gson); });
+    void test_invalidConstructorEngine() {
+        assertThrows(NullPointerException.class, () -> {
+            new WebServer(null, gson);
+        });
     }
 
     /**
      * Checks to ensure that the gson is not null.
      */
     @Test
-    public void test_constructor_gson() {
-        gson = null;
-
-        assertThrows( NullPointerException.class, () -> {new WebServer(engine, gson); });
+    void test_invalidConstructorGson() {
+        assertThrows(NullPointerException.class, () -> {
+            new WebServer(engine, null);
+        });
     }
 }

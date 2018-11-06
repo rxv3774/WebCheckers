@@ -235,8 +235,8 @@ checking if the constructors creates the object correctly, stores the attributes
 to see if the getter methods are returning the correct values, seeing if the player is being redirected
 appropriately and requests are being halted.
 
-At the current moment, we have the UI tier at 83% code coverage and 92% missed branches.
-The model tier is at 89% code coverage and 83% missed branches. 
+At the current moment, we have the UI tier at 87% code coverage and 92% missed branches.
+The model tier is at 97% code coverage and 90% missed branches. 
 The application tier is at 100% code coverage and the missed branches is at 100%.
 
 ### Acceptance Testing
