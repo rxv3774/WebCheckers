@@ -176,6 +176,11 @@ With the players now being stored in PlayerLobby, those players can choose to st
 
 
 ### Model Tier
+
+
+:![Model Tier Class Diagram](Model-tier-class-diagram.png)
+_(Figure 171)_
+
 > _Provide a summary of the Model tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
@@ -187,7 +192,10 @@ _(Figure 176)_
 
 ### Design Improvements
 
-If given the opportunity to
+If given the opportunity to improve upon our current design, there are a few design details that we would change.
+For example, we have had some issues with our implementation of our board. We created our board using an iterator 
+of iterators, this caused some issues in our unit tests. Our tests helped us realize that our implementation could 
+have been improved by maybe using a 2D array or a collection.
 > _Discuss design improvements that you would make if the project were
 > to continue. These improvement should be based on your direct
 > analysis of where there are problems in the code base which could be
