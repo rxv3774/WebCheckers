@@ -105,7 +105,7 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-:![The WebCheckers Web Interface Statechart](Statechart.png)
+:![The WebCheckers Web Interface Statechart](State-Chart.png)
 
 
 From the Perspective of the user, the Application's user interface begins on the home page
@@ -182,6 +182,11 @@ with both players and the game is started. Being that GameCenter is the controll
 if a player is currently in a match 
 
 ### Model Tier
+
+
+:![Model Tier Class Diagram](Model-tier-class-diagram.png)
+_(Figure 171)_
+
 > _Provide a summary of the Model tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
@@ -193,7 +198,10 @@ _(Figure 176)_
 
 ### Design Improvements
 
-If given the opportunity to
+If given the opportunity to improve upon our current design, there are a few design details that we would change.
+For example, we have had some issues with our implementation of our board. We created our board using an iterator 
+of iterators, this caused some issues in our unit tests. Our tests helped us realize that our implementation could 
+have been improved by maybe using a 2D array or a collection.
 > _Discuss design improvements that you would make if the project were
 > to continue. These improvement should be based on your direct
 > analysis of where there are problems in the code base which could be
@@ -207,7 +215,7 @@ If given the opportunity to
 > _This section will provide information about the testing performed
 > and the results of the testing._
 
-At the moment we have
+At the moment we have the UI tier at
 
 ### Acceptance Testing
 Currently we have completed and passed all necessary acceptance criteria tests for 
