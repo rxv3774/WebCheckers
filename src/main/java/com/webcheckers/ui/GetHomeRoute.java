@@ -34,7 +34,7 @@ public class GetHomeRoute implements Route {
     private final PlayerLobby playerLobby;
     private final GameCenter gameCenter;
 
-    static final String VIEW_NAME = "home.ftl";
+    private static final String VIEW_NAME = "home.ftl";
 
     /**
      * Create the Spark Route (UI controller) for the

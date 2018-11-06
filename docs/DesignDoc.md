@@ -4,12 +4,12 @@ geometry: margin=1in
 # Web Checkers Design Documentation
 
 ## Team Information
-* Team name: td
+* Team name: Team D
 * Team members
-  * Ryan Vasquez
-  * Brett Patterson
-  * Samuel Adams
-  * Henry Larson
+    * Samuel Adams
+    * Henry Larson
+    * Brett Patterson
+    * Ryan Vasquez
 
 ## Executive Summary
 
@@ -41,8 +41,8 @@ before, Web Checkers offers a fun and challenging way to pass time.
 
 
 ### Definition of MVP
-The Minimal Viable Product should allow the user to sign in to a web-based system, play a game of checkers through the American rules, 
-and resign at any point which ends the game.
+The Minimum Viable Product should allow the user to sign in to a web-based system, play a game of checkers through the 
+American rules, and resign at any point which ends the game.
 
 ### MVP Features
 
@@ -63,7 +63,8 @@ and resign at any point which ends the game.
 ### Roadmap of Enhancements
 * Spectator: User can enter a game already in progress and watch, but not play.
 
-* Tournament play: User can choose to play in tournament mode, where a group of players compete in a system of games that ends with one winner. 
+* Tournament play: User can choose to play in tournament mode, where a group of players compete in a system of games
+that ends with one winner. 
 
 
 ## Application Domain
@@ -193,7 +194,7 @@ If given the opportunity to
 > and the results of the testing._
 
 ### Acceptance Testing
-As of now, we have completed and passed all necessary acceptance criteria tests for 
+Currently we have completed and passed all necessary acceptance criteria tests for 
 the first two user stories. All acceptance criteria tests for the Player sign-in and start 
 game user stories are complete and functional. We are currently working on tests for further 
 user stories.

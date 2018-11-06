@@ -1,15 +1,17 @@
 # PROJECT Home
 
-Welcome to the PROJECT Project!
+Welcome to the WebCheckers Project!
 
-## Team
+## Team D
 
-* MEMBER1
-* MEMBER2
+* Samuel Adams
+* Henry Larson
+* Brett Patterson
+* Ryan Vasquez
 
-## [Design Documentation](DesignDoc)
+## [Design Documentation](DesignDoc.md)
 
-Click above for details of the PROJECT design documentation.
+Click above for details of the WebCheckers design documentation.
 
 ## [Setup Guide](SetupGuide)
 

@@ -6,10 +6,10 @@ a web micro-framework.
 
 ## Team
 
-- Brett Patterson
-- Henry Larson
-- Ryan Vasquez
 - Samuel Adams
+- Henry Larson
+- Brett Patterson
+- Ryan Vasquez
 
 
 ## Prerequisites

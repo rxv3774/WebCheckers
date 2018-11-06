@@ -13,15 +13,13 @@ import static spark.Spark.halt;
 
 /*
  * UI controller to post the game
- *
- * Author: TeamD
  */
 public class GetGameRoute implements Route {
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
     private final GameCenter gameCenter;
 
-    static final String VIEW_NAME = "game.ftl";
+    private static final String VIEW_NAME = "game.ftl";
 
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 

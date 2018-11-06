@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
  */
 
 
-@Tag("UItier")
+@Tag("UI-tier")
 class GetGameRouteTest {
 
     static final String VIEW_NAME = "game.ftl";
