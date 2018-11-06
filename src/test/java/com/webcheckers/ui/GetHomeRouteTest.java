@@ -33,13 +33,17 @@ class GetHomeRouteTest {
     private static final String PLAYER_LOBBY_ATTR = "playerLobby";
     private static final String NAME_ATTR = "name";
     private static final String SIGNED_IN_ATTR = "signedin";
-    public static final String PLAYER_LIST = "playerLst";
+    private static final String PLAYER_LIST = "playerLst";
+    private static final String ERROR_ATTR = "errorMessage";
+    private static final String SHOW_BUTTON_ATTR = "showGameButton";
 
     private static final String TITLE = "Welcome!";
     private static final String MESSAGE_TYPE = "info";
     private static final String NO_PLAYERS = "There aren't any players signed in";
+    private static final String ERROR_MESSAGE = "errorMessage";
 
-    private static final String VALID_NAME = "Test Name";
+    private static final String VALID_NAME_ONE = "Test Name One";
+    private static final String VALID_NAME_TWO = "Test Name Two";
 
     private GameCenter gameCenter;
     private PlayerLobby playerLobby;
@@ -78,6 +82,11 @@ class GetHomeRouteTest {
     }
 
     @Test
+    void handleWorks() {
+        when(request.session()).thenReturn(session);
+    }
+
+    @Test
     void test_lobbySizeZero() {
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
@@ -92,7 +101,7 @@ class GetHomeRouteTest {
 
     @Test
     void test_lobbySizeOneNotSignedIn() {
-        playerLobby.addPlayer(new Player(VALID_NAME));
+        playerLobby.addPlayer(new Player(VALID_NAME_ONE));
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
@@ -103,11 +112,12 @@ class GetHomeRouteTest {
         testHelper.assertViewName(VIEW_NAME);
 
         testHelper.assertViewModelAttribute(PLAYER_LIST_ATTR, "The number of players signed in is: 1");
+        testHelper.assertViewModelAttribute(SHOW_BUTTON_ATTR, false);
     }
 
     @Test
     void test_lobbySizeOneSignedIn() {
-        final Player testPlayer = new Player(VALID_NAME);
+        final Player testPlayer = new Player(VALID_NAME_ONE);
         playerLobby.addPlayer(testPlayer);
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
@@ -119,77 +129,48 @@ class GetHomeRouteTest {
         testHelper.assertViewModelIsaMap();
         testHelper.assertViewName(VIEW_NAME);
 
-        when( session.attribute(NAME_ATTR) ).thenReturn(VALID_NAME);
+        when(session.attribute(NAME_ATTR)).thenReturn(VALID_NAME_ONE);
 
         testHelper.assertViewModelAttribute(PLAYER_LIST, "The number of players signed in is: " + playerLobby.getLobbySize() );
     }
+    void test_lobbySizeOneErrorMsg() {
+        final String errorMsg = "This is an error message";
 
-//    @Test
-//    void test_new_session() {
-//        final TemplateEngineTester tester = new TemplateEngineTester();
-//
-//        when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
-//
-//        request.session().attribute(PLAYER_LOBBY_ATTR, playerLobby);
-//
-//        getHomeRoute.handle(request, response);
-//
-//        tester.assertViewModelExists();
-//        tester.assertViewModelIsaMap();
-//        // Test that the model-view contains all necessary data
-//        tester.assertViewModelAttribute(TITLE_ATTR, TITLE);
-//        tester.assertViewModelAttribute(MESSAGE_ATTR, MESSAGE_TYPE);
-//        tester.assertViewModelAttribute(BUTTON_ATTR, false);
-//        tester.assertViewModelAttribute(PLAYER_LIST_ATTR, NO_PLAYERS);
-//        // Test the view name
-//        tester.assertViewName(VIEW_NAME);
-//
-//        // Verify that the Game Center object is stored in the session
-//        verify(session).attribute(eq(GAME_CENTER_ATTR), any(GameCenter.class));
-//    }
+        final Player testPlayer = new Player(VALID_NAME_ONE);
+        playerLobby.addPlayer(testPlayer);
 
-//    @Test
-//    void test_old_session() {
-//        final TemplateEngineTester tester = new TemplateEngineTester();
-//
-//        when(session.attribute(PLAYER_LOBBY_ATTR)).thenReturn(session.attribute(PLAYER_LOBBY_ATTR));
-//
-//        getHomeRoute.handle(request, response);
-//
-//        tester.assertViewModelExists();
-//        tester.assertViewModelIsaMap();
-//        // Test that the model-view contains all necessary data
-//        tester.assertViewModelAttribute(TITLE_ATTR, TITLE);
-//        tester.assertViewModelAttribute(MESSAGE_ATTR, MESSAGE_TYPE);
-//
-//        if (playerLobby.getLobbySize() > 0) {
-//            tester.assertViewModelAttribute(SIGNED_IN_ATTR, true);
-//            tester.assertViewModelAttribute(PLAYER_LIST_ATTR, playerLobby
-//                    .getPlayersNamesAsArrayList()
-//                    .remove(session.attribute(NAME_ATTR) )
-//            );
-//        }
-//
-//        if (playerLobby.getLobbySize() > 1) {
-//            tester.assertViewModelAttribute(BUTTON_ATTR, true);
-//            /*
-//            if (gameCenter.containsPlayer(session.attribute(NAME_ATTR))) {
-//                verify(response).redirect(GAME_URL);
-//            }
-//            */
-//        }
-//
-//        // Test the view name
-//        tester.assertViewName(VIEW_NAME);
-//
-//        // Verify that the current player's name, Game Center, and Player Lobby objects are stored in the session
-//        verify(session).attribute(eq(GAME_CENTER_ATTR), any(GameCenter.class));
-//        verify(session).attribute(eq(PLAYER_LOBBY_ATTR), any(PlayerLobby.class));
-//        verify(session).attribute(eq(NAME_ATTR), any(String.class));
-//    }
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
+
+        getHomeRoute.handle(request, response);
+
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        when(session.attribute(ERROR_ATTR)).thenReturn(errorMsg);
+
+        testHelper.assertViewModelExists();
+        testHelper.assertViewModelIsaMap();
+        testHelper.assertViewName(VIEW_NAME);
+
+        testHelper.assertViewModelAttribute(ERROR_MESSAGE, "ERROR: " + errorMsg);
+        testHelper.assertViewModelAttribute(SHOW_BUTTON_ATTR, false);
+    }
 
     @Test
-    public void handleWorks() {
-        when(request.session()).thenReturn(session);
+    void test_lobbySizeMoreThanOneNoGame() {
+        final Player testPlayer1 = new Player(VALID_NAME_ONE);
+        final Player testPlayer2 = new Player(VALID_NAME_TWO);
+        playerLobby.addPlayer(testPlayer1);
+        playerLobby.addPlayer(testPlayer2);
+
+        final TemplateEngineTest testHelper = new TemplateEngineTest();
+
+        getHomeRoute.handle(request, response);
+
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        testHelper.assertViewModelExists();
+        testHelper.assertViewModelIsaMap();
+        testHelper.assertViewName(VIEW_NAME);
+
+        testHelper.assertViewModelAttribute(SHOW_BUTTON_ATTR, true);
     }
 }

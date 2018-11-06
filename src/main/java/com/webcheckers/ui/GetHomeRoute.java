@@ -84,7 +84,7 @@ public class GetHomeRoute implements Route {
 
             String errorMessage = session.attribute(ERROR_ATTR);
 
-            if(errorMessage != null) vm.put(WebServer.ERROR_MESSAGE, "ERROR: " + errorMessage);
+            if (errorMessage != null) vm.put(WebServer.ERROR_MESSAGE, "ERROR: " + errorMessage);
         }
 
         if (playerLobby.getLobbySize() > 1) {
@@ -101,7 +101,6 @@ public class GetHomeRoute implements Route {
             } else {
                 System.out.println(NO_REDIRECT);
             }
-
         } else {
             vm.put(WebServer.SHOW_BUTTON, false);
         }

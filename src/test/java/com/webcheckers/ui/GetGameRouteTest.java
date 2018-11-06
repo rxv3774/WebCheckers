@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -72,105 +73,104 @@ class GetGameRouteTest {
 
 
     @Test
-    public void playerIsNull(){
-        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( null );
+    public void playerIsNull() {
+        when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(null);
 
         //Test1 This throws a holt error since they are redirected.
-        assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response) );
+        assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response));
     }
 
 
     @Test //Player isn't in a match but the Opponent doesn't exist
-    public void playerExistsNoOpponent(){
+    public void playerExistsNoOpponent() {
 
-        Player p1 = new Player( "Tom" );
-        playerLobby.addPlayer( p1 );
+        Player p1 = new Player("Tom");
+        playerLobby.addPlayer(p1);
 
         //This is for the current Player
-        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
+        when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
 
         //This is for the Opponent
-        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( null );
+        when(request.queryParams(SESSION_ATTRIBUTE_NAME)).thenReturn(null);
 
         //Test1 catches the halt since the opponent doesn't exist
-        assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response) );
+        assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response));
     }
 
 
     @Test //Player isn't in a match and Opponent doesn't exist
-    public void playerExistsOpponentIsPlayer(){
+    public void playerExistsOpponentIsPlayer() {
 
-        Player p1 = new Player( "Tom" );
-        playerLobby.addPlayer( p1 );
+        Player p1 = new Player("Tom");
+        playerLobby.addPlayer(p1);
 
         //This is for the current Player
-        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
+        when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
 
         //This is for the Opponent
-        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
+        when(request.queryParams(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
 
         //Test1 catches the halt since the opponent name has the same
-        assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response) );
+        assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response));
     }
 
     @Test // Player isn't in a match and the Opponent is in a match
-    public void playerExistsOpponentInMatch(){
-        Player p1 = new Player( "Tom" );
-        Player p2 = new Player( "Tom Brady" );
-        Player p3 = new Player( "Adam West" );
+    public void playerExistsOpponentInMatch() {
+        Player p1 = new Player("Tom");
+        Player p2 = new Player("Tom Brady");
+        Player p3 = new Player("Adam West");
 
-        playerLobby.addPlayer( p1 );
-        playerLobby.addPlayer( p2 );
-        playerLobby.addPlayer( p3 );
+        playerLobby.addPlayer(p1);
+        playerLobby.addPlayer(p2);
+        playerLobby.addPlayer(p3);
 
-        gameCenter.createGame( p2, p3);
+        gameCenter.createGame(p2, p3);
 
         //This is for the current Player
-        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
+        when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
 
         //This is for the Opponent
-        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( p2.getName() );
+        when(request.queryParams(SESSION_ATTRIBUTE_NAME)).thenReturn(p2.getName());
 
         //Test1 catches the halt since the opponent name is in a match
-        assertThrows( spark.HaltException.class, () -> getGameRoute.handle(request, response) );
+        assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response));
     }
 
 
-
     @Test // Player isn't in a match and the Opponent isn't in a match
-    public void playerExistsOpponentNotInMatch(){
-        Player p1 = new Player( "Tom" );
-        Player p2 = new Player( "Tom Brady" );
+    public void playerExistsOpponentNotInMatch() {
+        Player p1 = new Player("Tom");
+        Player p2 = new Player("Tom Brady");
 
-        playerLobby.addPlayer( p1 );
-        playerLobby.addPlayer( p2 );
+        playerLobby.addPlayer(p1);
+        playerLobby.addPlayer(p2);
 
         //This is for the current Player
-        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
+        when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
 
         //This is for the Opponent
-        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( p2.getName() );
+        when(request.queryParams(SESSION_ATTRIBUTE_NAME)).thenReturn(p2.getName());
 
         //Test1 catches the halt since the opponent name is the same
-        assertThrows( spark.HaltException.class, () -> getGameRoute.handle(request, response) );
+        assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response));
 
     }
 
     @Test //Player is in a match
-    public void playerInMatch(){
-        Player p1 = new Player( "Tom" );
-        Player p2 = new Player( "Tom Brady" );
+    public void playerInMatch() {
+        Player p1 = new Player("Tom");
+        Player p2 = new Player("Tom Brady");
 
-        playerLobby.addPlayer( p1 );
-        playerLobby.addPlayer( p2 );
+        playerLobby.addPlayer(p1);
+        playerLobby.addPlayer(p2);
 
-        gameCenter.createGame( p1, p2);
+        gameCenter.createGame(p1, p2);
 
         //This is for the current Player
-        when( session.attribute(SESSION_ATTRIBUTE_NAME) ).thenReturn( p1.getName() );
+        when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
 
         //This is for the Opponent
-        when( request.queryParams(SESSION_ATTRIBUTE_NAME) ).thenReturn( p2.getName() );
+        when(request.queryParams(SESSION_ATTRIBUTE_NAME)).thenReturn(p2.getName());
 
 
         TemplateEngineTest testHelper = new TemplateEngineTest();
@@ -181,11 +181,8 @@ class GetGameRouteTest {
         //  * model is a null Map
         testHelper.assertViewModelDoesNotExists();
 
-        assertNotEquals( "", getGameRoute.handle(request, response ) );
+        assertNotEquals("", getGameRoute.handle(request, response));
     }
-
-
-
 
 
 }
