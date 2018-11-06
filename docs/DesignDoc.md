@@ -205,13 +205,12 @@ _(Figure 176)_
 ### Design Improvements
 
 If given the opportunity to improve upon our current design, there are a few design details that we would change.
-For example, we have had some issues with our implementation of our board. We created our board using an iterator 
-of iterators, this caused some issues in our unit tests. Our tests helped us realize that our implementation could 
-have been improved by maybe using a 2D array or a collection when creating our board. Our original code metrics 
+For example, we have had some issues with our implementation of our board. We created our board using an iterable 
+of iterables, this caused some issues in our unit tests. Our tests helped us realize that our implementation could 
+have been improved by maybe using a collection when creating our board. Our original code metrics 
 measurements were not great, however, after going back and fixing our implementation and unit tests, we were able 
 to improve them significantly. Our main issues in testing was our iterators. As you can see, the iterators had caused 
 us more than one problem, however, we were able to get past this issue.
-
 
 
 ## Testing
