@@ -170,6 +170,11 @@ This sequence of events involving GameCenter can be seen in the following diagra
 :![Create A Match In GameCenter](create-a-match-in-game-center.png)
 _(Figure 8)_
 
+Important to note about the design of GameCenter is the use of Information Expert. When the GameCenter checks if it contains a player,
+it loops through all of the matches and calls a method in Match that checks if the specific match contains the player. This is
+instead of calling get methods from Match and doing the comparison in GameCenter. This follows Information Expert because this concept states
+that the responsibility should be assigned to the class that contains the information. 
+
 ### Model Tier
 The Model tier contains 8 components which include:
 * Board
