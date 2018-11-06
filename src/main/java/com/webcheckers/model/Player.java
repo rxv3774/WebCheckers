@@ -19,7 +19,7 @@ public class Player {
     }
 
     /**
-     * Play game boolean.
+     * Defines the player's match when a player joins a game
      *
      * @param match the match
      * @return true if the player was able to join the match.
