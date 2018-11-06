@@ -167,10 +167,37 @@ This sequence of events involving GameCenter can be seen in the following diagra
 _(Figure 184)_
 
 ### Model Tier
+The Model tier contains 8 components which include:
+* Board
+* Match
+* Message
+* Move
+* Piece
+* Player
+* Row
+* Space
 
+These classes along with their methods can clearly be seen in the figure(171) below:
 
-:![Model Tier Class Diagram](Model-tier-class-diagram.png)
+![Model Tier Class Diagram](Model-tier-class-diagram.png)
 _(Figure 171)_
+
+In the domain model we have a match, which is an object that can start and end a game. A match is compromised of 
+two players. A player is an object that has a name and a current match that they are in. A player is not initially 
+in a match, but can get pulled into one by another player. A match is responsible for holding a board and both 
+players(red and white). A board is an object comprised of 8 rows. Each row is an object which is comprised of 8 spaces.
+When a board is being initialized, it iterates through the rows and places them onto the board. In turn, each row 
+iterates through the spaces and places them on the board, this creates the board object. When these space objects are 
+being iterated through, the space object checks to see if the space is a valid starting piece location. Each piece has 
+an an owner: red player or white player, and a type: single or king. These features may be seen in the sequence diagram 
+below: 
+
+![Make A Board Sequence Diagram](Make-A-Board-Sequence-Diagram.png)
+
+When a player wants to make a move, the move object holds the responsibility of moving the piece from its starting 
+space to ending space. The red player always makes the first move. When a move is available then it must be made, 
+the same goes for double jumps. When a move is attempted, the message object lets the board know whether or not the move 
+is valid or not. The message will contain a text, and a type: info or error. 
 
 ### Significant Features
 
