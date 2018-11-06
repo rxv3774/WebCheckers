@@ -218,12 +218,17 @@ us more than one problem, however, we were able to get past this issue.
 
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
 
-At the moment we have the UI tier at : 63% Code Coverage and 58% missed branches.
-the model tier is at 89% code coverage and 83% missed branches. 
-the application tier is at
+Some of the tests that are performed: 
+checking if the constructors creates the object correctly, stores the attributes accordingly, checking
+to see if the getter methods are returning the correct values, seeing if the player is being redirected
+appropriately and requests are being halted.
+
+
+At the current moment, we have the UI tier at 83% code coverage and 92% missed branches.
+The model tier is at 89% code coverage and 83% missed branches. 
+The application tier is at 100% code coverage and the missed branches is at 100%.
+
 
 ### Acceptance Testing
 Currently we have completed and passed all necessary acceptance criteria tests for 
