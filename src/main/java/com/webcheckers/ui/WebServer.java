@@ -59,6 +59,7 @@ public class WebServer {
     public static final String START_GAME = "/game";
     public static final String VALIDATE_MOVE = "/validateMove";
     public static final String SUBMIT_TURN = "/submitTurn";
+    public static final String CHECK_TURN = "/checkTurn";
 
     public static final String HOME_FILE = "home.ftl";
     public static final String GAME_CENTER = "gameCenter";
@@ -168,6 +169,9 @@ public class WebServer {
 
         //submits turn to update board
         post(SUBMIT_TURN, new PostSubmitTurnRoute(playerLobby));
+
+        //checks to see if the opponent has submitted their turn
+        post(CHECK_TURN, new PostCheckTurnRoute(playerLobby));
 
         //
         LOG.config("WebServer is initialized.");

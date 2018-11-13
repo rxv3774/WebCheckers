@@ -33,6 +33,16 @@ public class Message {
      */
     public static final Message MOVE_SUBMITTED = new Message("Move submitted!", Type.info);
 
+    /**
+     * The constant TRUE.
+     */
+    public static final Message TRUE = new Message("true", Type.info);
+
+    /**
+     * The constant FALSE.
+     */
+    public static final Message FALSE = new Message("false", Type.info);
+
     public Message(String text, Type type) {
         this.text = text;
         this.type = type;
