@@ -57,6 +57,8 @@ public class WebServer {
     public static final String SIGN_IN_URL = "/signIn";
     public static final String POST_NAME = "/postName";
     public static final String START_GAME = "/game";
+    public static final String VALIDATE_MOVE = "/validateMove";
+    public static final String SUBMIT_TURN = "/submitTurn";
 
     public static final String HOME_FILE = "home.ftl";
     public static final String GAME_CENTER = "gameCenter";
@@ -158,9 +160,14 @@ public class WebServer {
         //Shows the sign in page
         get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
 
-
         //Sends the player name to the player lobby
         post(SIGN_IN_URL, new PostSignInRoute(playerLobby, templateEngine));
+
+        //Sends move to be validated
+        post(VALIDATE_MOVE, new PostValidateMoveRoute(gson, playerLobby));
+
+        //submits turn to update board
+        post(SUBMIT_TURN, new PostSubmitTurnRoute(playerLobby));
 
         //
         LOG.config("WebServer is initialized.");

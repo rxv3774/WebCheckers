@@ -7,8 +7,8 @@ package com.webcheckers.model;
  */
 public class Move {
 
-    private Space start;
-    private Space end;
+    private position start;
+    private position end;
 
     /**
      * Instantiates a new Move.
@@ -16,7 +16,7 @@ public class Move {
      * @param start the start space
      * @param end   the end space
      */
-    public Move(Space start, Space end) {
+    public Move(position start, position end) {
         this.start = start;
         this.end = end;
     }
@@ -28,11 +28,23 @@ public class Move {
      * @param end   the end space
      * @param board the board to make move on
      */
-    public Move(Space start, Space end, Board board) {
+    public Move(position start, position end, Board board) {
         this.start = start;
         this.end = end;
     }
 
+    public position getStart() {
+        return start;
+    }
+
+    /**
+     * Make move.
+     */
+    public void makeMove(Board board){
+        Space sStart = board.getSpace(start.getRow(), start.getCol());
+        Space sEnd = board.getSpace(end.getRow(), end.getCol());
+        sStart.movePieceTo(sEnd);
+    }
 
     /**
      * string representation of the move
@@ -40,7 +52,7 @@ public class Move {
      * @return string rep
      */
     public String toString() {
-        return "Start: (" + start.getRowIdx() + "," + start.getCellIdx() + ") End: (" + end.getRowIdx() + "," + end.getCellIdx() + ")";
+        return "Start: (" + start.getRow() + "," + start.getCol() + ") End: (" + end.getRow() + "," + end.getCol() + ")";
         //return null;
     }
 
@@ -54,9 +66,9 @@ public class Move {
     public boolean equals(Object other) {
         if (!(other instanceof Move)) return false;
         Move move = (Move) other;
-        return this.start.getRowIdx() == move.start.getRowIdx() &&
-                this.start.getCellIdx() == move.start.getCellIdx() &&
-                this.end.getRowIdx() == move.end.getRowIdx() &&
-                this.end.getCellIdx() == move.end.getCellIdx();
+        return this.start.getRow() == move.start.getRow() &&
+                this.start.getCol() == move.start.getCol() &&
+                this.end.getRow() == move.end.getRow() &&
+                this.end.getCol() == move.end.getCol();
     }
 }

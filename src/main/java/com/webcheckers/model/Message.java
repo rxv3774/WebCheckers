@@ -28,6 +28,11 @@ public class Message {
      */
     public static final Message ERR_NOT_SIGNED_IN = new Message("Player not signed in", Type.error);
 
+    /**
+     * The constant MOVE_SUBMITTED.
+     */
+    public static final Message MOVE_SUBMITTED = new Message("Move submitted!", Type.info);
+
     public Message(String text, Type type) {
         this.text = text;
         this.type = type;

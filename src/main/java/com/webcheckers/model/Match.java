@@ -99,6 +99,18 @@ public class Match {
         }
     }
 
+    public void addPendingMove(Move move){
+        this.pendingMove = move;
+    }
+
+    /**
+     * Do pending moves.
+     */
+    public void doPendingMoves(){
+        pendingMove.makeMove(this.board);
+        this.pendingMove = null;
+    }
+
 
     /**
      * Gets opponent.

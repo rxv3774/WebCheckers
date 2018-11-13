@@ -1,6 +1,7 @@
 package com.webcheckers.model;
 
 public class Space {
+
     private int cellIdx, rowIdx;
     private Piece piece;
 
@@ -91,6 +92,15 @@ public class Space {
             else
                 return false;
         }
+    }
+
+    /**
+     * Move piece in the space to space space.
+     * @param space the space
+     */
+    public void movePieceTo(Space space){
+        space.piece = this.piece;
+        this.piece = null;
     }
 
     /**

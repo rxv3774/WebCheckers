@@ -94,6 +94,18 @@ public class Board implements Iterable<Row> {
         };
     }
 
+    public Space getSpace(int row, int col){
+        for(Row r: board){
+            if(r.getIndex() == row){
+                for(Space space: r.getRow()){
+                    if(space.getCellIdx() == col)
+                        return space;
+                }
+            }
+        }
+        return null;
+    }
+
     public int getRowsSize() {
         return board.length;
     }
