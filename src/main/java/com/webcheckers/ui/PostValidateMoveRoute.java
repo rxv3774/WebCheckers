@@ -32,7 +32,9 @@ public class PostValidateMoveRoute implements Route{
      * @return Move generate from json
      */
     protected Move moveFromJson(String json){
-        return gson.fromJson(json ,Move.class);
+        final Move move = gson.fromJson(json, Move.class);
+        System.out.println(move);
+        return move;
     }
 
     /**
@@ -56,6 +58,7 @@ public class PostValidateMoveRoute implements Route{
             }
 
             Move move = moveFromJson(request.body());
+            System.out.println(move);
 
             game.addPendingMove(move);
             return gson.toJson(Message.VALID_MOVE);
