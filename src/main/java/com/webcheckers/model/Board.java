@@ -108,6 +108,11 @@ public class Board implements Iterable<Row> {
         return null;
     }
 
+    public boolean spaceHasPiece(Position position){
+        Space space = this.getSpace(position);
+        return space.hasPiece();
+    }
+
     public int getRowsSize() {
         return board.length;
     }

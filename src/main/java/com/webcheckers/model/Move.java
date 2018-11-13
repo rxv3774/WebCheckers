@@ -34,6 +34,17 @@ public class Move {
         sStart.movePieceTo(sEnd);
     }
 
+
+    public boolean isValid(Board board){
+        if(start.isSingleMove(end)){
+            if(!board.spaceHasPiece(end)){
+                return !start.moveBackwards(end);
+            }else
+                return false;
+        }
+        return false;
+    }
+
     /**
      * string representation of the move
      *
