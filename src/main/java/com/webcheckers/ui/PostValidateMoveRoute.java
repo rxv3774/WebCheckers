@@ -52,15 +52,15 @@ public class PostValidateMoveRoute implements Route{
             Match game = player.getMatch();
 
             if(game == null){
-                return Message.ERR_NO_OPPONENT;
+                return gson.toJson(Message.ERR_NO_OPPONENT);
             }
 
             Move move = moveFromJson(request.body());
 
             game.addPendingMove(move);
-            return Message.VALID_MOVE;
+            return gson.toJson(Message.VALID_MOVE);
         }
 
-        return Message.ERR_NOT_SIGNED_IN;
+        return gson.toJson(Message.ERR_NOT_SIGNED_IN);
     }
 }

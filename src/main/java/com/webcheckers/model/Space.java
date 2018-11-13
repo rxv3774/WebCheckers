@@ -5,7 +5,7 @@ public class Space {
     private int cellIdx, rowIdx;
     private Piece piece;
 
-    public Space(int cellIdx, int rowIdx) {
+    public Space(int rowIdx, int cellIdx) {
         this.cellIdx = cellIdx;
         this.rowIdx = rowIdx;
         this.piece = null;
@@ -114,6 +114,14 @@ public class Space {
         return tmp;
     }
 
+
+    @Override
+    public String toString() {
+        return "Space{" +
+                "cellIdx=" + cellIdx +
+                ", rowIdx=" + rowIdx +
+                '}';
+    }
 
     /**
      * Check if space has a piece

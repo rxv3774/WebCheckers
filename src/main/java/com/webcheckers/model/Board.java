@@ -1,5 +1,6 @@
 package com.webcheckers.model;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -94,7 +95,9 @@ public class Board implements Iterable<Row> {
         };
     }
 
-    public Space getSpace(int row, int col){
+    public Space getSpace(Position position){
+        int row = position.getRow();
+        int col = position.getCol();
         for(Row r: board){
             if(r.getIndex() == row){
                 for(Space space: r.getRow()){

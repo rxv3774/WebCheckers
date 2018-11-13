@@ -16,7 +16,7 @@ public class Row implements Iterable<Space> {
             this.index = index;
             this.row = new Space[spaceArraySize];
             for (int i = 0; i < spaceArraySize; i++) {
-                row[i] = new Space(i, index);
+                row[i] = new Space(index, i);
             }
         }
     }

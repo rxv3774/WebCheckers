@@ -168,10 +168,10 @@ public class WebServer {
         post(VALIDATE_MOVE, new PostValidateMoveRoute(gson, playerLobby));
 
         //submits turn to update board
-        post(SUBMIT_TURN, new PostSubmitTurnRoute(playerLobby));
+        post(SUBMIT_TURN, new PostSubmitTurnRoute(gson, playerLobby));
 
         //checks to see if the opponent has submitted their turn
-        post(CHECK_TURN, new PostCheckTurnRoute(playerLobby));
+        post(CHECK_TURN, new PostCheckTurnRoute(gson, playerLobby));
 
         //
         LOG.config("WebServer is initialized.");

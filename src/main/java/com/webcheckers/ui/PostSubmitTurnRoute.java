@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Message;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 public class PostSubmitTurnRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
+    private final Gson gson;
     private final PlayerLobby playerLobby;
 
     /**
@@ -21,9 +23,10 @@ public class PostSubmitTurnRoute implements Route {
      * {@code GET /} HTTP request.
      *
      */
-    public PostSubmitTurnRoute(PlayerLobby playerLobby) {
+    public PostSubmitTurnRoute(Gson gson, PlayerLobby playerLobby) {
         LOG.config("PostSubmitTurnRoute is initialized.");
 
+        this.gson = gson;
         this.playerLobby = playerLobby;
     }
 
@@ -51,9 +54,9 @@ public class PostSubmitTurnRoute implements Route {
             game.doPendingMoves();
             game.changeActivePlayer(); //end turn
 
-            return Message.MOVE_SUBMITTED;
+            return gson.toJson(Message.MOVE_SUBMITTED);
         }
 
-        return Message.ERR_NOT_SIGNED_IN;
+        return gson.toJson(Message.ERR_NOT_SIGNED_IN);
     }
 }

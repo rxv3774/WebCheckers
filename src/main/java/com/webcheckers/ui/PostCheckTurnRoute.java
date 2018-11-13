@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Message;
@@ -15,14 +16,16 @@ public class PostCheckTurnRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
     private boolean moveMade;
 
+    private final Gson gson;
     private final PlayerLobby playerLobby;
 
     /**
      * Initializes the PostCheckTurnRoute
      */
-    public PostCheckTurnRoute(PlayerLobby playerLobby){
+    public PostCheckTurnRoute(Gson gson, PlayerLobby playerLobby){
         LOG.config("PostCheckTurnRoute initialized.");
 
+        this.gson = gson;
         this.playerLobby = playerLobby;
     }
 
@@ -50,13 +53,13 @@ public class PostCheckTurnRoute implements Route {
             Match game = player.getMatch();
             if(game != null) {
                 if (game.getActivePlayer() == player) {
-                    return Message.TRUE;
+                    return gson.toJson(Message.TRUE);
                 }
                 if(game.hasWinner()){
                     moveMade = true;
-                    return Message.TRUE;
+                    return gson.toJson(Message.TRUE);
                 }
-                return Message.FALSE;
+                return gson.toJson(Message.FALSE);
             }
         }
         return null;

@@ -7,8 +7,8 @@ package com.webcheckers.model;
  */
 public class Move {
 
-    private position start;
-    private position end;
+    private Position start;
+    private Position end;
 
     /**
      * Instantiates a new Move.
@@ -16,24 +16,12 @@ public class Move {
      * @param start the start space
      * @param end   the end space
      */
-    public Move(position start, position end) {
+    public Move(Position start, Position end) {
         this.start = start;
         this.end = end;
     }
 
-    /**
-     * Instantiates a new Move.
-     *
-     * @param start the start space
-     * @param end   the end space
-     * @param board the board to make move on
-     */
-    public Move(position start, position end, Board board) {
-        this.start = start;
-        this.end = end;
-    }
-
-    public position getStart() {
+    public Position getStart() {
         return start;
     }
 
@@ -41,8 +29,8 @@ public class Move {
      * Make move.
      */
     public void makeMove(Board board){
-        Space sStart = board.getSpace(start.getRow(), start.getCol());
-        Space sEnd = board.getSpace(end.getRow(), end.getCol());
+        Space sStart = board.getSpace(start);
+        Space sEnd = board.getSpace(end);
         sStart.movePieceTo(sEnd);
     }
 
