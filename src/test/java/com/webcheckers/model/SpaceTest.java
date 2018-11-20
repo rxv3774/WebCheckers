@@ -32,7 +32,7 @@ class SpaceTest {
     public void constructorNotNull() {
 
         //Test1
-        assertNotNull( new Space(cellIndex, rowIndex) );
+        assertNotNull( new Space(rowIndex, cellIndex) );
 
         Piece testPiece = new Piece( Piece.Type.SINGLE, Piece.Color.RED );
 
@@ -50,11 +50,11 @@ class SpaceTest {
 
     @Test
     public void initializeWorks(){
-        Space testSpace0 = new Space( 1,0);
-        Space testSpace1 = new Space( 0,0);
+        Space testSpace0 = new Space(0, 1);
+        Space testSpace1 = new Space(0, 0);
 
-        Space testSpace2W = new Space( 0,5);
-        Space testSpace3R = new Space( 1,2);
+        Space testSpace2W = new Space(5, 0);
+        Space testSpace3R = new Space(2, 1);
 
         testSpace0.initialize();
         testSpace1.initialize();
@@ -84,7 +84,7 @@ class SpaceTest {
     @Test
     public void getRowIndexWorks() {
 
-        Space tmpSpace1 = new Space(0,1);
+        Space tmpSpace1 = new Space(1, 0);
 
         //Test0
         assertNotNull( tmpSpace1.getRowIdx() );
@@ -96,7 +96,7 @@ class SpaceTest {
     @Test
     public void getCellIndexWorks() {
 
-        Space tmpSpace1 = new Space(1,0);
+        Space tmpSpace1 = new Space(0, 1);
 
         //Test0
         assertNotNull( tmpSpace1.getCellIdx() );
@@ -113,10 +113,10 @@ class SpaceTest {
     @Test
     public void isValidTrue() {
 
-        Space tmpSpace0 = new Space(0,0);
-        Space tmpSpace1 = new Space(0,1);
-        Space tmpSpace2 = new Space(3,2);
-        Space tmpSpace3 = new Space(11,11);
+        Space tmpSpace0 = new Space(0, 0);
+        Space tmpSpace1 = new Space(1, 0);
+        Space tmpSpace2 = new Space(2, 3);
+        Space tmpSpace3 = new Space(11, 11);
 
         Piece piece0 = new Piece( Piece.Type.SINGLE, Piece.Color.RED );
 
@@ -148,7 +148,7 @@ class SpaceTest {
 
     @Test
     public void isValidTrueNotNull() {
-        Space testSpace = new Space(1,3);
+        Space testSpace = new Space(3, 1);
 
         assertNotNull( testSpace.isValid() );
     }

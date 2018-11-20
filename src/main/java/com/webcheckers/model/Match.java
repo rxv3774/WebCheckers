@@ -37,8 +37,7 @@ public class Match {
                     this.redPlayer = player;
                     board.initialize(Piece.Color.RED);
                     return true;
-                }
-                if (this.whitePlayer == null) {
+                }else if (this.whitePlayer == null) {
                     this.whitePlayer = player;
                     board.initialize(Piece.Color.WHITE);
                     return true;
@@ -97,6 +96,18 @@ public class Match {
         } else {
             return Piece.Color.WHITE;
         }
+    }
+
+    public void addPendingMove(Move move){
+        this.pendingMove = move;
+    }
+
+    /**
+     * Do pending moves.
+     */
+    public void doPendingMoves(){
+        pendingMove.makeMove(this.board);
+        this.pendingMove = null;
     }
 
 
@@ -165,6 +176,14 @@ public class Match {
      */
     public boolean isRunning() {
         return running;
+    }
+
+    /**
+     * Check if match has a winner.
+     * @return true if game has winner
+     */
+    public boolean hasWinner(){
+        return winner != null;
     }
 
 

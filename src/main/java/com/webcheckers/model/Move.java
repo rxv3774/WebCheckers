@@ -7,8 +7,8 @@ package com.webcheckers.model;
  */
 public class Move {
 
-    private Space start;
-    private Space end;
+    private Position start;
+    private Position end;
 
     /**
      * Instantiates a new Move.
@@ -16,23 +16,34 @@ public class Move {
      * @param start the start space
      * @param end   the end space
      */
-    public Move(Space start, Space end) {
+    public Move(Position start, Position end) {
         this.start = start;
         this.end = end;
+    }
+
+    public Position getStart() {
+        return start;
     }
 
     /**
-     * Instantiates a new Move.
-     *
-     * @param start the start space
-     * @param end   the end space
-     * @param board the board to make move on
+     * Make move.
      */
-    public Move(Space start, Space end, Board board) {
-        this.start = start;
-        this.end = end;
+    public void makeMove(Board board){
+        Space sStart = board.getSpace(start);
+        Space sEnd = board.getSpace(end);
+        sStart.movePieceTo(sEnd);
     }
 
+
+    public boolean isValid(Board board){
+        if(start.isSingleMove(end)){
+            if(!board.spaceHasPiece(end)){
+                return !start.moveBackwards(end);
+            }else
+                return false;
+        }
+        return false;
+    }
 
     /**
      * string representation of the move
@@ -40,7 +51,7 @@ public class Move {
      * @return string rep
      */
     public String toString() {
-        return "Start: (" + start.getRowIdx() + "," + start.getCellIdx() + ") End: (" + end.getRowIdx() + "," + end.getCellIdx() + ")";
+        return "Start: (" + start.getRow() + "," + start.getCell() + ") End: (" + end.getRow() + "," + end.getCell() + ")";
         //return null;
     }
 
@@ -54,9 +65,9 @@ public class Move {
     public boolean equals(Object other) {
         if (!(other instanceof Move)) return false;
         Move move = (Move) other;
-        return this.start.getRowIdx() == move.start.getRowIdx() &&
-                this.start.getCellIdx() == move.start.getCellIdx() &&
-                this.end.getRowIdx() == move.end.getRowIdx() &&
-                this.end.getCellIdx() == move.end.getCellIdx();
+        return this.start.getRow() == move.start.getRow() &&
+                this.start.getCell() == move.start.getCell() &&
+                this.end.getRow() == move.end.getRow() &&
+                this.end.getCell() == move.end.getCell();
     }
 }
