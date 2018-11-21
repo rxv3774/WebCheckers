@@ -94,6 +94,12 @@ public class Board implements Iterable<Row> {
         };
     }
 
+    /**
+     * get the space object at the given position
+     *
+     * @param position: coordinates of the desired space
+     * @return Space object
+     */
     public Space getSpace(Position position){
         int row = position.getRow();
         int col = position.getCell();
@@ -108,9 +114,45 @@ public class Board implements Iterable<Row> {
         return null;
     }
 
+    /**
+     * check if there is a piece on the board at the given position
+     *
+     * @param position: coordinates of the desired space
+     * @return true if space has a piece on it
+     */
     public boolean spaceHasPiece(Position position){
         Space space = this.getSpace(position);
         return space.hasPiece();
+    }
+
+    /**
+     * check if there is an enemy piece at the given position on the board
+     *
+     * @param position: coordinates of desired space
+     * @param isRedPlayer: if the current player (not the enemy) is red
+     * @return true if space has an enemy piece on it
+     */
+    public boolean spaceHasEnemyPiece(Position position, boolean isRedPlayer){
+        Space space = this.getSpace(position);
+        if(space.hasPiece()){
+            if(isRedPlayer){
+                return (space.getPieceColor() == Piece.Color.WHITE);
+            } else {
+                return (space.getPieceColor() == Piece.Color.RED);
+            }
+        }else
+            return false;
+    }
+
+    /**
+     * remove the piece at the given position, usually follows a jump move.
+     *
+     * @param position: coordinates of desired space
+     * @return removed piece
+     */
+    public Piece removePieceAtPosition(Position position){
+        Space space = this.getSpace(position);
+        return space.removePiece();
     }
 
     public int getRowsSize() {

@@ -27,22 +27,45 @@ public class Move {
 
     /**
      * Make move.
+     *
+     * @param board: board object to get retrieve spaces from
      */
     public void makeMove(Board board){
         Space sStart = board.getSpace(start);
         Space sEnd = board.getSpace(end);
         sStart.movePieceTo(sEnd);
+        if(start.isJumpMove(end)){
+            Position middle = start.getMiddle(end);
+            board.removePieceAtPosition(middle);
+        }
     }
 
-
-    public boolean isValid(Board board){
+    /**
+     * check is the move performed is valid
+     *
+     * @param board: board object to check spaces from
+     * @param isRedPlayer: if the current player is red
+     * @return true if the move is valid
+     */
+    public boolean isValid(Board board, boolean isRedPlayer){
         if(start.isSingleMove(end)){
             if(!board.spaceHasPiece(end)){
-                return !start.moveBackwards(end);
+                return !start.moveBackwards(end, isRedPlayer);
             }else
                 return false;
         }
-        return false;
+        else if(start.isJumpMove(end)){
+            if(!board.spaceHasPiece(end) && !start.moveBackwards(end, isRedPlayer)){
+                Position middle = start.getMiddle(end);
+                return board.spaceHasEnemyPiece(middle, isRedPlayer);
+            }
+            else
+                return false;
+        }
+        else{
+            System.out.println("failed");
+            return false;
+        }
     }
 
     /**
