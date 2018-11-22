@@ -38,11 +38,17 @@ public class Message {
      */
     public static final Message TRUE = new Message("true", Type.info);
 
+
+    /**
+     * The constant PLAYER_RESIGNATION
+     */
     public static final Message PLAYER_RESIGNATION = new Message( "You quit the game", Type.info );
 
-//    public static final Message OPPONENT_RESIGN = new Message( "Your opponent quit the game", Type.info);
+    /**
+     * The constant OPPONENT_RESIGN
+     */
+    public static final Message OPPONENT_RESIGN = new Message( "Your opponent quit the game", Type.info);
 
-    public static final Message OPPONENT_RESIGN = new Message( "/resignGame", Type.info);
 
 
     /**

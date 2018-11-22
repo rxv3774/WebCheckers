@@ -3,7 +3,6 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Match;
 import com.webcheckers.model.Message;
 import com.webcheckers.model.Player;
 import spark.Request;
@@ -54,6 +53,9 @@ public class PostResignRoute implements Route {
         final Session session = request.session();
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
         Player player = playerLobby.getPlayerObject( currentPlayerName );
+
+        //The player has resigned so they should lose.
+        player.increaseGamesLost();
 
         gameCenter.endGame( player.getMatch() );
 

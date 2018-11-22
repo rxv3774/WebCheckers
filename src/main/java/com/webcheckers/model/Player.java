@@ -8,6 +8,10 @@ public class Player {
     private String name;
     private Match match;
 
+    private int gamesWon;
+    private int gamesDrawed;
+    private int gamesLost;
+
     /**
      * Player constructor
      *
@@ -16,6 +20,11 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.match = null;
+
+        gamesWon = 0;
+        gamesDrawed = 0;
+        gamesLost = 0;
+
     }
 
     /**
@@ -94,5 +103,51 @@ public class Player {
 
     public String toString() {
         return "{Player: " + name + "}";
+    }
+
+
+    /**
+     *  Desc: Get method for how many times the player has Won
+     * @return the number of times Won
+     */
+    public int getGamesWon() {
+        return gamesWon;
+    }
+
+    /**
+     * Desc: This increments the number of times the player has won.
+     */
+    public void increaseGamesWon() {
+        gamesWon++;
+    }
+
+    /**
+     * Desc: Get method for how many times the player has drawed
+     * @return the number of times drawed
+     */
+    public int getGamesDrawed() {
+        return gamesDrawed;
+    }
+
+    /**
+     * Desc: This increments the number of times the player has drawed.
+     */
+    public void increaseGamesDrawed() {
+        gamesDrawed++;
+    }
+
+    /**
+     * Desc: Get method for how many times the player has lost
+     * @return the number of times lost
+     */
+    public int getGamesLost() {
+        return gamesLost;
+    }
+
+    /**
+     * Desc: This increments the number of times the player has Lost.
+     */
+    public void increaseGamesLost() {
+        gamesLost++;
     }
 }

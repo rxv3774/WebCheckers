@@ -68,8 +68,11 @@ public class PostCheckTurnRoute implements Route {
                 }
             }
             else {
-                System.out.println( "match is null" );
-                return gson.toJson( Message.OPPONENT_RESIGN );
+                // Since the other player Quit, player wins.
+                player.increaseGamesWon();
+
+                // This tells the client to refresh the page.
+                return gson.toJson(Message.FALSE);
             }
         }
         return null;
