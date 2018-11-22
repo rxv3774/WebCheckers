@@ -67,6 +67,7 @@ public class WebServer {
     public static final String PLAYER_LIST = "playerLst";
     public static final String SHOW_BUTTON = "showGameButton";
     public static final String SIGNED_IN = "signedin";
+    public static final String RESIGN = "resignGame";
     public static final String ERROR_MESSAGE = "errorMessage";
 
     //
@@ -172,6 +173,9 @@ public class WebServer {
 
         //checks to see if the opponent has submitted their turn
         post(CHECK_TURN, new PostCheckTurnRoute(gson, playerLobby));
+
+        // This handles the resignation request of a player
+        post( RESIGN, new PostResignRoute( playerLobby, gameCenter, gson) );
 
         //
         LOG.config("WebServer is initialized.");
