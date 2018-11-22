@@ -12,12 +12,16 @@ import spark.Session;
 
 import java.util.logging.Logger;
 
+import static spark.Spark.halt;
+
 public class PostCheckTurnRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
     private boolean moveMade;
 
     private final Gson gson;
     private final PlayerLobby playerLobby;
+
+    private static final String SESSION_NAME_ATTR = "name";
 
     /**
      * Initializes the PostCheckTurnRoute
@@ -43,23 +47,29 @@ public class PostCheckTurnRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
-        LOG.finer("PostResignGameRoute is invoked");
-
         final Session session = request.session();
-        String currentPlayerName = session.attribute("name");
+        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
         Player player = playerLobby.getPlayerObject(currentPlayerName);
 
         if(player != null){
-            Match game = player.getMatch();
-            if(game != null) {
-                if (game.getActivePlayer() == player) {
-                    return gson.toJson(Message.TRUE);
+
+            if( player.getMatch() != null) {
+
+                Match game = player.getMatch();
+                if (game != null) {
+                    if (game.getActivePlayer() == player) {
+                        return gson.toJson(Message.TRUE);
+                    }
+                    if (game.hasWinner()) {
+                        moveMade = true;
+                        return gson.toJson(Message.TRUE);
+                    }
+                    return gson.toJson(Message.FALSE);
                 }
-                if(game.hasWinner()){
-                    moveMade = true;
-                    return gson.toJson(Message.TRUE);
-                }
-                return gson.toJson(Message.FALSE);
+            }
+            else {
+                System.out.println( "match is null" );
+                return gson.toJson( Message.OPPONENT_RESIGN );
             }
         }
         return null;

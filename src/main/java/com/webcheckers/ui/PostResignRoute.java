@@ -51,22 +51,13 @@ public class PostResignRoute implements Route {
     public String handle(Request request, Response response) {
         LOG.finer("PostResignRoute is invoked.");
 
-
         final Session session = request.session();
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
         Player player = playerLobby.getPlayerObject( currentPlayerName );
 
-        System.out.println( player.getName() + " wants to quit.");
-
-
-        Match match = player.getMatch();
-
-//        match.
-
-        gameCenter.endGame( player.getMatch() );
         gameCenter.endGame( player.getMatch() );
 
-        return gson.toJson( Message.TRUE );
+        return gson.toJson( Message.PLAYER_RESIGNATION );
     }
 
 
