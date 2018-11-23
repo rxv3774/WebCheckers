@@ -44,7 +44,10 @@ public class Message {
     public static final Message FALSE = new Message("false", Type.info);
 
 
-    public static final Message BACKUPMOVE = new Message( "Back Move requested", Type.info );
+    /**
+     * The constant BACKUPMOVE
+     */
+    public static final Message BACKUPMOVE = new Message( "Backup Move requested", Type.info );
 
 
     public Message(String text, Type type) {
