@@ -1,10 +1,11 @@
 package com.webcheckers.model;
 
 public class Space {
+
     private int cellIdx, rowIdx;
     private Piece piece;
 
-    public Space(int cellIdx, int rowIdx) {
+    public Space(int rowIdx, int cellIdx) {
         this.cellIdx = cellIdx;
         this.rowIdx = rowIdx;
         this.piece = null;
@@ -94,6 +95,15 @@ public class Space {
     }
 
     /**
+     * Move piece in the space to space space.
+     * @param space the space
+     */
+    public void movePieceTo(Space space){
+        space.piece = this.piece;
+        this.piece = null;
+    }
+
+    /**
      * remove the piece in this space
      *
      * @return the piece that previously occupied the space
@@ -104,6 +114,14 @@ public class Space {
         return tmp;
     }
 
+
+    @Override
+    public String toString() {
+        return "Space{" +
+                "cellIdx=" + cellIdx +
+                ", rowIdx=" + rowIdx +
+                '}';
+    }
 
     /**
      * Check if space has a piece

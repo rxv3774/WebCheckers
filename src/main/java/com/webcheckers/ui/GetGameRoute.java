@@ -4,6 +4,7 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Player;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Position;
 import spark.*;
 
 import java.util.*;
@@ -105,7 +106,6 @@ public class GetGameRoute implements Route {
 
         //Board
         vm.put("board", match.getBoard());
-
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
