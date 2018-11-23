@@ -69,6 +69,22 @@ public class Move {
     }
 
     /**
+     * check if move is a Jump Move
+     * @return true if it's a jump move
+     */
+    public boolean isJumpMove(){
+        return start.isJumpMove(end);
+    }
+
+    /**
+     * check if move is a Single Move
+     * @return true if it's a single move
+     */
+    public boolean isSingleMove(){
+        return start.isSingleMove(end);
+    }
+
+    /**
      * string representation of the move
      *
      * @return string rep

@@ -19,6 +19,11 @@ public class Message {
     public static final Message ERR_INVALID_MOVE = new Message("Invalid Move", Type.error);
 
     /**
+     * The constant ERR_INVALID_MOVE.
+     */
+    public static final Message ERR_DOUBLE_MOVE = new Message("Move already made", Type.error);
+
+    /**
      * The constant VALID_MOVE.
      */
     public static final Message VALID_MOVE = new Message("Valid Move", Type.info);

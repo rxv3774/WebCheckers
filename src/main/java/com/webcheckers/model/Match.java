@@ -12,7 +12,7 @@ public class Match {
     private Player winner;
     private Board board;
 
-    private Move pendingMove;
+    private Move pendingMove, DJsecondPendingMove;
     private boolean running;
 
     /**
@@ -103,7 +103,10 @@ public class Match {
      * @param move: the move to add
      */
     public void addPendingMove(Move move){
-        this.pendingMove = move;
+        if(pendingMove == null)
+            this.pendingMove = move;
+        else
+            this.DJsecondPendingMove = move;
     }
 
     /**
@@ -112,6 +115,10 @@ public class Match {
     public void doPendingMoves(){
         pendingMove.makeMove(this.board);
         this.pendingMove = null;
+        if(DJsecondPendingMove != null){
+            DJsecondPendingMove.makeMove(this.board);
+            this.DJsecondPendingMove = null;
+        }
     }
 
     /**
@@ -120,6 +127,14 @@ public class Match {
      */
     public boolean hasPendingMoves(){
         return this.pendingMove != null;
+    }
+
+    /**
+     * check if there are any pending Double Jump second moves
+     * @return true if there is a pending move
+     */
+    public boolean hasPendingDJMoves(){
+        return this.DJsecondPendingMove != null;
     }
 
     /**
