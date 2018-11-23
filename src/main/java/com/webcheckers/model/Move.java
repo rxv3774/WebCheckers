@@ -50,14 +50,20 @@ public class Move {
     public boolean isValid(Board board, boolean isRedPlayer){
         if(start.isSingleMove(end)){
             if(!board.spaceHasPiece(end)){
-                return !start.moveBackwards(end, isRedPlayer);
+                if(!moveIsKingPiece(board))
+                    return !start.moveBackwards(end, isRedPlayer);
+                else
+                    return true;
             }else
                 return false;
         }
         else if(start.isJumpMove(end)){
-            if(!board.spaceHasPiece(end) && !start.moveBackwards(end, isRedPlayer)){
-                Position middle = start.getMiddle(end);
-                return board.spaceHasEnemyPiece(middle, isRedPlayer);
+            Position middle = start.getMiddle(end);
+            if(!board.spaceHasPiece(end) && board.spaceHasEnemyPiece(middle, isRedPlayer)){
+                if(!moveIsKingPiece(board))
+                    return !start.moveBackwards(end, isRedPlayer);
+                else
+                    return true;
             }
             else
                 return false;
@@ -66,6 +72,11 @@ public class Move {
             System.out.println("failed");
             return false;
         }
+    }
+
+    public boolean moveIsKingPiece(Board board){
+        Space space = board.getSpace(start);
+        return space.hasKingPiece();
     }
 
     /**

@@ -24,6 +24,21 @@ public class Piece {
         this.color = color;
     }
 
+    /**
+     * make the piece a king
+     */
+    public void makeKing(){
+        this.type = Type.KING;
+    }
+
+    /**
+     * check if the piece is a king
+     * @return true if the piece is a king
+     */
+    public boolean isKing(){
+        return this.type == Type.KING;
+    }
+
 
     /**
      * return the direction offset

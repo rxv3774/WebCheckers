@@ -99,8 +99,28 @@ public class Space {
      * @param space the space
      */
     public void movePieceTo(Space space){
-        space.piece = this.piece;
-        this.piece = null;
+        if(space.isKingRow() && !this.piece.isKing()){
+            space.piece = this.piece;
+            space.piece.makeKing();
+            this.piece = null;
+        } else {
+            space.piece = this.piece;
+            this.piece = null;
+        }
+    }
+
+    /**
+     * check if space's row is a king row
+     * @return true if the row will create a king
+     */
+    public boolean isKingRow(){
+        return (this.rowIdx == 0 || this.rowIdx == 7 );
+    }
+
+    public boolean hasKingPiece(){
+        if(this.hasPiece())
+            return piece.isKing();
+        return false;
     }
 
     /**
