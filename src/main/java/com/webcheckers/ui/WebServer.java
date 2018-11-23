@@ -60,6 +60,8 @@ public class WebServer {
     public static final String VALIDATE_MOVE = "/validateMove";
     public static final String SUBMIT_TURN = "/submitTurn";
     public static final String CHECK_TURN = "/checkTurn";
+    public static final String BACKUPMOVE = "backupMove";
+
 
     public static final String HOME_FILE = "home.ftl";
     public static final String GAME_CENTER = "gameCenter";
@@ -172,6 +174,10 @@ public class WebServer {
 
         //checks to see if the opponent has submitted their turn
         post(CHECK_TURN, new PostCheckTurnRoute(gson, playerLobby));
+
+
+        //This handles the undo move request.
+        post( BACKUPMOVE, new PostBackUpMoveRoute( gson ) );
 
         //
         LOG.config("WebServer is initialized.");
