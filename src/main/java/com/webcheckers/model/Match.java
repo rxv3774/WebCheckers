@@ -138,6 +138,27 @@ public class Match {
     }
 
     /**
+     * if there active player can make a move or not
+     * @return true if the active player has possible moves to make
+     */
+    public boolean canPlay(){
+        return board.hasPossibleMoves(getActiveColor());
+    }
+
+    /**
+     * end game and set the winner to the player whose turn it is not.
+     */
+    public void declareWinner(){
+        end();
+        if(activePlayer == redPlayer) winner = whitePlayer;
+        if(activePlayer == whitePlayer) winner = redPlayer;
+    }
+
+    public boolean isWinner(Player player){
+        return winner == player;
+    }
+
+    /**
      * Gets opponent.
      *
      * @param player the player

@@ -48,6 +48,8 @@ public class Move {
      * @return true if the move is valid
      */
     public boolean isValid(Board board, boolean isRedPlayer){
+        if(end.isOutOfBounds())
+            return false;
         if(start.isSingleMove(end)){
             if(!board.spaceHasPiece(end)){
                 if(!moveIsKingPiece(board))

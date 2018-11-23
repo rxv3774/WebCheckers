@@ -95,6 +95,19 @@ public class Board implements Iterable<Row> {
     }
 
     /**
+     * checks the color's pieces in each row to see if it has possible moves
+     * @param color: active color
+     * @return true if a piece has a possible move
+     */
+    public boolean hasPossibleMoves(Piece.Color color){
+        for (Row row: board){
+            if(row.hasPossibleMoves(color, this))
+                return true;
+        }
+        return false;
+    }
+
+    /**
      * get the space object at the given position
      *
      * @param position: coordinates of the desired space

@@ -50,6 +50,10 @@ public class Position {
         }
     }
 
+    public boolean isOutOfBounds(){
+        return (row < 0 || row > 7 || cell < 0 || cell > 7);
+    }
+
     /**
      * Check if piece is moving backwards
      *

@@ -39,16 +39,6 @@ public class Piece {
         return this.type == Type.KING;
     }
 
-
-    /**
-     * return the direction offset
-     *
-     * @return direction offset
-     */
-    public int direction() {
-        return color == Color.RED ? 1 : -1;
-    }
-
     public Type getType() {
         return type;
     }

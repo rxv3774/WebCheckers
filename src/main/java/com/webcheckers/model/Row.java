@@ -41,6 +41,20 @@ public class Row implements Iterable<Space> {
     }
 
     /**
+     * checks the color's pieces in each space to see if it has possible moves
+     * @param color: active color
+     * @param board: board with all the pieces
+     * @return true if a piece has a possible move
+     */
+    public boolean hasPossibleMoves(Piece.Color color, Board board){
+        for(Space space: row){
+            if(space.hasPossibleMoves(color, board))
+                return true;
+        }
+        return false;
+    }
+
+    /**
      * and iterator so iterable works
      *
      * @return an Iterator
