@@ -97,10 +97,10 @@ public class Space {
                     jumpDR = new Move(start, new Position(rowIdx+2, cellIdx+2));
                     jumpDL = new Move(start, new Position(rowIdx+2, cellIdx-2));
                     List<Move> moves = Arrays.asList(singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL);
-                    return possibleMovesHelper(moves, board, true);
+                    return possibleMovesHelper(moves, board, false);
                 } else {
                     List<Move> moves = Arrays.asList(singleUR, singleUL, jumpUR, jumpUL);
-                    return possibleMovesHelper(moves, board, true);
+                    return possibleMovesHelper(moves, board, false);
                 }
             } else {
                 singleUR = new Move(start, new Position(rowIdx+1, cellIdx+1));
