@@ -98,6 +98,10 @@ public class Match {
         }
     }
 
+    /**
+     * add a pending move to the match
+     * @param move: the move to add
+     */
     public void addPendingMove(Move move){
         this.pendingMove = move;
     }
@@ -110,6 +114,13 @@ public class Match {
         this.pendingMove = null;
     }
 
+    /**
+     * check if there are any pending moves
+     * @return true if there is a pending move
+     */
+    public boolean hasPendingMoves(){
+        return this.pendingMove != null;
+    }
 
     /**
      * Gets opponent.
