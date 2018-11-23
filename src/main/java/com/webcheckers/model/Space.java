@@ -86,7 +86,7 @@ public class Space {
         if(this.pieceColorMatch(color)) {
             Position start = new Position(rowIdx, cellIdx);
             Move singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL;
-            if(color == Piece.Color.RED) {
+            if(color == Piece.Color.WHITE) {
                 singleUR = new Move(start, new Position(rowIdx-1, cellIdx+1));
                 singleUL = new Move( start, new Position(rowIdx-1, cellIdx-1));
                 jumpUR = new Move(start, new Position(rowIdx-2, cellIdx+2));
