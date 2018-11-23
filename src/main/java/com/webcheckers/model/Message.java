@@ -38,6 +38,11 @@ public class Message {
      */
     public static final Message TRUE = new Message("true", Type.info);
 
+    /**
+     * The constant FALSE.
+     */
+    public static final Message FALSE = new Message("false", Type.info);
+
 
     /**
      * The constant PLAYER_RESIGNATION
@@ -51,10 +56,7 @@ public class Message {
 
 
 
-    /**
-     * The constant FALSE.
-     */
-    public static final Message FALSE = new Message("false", Type.info);
+
 
     public Message(String text, Type type) {
         this.text = text;

@@ -71,8 +71,11 @@ public class PostCheckTurnRoute implements Route {
                 // Since the other player Quit, player wins.
                 player.increaseGamesWon();
 
+                System.out.println( "not match" );
+
                 // This tells the client to refresh the page.
-                return gson.toJson(Message.FALSE);
+                return gson.toJson( Message.TRUE );
+//                return gson.toJson( Message.ERR_NOT_SIGNED_IN );
             }
         }
         return null;

@@ -57,7 +57,10 @@ public class PostResignRoute implements Route {
         //The player has resigned so they should lose.
         player.increaseGamesLost();
 
-        gameCenter.endGame( player.getMatch() );
+        //This prevents an error happening when a player tries resigning an already deleted match
+        if( player.getMatch() != null) {
+            gameCenter.endGame(player.getMatch());
+        }
 
         return gson.toJson( Message.PLAYER_RESIGNATION );
     }
