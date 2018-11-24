@@ -51,10 +51,14 @@ public class PostCheckTurnRoute implements Route {
 
         if(player != null){
             Match game = player.getMatch();
+
             if(game != null) {
                 if (game.getActivePlayer() == player) {
                     return gson.toJson(Message.TRUE);
                 }
+
+                System.out.println( game.hasWinner() );
+
                 if(game.hasWinner()){
                     moveMade = true;
                     return gson.toJson(Message.TRUE);
