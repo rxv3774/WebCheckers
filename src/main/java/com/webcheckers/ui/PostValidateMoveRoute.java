@@ -13,6 +13,7 @@ public class PostValidateMoveRoute implements Route{
 
     private final Gson gson;
     private final PlayerLobby playerLobby;
+    private static final String SESSION_NAME_ATTR = "name";
 
     /**
      * Initializes post validate move Route
@@ -33,6 +34,7 @@ public class PostValidateMoveRoute implements Route{
      */
     protected Move moveFromJson(String json){
         final Move move = gson.fromJson(json, Move.class);
+
         return move;
     }
 
@@ -46,7 +48,7 @@ public class PostValidateMoveRoute implements Route{
         LOG.finer("PostValidateMoveRoute is invoked.");
 
         final Session session = request.session();
-        String currentPlayerName = session.attribute("name");
+        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
         Player player = playerLobby.getPlayerObject(currentPlayerName);
 
         if(player != null){
@@ -58,9 +60,18 @@ public class PostValidateMoveRoute implements Route{
 
             Move move = moveFromJson(request.body());
             Board board = game.getBoard();
-            boolean redPlayer = game.getRedPlayer().equals(player);
+//            boolean redPlayer = game.getRedPlayer().equals(player);
+            boolean redPlayer = game.doPlayersMatch(game.getRedPlayer(), player);
 
-            if(!game.hasPendingMoves() && move.isValid(board, redPlayer)) { //single move or single jump
+            System.out.println("one");
+            System.out.println( !game.hasPendingMoves() );
+            System.out.println("two");
+
+
+
+            System.out.println( move.isValid(board, redPlayer) );
+
+            if( !game.hasPendingMoves() && move.isValid(board, redPlayer)) { //single move or single jump
                 game.addPendingMove(move);
                 return gson.toJson(Message.VALID_MOVE);
             } else if(move.isJumpMove() && !game.hasPendingDJMoves() && move.isValid(board, redPlayer)){ //second move for double jump

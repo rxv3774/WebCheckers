@@ -240,4 +240,10 @@ public class Match {
     public void changeActivePlayer() {
         activePlayer = activePlayer == redPlayer ? whitePlayer : redPlayer;
     }
+
+
+    public boolean doPlayersMatch( Player p1, Player p2 ){
+        return p1.equals( p2 );
+    }
+
 }
