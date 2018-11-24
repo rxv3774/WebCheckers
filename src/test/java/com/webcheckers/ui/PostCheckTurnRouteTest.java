@@ -71,7 +71,7 @@ public class PostCheckTurnRouteTest {
 
         when( session.attribute( NAME_ATTR ) ).thenReturn( p1.getName() );
         String currentPlayerName = p1.getName();
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( null );
+        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p1 );
 
         //Test1 This should return null because the player isn't in a match
         assertNull( CuT.handle(request, response ) );
@@ -87,6 +87,8 @@ public class PostCheckTurnRouteTest {
 
         gameCenter.createGame( p1, p2 );
 
+        System.out.println( p2.getMatch() != null );
+
         when( session.attribute( NAME_ATTR ) ).thenReturn( p1.getName() );
         String currentPlayerName = p1.getName();
         when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p1 );
@@ -99,29 +101,22 @@ public class PostCheckTurnRouteTest {
     @Test
     public void handleHasWinner(){
 
-        Player p1 = new Player("Harry" );
-        Player p2 = new Player("Potter" );
+        Player p2 = mock( Player.class );
 
-        GameCenter gameCenter = mock( GameCenter.class );
-        gameCenter.createGame( p1, p2);
-
-        when( session.attribute( NAME_ATTR ) ).thenReturn( p2.getName() );
-        String currentPlayerName = p2.getName();
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p2);
-
-
+        final String p2Name = "Potter";
 
         Match game = mock( Match.class );
-        Player player = mock( Player.class );
-
-//        when( player.getMatch() ).thenReturn( game );
-
-
-        when( player.getMatch() ).getMock();
-
-
-
         when( game.hasWinner() ).thenReturn( true );
+
+        when( p2.getName() ).thenReturn( p2Name );
+        when( p2.getMatch() ).thenReturn( game );
+
+        when( session.attribute( NAME_ATTR ) ).thenReturn( p2Name );
+        String currentPlayerName = p2Name;
+        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p2 );
+
+        Player player = mock( Player.class );
+        when( player.getMatch() ).thenReturn( game );
 
         //Test1 This checks if their is a winner
         assertEquals( gson.toJson(Message.TRUE), CuT.handle(request, response) );
@@ -135,7 +130,6 @@ public class PostCheckTurnRouteTest {
         Player p2 = new Player("Bob" );
 
         GameCenter gameCenter = new GameCenter();
-
         gameCenter.createGame( p1, p2 );
 
         when( session.attribute( NAME_ATTR ) ).thenReturn( p2.getName() );
@@ -145,5 +139,4 @@ public class PostCheckTurnRouteTest {
         //Test1 Player isn't the active player so it's null
         assertEquals( gson.toJson( Message.FALSE), CuT.handle(request, response) );
     }
-
 }
