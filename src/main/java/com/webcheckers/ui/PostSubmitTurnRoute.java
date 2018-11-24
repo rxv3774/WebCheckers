@@ -46,10 +46,17 @@ public class PostSubmitTurnRoute implements Route {
 
         if (player != null) {
             Match game = player.getMatch();
-            game.doPendingMoves();
-            game.changeActivePlayer(); //end turn
+            if(game.hasPendingMoves()) {
+                if(!game.doubleJumpAvailable()) {
 
-            return gson.toJson(Message.MOVE_SUBMITTED);
+                    game.doPendingMoves();
+                    game.changeActivePlayer(); //end turn
+
+                    return gson.toJson(Message.MOVE_SUBMITTED);
+                } else
+                    return gson.toJson(Message.ERR_DJ_AVAILABLE);
+            } else
+                return gson.toJson(Message.ERR_NO_PENDING_MOVES);
         }
 
         return gson.toJson(Message.ERR_NOT_SIGNED_IN);

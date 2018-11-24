@@ -41,6 +41,16 @@ public class Message {
     public static final Message MOVE_SUBMITTED = new Message("Move submitted!", Type.info);
 
     /**
+     * The constant ERR_NO_PENDING_MOVES
+     */
+    public static final Message ERR_NO_PENDING_MOVES = new Message("No pending Moves!", Type.error);
+
+    /**
+     * The constant ERR_DJ_AVAILABLE
+     */
+    public static final Message ERR_DJ_AVAILABLE = new Message("Double Jump is available! Must complete double jump before submitting.", Type.error);
+
+    /**
      * The constant TRUE.
      */
     public static final Message TRUE = new Message("true", Type.info);

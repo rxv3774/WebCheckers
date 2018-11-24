@@ -150,6 +150,19 @@ public class Match {
     }
 
     /**
+     * checks if a double jump is available
+     * @return true is there is an available second jump
+     */
+    public boolean doubleJumpAvailable(){
+        if(pendingMove.isJumpMove() && DJsecondPendingMove == null) {
+            Position end = pendingMove.getEnd();
+            Space space = board.getSpace(end);
+            return space.hasSecondJumpAvailable(getActiveColor(), board, pendingMove.isKingMove(board));
+        } else
+            return false;
+    }
+
+    /**
      * end game and set the winner to the player whose turn it is not.
      */
     public void declareWinner() {

@@ -124,6 +124,43 @@ public class Space {
     }
 
     /**
+     * Checks to see if there is a valid jump move available, used to check for required double jump
+     *
+     * @param color: color of the current player
+     * @param board: board with all of the pieces
+     * @return true if there is a jump available
+     */
+    public boolean hasSecondJumpAvailable(Piece.Color color, Board board, Boolean isKingPiece){
+            Position start = new Position(rowIdx, cellIdx);
+            Move jumpUR, jumpUL, jumpDR, jumpDL;
+            if(color == Piece.Color.WHITE) {
+                jumpUR = new Move(start, new Position(rowIdx-2, cellIdx+2));
+                jumpUL = new Move(start, new Position(rowIdx-2, cellIdx-2));
+                if(isKingPiece){
+                    jumpDR = new Move(start, new Position(rowIdx+2, cellIdx+2));
+                    jumpDL = new Move(start, new Position(rowIdx+2, cellIdx-2));
+                    List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
+                    return possibleMovesHelper(moves, board, false);
+                } else {
+                    List<Move> moves = Arrays.asList(jumpUR, jumpUL);
+                    return possibleMovesHelper(moves, board, false);
+                }
+            } else {
+                jumpUR = new Move(start, new Position(rowIdx+2, cellIdx+2));
+                jumpUL = new Move(start, new Position(rowIdx+2, cellIdx-2));
+                if(isKingPiece){
+                    jumpDR = new Move(start, new Position(rowIdx-2, cellIdx+2));
+                    jumpDL = new Move(start, new Position(rowIdx-2, cellIdx-2));
+                    List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
+                    return possibleMovesHelper(moves, board, true);
+                } else {
+                    List<Move> moves = Arrays.asList(jumpUR, jumpUL);
+                    return possibleMovesHelper(moves, board, true);
+                }
+            }
+    }
+
+    /**
      * helper method for possible moves, checks if moves are valid
      *
      * @param moves: list of possible moves to check

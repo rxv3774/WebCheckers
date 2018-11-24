@@ -40,8 +40,8 @@ public class MoveTest {
     }
 
     @Test
-    void testGetStart() {
-        assertEquals(new Position(1, 1).toString(), singleMove.getStart().toString());
+    void testGetEnd() {
+        assertEquals(new Position(2, 2).toString(), singleMove.getEnd().toString());
     }
 
     @Test

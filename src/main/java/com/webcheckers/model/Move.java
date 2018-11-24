@@ -21,8 +21,8 @@ public class Move {
         this.end = end;
     }
 
-    public Position getStart() {
-        return start;
+    public Position getEnd() {
+        return end;
     }
 
     /**
