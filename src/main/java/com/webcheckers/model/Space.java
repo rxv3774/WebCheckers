@@ -37,7 +37,7 @@ public class Space {
         this.piece = piece;
     }
 
-    /*
+    /**
      * Get the Column index of the Space
      *
      * @return the column index
@@ -46,7 +46,7 @@ public class Space {
         return cellIdx;
     }
 
-    /*
+    /**
      * Get the Row index of the Space
      *
      * @return the row index

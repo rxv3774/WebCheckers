@@ -20,7 +20,7 @@ public class Board implements Iterable<Row> {
     /**
      * Initialize the game.
      *
-     * @param color the color to initilize the pieces for
+     * @param color the color to initialize the pieces for
      */
     public void initialize(Piece.Color color) {
         if (color == Piece.Color.RED) {

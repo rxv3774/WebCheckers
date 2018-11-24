@@ -295,4 +295,85 @@ class SpaceTest {
         assertEquals( pieceR, spaceNull.getPiece() );
     }
 */
+
+
+    @Test
+    public void isKingRowWorks(){
+        Space s1 = new Space(0,1);
+        Space s2 = new Space(7,1);
+        Space s3 = new Space(2,1);
+
+        //Test1 This checks that the returned value isn't null
+        assertNotNull( s1.isKingRow() );
+
+        //Test2 makes sure returned value is expected
+        assertTrue( s1.isKingRow() );
+
+        //Test3 makes sure returned value is expected
+        assertTrue( s2.isKingRow() );
+
+        //Test4 makes sure returned value is expected
+        assertFalse( s3.isKingRow() );
+    }
+
+
+    @Test
+    public void hasKingPieceWorks(){
+        Space s0 = new Space(0,0);
+        Space s1 = new Space(0,1);
+        Space s2 = new Space(1,2);
+
+        //Test1 this checks if null has a piece
+        assertFalse( s0.hasKingPiece() );
+
+        s1.initialize();
+
+        //Test2 this checks that it has a piece but not a king
+        assertFalse( s1.hasKingPiece() );
+
+        s2.initialize();
+        s2.movePieceTo( s1 );
+
+
+        //Test3 this checks that it has a piece and is a king
+        assertTrue( s1.hasKingPiece() );
+    }
+
+
+    @Test
+    public void movePieceToWorks(){
+
+        Space s1 = new Space(0,1);
+        Space s2 = new Space(1,2);
+
+        s1.initialize();
+
+        s1.movePieceTo( s2 );
+
+        assertTrue( s2.hasPiece() );
+    }
+
+    @Test
+    public void hasPossibleMovesWorks(){
+        Board board = new Board();
+        board.initialize( Piece.Color.RED );
+        board.initialize( Piece.Color.WHITE );
+
+        Space s1 = board.getSpace( new Position(2,1) );
+        Space s2 = board.getSpace( new Position(5,2) );
+
+        //Test1 Red player Front has moves.
+        assertTrue( s1.hasPossibleMoves(Piece.Color.RED, board) );
+
+        //Test1 white player Front has moves.
+        assertTrue( s2.hasPossibleMoves(Piece.Color.WHITE, board) );
+
+
+
+
+
+//        assertTrue( space.hasPossibleMoves(Piece.Color.WHITE, board) );
+    }
+
+
 }
