@@ -53,12 +53,12 @@ public class Message {
     /**
      * The constant WINNER.
      */
-    public static final Message WINNER = new Message("<a href='"+ URL_HOME +"'>You win!Click here to return home.</a>", Type.info);
+    public static final Message WINNER = new Message("<a href='" + URL_HOME + "'>You win!Click here to return home.</a>", Type.info);
 
     /**
      * The constant LOSER.
      */
-    public static final Message LOSER = new Message("<a href='"+ URL_HOME +"'>You lose... Click here to return home.</a>", Type.info);
+    public static final Message LOSER = new Message("<a href='" + URL_HOME + "'>You lose... Click here to return home.</a>", Type.info);
 
     /**
      * The constant RESIGNED.

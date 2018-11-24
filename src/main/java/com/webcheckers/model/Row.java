@@ -4,18 +4,18 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Row implements Iterable<Space> {
+    private static final int SPACES = 8;
+
     private int index, current;
     private Space row[];
-
-    private int spaceArraySize = 8;
 
     public Row(int index) {
         if (index < 0 || index > 7) {
             throw new IllegalArgumentException();
         } else {
             this.index = index;
-            this.row = new Space[spaceArraySize];
-            for (int i = 0; i < spaceArraySize; i++) {
+            this.row = new Space[SPACES];
+            for (int i = 0; i < SPACES; i++) {
                 row[i] = new Space(index, i);
             }
         }
@@ -31,7 +31,7 @@ public class Row implements Iterable<Space> {
         }
     }
 
-    public Space[] getRow(){
+    public Space[] getRow() {
         return row;
     }
 
@@ -42,13 +42,14 @@ public class Row implements Iterable<Space> {
 
     /**
      * checks the color's pieces in each space to see if it has possible moves
+     *
      * @param color: active color
      * @param board: board with all the pieces
      * @return true if a piece has a possible move
      */
-    public boolean hasPossibleMoves(Piece.Color color, Board board){
-        for(Space space: row){
-            if(space.hasPossibleMoves(color, board))
+    public boolean hasPossibleMoves(Piece.Color color, Board board) {
+        for (Space space : row) {
+            if (space.hasPossibleMoves(color, board))
                 return true;
         }
         return false;
@@ -66,10 +67,7 @@ public class Row implements Iterable<Space> {
         return new Iterator<Space>() {
             @Override
             public boolean hasNext() {
-                if (current < row.length)
-                    return true;
-                else
-                    return false;
+                return current < row.length;
             }
 
             @Override
@@ -95,10 +93,7 @@ public class Row implements Iterable<Space> {
         return new Iterator<Space>() {
             @Override
             public boolean hasNext() {
-                if (current >= 0)
-                    return true;
-                else
-                    return false;
+                return current >= 0;
             }
 
             @Override

@@ -1,4 +1,5 @@
 package com.webcheckers.ui;
+
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +7,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -54,13 +54,13 @@ public class PostSignInRouteTest {
      */
     @Test
     public void valid_username() {
-        when( request.queryParams( PLAYER_NAME_ATTR ) ).thenReturn("Ryan");
+        when(request.queryParams(PLAYER_NAME_ATTR)).thenReturn("Ryan");
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         //Test1 a valid player is added so a exception is thrown
-        assertThrows(spark.HaltException.class, () -> CuT.handle(request, response) );
+        assertThrows(spark.HaltException.class, () -> CuT.handle(request, response));
 
 
         //Analyze the results
@@ -124,13 +124,13 @@ public class PostSignInRouteTest {
     @Test
     public void invalid_username_repeatingName() {
 
-        when( request.queryParams( PLAYER_NAME_ATTR ) ).thenReturn("Ryan");
+        when(request.queryParams(PLAYER_NAME_ATTR)).thenReturn("Ryan");
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         //Test1 a new player is added, it will throw a halt exception
-        assertThrows(spark.HaltException.class, () -> CuT.handle(request, response) );
+        assertThrows(spark.HaltException.class, () -> CuT.handle(request, response));
 
         //This is where the duplicate is added.
         CuT.handle(request, response);

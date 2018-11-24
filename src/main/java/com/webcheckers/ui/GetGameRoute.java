@@ -1,14 +1,15 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
+import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Message;
 import com.webcheckers.model.Player;
-import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Position;
 import spark.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import static spark.Spark.halt;
@@ -108,18 +109,18 @@ public class GetGameRoute implements Route {
         //Board
         vm.put("board", match.getBoard());
 
-        if(!match.canPlay()){
+        if (!match.canPlay()) {
             match.declareWinner();
         }
-        if(match.hasWinner()){
-            if(match.isWinner(player)){
+        if (match.hasWinner()) {
+            if (match.isWinner(player)) {
                 vm.put("message", Message.WINNER);
-            }else{
+            } else {
                 gameCenter.endGame(match);
                 vm.put("message", Message.LOSER);
 
             }
-        }else if(!match.isRunning() && gameCenter.runningMatches(match)) {
+        } else if (!match.isRunning() && gameCenter.containsMatch(match)) {
             gameCenter.endGame(match);
             vm.put("message", Message.RESIGNED);
         }

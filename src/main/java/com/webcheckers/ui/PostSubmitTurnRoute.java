@@ -21,7 +21,6 @@ public class PostSubmitTurnRoute implements Route {
     /**
      * Create the Spark Route (ui controller) for the
      * {@code GET /} HTTP request.
-     *
      */
     public PostSubmitTurnRoute(Gson gson, PlayerLobby playerLobby) {
         LOG.config("PostSubmitTurnRoute is initialized.");
@@ -33,13 +32,9 @@ public class PostSubmitTurnRoute implements Route {
     /**
      * Requests the submitted turn route.
      *
-     * @param request
-     *     the HTTP request
-     * @param response
-     *     the HTTP response
-     *
-     * @return
-     *     the rendered HTML for the Game page
+     * @param request  the HTTP request
+     * @param response the HTTP response
+     * @return the rendered HTML for the Game page
      */
     @Override
     public Object handle(Request request, Response response) {
@@ -49,7 +44,7 @@ public class PostSubmitTurnRoute implements Route {
         String currentPlayerName = session.attribute("name");
         Player player = playerLobby.getPlayerObject(currentPlayerName);
 
-        if(player != null) {
+        if (player != null) {
             Match game = player.getMatch();
             game.doPendingMoves();
             game.changeActivePlayer(); //end turn

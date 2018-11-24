@@ -22,7 +22,7 @@ public class PostCheckTurnRoute implements Route {
     /**
      * Initializes the PostCheckTurnRoute
      */
-    public PostCheckTurnRoute(Gson gson, PlayerLobby playerLobby){
+    public PostCheckTurnRoute(Gson gson, PlayerLobby playerLobby) {
         LOG.config("PostCheckTurnRoute initialized.");
 
         this.gson = gson;
@@ -30,16 +30,11 @@ public class PostCheckTurnRoute implements Route {
     }
 
     /**
-     *
      * Requests the post check turn
      *
-     * @param request
-     *  The http request
-     * @param response
-     *  The http response
-     * @return
-     *  The returned HTML page
-     *
+     * @param request  The http request
+     * @param response The http response
+     * @return The returned HTML page
      */
     @Override
     public Object handle(Request request, Response response) {
@@ -49,15 +44,15 @@ public class PostCheckTurnRoute implements Route {
         String currentPlayerName = session.attribute("name");
         Player player = playerLobby.getPlayerObject(currentPlayerName);
 
-        if(player != null){
+        if (player != null) {
             Match game = player.getMatch();
-            if(game != null) {
+            if (game != null) {
 
                 if (game.getActivePlayer() == player) {
                     return gson.toJson(Message.TRUE);
                 }
 
-                if(game.hasWinner()){
+                if (game.hasWinner()) {
                     moveMade = true;
                     return gson.toJson(Message.TRUE);
                 }

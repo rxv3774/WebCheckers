@@ -1,6 +1,5 @@
 package com.webcheckers.model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -78,24 +77,25 @@ public class Space {
 
     /**
      * check space's piece to see if it has possible moves
-     * @param color color of active player
+     *
+     * @param color  color of active player
      * @param board: board with all the pieces
      * @return true if piece at space has possible moves
      */
-    public boolean hasPossibleMoves(Piece.Color color, Board board){
-        if(this.pieceColorMatch(color)) {
+    public boolean hasPossibleMoves(Piece.Color color, Board board) {
+        if (this.pieceColorMatch(color)) {
             Position start = new Position(rowIdx, cellIdx);
             Move singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL;
-            if(color == Piece.Color.WHITE) {
-                singleUR = new Move(start, new Position(rowIdx-1, cellIdx+1));
-                singleUL = new Move( start, new Position(rowIdx-1, cellIdx-1));
-                jumpUR = new Move(start, new Position(rowIdx-2, cellIdx+2));
-                jumpUL = new Move(start, new Position(rowIdx-2, cellIdx-2));
-                if(piece.isKing()){
-                    singleDR = new Move(start, new Position(rowIdx+1, cellIdx+1));
-                    singleDL = new Move( start, new Position(rowIdx+1, cellIdx-1));
-                    jumpDR = new Move(start, new Position(rowIdx+2, cellIdx+2));
-                    jumpDL = new Move(start, new Position(rowIdx+2, cellIdx-2));
+            if (color == Piece.Color.WHITE) {
+                singleUR = new Move(start, new Position(rowIdx - 1, cellIdx + 1));
+                singleUL = new Move(start, new Position(rowIdx - 1, cellIdx - 1));
+                jumpUR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
+                jumpUL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
+                if (piece.isKing()) {
+                    singleDR = new Move(start, new Position(rowIdx + 1, cellIdx + 1));
+                    singleDL = new Move(start, new Position(rowIdx + 1, cellIdx - 1));
+                    jumpDR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
+                    jumpDL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
                     List<Move> moves = Arrays.asList(singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL);
                     return possibleMovesHelper(moves, board, false);
                 } else {
@@ -103,15 +103,15 @@ public class Space {
                     return possibleMovesHelper(moves, board, false);
                 }
             } else {
-                singleUR = new Move(start, new Position(rowIdx+1, cellIdx+1));
-                singleUL = new Move( start, new Position(rowIdx+1, cellIdx-1));
-                jumpUR = new Move(start, new Position(rowIdx+2, cellIdx+2));
-                jumpUL = new Move(start, new Position(rowIdx+2, cellIdx-2));
-                if(piece.isKing()){
-                    singleDR = new Move(start, new Position(rowIdx-1, cellIdx+1));
-                    singleDL = new Move( start, new Position(rowIdx-1, cellIdx-1));
-                    jumpDR = new Move(start, new Position(rowIdx-2, cellIdx+2));
-                    jumpDL = new Move(start, new Position(rowIdx-2, cellIdx-2));
+                singleUR = new Move(start, new Position(rowIdx + 1, cellIdx + 1));
+                singleUL = new Move(start, new Position(rowIdx + 1, cellIdx - 1));
+                jumpUR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
+                jumpUL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
+                if (piece.isKing()) {
+                    singleDR = new Move(start, new Position(rowIdx - 1, cellIdx + 1));
+                    singleDL = new Move(start, new Position(rowIdx - 1, cellIdx - 1));
+                    jumpDR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
+                    jumpDL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
                     List<Move> moves = Arrays.asList(singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL);
                     return possibleMovesHelper(moves, board, true);
                 } else {
@@ -125,14 +125,15 @@ public class Space {
 
     /**
      * helper method for possible moves, checks if moves are valid
+     *
      * @param moves: list of possible moves to check
      * @param board: board with all the pieces
      * @param isRed: if the moved piece is red
      * @return true if any of the moves are valid
      */
-    public boolean possibleMovesHelper(List<Move> moves, Board board, boolean isRed){
-        for(Move move: moves){
-            if(move.isValid(board, isRed))
+    public boolean possibleMovesHelper(List<Move> moves, Board board, boolean isRed) {
+        for (Move move : moves) {
+            if (move.isValid(board, isRed))
                 return true;
         }
         return false;
@@ -147,25 +148,19 @@ public class Space {
      */
     public boolean isValid() {
         if (rowIdx % 2 == 0) {
-            if (cellIdx % 2 == 1 && piece == null)
-                return true;
-            else
-                return false;
-        }
-        else{
-            if (cellIdx % 2 == 0 && piece == null)
-                return true;
-            else
-                return false;
+            return cellIdx % 2 == 1 && piece == null;
+        } else {
+            return cellIdx % 2 == 0 && piece == null;
         }
     }
 
     /**
      * Move piece in the space to space space.
+     *
      * @param space the space
      */
-    public void movePieceTo(Space space){
-        if(space.isKingRow() && !this.piece.isKing()){
+    public void movePieceTo(Space space) {
+        if (space.isKingRow() && !this.piece.isKing()) {
             space.piece = this.piece;
             space.piece.makeKing();
             this.piece = null;
@@ -177,14 +172,15 @@ public class Space {
 
     /**
      * check if space's row is a king row
+     *
      * @return true if the row will create a king
      */
-    public boolean isKingRow(){
-        return (this.rowIdx == 0 || this.rowIdx == 7 );
+    public boolean isKingRow() {
+        return (this.rowIdx == 0 || this.rowIdx == 7);
     }
 
-    public boolean hasKingPiece(){
-        if(this.hasPiece())
+    public boolean hasKingPiece() {
+        if (this.hasPiece())
             return piece.isKing();
         return false;
     }

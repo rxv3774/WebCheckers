@@ -33,116 +33,116 @@ class PlayerTest {
     }
 
     @Test
-    public void isInGameWorks(){
+    public void isInGameWorks() {
         Match match = new Match();
 
-        Player p1 = new Player( "Brett" );
-        Player p2 = new Player( "Kevin" );
-        Player p3 = new Player( "Larry" );
+        Player p1 = new Player("Brett");
+        Player p2 = new Player("Kevin");
+        Player p3 = new Player("Larry");
 
-        match.join( p1 );
-        match.join( p2 );
+        match.join(p1);
+        match.join(p2);
 
         match.start();
 
         //Test1 isInGame doesn't return a null value
-        assertNotNull( p1.isInGame() );
+        assertNotNull(p1.isInGame());
 
         //Test2 should be true since they are in a match
-        assertTrue( p1.isInGame() );
+        assertTrue(p1.isInGame());
 
         //Test3 should be false since they aren't in a match
-        assertFalse( p3.isInGame() );
+        assertFalse(p3.isInGame());
     }
 
 
     @Test
-    public void playGameWorks(){
+    public void playGameWorks() {
         Match match = new Match();
         Match nullMatch = null;
 
-        Player p1 = new Player( "Brett" );
-        Player p2 = new Player( "Kevin" );
+        Player p1 = new Player("Brett");
+        Player p2 = new Player("Kevin");
 
-        match.join( p1 );
-        match.join( p2 );
+        match.join(p1);
+        match.join(p2);
 
         //Test1 playGame doesn't return a null
-        assertNotNull( p1.playGame( match ) );
+        assertNotNull(p1.playGame(match));
 
         //Test2 playGame has a valid match so it should return false
-        assertFalse( p1.playGame( match ) );
+        assertFalse(p1.playGame(match));
 
         //Test3 playGame has a valid match so it should return true
-        assertFalse( p1.playGame( nullMatch ) );
+        assertFalse(p1.playGame(nullMatch));
     }
 
     @Test
-    public void equalsWorks(){
-        Player p1 = new Player( "Brett" );
-        Player p2 = new Player( "Kevin" );
-        Player p3 = new Player( "Kevin" );
+    public void equalsWorks() {
+        Player p1 = new Player("Brett");
+        Player p2 = new Player("Kevin");
+        Player p3 = new Player("Kevin");
 
         Board board = new Board();
 
         //Test1 board is not a player object will fail
-        assertFalse( p1.equals( board ) );
+        assertFalse(p1.equals(board));
 
         //Test2 different names will fail
-        assertFalse( p1.equals( p2 ) );
+        assertFalse(p1.equals(p2));
 
         //Test3 same name so it will be true
-        assertTrue( p2.equals( p3 ) );
+        assertTrue(p2.equals(p3));
     }
 
     @Test
-    public void getViewModeWorks(){
-        Player p1 = new Player( "Brett" );
-        Player p2 = new Player( "Kevin" );
+    public void getViewModeWorks() {
+        Player p1 = new Player("Brett");
+        Player p2 = new Player("Kevin");
 
-        Player p3 = new Player( "Batman" );
+        Player p3 = new Player("Batman");
 
         Match match = new Match();
 
-        match.join( p1 );
-        match.join( p2 );
+        match.join(p1);
+        match.join(p2);
 
         match.start();
 
         //Test1 doesn't return a null value
-        assertNotNull( p1.getViewMode() );
+        assertNotNull(p1.getViewMode());
 
         //Test2 p1 is a player
-        assertEquals( "PLAY", p1.getViewMode() );
+        assertEquals("PLAY", p1.getViewMode());
 
         //Test3 p3 is a Spectator
-        assertEquals( "SPECTATOR", p3.getViewMode());
+        assertEquals("SPECTATOR", p3.getViewMode());
     }
 
 
     @Test
-    public void endGameWorks(){
-        Player p1 = new Player( "Brett" );
-        Player p2 = new Player( "Kevin" );
-        Player p3 = new Player( "Batman" );
+    public void endGameWorks() {
+        Player p1 = new Player("Brett");
+        Player p2 = new Player("Kevin");
+        Player p3 = new Player("Batman");
 
         Match match = new Match();
 
-        match.join( p1 );
-        match.join( p2 );
+        match.join(p1);
+        match.join(p2);
 
         match.start();
 
         //Test1 p1 does have a match
-        assertNotNull( p1.getMatch() );
+        assertNotNull(p1.getMatch());
 
         p1.endGame();
         p3.endGame();
 
         //Test2 p1 doesn't have a match anymore
-        assertNull( p1.getMatch() );
+        assertNull(p1.getMatch());
 
         //Test3 never had a match so it's still null
-        assertNull( p3.getMatch() );
+        assertNull(p3.getMatch());
     }
 }

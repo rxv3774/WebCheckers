@@ -1,14 +1,16 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
-import com.webcheckers.model.*;
 import com.webcheckers.appl.PlayerLobby;
-import spark.*;
+import com.webcheckers.model.*;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Session;
 
-import java.util.Objects;
 import java.util.logging.Logger;
 
-public class PostValidateMoveRoute implements Route{
+public class PostValidateMoveRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
     private final Gson gson;
@@ -17,9 +19,10 @@ public class PostValidateMoveRoute implements Route{
 
     /**
      * Initializes post validate move Route
+     *
      * @param gson
      */
-    public PostValidateMoveRoute(Gson gson, PlayerLobby playerLobby){
+    public PostValidateMoveRoute(Gson gson, PlayerLobby playerLobby) {
 
         this.gson = gson;
         this.playerLobby = playerLobby;
@@ -29,10 +32,11 @@ public class PostValidateMoveRoute implements Route{
 
     /**
      * this is to get around gson not being mockable
+     *
      * @param json - json to turn into move
      * @return Move generate from json
      */
-    protected Move moveFromJson(String json){
+    protected Move moveFromJson(String json) {
         final Move move = gson.fromJson(json, Move.class);
 
         return move;
@@ -44,17 +48,17 @@ public class PostValidateMoveRoute implements Route{
      * @return the rendered HTML for the Home page
      */
     @Override
-    public Object handle(Request request, Response response){
+    public Object handle(Request request, Response response) {
         LOG.finer("PostValidateMoveRoute is invoked.");
 
         final Session session = request.session();
-        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
+        String currentPlayerName = session.attribute(SESSION_NAME_ATTR);
         Player player = playerLobby.getPlayerObject(currentPlayerName);
 
-        if(player != null){
+        if (player != null) {
             Match game = player.getMatch();
 
-            if(game == null){
+            if (game == null) {
                 return gson.toJson(Message.ERR_NO_OPPONENT);
             }
 
@@ -64,17 +68,16 @@ public class PostValidateMoveRoute implements Route{
             boolean redPlayer = game.doPlayersMatch(game.getRedPlayer(), player);
 
             System.out.println("one");
-            System.out.println( !game.hasPendingMoves() );
+            System.out.println(!game.hasPendingMoves());
             System.out.println("two");
 
 
+            System.out.println(move.isValid(board, redPlayer));
 
-            System.out.println( move.isValid(board, redPlayer) );
-
-            if( !game.hasPendingMoves() && move.isValid(board, redPlayer)) { //single move or single jump
+            if (!game.hasPendingMoves() && move.isValid(board, redPlayer)) { //single move or single jump
                 game.addPendingMove(move);
                 return gson.toJson(Message.VALID_MOVE);
-            } else if(move.isJumpMove() && !game.hasPendingDJMoves() && move.isValid(board, redPlayer)){ //second move for double jump
+            } else if (move.isJumpMove() && !game.hasPendingDJMoves() && move.isValid(board, redPlayer)) { //second move for double jump
                 game.addPendingMove(move);
                 return gson.toJson(Message.VALID_MOVE);
             } else if (move.isSingleMove() && game.hasPendingMoves()) { //only one move allowed if it's not a double jump

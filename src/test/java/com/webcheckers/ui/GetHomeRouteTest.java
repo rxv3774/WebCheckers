@@ -9,10 +9,9 @@ import org.junit.jupiter.api.Test;
 import spark.*;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * The unit test suite for the {@link GetHomeRoute} component
@@ -131,8 +130,9 @@ class GetHomeRouteTest {
 
         when(session.attribute(NAME_ATTR)).thenReturn(VALID_NAME_ONE);
 
-        testHelper.assertViewModelAttribute(PLAYER_LIST, "The number of players signed in is: " + playerLobby.getLobbySize() );
+        testHelper.assertViewModelAttribute(PLAYER_LIST, "The number of players signed in is: " + playerLobby.getLobbySize());
     }
+
     void test_lobbySizeOneErrorMsg() {
         final String errorMsg = "This is an error message";
 
@@ -163,7 +163,7 @@ class GetHomeRouteTest {
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
 
-        when( session.attribute(NAME_ATTR) ).thenReturn( testPlayer2.getName() );
+        when(session.attribute(NAME_ATTR)).thenReturn(testPlayer2.getName());
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         getHomeRoute.handle(request, response);
