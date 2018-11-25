@@ -358,20 +358,93 @@ class SpaceTest {
         board.initialize( Piece.Color.RED );
         board.initialize( Piece.Color.WHITE );
 
-        Space s1 = board.getSpace( new Position(2,1) );
-        Space s2 = board.getSpace( new Position(5,2) );
+        Space s1 = board.getSpace( new Position(2,1) ); //red
+        Space s2 = board.getSpace( new Position(5,2) ); //white
 
         //Test1 Red player Front has moves.
         assertTrue( s1.hasPossibleMoves(Piece.Color.RED, board) );
 
-        //Test1 white player Front has moves.
+        //Test2 white player Front has moves.
         assertTrue( s2.hasPossibleMoves(Piece.Color.WHITE, board) );
 
 
+        Space s3 = board.getSpace( new Position( 1,2) );//red
+        Space s4 = board.getSpace( new Position( 0,1) ); //back red
+
+        s3.movePieceTo( s4 );
+
+        //Test3 red player king back has moves.
+        assertTrue( s4.hasPossibleMoves( Piece.Color.RED, board ) );
+
+        Space s5 = board.getSpace( new Position( 6,1) ); //white front
+        Space s6 = board.getSpace( new Position( 7,0) ); //white back
+
+        s5.movePieceTo( s6 );
+
+        //Test4 White player king back has moves.
+        assertTrue( s6.hasPossibleMoves( Piece.Color.WHITE, board ) );
+    }
 
 
 
-//        assertTrue( space.hasPossibleMoves(Piece.Color.WHITE, board) );
+
+
+    @Test
+    public void hasSecondJumpAvailableWorks(){
+
+
+//        Board b1 = mock(Board.class );
+        Board b1 = new Board();
+//        Space s1 = mock( Space.class );
+//        Space sRs = new Space( 0,1, new Piece( Piece.Type.SINGLE, Piece.Color.RED ) );
+
+
+
+
+
+        //white single jumping two red pieces
+//        Space r0 = b1.getSpace( new Position(4,2) );
+//        Space r1 = b1.getSpace( new Position(6,4) );
+//        Space w0 = b1.getSpace( new Position(6,4) );
+
+//        r0.initialize();
+//        r1.initialize();
+//        w0.initialize();
+
+
+
+//        assertTrue( s1.hasSecondJumpAvailable( Piece.Color.RED, b1, false) );
+
+//        System.out.println( w0.hasPiece() );
+
+
+//        System.out.println( b1.getSpace(new Position(0, 1) ).isValid() );
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+    @Test
+    public void toStringWorks(){
+        Space space = new Space( 0, 1);
+        space.initialize();
+
+        //Test1 checking to make sure method call doesn't return a null
+        assertNotNull( space.toString() );
+
+        //Test2 makes sure the output is expected
+        assertEquals( "Space{" +
+                "cellIdx=" + 1 +
+                ", rowIdx=" + 0 +
+                '}' , space.toString() );
     }
 
 

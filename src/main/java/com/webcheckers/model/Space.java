@@ -27,6 +27,10 @@ public class Space {
         Piece piece = null;
         if (isValid()) {
             if (rowIdx < 3) {
+
+//                if( rowIdx == 0 && cellIdx == 1)
+//                    System.out.println("pass");
+
                 piece = new Piece(Piece.Type.SINGLE, Piece.Color.RED);
             }
             if (rowIdx > 4) {
@@ -34,6 +38,10 @@ public class Space {
             }
         }
         this.piece = piece;
+
+//        if( rowIdx == 0 && cellIdx == 1)
+//            System.out.println( this.hasPiece() );
+
     }
 
     /**

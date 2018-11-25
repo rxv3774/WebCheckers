@@ -34,6 +34,7 @@ public class PostSignOutRoute implements Route {
 
     public PostSignOutRoute(GameCenter gameCenter, PlayerLobby playerLobby, TemplateEngine templateEngine) {
         // validation
+        Objects.requireNonNull(gameCenter, "gameCenter must not be null");
         Objects.requireNonNull(playerLobby, "playerLobby must not be null");
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
         //
@@ -45,33 +46,47 @@ public class PostSignOutRoute implements Route {
     }
 
     public String handle(Request request, Response response) {
-        final Session session = request.session();
-        final Map<String, Object> vm = new HashMap<>();
-        final String currentPlayerName = request.queryParams("name");
-        Player currentPlayer = playerLobby.getPlayerObject(currentPlayerName);
-        Match currentMatch = currentPlayer.getMatch();
 
 
-        Player opponent = currentMatch.getOpponent(currentPlayer);
+        System.out.println( "BBBBB" );
 
-        vm.put(TITLE_ATTR, TITLE);
+        return "bbbbb";
 
+//        final Session session = request.session();
+//        final Map<String, Object> vm = new HashMap<>();
+//
+//
+//        final String currentPlayerName = request.queryParams( SESSION_NAME_ATTR );
+//        Player currentPlayer = playerLobby.getPlayerObject( currentPlayerName );
+//        Match currentMatch = currentPlayer.getMatch();
+//
+//
+//        Player opponent = currentMatch.getOpponent(currentPlayer);
+//
+//        vm.put(TITLE_ATTR, TITLE);
+//
+//
+//        System.out.println( currentPlayerName );
+//        System.out.println( opponent.getName() );
+//
+//
+//
+//
+//        if (currentPlayer == null || opponent == null) {
+//            vm.put(MESSAGE_TYPE_ATTR, ERROR);
+//            vm.put(ERROR_MESSAGE_ATTR, "Player does not exist");
+//        }
+//
+//        if (currentPlayer.isInGame() && opponent.isInGame()  ) {
+//
+//            gameCenter.endGame(currentPlayer.getMatch());
+//            gameCenter.endGame(opponent.getMatch());
+//
+//            response.redirect(WebServer.HOME_URL);
+//            halt();
+//        }
 
-
-        if (currentPlayer == null || opponent == null) {
-            vm.put(MESSAGE_TYPE_ATTR, ERROR);
-            vm.put(ERROR_MESSAGE_ATTR, "Player does not exist");
-        }
-
-        if (currentPlayer.isInGame() & opponent.isInGame()) {
-
-            gameCenter.endGame(currentPlayer.getMatch());
-            gameCenter.endGame(opponent.getMatch());
-            response.redirect(WebServer.HOME_URL);
-            halt();
-        }
-
-        return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
+//        return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
 
 }

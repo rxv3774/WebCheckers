@@ -59,7 +59,8 @@ public class WebServer {
     public static final String VALIDATE_MOVE = "/validateMove";
     public static final String SUBMIT_TURN = "/submitTurn";
     public static final String CHECK_TURN = "/checkTurn";
-    public static final String SIGN_OUT_URL = "/signout";
+
+    public static final String SIGN_OUT_URL = "/signOut";
 
     public static final String HOME_FILE = "home.ftl";
     public static final String GAME_CENTER = "gameCenter";
@@ -174,6 +175,9 @@ public class WebServer {
         post(CHECK_TURN, new PostCheckTurnRoute(gson, playerLobby));
 
         post(SIGN_OUT_URL, new PostSignOutRoute(gameCenter, playerLobby, templateEngine));
+
+
+
 
         //
         LOG.config("WebServer is initialized.");
