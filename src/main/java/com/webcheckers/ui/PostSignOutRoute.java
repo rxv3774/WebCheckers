@@ -48,7 +48,7 @@ public class PostSignOutRoute implements Route {
     public String handle(Request request, Response response) {
 
 
-        System.out.println( "BBBBB" );
+        System.out.println("BBBBB");
 
         return "bbbbb";
 

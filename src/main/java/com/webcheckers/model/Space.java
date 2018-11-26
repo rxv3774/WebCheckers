@@ -90,8 +90,9 @@ public class Space {
      * @param board: board with all the pieces
      * @return true if piece at space has possible moves
      */
+    @SuppressWarnings("Duplicates")
     public boolean hasPossibleMoves(Piece.Color color, Board board) {
-        if (this.pieceColorMatch(color)) {
+        if (pieceColorMatch(color)) {
             Position start = new Position(rowIdx, cellIdx);
             Move singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL;
             if (color == Piece.Color.WHITE) {
@@ -138,34 +139,34 @@ public class Space {
      * @param board: board with all of the pieces
      * @return true if there is a jump available
      */
-    public boolean hasSecondJumpAvailable(Piece.Color color, Board board, Boolean isKingPiece){
-            Position start = new Position(rowIdx, cellIdx);
-            Move jumpUR, jumpUL, jumpDR, jumpDL;
-            if(color == Piece.Color.WHITE) {
-                jumpUR = new Move(start, new Position(rowIdx-2, cellIdx+2));
-                jumpUL = new Move(start, new Position(rowIdx-2, cellIdx-2));
-                if(isKingPiece){
-                    jumpDR = new Move(start, new Position(rowIdx+2, cellIdx+2));
-                    jumpDL = new Move(start, new Position(rowIdx+2, cellIdx-2));
-                    List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
-                    return possibleMovesHelper(moves, board, false);
-                } else {
-                    List<Move> moves = Arrays.asList(jumpUR, jumpUL);
-                    return possibleMovesHelper(moves, board, false);
-                }
+    public boolean hasSecondJumpAvailable(Piece.Color color, Board board, boolean isKingPiece) {
+        Position start = new Position(rowIdx, cellIdx);
+        Move jumpUR, jumpUL, jumpDR, jumpDL;
+        if (color == Piece.Color.WHITE) {
+            jumpUR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
+            jumpUL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
+            if (isKingPiece) {
+                jumpDR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
+                jumpDL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
+                List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
+                return possibleMovesHelper(moves, board, false);
             } else {
-                jumpUR = new Move(start, new Position(rowIdx+2, cellIdx+2));
-                jumpUL = new Move(start, new Position(rowIdx+2, cellIdx-2));
-                if(isKingPiece){
-                    jumpDR = new Move(start, new Position(rowIdx-2, cellIdx+2));
-                    jumpDL = new Move(start, new Position(rowIdx-2, cellIdx-2));
-                    List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
-                    return possibleMovesHelper(moves, board, true);
-                } else {
-                    List<Move> moves = Arrays.asList(jumpUR, jumpUL);
-                    return possibleMovesHelper(moves, board, true);
-                }
+                List<Move> moves = Arrays.asList(jumpUR, jumpUL);
+                return possibleMovesHelper(moves, board, false);
             }
+        } else {
+            jumpUR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
+            jumpUL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
+            if (isKingPiece) {
+                jumpDR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
+                jumpDL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
+                List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
+                return possibleMovesHelper(moves, board, true);
+            } else {
+                List<Move> moves = Arrays.asList(jumpUR, jumpUL);
+                return possibleMovesHelper(moves, board, true);
+            }
+        }
     }
 
     /**
@@ -244,10 +245,7 @@ public class Space {
 
     @Override
     public String toString() {
-        return "Space{" +
-                "cellIdx=" + cellIdx +
-                ", rowIdx=" + rowIdx +
-                '}';
+        return String.format("Space{cellIdx=%d, rowIdx=%d}", cellIdx, rowIdx);
     }
 
     /**
