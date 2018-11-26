@@ -12,6 +12,8 @@ import spark.Session;
 
 import java.util.logging.Logger;
 
+import static spark.Spark.halt;
+
 public class PostCheckTurnRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
     private boolean moveMade;
@@ -19,10 +21,12 @@ public class PostCheckTurnRoute implements Route {
     private final Gson gson;
     private final PlayerLobby playerLobby;
 
+    private static final String SESSION_NAME_ATTR = "name";
+
     /**
      * Initializes the PostCheckTurnRoute
      */
-    public PostCheckTurnRoute(Gson gson, PlayerLobby playerLobby) {
+    public PostCheckTurnRoute(Gson gson, PlayerLobby playerLobby){
         LOG.config("PostCheckTurnRoute initialized.");
 
         this.gson = gson;
@@ -32,31 +36,40 @@ public class PostCheckTurnRoute implements Route {
     /**
      * Requests the post check turn
      *
-     * @param request  The http request
-     * @param response The http response
-     * @return The returned HTML page
+     * @param request
+     *  The http request
+     * @param response
+     *  The http response
+     * @return
+     *  The returned HTML page
+     *
      */
     @Override
     public Object handle(Request request, Response response) {
         LOG.finer("PostResignGameRoute is invoked");
 
         final Session session = request.session();
-        String currentPlayerName = session.attribute("name");
+        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
         Player player = playerLobby.getPlayerObject(currentPlayerName);
 
-        if (player != null) {
+        if(player != null){
             Match game = player.getMatch();
-            if (game != null) {
-
+            if(game != null) {
                 if (game.getActivePlayer() == player) {
                     return gson.toJson(Message.TRUE);
                 }
-
-                if (game.hasWinner()) {
+                if(game.hasWinner()){
                     moveMade = true;
                     return gson.toJson(Message.TRUE);
                 }
                 return gson.toJson(Message.FALSE);
+            }
+            else {
+                // Since the other player Quit, player wins.
+                player.increaseGamesWon();
+
+                // This tells the client to refresh the page.
+                return gson.toJson( Message.OPPONENT_RESIGN );
             }
         }
         return null;
