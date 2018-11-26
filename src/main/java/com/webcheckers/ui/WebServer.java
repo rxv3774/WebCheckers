@@ -55,13 +55,14 @@ public class WebServer {
      */
     public static final String HOME_URL = "/";
     public static final String SIGN_IN_URL = "/signIn";
-    public static final String POST_NAME = "/postName";
     public static final String START_GAME = "/game";
     public static final String VALIDATE_MOVE = "/validateMove";
     public static final String SUBMIT_TURN = "/submitTurn";
     public static final String CHECK_TURN = "/checkTurn";
     public static final String BACKUPMOVE = "backupMove";
 
+
+    public static final String SIGN_OUT_URL = "/signOut";
 
     public static final String HOME_FILE = "home.ftl";
     public static final String GAME_CENTER = "gameCenter";
@@ -154,30 +155,32 @@ public class WebServer {
         //// code clean; using small classes.
 
 
-        //Send player to game
+        // Send player to game
         get(START_GAME, new GetGameRoute(gameCenter, playerLobby, templateEngine));
 
         // Shows the Checkers game Home page.
         get(HOME_URL, new GetHomeRoute(playerLobby, gameCenter, templateEngine));
 
-        //Shows the sign in page
+        // Shows the sign in page
         get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
 
-        //Sends the player name to the player lobby
+        // Sends the player name to the player lobby
         post(SIGN_IN_URL, new PostSignInRoute(playerLobby, templateEngine));
 
-        //Sends move to be validated
+        // Sends move to be validated
         post(VALIDATE_MOVE, new PostValidateMoveRoute(gson, playerLobby));
 
-        //submits turn to update board
+        // Submits turn to update board
         post(SUBMIT_TURN, new PostSubmitTurnRoute(gson, playerLobby));
 
-        //checks to see if the opponent has submitted their turn
+        // Checks to see if the opponent has submitted their turn
         post(CHECK_TURN, new PostCheckTurnRoute(gson, playerLobby));
-
 
         //This handles the undo move request.
         post( BACKUPMOVE, new PostBackUpMoveRoute( gson ) );
+
+        post(SIGN_OUT_URL, new PostSignOutRoute(gameCenter, playerLobby, templateEngine));
+
 
         //
         LOG.config("WebServer is initialized.");

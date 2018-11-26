@@ -22,7 +22,7 @@
 
     <#if showErrorMessage??>
         <div class="${messageType}">
-            ${showErrorMessage}
+        ${showErrorMessage}
         </div>
     </#if>
 

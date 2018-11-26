@@ -4,15 +4,17 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Board implements Iterable<Row> {
+    private static final int FILLED_ROWS = 3;
+    private static final int ROWS = 8;
+
+//    private Space[][] spaces = new Space[ROWS][ROWS];
+
     private Row board[];
     private int current;
 
-    private int rowArraySize = 8;
-    private int Init_Rows = 3;
-
     public Board() {
-        this.board = new Row[rowArraySize];
-        for (int i = 0; i < rowArraySize; i++) {
+        this.board = new Row[ROWS];
+        for (int i = 0; i < ROWS; i++) {
             board[i] = new Row(i);
         }
     }
@@ -20,16 +22,16 @@ public class Board implements Iterable<Row> {
     /**
      * Initialize the game.
      *
-     * @param color the color to initilize the pieces for
+     * @param color the color to initialize the pieces for
      */
     public void initialize(Piece.Color color) {
         if (color == Piece.Color.RED) {
-            for (int i = 0; i <= Init_Rows; i++) {
+            for (int i = 0; i <= FILLED_ROWS; i++) {
                 board[i].initialize();
             }
         }
         if (color == Piece.Color.WHITE) {
-            for (int i = rowArraySize - 1; i >= rowArraySize - Init_Rows; i--) {
+            for (int i = ROWS - 1; i >= ROWS - FILLED_ROWS; i--) {
                 board[i].initialize();
             }
         }
@@ -47,10 +49,7 @@ public class Board implements Iterable<Row> {
         return new Iterator<Row>() {
             @Override
             public boolean hasNext() {
-                if (current < board.length)
-                    return true;
-                else
-                    return false;
+                return current < board.length;
             }
 
             @Override
@@ -76,10 +75,7 @@ public class Board implements Iterable<Row> {
         return new Iterator<Row>() {
             @Override
             public boolean hasNext() {
-                if (current >= 0)
-                    return true;
-                else
-                    return false;
+                return current >= 0;
             }
 
             @Override
@@ -94,13 +90,33 @@ public class Board implements Iterable<Row> {
         };
     }
 
-    public Space getSpace(Position position){
+    /**
+     * checks the color's pieces in each row to see if it has possible moves
+     *
+     * @param color: active color
+     * @return true if a piece has a possible move
+     */
+    public boolean hasPossibleMoves(Piece.Color color) {
+        for (Row row : board) {
+            if (row.hasPossibleMoves(color, this))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * get the space object at the given position
+     *
+     * @param position: coordinates of the desired space
+     * @return Space object
+     */
+    public Space getSpace(Position position) {
         int row = position.getRow();
         int col = position.getCell();
-        for(Row r: board){
-            if(r.getIndex() == row){
-                for(Space space: r.getRow()){
-                    if(space.getCellIdx() == col)
+        for (Row r : board) {
+            if (r.getIndex() == row) {
+                for (Space space : r.getRow()) {
+                    if (space.getCellIdx() == col)
                         return space;
                 }
             }
@@ -108,9 +124,45 @@ public class Board implements Iterable<Row> {
         return null;
     }
 
-    public boolean spaceHasPiece(Position position){
+    /**
+     * check if there is a piece on the board at the given position
+     *
+     * @param position: coordinates of the desired space
+     * @return true if space has a piece on it
+     */
+    public boolean spaceHasPiece(Position position) {
         Space space = this.getSpace(position);
         return space.hasPiece();
+    }
+
+    /**
+     * check if there is an enemy piece at the given position on the board
+     *
+     * @param position:    coordinates of desired space
+     * @param isRedPlayer: if the current player (not the enemy) is red
+     * @return true if space has an enemy piece on it
+     */
+    public boolean spaceHasEnemyPiece(Position position, boolean isRedPlayer) {
+        Space space = this.getSpace(position);
+        if (space.hasPiece()) {
+            if (isRedPlayer) {
+                return (space.getPieceColor() == Piece.Color.WHITE);
+            } else {
+                return (space.getPieceColor() == Piece.Color.RED);
+            }
+        } else
+            return false;
+    }
+
+    /**
+     * remove the piece at the given position, usually follows a jump move.
+     *
+     * @param position: coordinates of desired space
+     * @return removed piece
+     */
+    public Piece removePieceAtPosition(Position position) {
+        Space space = this.getSpace(position);
+        return space.removePiece();
     }
 
     public int getRowsSize() {

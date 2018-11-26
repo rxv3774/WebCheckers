@@ -11,27 +11,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class RowTest {
 
     @Test
-    public void constructorWorks(){
+    public void constructorWorks() {
 
         //Test1 not null
-        assertNotNull( new Row(1) );
+        assertNotNull(new Row(1));
 
         //Test2 throws an exception index < 0
-        assertThrows( IllegalArgumentException.class, () -> new Row(-10) );
+        assertThrows(IllegalArgumentException.class, () -> new Row(-10));
 
         //Test3 throws an exception index > 7
-        assertThrows( IllegalArgumentException.class, () -> new Row(10) );
+        assertThrows(IllegalArgumentException.class, () -> new Row(10));
     }
 
 
     @Test
-    public void getIndexWorks(){
+    public void getIndexWorks() {
 
         //Test1 tests to see if the returned value isn't null
-        assertNotNull( new Row( 2).getIndex() );
+        assertNotNull(new Row(2).getIndex());
 
         //Test2 looks to see if it gets the correct number
-        assertEquals(2, new Row( 2).getIndex() );
+        assertEquals(2, new Row(2).getIndex());
     }
 
     /*
@@ -60,7 +60,7 @@ class RowTest {
      * Tests that the Reverse Iterator hasNext functions correctly
      */
     @Test
-    public void test_hasNextReverse(){
+    public void test_hasNextReverse() {
         final Row row = new Row(1);
         Iterator itr = row.reverseIterator();
         assertTrue(itr.hasNext());
