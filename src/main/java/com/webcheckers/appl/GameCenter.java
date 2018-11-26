@@ -44,7 +44,7 @@ public class GameCenter {
      * @param match the match
      * @return true if game is running
      */
-    public boolean runningMatches(Match match) {
+    public boolean containsMatch(Match match) {
         return matches.contains(match);
     }
 

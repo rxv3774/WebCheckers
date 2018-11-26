@@ -8,6 +8,8 @@ public class Message {
 
     public Type type;
 
+    public static final String URL_HOME = "/";
+
     /**
      * The constant ERR_NO_OPPONENT.
      */
@@ -17,6 +19,11 @@ public class Message {
      * The constant ERR_INVALID_MOVE.
      */
     public static final Message ERR_INVALID_MOVE = new Message("Invalid Move", Type.error);
+
+    /**
+     * The constant ERR_INVALID_MOVE.
+     */
+    public static final Message ERR_DOUBLE_MOVE = new Message("Move already made", Type.error);
 
     /**
      * The constant VALID_MOVE.
@@ -34,6 +41,16 @@ public class Message {
     public static final Message MOVE_SUBMITTED = new Message("Move submitted!", Type.info);
 
     /**
+     * The constant ERR_NO_PENDING_MOVES
+     */
+    public static final Message ERR_NO_PENDING_MOVES = new Message("No pending Moves!", Type.error);
+
+    /**
+     * The constant ERR_DJ_AVAILABLE
+     */
+    public static final Message ERR_DJ_AVAILABLE = new Message("Double Jump is available! Must complete double jump before submitting.", Type.error);
+
+    /**
      * The constant TRUE.
      */
     public static final Message TRUE = new Message("true", Type.info);
@@ -42,6 +59,21 @@ public class Message {
      * The constant FALSE.
      */
     public static final Message FALSE = new Message("false", Type.info);
+
+    /**
+     * The constant WINNER.
+     */
+    public static final Message WINNER = new Message("<a href='" + URL_HOME + "'>You win!Click here to return home.</a>", Type.info);
+
+    /**
+     * The constant LOSER.
+     */
+    public static final Message LOSER = new Message("<a href='" + URL_HOME + "'>You lose... Click here to return home.</a>", Type.info);
+
+    /**
+     * The constant RESIGNED.
+     */
+    public static final Message RESIGNED = new Message("Your opponent has resigned", Type.info);
 
     public Message(String text, Type type) {
         this.text = text;

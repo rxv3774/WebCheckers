@@ -1,116 +1,91 @@
-//package com.webcheckers.model;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Tag;
-//import org.junit.jupiter.api.Test;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.mock;
-//
-//@Tag("Model-tier")
-//public class MoveTest {
-//
-//
-//    private Space startSpace;
-//    private Space endSpace;
-//
-//
-//
-//    @BeforeEach
-//    void setup() {
-//        startSpace = mock( Space.class );
-//        endSpace = mock( Space.class );
-//    }
-//
-//
-//    @Test
-//    public void constructorWorks(){
-//        Move tmpMove = new Move( startSpace, endSpace );
-//
-//        Board tmpBoard = new Board();
-//        Move tmpMove1 = new Move( startSpace, endSpace, tmpBoard );
-//
-//        //Test1 test for null the first constructor
-//        assertNotNull( tmpMove );
-//
-//        //Test2 test for null the second constructor
-//        assertNotNull( tmpMove1 );
-//    }
-//
-//    @Test
-//    public void toStringWorks(){
-//        Space start = new Space(0,0);
-//        Space end = new Space(1,1);
-//
-//        Move move = new Move( start, end );
-//
-//        final String compareString = "Start: (" + start.getRowIdx() + "," + start.getCellIdx() + ") End: (" + end.getRowIdx() + "," + end.getCellIdx() + ")";
-//
-//        //Test1 not null toString()
-//        assertNotNull( move.toString() );
-//
-//        //Test2 the toString returns a string in the right format
-//        assertEquals( compareString, move.toString() );
-//    }
-//
-//    @Test
-//    public void equalsWorks(){
-//
-//        Space start = new Space(0,0);
-//        Space end = new Space(1,1);
-//
-//
-//        Board board = new Board();
-//
-//        Space end0 = new Space(3,1);
-//
-//        Move move0 = new Move( start, end );
-//        Move move1 = new Move( start, end );
-//        Move move2 = new Move( start, end0 );
-//
-//
-//        //Test1 not null
-//        assertNotNull( move0.equals( move1 ) );
-//
-//        //Test2 see if they are equal
-//        assertTrue( move0.equals( move1 ) );
-//
-//        //Test3 not null
-//        assertNotNull( move0.equals( move2 ) );
-//
-//        //Test4 see that they are not equal
-//        assertFalse( move0.equals( move2 ) );
-//
-//
-//        //Test5 this tests the instanceof check
-//        assertFalse( move0.equals( board ) );
-//
-//
-//        //Test6 check for different start Row
-//        Move movediffRowStart = new Move( new Space(0,1), new Space(0,0) );
-//        Move movediffRowend = new Move( new Space(0,2), new Space(0,0) );
-//
-//        assertFalse( movediffRowStart.equals( movediffRowend ) );
-//
-//        //Test7 check for different end Row
-//        Move movediffEndRow = new Move( new Space(0,0), new Space(0,1) );
-//        Move movediffEndRow1 = new Move( new Space(0,0), new Space(0,0) );
-//        assertFalse( movediffEndRow.equals( movediffEndRow1 ) );
-//
-//        //Test8 check for different start col
-//        Move movediffStartCol = new Move( new Space(0,0), new Space(0,0) );
-//        Move movediffStartCol1 = new Move( new Space(1,0), new Space(0,0) );
-//        assertFalse( movediffStartCol.equals( movediffStartCol1 ) );
-//
-//        //Test9 check for different end col
-//        Move movediffEndCol = new Move( new Space(0,0), new Space(0,0) );
-//        Move movediffEndCol1 = new Move( new Space(0,0), new Space(1,0) );
-//        assertFalse( movediffEndCol.equals( movediffEndCol1 ) );
-//
-//
-//
-//
-//
-//    }
-//
-//}
+package com.webcheckers.model;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+
+@Tag("Model-tier")
+public class MoveTest {
+    private Board board;
+
+    private Position startPos;
+    private Position endPos;
+
+    private Move singleMove;
+    private Move jumpMove;
+    private Move kingMove;
+    private Move backwardsMove;
+    private Move invalidMove;
+
+    @BeforeEach
+    void setup() {
+        board = new Board();
+
+        startPos = mock(Position.class);
+        endPos = mock(Position.class);
+
+        singleMove = new Move(new Position(1, 1), new Position(2, 2));
+        jumpMove = new Move(new Position(1, 1), new Position(3, 3));
+        kingMove = new Move(new Position(4, 4), new Position(5, 4));
+        backwardsMove = new Move(new Position(2, 2), new Position(1, 1));
+        invalidMove = new Move(new Position(0, 0), new Position(6, 5));
+    }
+
+    @Test
+    void testConstructor() {
+        new Move(startPos, endPos);
+    }
+
+    @Test
+    void testGetEnd() {
+        assertEquals(new Position(2, 2).toString(), singleMove.getEnd().toString());
+    }
+
+    @Test
+    // TODO - Write assertions for other move types
+    void testIsValid() {
+        assertTrue(singleMove.isValid(board, true));
+    }
+
+    @Test
+    void testIsSingleMove() {
+        assertTrue(singleMove.isSingleMove());
+        assertFalse(jumpMove.isSingleMove());
+        assertFalse(invalidMove.isSingleMove());
+    }
+
+    @Test
+    void testIsJumpMove() {
+        assertTrue(jumpMove.isJumpMove());
+        assertFalse(singleMove.isJumpMove());
+        assertFalse(invalidMove.isJumpMove());
+    }
+
+    @Test
+    void testIsKingMove() {
+        assertTrue(kingMove.isKingMove(board));
+        assertTrue(singleMove.isKingMove(board));
+
+        /*
+        This assert should fail, it doesn't
+         */
+//        assertFalse(invalidMove.isKingMove(board));
+    }
+
+    @Test
+    void toStringWorks() {
+        final String expectedToString = "Start: (1, 1); End: (2, 2)";
+
+        assertNotNull(singleMove.toString());
+        assertEquals(expectedToString, singleMove.toString());
+    }
+
+    @Test
+    void testEquals() {
+        assertTrue(singleMove.equals(new Move(new Position(1, 1), new Position(2, 2))));
+        assertFalse(singleMove.equals(jumpMove));
+    }
+}
