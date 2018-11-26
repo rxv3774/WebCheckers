@@ -27,11 +27,11 @@ public class PostResignRoute implements Route {
     private static final String SESSION_NAME_ATTR = "name";
 
 
-    public PostResignRoute(PlayerLobby playerLobby, GameCenter gameCenter, Gson gson) {
+    public PostResignRoute(PlayerLobby playerLobby, GameCenter gameCenter, Gson gson){
         // validation
-        Objects.requireNonNull(playerLobby, "playerLobby must not be null");
-        Objects.requireNonNull(gameCenter, "gameCenter must not be null");
-        Objects.requireNonNull(gson, "gson must not be null");
+        Objects.requireNonNull( playerLobby, "playerLobby must not be null");
+        Objects.requireNonNull( gameCenter, "gameCenter must not be null");
+        Objects.requireNonNull( gson, "gson must not be null");
         //
         this.playerLobby = playerLobby;
         this.gameCenter = gameCenter;
@@ -53,25 +53,18 @@ public class PostResignRoute implements Route {
         final Session session = request.session();
 
 
-        System.out.println("dog");
-
-
-//        String currentPlayerName = ((Player) session.attribute( SESSION_NAME_ATTR )).getName();
-        String currentPlayerName = session.attribute(SESSION_NAME_ATTR);
-
-        System.out.println("cat");
-
-        Player player = playerLobby.getPlayerObject(currentPlayerName);
+        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
+        Player player = playerLobby.getPlayerObject( currentPlayerName );
 
         //The player has resigned so they should lose.
         player.increaseGamesLost();
 
         //This prevents an error happening when a player tries resigning an already deleted match
-        if (player.getMatch() != null) {
+        if( player.getMatch() != null) {
             gameCenter.endGame(player.getMatch());
         }
 
-        return gson.toJson(Message.PLAYER_RESIGNATION);
+        return gson.toJson( Message.PLAYER_RESIGNATION );
     }
 
 
