@@ -80,6 +80,37 @@ public class MatchTest {
     }
 
     @Test
+    void removePendingMoveWorks() {
+        Match match = new Match();
+
+        Move move1 = new Move(new Position(0,0), new Position(1,1));
+        Move move2 = new Move(new Position(1,1), new Position(2,2));
+        match.addPendingMove(move1);
+        match.addPendingMove(move2);
+
+        assertTrue(match.hasPendingDJMoves());
+        assertTrue(match.hasPendingMoves());
+
+        match.removePendingMove();
+
+        assertFalse(match.hasPendingDJMoves());
+
+        match.removePendingMove();
+
+        assertFalse(match.hasPendingMoves());
+    }
+
+    @Test
+    void doubleJumpAvailableWorks() {
+        Match match = new Match();
+
+        Move move1 = new Move(new Position(0,0), new Position(1,1));
+        match.addPendingMove(move1);
+
+        assertFalse(match.doubleJumpAvailable());
+    }
+
+    @Test
     void getActivePlayerWorks() {
         Match match = new Match();
 
