@@ -17,17 +17,6 @@ public class GetSignOutRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
-    private static final String SESSION_NAME_ATTR = "name";
-    private static final String PLAYER_NAMES_ATTR = "playerNames";
-    private final static String PLAYER_NAME_ATTR = "playerName";
-    private static final String TITLE_ATTR = "title";
-    private static final String MESSAGE_TYPE_ATTR = "messageType";
-    private static final String ERROR_MESSAGE_ATTR = "showErrorMessage";
-
-    private static final String TITLE = "/signout";
-    private static final String ERROR = "error";
-    private static final String VIEW_NAME = "game.ftl";
-
     private final PlayerLobby playerLobby;
 
     public GetSignOutRoute(PlayerLobby playerLobby) {
