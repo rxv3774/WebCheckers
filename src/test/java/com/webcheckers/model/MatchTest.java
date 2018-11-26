@@ -111,6 +111,79 @@ public class MatchTest {
     }
 
     @Test
+    void doPendingMovesTest(){
+        Match match = new Match();
+        match.getBoard().initialize(Piece.Color.RED);
+
+        Move move1 = new Move(new Position(2,3), new Position(3,4));
+        match.addPendingMove(move1);
+        match.doPendingMoves();
+
+        assertTrue(match.getBoard().spaceHasPiece(new Position(3, 4)));
+
+        Move move2 = new Move(new Position(2,1), new Position(3,0));
+        Move move3 = new Move(new Position(3,0), new Position(4,1));
+        match.addPendingMove(move2);
+        match.addPendingMove(move3);
+        match.doPendingMoves();
+
+        assertTrue(match.getBoard().spaceHasPiece(new Position(4, 1)));
+    }
+
+    @Test
+    void canPlayTest() {
+        Match match = new Match();
+        match.getBoard().initialize(Piece.Color.RED);
+
+        assertTrue(match.canPlay());
+    }
+
+    @Test
+    void declareWinnerTest(){
+        Match match = new Match();
+        Player red = new Player("redBoi");
+        Player white = new Player("whiteBoi");
+        match.join(red);
+        match.join(white);
+
+        match.start();
+        match.declareWinner();
+
+        assertTrue(match.isWinner(white));
+
+        match.start();
+        match.changeActivePlayer();
+        match.declareWinner();
+
+        assertTrue(match.isWinner(red));
+
+    }
+
+    @Test
+    void hasWinnerTest() {
+        Match match = new Match();
+        Player red = new Player("redBoi");
+        Player white = new Player("whiteBoi");
+        match.join(red);
+        match.join(white);
+
+        match.start();
+        match.declareWinner();
+
+        assertTrue(match.hasWinner());
+
+    }
+
+    @Test
+    void doPlayersMatchTest() {
+        Match match = new Match();
+        Player red = new Player("redBoi");
+        Player white = new Player("whiteBoi");
+
+        assertFalse(match.doPlayersMatch(red, white));
+    }
+
+    @Test
     void getActivePlayerWorks() {
         Match match = new Match();
 
