@@ -53,14 +53,7 @@ public class PostResignRoute implements Route {
         final Session session = request.session();
 
 
-        System.out.println("dog");
-
-
-//        String currentPlayerName = ((Player) session.attribute( SESSION_NAME_ATTR )).getName();
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-
-        System.out.println("cat");
-
         Player player = playerLobby.getPlayerObject( currentPlayerName );
 
         //The player has resigned so they should lose.

@@ -8,10 +8,12 @@ public class Message {
 
     public Type type;
 
+    public static final String URL_HOME = "/";
+
     /**
      * The constant ERR_NO_OPPONENT.
      */
-    public static final Message ERR_NO_OPPONENT = new Message("You have no opponent", Type.error);
+    public static final Message ERR_NO_OPPONENT = new Message("<a href='" + URL_HOME + "'>You have no opponent.</a>", Type.error);
 
     /**
      * The constant ERR_INVALID_MOVE.
@@ -52,9 +54,7 @@ public class Message {
     /**
      * The constant OPPONENT_RESIGN
      */
-    public static final Message OPPONENT_RESIGN = new Message( "Your opponent quit the game", Type.info);
-
-
+    public static final Message OPPONENT_RESIGN = new Message( "<a href='" + URL_HOME + "'>Your opponent quit the game.</a>", Type.error);
 
 
 

@@ -4,6 +4,7 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Match;
 import com.webcheckers.model.Message;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +55,6 @@ public class PostResignRouteTest {
 
         when(request.session()).thenReturn(session);
 
-        playerLobby = new PlayerLobby();
         CuT = new PostResignRoute(playerLobby, gameCenter, gson);
     }
 
@@ -62,19 +62,44 @@ public class PostResignRouteTest {
     @Test
     public void handleMatchIsNull(){
 
-       final String NAME = "Caterpillar";
+        final String NAME = "Caterpillar";
 
 
-       when( session.attribute( SESSION_NAME_ATTR ) ).thenReturn( NAME );
-       String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-       when(playerLobby.getPlayerObject( currentPlayerName )).thenReturn( new Player( NAME ) );
+        when( session.attribute( SESSION_NAME_ATTR ) ).thenReturn( NAME );
+        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
+        when(playerLobby.getPlayerObject( currentPlayerName )).thenReturn( new Player( NAME ) );
 
 
         //Test1 This checks to make sure a null isn't returned
         assertNotNull( CuT.handle(request, response) );
 
         //Test2 This checks to see if we get the desired response
-//        assertEquals( gson.toJson( Message.PLAYER_RESIGNATION ), CuT.handle(request, response) );
+        assertEquals( gson.toJson( Message.PLAYER_RESIGNATION ), CuT.handle(request, response) );
+    }
+
+
+    @Test
+    public void handleMatchIsntNull(){
+
+        final String NAME = "Joker";
+
+
+        when( session.attribute( SESSION_NAME_ATTR ) ).thenReturn( NAME );
+        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
+
+        Player player = mock( Player.class );
+        when(playerLobby.getPlayerObject( currentPlayerName )).thenReturn( player );
+
+        Match match = mock( Match.class );
+
+        when( player.getMatch() ).thenReturn( match );
+
+
+        //Test1 This checks to make sure a null isn't returned
+        assertNotNull( CuT.handle(request, response) );
+
+        //Test2 This checks to see if we get the desired response
+        assertEquals( gson.toJson( Message.PLAYER_RESIGNATION ), CuT.handle(request, response) );
     }
 
 
