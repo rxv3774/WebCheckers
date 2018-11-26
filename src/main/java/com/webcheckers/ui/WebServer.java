@@ -59,6 +59,8 @@ public class WebServer {
     public static final String VALIDATE_MOVE = "/validateMove";
     public static final String SUBMIT_TURN = "/submitTurn";
     public static final String CHECK_TURN = "/checkTurn";
+    public static final String BACKUPMOVE = "backupMove";
+
 
     public static final String SIGN_OUT_URL = "/signOut";
 
@@ -174,7 +176,11 @@ public class WebServer {
         // Checks to see if the opponent has submitted their turn
         post(CHECK_TURN, new PostCheckTurnRoute(gson, playerLobby));
 
+        //This handles the undo move request.
+        post( BACKUPMOVE, new PostBackUpMoveRoute( gson ) );
+
         post(SIGN_OUT_URL, new PostSignOutRoute(gameCenter, playerLobby, templateEngine));
+
 
         //
         LOG.config("WebServer is initialized.");

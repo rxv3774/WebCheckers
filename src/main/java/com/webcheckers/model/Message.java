@@ -60,6 +60,14 @@ public class Message {
      */
     public static final Message FALSE = new Message("false", Type.info);
 
+
+
+    /**
+     * The constant BACKUPMOVE
+     */
+    public static final Message BACKUPMOVE = new Message( "Backup Move requested", Type.info );
+
+
     /**
      * The constant WINNER.
      */
@@ -74,6 +82,7 @@ public class Message {
      * The constant RESIGNED.
      */
     public static final Message RESIGNED = new Message("Your opponent has resigned", Type.info);
+
 
     public Message(String text, Type type) {
         this.text = text;
