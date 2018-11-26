@@ -74,7 +74,7 @@ public class PostCheckTurnRouteTest {
         when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p1 );
 
         //Test1 This should return null because the player isn't in a match
-        assertNull( CuT.handle(request, response ) );
+        assertEquals( gson.toJson(Message.OPPONENT_RESIGN), CuT.handle(request, response));
     }
 
     @Test
