@@ -10,6 +10,7 @@ import spark.Response;
 import spark.Route;
 import spark.Session;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import static spark.Spark.halt;
@@ -26,23 +27,24 @@ public class PostCheckTurnRoute implements Route {
     /**
      * Initializes the PostCheckTurnRoute
      */
-    public PostCheckTurnRoute(Gson gson, PlayerLobby playerLobby){
-        LOG.config("PostCheckTurnRoute initialized.");
 
+    public PostCheckTurnRoute(Gson gson, PlayerLobby playerLobby){
+        // validation
+        Objects.requireNonNull(gson, "gson must not be null");
+        Objects.requireNonNull(playerLobby, "playerLobby must not be null");
+        //
         this.gson = gson;
         this.playerLobby = playerLobby;
+        //
+        LOG.config("PostCheckTurnRoute initialized.");
     }
 
     /**
      * Requests the post check turn
      *
-     * @param request
-     *  The http request
-     * @param response
-     *  The http response
-     * @return
-     *  The returned HTML page
-     *
+     * @param request  The http request
+     * @param response The http response
+     * @return The returned HTML page
      */
     @Override
     public Object handle(Request request, Response response) {

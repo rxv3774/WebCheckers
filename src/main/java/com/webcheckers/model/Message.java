@@ -13,7 +13,7 @@ public class Message {
     /**
      * The constant ERR_NO_OPPONENT.
      */
-    public static final Message ERR_NO_OPPONENT = new Message("<a href='" + URL_HOME + "'>You have no opponent.</a>", Type.error);
+    public static final Message ERR_NO_OPPONENT = new Message("You have no opponent", Type.error);
 
     /**
      * The constant ERR_INVALID_MOVE.
@@ -60,10 +60,18 @@ public class Message {
      */
     public static final Message FALSE = new Message("false", Type.info);
 
+
+
+    /**
+     * The constant BACKUPMOVE
+     */
+    public static final Message BACKUPMOVE = new Message( "Backup Move requested", Type.info );
+
+
     /**
      * The constant WINNER.
      */
-    public static final Message WINNER = new Message("<a href='" + URL_HOME + "'>You win! Click here to return home.</a>", Type.info);
+    public static final Message WINNER = new Message("<a href='" + URL_HOME + "'>You win!Click here to return home.</a>", Type.info);
 
     /**
      * The constant LOSER.
@@ -85,7 +93,6 @@ public class Message {
      * The constant OPPONENT_RESIGN
      */
     public static final Message OPPONENT_RESIGN = new Message( "<a href='" + URL_HOME + "'>Your opponent quit the game.</a>", Type.error);
-
 
 
     public Message(String text, Type type) {
