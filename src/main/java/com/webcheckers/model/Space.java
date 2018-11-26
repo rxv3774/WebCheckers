@@ -27,10 +27,6 @@ public class Space {
         Piece piece = null;
         if (isValid()) {
             if (rowIdx < 3) {
-
-//                if( rowIdx == 0 && cellIdx == 1)
-//                    System.out.println("pass");
-
                 piece = new Piece(Piece.Type.SINGLE, Piece.Color.RED);
             }
             if (rowIdx > 4) {
@@ -38,10 +34,6 @@ public class Space {
             }
         }
         this.piece = piece;
-
-//        if( rowIdx == 0 && cellIdx == 1)
-//            System.out.println( this.hasPiece() );
-
     }
 
     /**
@@ -92,23 +84,23 @@ public class Space {
      */
     @SuppressWarnings("Duplicates")
     public boolean hasPossibleMoves(Piece.Color color, Board board) {
-        if (pieceColorMatch(color)) {
-            Position start = new Position(rowIdx, cellIdx);
+        if (pieceColorMatch(color)) { // checks if color matches the piece.
+            Position start = new Position(rowIdx, cellIdx); // finds the starting position.
             Move singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL;
             if (color == Piece.Color.WHITE) {
-                singleUR = new Move(start, new Position(rowIdx - 1, cellIdx + 1));
+                singleUR = new Move(start, new Position(rowIdx - 1, cellIdx + 1)); // creates the move for an up-right single move.
                 singleUL = new Move(start, new Position(rowIdx - 1, cellIdx - 1));
-                jumpUR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
+                jumpUR = new Move(start, new Position(rowIdx - 2, cellIdx + 2)); // creates the moves for an up-right jump.
                 jumpUL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
                 if (piece.isKing()) {
-                    singleDR = new Move(start, new Position(rowIdx + 1, cellIdx + 1));
+                    singleDR = new Move(start, new Position(rowIdx + 1, cellIdx + 1)); // creates the move for an down-right single move.
                     singleDL = new Move(start, new Position(rowIdx + 1, cellIdx - 1));
-                    jumpDR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
+                    jumpDR = new Move(start, new Position(rowIdx + 2, cellIdx + 2)); // creates the move for an down-right jump.
                     jumpDL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
-                    List<Move> moves = Arrays.asList(singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL);
-                    return possibleMovesHelper(moves, board, false);
+                    List<Move> moves = Arrays.asList(singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL); // contains all moves a king piece can use in a game.
+                    return possibleMovesHelper(moves, board, false); // ensures all moves contained are valid.
                 } else {
-                    List<Move> moves = Arrays.asList(singleUR, singleUL, jumpUR, jumpUL);
+                    List<Move> moves = Arrays.asList(singleUR, singleUL, jumpUR, jumpUL); // contains all moves a single piece can use in a game
                     return possibleMovesHelper(moves, board, false);
                 }
             } else {
@@ -141,7 +133,7 @@ public class Space {
      */
     public boolean hasSecondJumpAvailable(Piece.Color color, Board board, boolean isKingPiece) {
         Position start = new Position(rowIdx, cellIdx);
-        Move jumpUR, jumpUL, jumpDR, jumpDL;
+        Move jumpUR, jumpUL, jumpDR, jumpDL; // similar to previous method however, only need to check for jumps.
         if (color == Piece.Color.WHITE) {
             jumpUR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
             jumpUL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
