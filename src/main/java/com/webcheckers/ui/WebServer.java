@@ -183,7 +183,7 @@ public class WebServer {
         // This handles the resignation request of a player
         post( RESIGN, new PostResignRoute( playerLobby, gameCenter, gson) );
         //This handles the undo move request.
-        post( BACKUPMOVE, new PostBackUpMoveRoute( gson ) );
+        post( BACKUPMOVE, new PostBackUpMoveRoute( gson, gameCenter, playerLobby) );
 
         post(SIGN_OUT_URL, new PostSignOutRoute(gameCenter, playerLobby, templateEngine));
 
