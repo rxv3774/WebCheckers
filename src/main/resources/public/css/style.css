@@ -7,9 +7,11 @@ body {
 a {
     color: #2677FF;
 }
+
 a:hover {
     color: #333;
 }
+
 a[disabled] {
     color: gray;
     cursor: default;

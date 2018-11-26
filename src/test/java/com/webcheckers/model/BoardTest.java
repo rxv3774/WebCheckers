@@ -58,7 +58,7 @@ class BoardTest {
      * Tests that the Reverse Iterator hasNext functions correctly
      */
     @Test
-    public void test_hasNextReverse(){
+    public void test_hasNextReverse() {
         final Board board1 = new Board();
         Iterator itr = board1.reverseIterator();
         assertTrue(itr.hasNext());

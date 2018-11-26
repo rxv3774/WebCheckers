@@ -1,8 +1,5 @@
 package com.webcheckers.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Piece {
     public enum Type {SINGLE, KING} //Type of Piece
 
@@ -24,14 +21,20 @@ public class Piece {
         this.color = color;
     }
 
+    /**
+     * make the piece a king
+     */
+    public void makeKing() {
+        this.type = Type.KING;
+    }
 
     /**
-     * return the direction offset
+     * check if the piece is a king
      *
-     * @return direction offset
+     * @return true if the piece is a king
      */
-    public int direction() {
-        return color == Color.RED ? 1 : -1;
+    public boolean isKing() {
+        return this.type == Type.KING;
     }
 
     public Type getType() {

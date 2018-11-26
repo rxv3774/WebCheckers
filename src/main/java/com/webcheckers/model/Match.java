@@ -12,7 +12,7 @@ public class Match {
     private Player winner;
     private Board board;
 
-    private Move pendingMove;
+    private Move pendingMove, DJsecondPendingMove;
     private boolean running;
 
     /**
@@ -30,14 +30,14 @@ public class Match {
      * @return true if the player could be added, false if not.
      */
     public boolean join(Player player) {
-        if ( player != null ){
-            if(player.playGame(this) ){
+        if (player != null) {
+            if (player.playGame(this)) {
 
                 if (this.redPlayer == null) {
                     this.redPlayer = player;
                     board.initialize(Piece.Color.RED);
                     return true;
-                }else if (this.whitePlayer == null) {
+                } else if (this.whitePlayer == null) {
                     this.whitePlayer = player;
                     board.initialize(Piece.Color.WHITE);
                     return true;
@@ -54,7 +54,7 @@ public class Match {
      * @param player the player to check for
      * @return if the match contains the player
      */
-   public boolean matchContains(Player player) {
+    public boolean matchContains(Player player) {
         return this.redPlayer.equals(player) || this.whitePlayer.equals(player);
     }
 
@@ -98,18 +98,82 @@ public class Match {
         }
     }
 
-    public void addPendingMove(Move move){
-        this.pendingMove = move;
+    /**
+     * add a pending move to the match
+     *
+     * @param move: the move to add
+     */
+    public void addPendingMove(Move move) {
+        if (pendingMove == null)
+            this.pendingMove = move;
+        else
+            this.DJsecondPendingMove = move;
     }
 
     /**
      * Do pending moves.
      */
-    public void doPendingMoves(){
+    public void doPendingMoves() {
         pendingMove.makeMove(this.board);
         this.pendingMove = null;
+        if (DJsecondPendingMove != null) {
+            DJsecondPendingMove.makeMove(this.board);
+            this.DJsecondPendingMove = null;
+        }
     }
 
+    /**
+     * check if there are any pending moves
+     *
+     * @return true if there is a pending move
+     */
+    public boolean hasPendingMoves() {
+        return this.pendingMove != null;
+    }
+
+    /**
+     * check if there are any pending Double Jump second moves
+     *
+     * @return true if there is a pending move
+     */
+    public boolean hasPendingDJMoves() {
+        return this.DJsecondPendingMove != null;
+    }
+
+    /**
+     * if there active player can make a move or not
+     *
+     * @return true if the active player has possible moves to make
+     */
+    public boolean canPlay() {
+        return board.hasPossibleMoves(getActiveColor());
+    }
+
+    /**
+     * checks if a double jump is available
+     * @return true is there is an available second jump
+     */
+    public boolean doubleJumpAvailable(){
+        if(pendingMove.isJumpMove() && DJsecondPendingMove == null) {
+            Position end = pendingMove.getEnd();
+            Space space = board.getSpace(end);
+            return space.hasSecondJumpAvailable(getActiveColor(), board, pendingMove.isKingMove(board));
+        } else
+            return false;
+    }
+
+    /**
+     * end game and set the winner to the player whose turn it is not.
+     */
+    public void declareWinner() {
+        end();
+        if (activePlayer == redPlayer) winner = whitePlayer;
+        if (activePlayer == whitePlayer) winner = redPlayer;
+    }
+
+    public boolean isWinner(Player player) {
+        return winner == player;
+    }
 
     /**
      * Gets opponent.
@@ -180,9 +244,10 @@ public class Match {
 
     /**
      * Check if match has a winner.
+     *
      * @return true if game has winner
      */
-    public boolean hasWinner(){
+    public boolean hasWinner() {
         return winner != null;
     }
 
@@ -193,4 +258,10 @@ public class Match {
     public void changeActivePlayer() {
         activePlayer = activePlayer == redPlayer ? whitePlayer : redPlayer;
     }
+
+
+    public boolean doPlayersMatch(Player p1, Player p2) {
+        return p1.equals(p2);
+    }
+
 }

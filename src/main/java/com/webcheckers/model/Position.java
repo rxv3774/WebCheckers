@@ -9,23 +9,30 @@ public class Position {
         this.cell = cell;
     }
 
-    /*
-     * Calculate difference between start and end position to see if it's a single move
+    /**
+     * Retrieve the position of the space that was jumped over in a jump move
      *
-     * @param end: end position
-     * @return boolean if single move
+     * @param end: ending position
+     * @return position of space jumped over
      */
-    public boolean isSingleMove(Position end){
-        return Math.abs(this.row - end.row) <= 1 && Math.abs(this.cell - end.cell) <= 1;
+    public Position getMiddle(Position end) {
+        if (this.row > end.row) {
+            if (this.cell > end.cell) {
+                return new Position(end.row + 1, end.cell + 1);
+            } else {
+                return new Position(end.row + 1, this.cell + 1);
+            }
+        } else {
+            if (this.cell > end.cell) {
+                return new Position(this.row + 1, end.cell + 1);
+            } else {
+                return new Position(this.row + 1, this.cell + 1);
+            }
+        }
     }
 
-    /*
-     * Check if piece is moving backwards
-     *
-     * @return boolean if piece move is backward
-     */
-    public boolean moveBackwards(Position end){
-        return (this.row - end.row) > 0;
+    public boolean isOutOfBounds() {
+        return (row < 0 || row > 7 || cell < 0 || cell > 7);
     }
 
     public int getRow() {
@@ -34,5 +41,10 @@ public class Position {
 
     public int getCell() {
         return cell;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ROW: %d; COL: %d", row, cell);
     }
 }

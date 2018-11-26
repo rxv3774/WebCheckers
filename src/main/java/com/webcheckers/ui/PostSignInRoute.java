@@ -77,7 +77,7 @@ public class PostSignInRoute implements Route {
 
             Player newPlayer = new Player(playerName);
 
-            session.attribute(PLAYER_NAMES_ATTR, playerLobby.getPlayersNamesAsArrayList() );
+            session.attribute(PLAYER_NAMES_ATTR, playerLobby.getPlayersNamesAsArrayList());
             session.attribute(SESSION_NAME_ATTR, playerName);
 
             playerLobby.addPlayer(newPlayer);
@@ -85,8 +85,7 @@ public class PostSignInRoute implements Route {
             response.redirect(WebServer.HOME_URL);
             halt();
             return null;
-        }
-        else {
+        } else {
             vm.put(MESSAGE_TYPE_ATTR, ERROR);
             vm.put(ERROR_MESSAGE_ATTR, "That name is already in use");
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
