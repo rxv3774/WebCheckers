@@ -24,6 +24,10 @@ public class PlayerLobby {
         players.add(player);
     }
 
+    public void signOut(Player player){
+        players.remove(player);
+    }
+
     /**
      * Determines if the playerName fallows our naming convention.
      *

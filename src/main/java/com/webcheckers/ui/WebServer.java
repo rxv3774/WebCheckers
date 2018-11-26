@@ -162,6 +162,9 @@ public class WebServer {
         // Shows the sign in page
         get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
 
+        // Sign out player and redirect them home
+        get(SIGN_OUT_URL, new GetSignOutRoute(playerLobby));
+
         // Sends the player name to the player lobby
         post(SIGN_IN_URL, new PostSignInRoute(playerLobby, templateEngine));
 
@@ -173,8 +176,6 @@ public class WebServer {
 
         // Checks to see if the opponent has submitted their turn
         post(CHECK_TURN, new PostCheckTurnRoute(gson, playerLobby));
-
-        post(SIGN_OUT_URL, new PostSignOutRoute(gameCenter, playerLobby, templateEngine));
 
         //
         LOG.config("WebServer is initialized.");
