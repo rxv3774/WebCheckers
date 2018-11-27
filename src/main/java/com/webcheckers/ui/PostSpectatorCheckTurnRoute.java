@@ -46,7 +46,6 @@ public class PostSpectatorCheckTurnRoute implements Route {
         Spectator spectator = (Spectator) playerLobby.getUserObject(currentSpectatorName);
 
         if (spectator != null) {
-//            return gson.toJson(new Message(FALSE, Message.Type.info));
             Match match = spectator.getMatch();
             if (match != null) {
                 if (match.getActiveColor() == previousActiveColor) {

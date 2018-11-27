@@ -26,6 +26,7 @@ public abstract class User {
         this.viewMode = viewMode;
     }
 
+
     /**
      * Defines the user's match when a user joins a game
      *
