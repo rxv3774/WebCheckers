@@ -65,7 +65,7 @@ class GetSignOutRouteTest {
         String name = "Billy";
         Match match = new Match();
         Player player = new Player(name);
-        player.playGame(match);
+        player.joinGame(match);
         playerLobby.addPlayer(player);
 
         when(request.session().attribute("name")).thenReturn(name);

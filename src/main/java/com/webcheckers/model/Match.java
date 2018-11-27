@@ -31,7 +31,7 @@ public class Match {
      */
     public boolean join(Player player) {
         if (player != null) {
-            if (player.playGame(this)) {
+            if (player.joinGame(this)) {
 
                 if (this.redPlayer == null) {
                     this.redPlayer = player;

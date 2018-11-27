@@ -67,14 +67,14 @@ class PlayerTest {
         match.join(p1);
         match.join(p2);
 
-        //Test1 playGame doesn't return a null
-        assertNotNull(p1.playGame(match));
+        //Test1 joinGame doesn't return a null
+        assertNotNull(p1.joinGame(match));
 
-        //Test2 playGame has a valid match so it should return false
-        assertFalse(p1.playGame(match));
+        //Test2 joinGame has a valid match so it should return false
+        assertFalse(p1.joinGame(match));
 
-        //Test3 playGame has a valid match so it should return true
-        assertFalse(p1.playGame(nullMatch));
+        //Test3 joinGame has a valid match so it should return true
+        assertFalse(p1.joinGame(nullMatch));
     }
 
     @Test
