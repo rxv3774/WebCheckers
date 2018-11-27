@@ -29,7 +29,7 @@ public abstract class User {
      * Defines the user's match when a user joins a game
      *
      * @param match the match
-     * @return true if the user was able to join the match.
+     * @return true if the user was able to joinPlayer the match.
      */
     public boolean joinGame(Match match) {
         if (this.match == null) {

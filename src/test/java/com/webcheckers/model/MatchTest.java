@@ -50,16 +50,16 @@ public class MatchTest {
         Player nullPlayer = null;
 
         //Test1 one player
-        assertTrue(match.join(p1));
+        assertTrue(match.joinPlayer(p1));
 
         //Test2 Two players
-        assertTrue(match.join(p2));
+        assertTrue(match.joinPlayer(p2));
 
         //Test3 adding a third player should fail
-        assertFalse(match.join(p3));
+        assertFalse(match.joinPlayer(p3));
 
         //Test4 the player is null, should be false
-        assertFalse(match.join(nullPlayer));
+        assertFalse(match.joinPlayer(nullPlayer));
     }
 
     @Test
@@ -143,8 +143,8 @@ public class MatchTest {
         Match match = new Match();
         Player red = new Player("redBoi");
         Player white = new Player("whiteBoi");
-        match.join(red);
-        match.join(white);
+        match.joinPlayer(red);
+        match.joinPlayer(white);
 
         match.start();
         match.declareWinner();
@@ -164,8 +164,8 @@ public class MatchTest {
         Match match = new Match();
         Player red = new Player("redBoi");
         Player white = new Player("whiteBoi");
-        match.join(red);
-        match.join(white);
+        match.joinPlayer(red);
+        match.joinPlayer(white);
 
         match.start();
         match.declareWinner();
@@ -190,8 +190,8 @@ public class MatchTest {
         Player p1 = new Player("Brett");
         Player p2 = new Player("Kevin");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 
@@ -237,8 +237,8 @@ public class MatchTest {
         Player p1 = new Player("Brett");
         Player p2 = new Player("Kevin");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 
@@ -263,8 +263,8 @@ public class MatchTest {
         Player p1 = new Player("Brett");
         Player p2 = new Player("Kevin");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         //Test1 not null
         assertNotNull(match.getOpponent(p1));
@@ -293,7 +293,7 @@ public class MatchTest {
         Player p1 = new Player("Brett");
         Player p2 = new Player("Kevin");
 
-        match.join(p1);
+        match.joinPlayer(p1);
 
         //Test1 null isn't returned
         match.ready();
@@ -301,7 +301,7 @@ public class MatchTest {
         //Test2 the match isn't ready return false
         assertFalse(match.ready());
 
-        match.join(p2);
+        match.joinPlayer(p2);
 
         //Test3 the match is ready so return true
         assertTrue(match.ready());
@@ -320,12 +320,12 @@ public class MatchTest {
         //Test2 match doesn't start with 0 players
         assertFalse(match.start());
 
-        match.join(p1);
+        match.joinPlayer(p1);
 
         //Test3 match doesn't start with 1 players
         assertFalse(match.start());
 
-        match.join(p2);
+        match.joinPlayer(p2);
 
         //Test4 match starts with 2 players
         assertTrue(match.start());
@@ -338,8 +338,8 @@ public class MatchTest {
         Player p1 = new Player("Brett");
         Player p2 = new Player("Kevin");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 
@@ -359,8 +359,8 @@ public class MatchTest {
         Player p1 = new Player("Brett");
         Player p2 = new Player("Kevin");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         //Test 1 and 2 exist to prove that the players know the match they are in
         assertNotNull(p1.getMatch());
@@ -394,12 +394,12 @@ public class MatchTest {
         //Test1 0 players so it will be false
         assertFalse(match.isRunning());
 
-        match.join(p1);
+        match.joinPlayer(p1);
 
         //Test2 1 players so it will be false
         assertFalse(match.isRunning());
 
-        match.join(p2);
+        match.joinPlayer(p2);
 
         //Test3 2 players but the match hasn't started so it will be false
         assertFalse(match.isRunning());
@@ -417,8 +417,8 @@ public class MatchTest {
         Player p1 = new Player("Brett");
         Player p2 = new Player("Kevin");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 
@@ -446,8 +446,8 @@ public class MatchTest {
         final Player redTestPlayer = new Player("Red");
         final Player whiteTestPlayer = new Player("White");
 
-        testMatch.join(redTestPlayer);
-        testMatch.join(whiteTestPlayer);
+        testMatch.joinPlayer(redTestPlayer);
+        testMatch.joinPlayer(whiteTestPlayer);
 
         assertTrue(testMatch.matchContains(redTestPlayer));
         assertTrue(testMatch.matchContains(whiteTestPlayer));

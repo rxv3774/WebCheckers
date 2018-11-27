@@ -1,9 +1,9 @@
 package com.webcheckers.model;
 
+import java.util.ArrayList;
+
 /*
- * Object for the data of the match between two players
- *
- * Author: TeamD
+ * Match class, contains data for a game between two players and spectators
  */
 public class Match {
     private Player redPlayer;
@@ -12,7 +12,9 @@ public class Match {
     private Player winner;
     private Board board;
 
-    private Move pendingMove, DJsecondPendingMove;
+    private ArrayList<Spectator> spectators;
+
+    private Move pendingMove, DJSecondPendingMove;
     private boolean running;
 
     /**
@@ -21,6 +23,8 @@ public class Match {
     public Match() {
         this.board = new Board();
         this.running = false;
+
+        spectators = new ArrayList<>();
     }
 
     /**
@@ -29,7 +33,7 @@ public class Match {
      * @param player the player to add
      * @return true if the player could be added, false if not.
      */
-    public boolean join(Player player) {
+    public boolean joinPlayer(Player player) {
         if (player != null) {
             if (player.joinGame(this)) {
 
@@ -43,7 +47,16 @@ public class Match {
                     return true;
                 }
             }
-            return false;
+        }
+        return false;
+    }
+
+    public boolean joinSpectator(Spectator spectator) {
+        if (spectator != null) {
+            if (spectator.joinGame(this)) {
+                spectators.add(spectator);
+                return true;
+            }
         }
         return false;
     }
@@ -91,11 +104,7 @@ public class Match {
      * @return the piece color
      */
     public Piece.Color getActiveColor() {
-        if (redPlayer == activePlayer) {
-            return Piece.Color.RED;
-        } else {
-            return Piece.Color.WHITE;
-        }
+        return (redPlayer == activePlayer) ? Piece.Color.RED : Piece.Color.WHITE;
     }
 
     /**
@@ -104,17 +113,13 @@ public class Match {
      * @param move: the move to add
      */
     public void addPendingMove(Move move) {
-        if (pendingMove == null)
-            this.pendingMove = move;
-        else
-            this.DJsecondPendingMove = move;
+        if (pendingMove == null) this.pendingMove = move;
+        else this.DJSecondPendingMove = move;
     }
 
-    public void removePendingMove(){
-        if(DJsecondPendingMove != null)
-            DJsecondPendingMove = null;
-        else
-            pendingMove = null;
+    public void removePendingMove() {
+        if (DJSecondPendingMove != null) DJSecondPendingMove = null;
+        else pendingMove = null;
     }
 
     /**
@@ -123,9 +128,9 @@ public class Match {
     public void doPendingMoves() {
         pendingMove.makeMove(this.board);
         this.pendingMove = null;
-        if (DJsecondPendingMove != null) {
-            DJsecondPendingMove.makeMove(this.board);
-            this.DJsecondPendingMove = null;
+        if (DJSecondPendingMove != null) {
+            DJSecondPendingMove.makeMove(this.board);
+            this.DJSecondPendingMove = null;
         }
     }
 
@@ -144,7 +149,7 @@ public class Match {
      * @return true if there is a pending move
      */
     public boolean hasPendingDJMoves() {
-        return this.DJsecondPendingMove != null;
+        return this.DJSecondPendingMove != null;
     }
 
     /**
@@ -158,10 +163,11 @@ public class Match {
 
     /**
      * checks if a double jump is available
+     *
      * @return true is there is an available second jump
      */
-    public boolean doubleJumpAvailable(){
-        if(pendingMove.isJumpMove() && DJsecondPendingMove == null) {
+    public boolean doubleJumpAvailable() {
+        if (pendingMove.isJumpMove() && DJSecondPendingMove == null) {
             Position end = pendingMove.getEnd();
             Space space = board.getSpace(end);
             return space.hasSecondJumpAvailable(getActiveColor(), board, pendingMove.isKingMove(board));
@@ -202,14 +208,13 @@ public class Match {
     }
 
     /**
-     * Checks for both players joining.
+     * Checks if both players have joined
      *
      * @return true if both players have joined.
      */
     public boolean ready() {
         return redPlayer != null && whitePlayer != null;
     }
-
 
     /**
      * Start match.
@@ -238,6 +243,7 @@ public class Match {
         if (whitePlayer != null) whitePlayer.endGame();
         redPlayer = null;
         whitePlayer = null;
+        spectators.clear();
     }
 
     /**
@@ -258,7 +264,6 @@ public class Match {
         return winner != null;
     }
 
-
     /**
      * Changes the current player. if it's red, makes it white and vise versa
      */
@@ -266,9 +271,7 @@ public class Match {
         activePlayer = activePlayer == redPlayer ? whitePlayer : redPlayer;
     }
 
-
     public boolean doPlayersMatch(Player p1, Player p2) {
         return p1.equals(p2);
     }
-
 }

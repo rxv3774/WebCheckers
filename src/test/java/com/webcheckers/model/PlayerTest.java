@@ -40,8 +40,8 @@ class PlayerTest {
         Player p2 = new Player("Kevin");
         Player p3 = new Player("Larry");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 
@@ -64,8 +64,8 @@ class PlayerTest {
         Player p1 = new Player("Brett");
         Player p2 = new Player("Kevin");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         //Test1 joinGame doesn't return a null
         assertNotNull(p1.joinGame(match));
@@ -104,8 +104,8 @@ class PlayerTest {
 
         Match match = new Match();
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 
@@ -128,8 +128,8 @@ class PlayerTest {
 
         Match match = new Match();
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 

@@ -78,13 +78,13 @@ public class PlayerLobbyTest {
     void test_getPlayerNamesAsString() {
         playerLobby.addPlayer(validPlayer);
         assertEquals(String.format("Number of players signed in: %d", playerLobby.getLobbySize()),
-                playerLobby.getPlayerNamesAsString(VALID_NAME));
+                playerLobby.getUserNamesAsString(VALID_NAME));
         assertEquals(String.format("Other Players signed in: %s", validPlayer.getName()),
-                playerLobby.getPlayerNamesAsString(INVALID_NAME));
+                playerLobby.getUserNamesAsString(INVALID_NAME));
 
         playerLobby.addPlayer(new Player(NO_EXIST_NAME));
         playerLobby.addPlayer(new Player("Chad"));
 
-        assertEquals("Other Players signed in: " + validPlayer.getName() + ", " + "Chad", playerLobby.getPlayerNamesAsString(NO_EXIST_NAME));
+        assertEquals("Other Players signed in: " + validPlayer.getName() + ", " + "Chad", playerLobby.getUserNamesAsString(NO_EXIST_NAME));
     }
 }
