@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import java.util.List;
+
 /*
  * Object for the data of the match between two players
  *
@@ -180,6 +182,16 @@ public class Match {
             return false;
     }
 
+    public Move chooseAISecondJump() {
+        Position end = pendingMove.getEnd();
+        Space space = board.getSpace(end);
+        return space.AIChooseSecondJump(getActiveColor(), board, pendingMove);
+    }
+
+    public List<Move> getPossibleMoves() {
+        return board.getPossibleMoves(getActiveColor());
+    }
+
     /**
      * end game and set the winner to the player whose turn it is not.
      */
@@ -280,6 +292,19 @@ public class Match {
 
     public boolean doPlayersMatch(Player p1, Player p2) {
         return p1.equals(p2);
+    }
+
+    /**
+     * Deep copy game.
+     * @return deep copy of the game.
+     */
+    public Match deepCopy() {
+        Match cp = new Match();
+        cp.board = this.board.deepCopy();
+        cp.activePlayer = this.activePlayer;
+        cp.redPlayer = redPlayer;
+        cp.whitePlayer = whitePlayer;
+        return cp;
     }
 
 }

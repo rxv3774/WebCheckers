@@ -43,7 +43,6 @@ public class GetSignOutRoute implements Route {
         if(currentPlayer != null) {
             if(currentPlayer.isInGame()) {
                 gameCenter.endGame(currentPlayer.getMatch());
-                currentPlayer.endGame();
             }
             playerLobby.signOut(currentPlayer);
             session.removeAttribute("name");
