@@ -62,6 +62,7 @@ public class PostResignRoute implements Route {
 
         //This prevents an error happening when a player tries resigning an already deleted match
         if (player.getMatch() != null) {
+            player.getMatch().end();
             gameCenter.endGame(player.getMatch());
         }
 

@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Match;
 import com.webcheckers.model.Player;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -62,7 +63,7 @@ class GetGameRouteTest {
      * Test that getGameRoute shows the Home view when the session is brand new.
      */
     @Test
-    public void new_session() {
+    void new_session() {
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
@@ -73,7 +74,7 @@ class GetGameRouteTest {
 
 
     @Test
-    public void playerIsNull() {
+    void playerIsNull() {
         when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(null);
 
         //Test1 This throws a holt error since they are redirected.
@@ -82,7 +83,7 @@ class GetGameRouteTest {
 
 
     @Test //Player isn't in a match but the Opponent doesn't exist
-    public void playerExistsNoOpponent() {
+    void playerExistsNoOpponent() {
 
         Player p1 = new Player("Tom");
         playerLobby.addPlayer(p1);
@@ -99,7 +100,7 @@ class GetGameRouteTest {
 
 
     @Test //Player isn't in a match and Opponent doesn't exist
-    public void playerExistsOpponentIsPlayer() {
+    void playerExistsOpponentIsPlayer() {
 
         Player p1 = new Player("Tom");
         playerLobby.addPlayer(p1);
@@ -115,7 +116,7 @@ class GetGameRouteTest {
     }
 
     @Test // Player isn't in a match and the Opponent is in a match
-    public void playerExistsOpponentInMatch() {
+    void playerExistsOpponentInMatch() {
         Player p1 = new Player("Tom");
         Player p2 = new Player("Tom Brady");
         Player p3 = new Player("Adam West");
@@ -138,7 +139,7 @@ class GetGameRouteTest {
 
 
     @Test // Player isn't in a match and the Opponent isn't in a match
-    public void playerExistsOpponentNotInMatch() {
+    void playerExistsOpponentNotInMatch() {
         Player p1 = new Player("Tom");
         Player p2 = new Player("Tom Brady");
 
@@ -157,7 +158,7 @@ class GetGameRouteTest {
     }
 
     @Test //Player is in a match
-    public void playerInMatch() {
+    void playerInMatch() {
         Player p1 = new Player("Tom");
         Player p2 = new Player("Tom Brady");
 
@@ -184,5 +185,41 @@ class GetGameRouteTest {
         assertNotEquals("", getGameRoute.handle(request, response));
     }
 
+    @Test
+    void playerCantPlayTest() {
+        Player p1 = new Player("Tom");
+        Match match = mock(Match.class);
+        p1.playGame(match);
+        playerLobby.addPlayer(p1);
+
+        //This is for the current Player
+        when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
+
+        when ( match.canPlay() ).thenReturn(false);
+
+        getGameRoute.handle(request, response);
+
+        assertNotNull(match);
+    }
+
+    @Test
+    void hasWinnerTest() {
+        Player p1 = new Player("Tom");
+        Match match = mock(Match.class);
+        p1.playGame(match);
+        playerLobby.addPlayer(p1);
+
+        //This is for the current Player
+        when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
+
+        when ( match.canPlay() ).thenReturn(true);
+        when ( match.hasWinner() ).thenReturn(true);
+
+        when ( match.isWinner(p1) ).thenReturn(false);
+
+        getGameRoute.handle(request,response);
+        assertFalse(gameCenter.containsMatch(match));
+
+    }
 
 }

@@ -123,6 +123,14 @@ public class Match {
     }
 
     /**
+     * return pending move
+     * @return: pending move
+     */
+    public Move getPendingMove() {
+        return pendingMove;
+    }
+
+    /**
      * Do pending moves.
      */
     public void doPendingMoves() {
@@ -170,7 +178,7 @@ public class Match {
         if (pendingMove.isJumpMove() && DJSecondPendingMove == null) {
             Position end = pendingMove.getEnd();
             Space space = board.getSpace(end);
-            return space.hasSecondJumpAvailable(getActiveColor(), board, pendingMove.isKingMove(board));
+            return space.hasSecondJumpAvailable(getActiveColor(), board, pendingMove);
         } else
             return false;
     }

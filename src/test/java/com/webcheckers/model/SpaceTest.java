@@ -384,11 +384,11 @@ class SpaceTest {
         final Board board = new Board();
         final Space redSpace = board.getSpace(new Position(3, 2));
         final Space whiteSpace = board.getSpace(new Position(3, 5));
-        assertFalse(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, false));
-        assertFalse(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, true));
-
-        assertFalse(whiteSpace.hasSecondJumpAvailable(Piece.Color.WHITE, board, false));
-        assertFalse(whiteSpace.hasSecondJumpAvailable(Piece.Color.WHITE, board, true));
+//        assertFalse(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, false));
+//        assertFalse(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, true));
+//
+//        assertFalse(whiteSpace.hasSecondJumpAvailable(Piece.Color.WHITE, board, false));
+//        assertFalse(whiteSpace.hasSecondJumpAvailable(Piece.Color.WHITE, board, true));
 
 //        whiteSpace.movePieceTo(board.getSpace(new Position(2, 3)));
 //        assertTrue(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, false));

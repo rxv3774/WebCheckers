@@ -59,19 +59,17 @@ public class PostValidateMoveRoute implements Route {
             Match game = user.getMatch();
 
             if (game == null) {
-                return gson.toJson(Message.ERR_NO_OPPONENT);
-//                return gson.toJson(Message.TRUE );
+                return gson.toJson(Message.OPPONENT_RESIGN);
             }
 
             Move move = moveFromJson(request.body());
             Board board = game.getBoard();
-//            boolean redPlayer = game.getRedPlayer().equals(player);
             boolean redPlayer = game.doPlayersMatch(game.getRedPlayer(), (Player) user);
 
             if (!game.hasPendingMoves() && move.isValid(board, redPlayer)) { //single move or single jump
                 game.addPendingMove(move);
                 return gson.toJson(Message.VALID_MOVE);
-            } else if (move.isJumpMove() && !game.hasPendingDJMoves() && move.isValid(board, redPlayer)) { //second move for double jump
+            } else if (move.isJumpMove() && !game.hasPendingDJMoves() && move.isValidSecondMove(board, redPlayer, game.getPendingMove())) { //second move for double jump
                 game.addPendingMove(move);
                 return gson.toJson(Message.VALID_MOVE);
             } else if (move.isSingleMove() && game.hasPendingMoves()) { //only one move allowed if it's not a double jump

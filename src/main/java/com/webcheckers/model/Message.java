@@ -81,7 +81,7 @@ public class Message {
     /**
      * The constant RESIGNED.
      */
-    public static final Message RESIGNED = new Message("Your opponent has resigned", Type.info);
+    public static final Message RESIGNED = new Message("Your opponent has resigned, please wait for link to appear.", Type.info);
 
 
     /**

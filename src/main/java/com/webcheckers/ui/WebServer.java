@@ -169,7 +169,7 @@ public class WebServer {
         get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
 
         // Sign out player and redirect them home
-        get(SIGN_OUT_URL, new GetSignOutRoute(playerLobby));
+        get(SIGN_OUT_URL, new GetSignOutRoute(playerLobby, gameCenter));
 
         // Sends the spectator to the game
         get(SPECTATOR_GAME, new GetSpectatorGameRoute(playerLobby, templateEngine));

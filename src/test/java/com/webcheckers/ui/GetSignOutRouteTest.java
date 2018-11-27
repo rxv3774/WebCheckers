@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Player;
@@ -26,6 +27,7 @@ class GetSignOutRouteTest {
 
     private GetSignOutRoute getSignOutRoute;
     private PlayerLobby playerLobby;
+    private GameCenter gameCenter;
 
     /**
      * Setup new mock objects for each test.
@@ -39,7 +41,7 @@ class GetSignOutRouteTest {
         playerLobby = new PlayerLobby();
 
         // create a unique getSignOutRoute for each test
-        getSignOutRoute = new GetSignOutRoute(playerLobby);
+        getSignOutRoute = new GetSignOutRoute(playerLobby, gameCenter);
     }
 
     @Test
