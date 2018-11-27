@@ -56,6 +56,33 @@ public class Row implements Iterable<Space> {
     }
 
     /**
+     * checks the color's pieces in each space to see if it has a possible jump move
+     *
+     * @param color: active color
+     * @param board: board with all the pieces
+     * @return true if a piece has a possible move
+     */
+    public boolean hasPossibleJumpMove(Piece.Color color, Board board) {
+        for (Space space : row) {
+            if (space.hasPossibleJumpMove(color, board))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Deep copy row.
+     * @return deepcopy of the row
+     */
+    public Row deepCopy() {
+        Row cp = new Row(this.index);
+        for (int i = 0; i < row.length; i++) {
+            cp.row[i] = row[i].deepCopy();
+        }
+        return cp;
+    }
+
+    /**
      * and iterator so iterable works
      *
      * @return an Iterator

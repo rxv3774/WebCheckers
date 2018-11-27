@@ -1,5 +1,6 @@
 package com.webcheckers.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -125,6 +126,83 @@ public class Space {
     }
 
     /**
+     * check space's piece to see if it has possible moves
+     *
+     * @param color  color of active player
+     * @param board: board with all the pieces
+     * @return true if piece at space has possible moves
+     */
+    @SuppressWarnings("Duplicates")
+    public List<Move> getPossibleMoves(Piece.Color color, Board board) {
+        List<Move> validMoves;
+        if (pieceColorMatch(color)) { // checks if color matches the piece.
+            Position start = new Position(rowIdx, cellIdx); // finds the starting position.
+            Move singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL;
+            if (color == Piece.Color.WHITE) {
+                singleUR = new Move(start, new Position(rowIdx - 1, cellIdx + 1)); // creates the move for an up-right single move.
+                singleUL = new Move(start, new Position(rowIdx - 1, cellIdx - 1));
+                jumpUR = new Move(start, new Position(rowIdx - 2, cellIdx + 2)); // creates the moves for an up-right jump.
+                jumpUL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
+                if (piece.isKing()) {
+                    singleDR = new Move(start, new Position(rowIdx + 1, cellIdx + 1)); // creates the move for an down-right single move.
+                    singleDL = new Move(start, new Position(rowIdx + 1, cellIdx - 1));
+                    jumpDR = new Move(start, new Position(rowIdx + 2, cellIdx + 2)); // creates the move for an down-right jump.
+                    jumpDL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
+                    List<Move> moves = Arrays.asList(singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL); // contains all moves a king piece can use in a game.
+                    validMoves = getPossibleMovesHelper(moves, board, false); // ensures all moves contained are valid.
+                } else {
+                    List<Move> moves = Arrays.asList(singleUR, singleUL, jumpUR, jumpUL); // contains all moves a single piece can use in a game
+                    validMoves = getPossibleMovesHelper(moves, board, false);
+                }
+            } else {
+                singleUR = new Move(start, new Position(rowIdx + 1, cellIdx + 1));
+                singleUL = new Move(start, new Position(rowIdx + 1, cellIdx - 1));
+                jumpUR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
+                jumpUL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
+                if (piece.isKing()) {
+                    singleDR = new Move(start, new Position(rowIdx - 1, cellIdx + 1));
+                    singleDL = new Move(start, new Position(rowIdx - 1, cellIdx - 1));
+                    jumpDR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
+                    jumpDL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
+                    List<Move> moves = Arrays.asList(singleUR, singleUL, singleDR, singleDL, jumpUR, jumpUL, jumpDR, jumpDL);
+                    validMoves = getPossibleMovesHelper(moves, board, true);
+                } else {
+                    List<Move> moves = Arrays.asList(singleUR, singleUL, jumpUR, jumpUL);
+                    validMoves = getPossibleMovesHelper(moves, board, true);
+                }
+            }
+            return validMoves;
+        }
+        return null;
+    }
+
+    public boolean hasPossibleJumpMove(Piece.Color color, Board board){
+        List<Move> moves = getPossibleMoves(color, board);
+        for (Move move : moves) {
+            if (move.isJumpMove())
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * helper method for getting possible moves, checks if moves are valid
+     *
+     * @param moves: list of possible moves to check
+     * @param board: board with all the pieces
+     * @param isRed: if the moved piece is red
+     * @return list of valid moves
+     */
+    public List<Move> getPossibleMovesHelper(List<Move> moves, Board board, boolean isRed) {
+        List<Move> validMoves = new ArrayList<>();
+        for (Move move : moves) {
+            if (move.isValid(board, isRed))
+                validMoves.add(move);
+        }
+        return validMoves;
+    }
+
+    /**
      * Checks to see if there is a valid jump move available, used to check for required double jump
      *
      * @param color: color of the current player
@@ -208,6 +286,12 @@ public class Space {
         }
     }
 
+    public Piece.Type getPieceType() {
+        if (this.hasPiece())
+            return this.piece.getType();
+        return null;
+    }
+
     /**
      * Move piece in the space to space space.
      *
@@ -267,5 +351,14 @@ public class Space {
 
     public Piece getPiece() {
         return this.piece;
+    }
+
+    /**
+     * Deep copy space.
+     * @return deep copy of the space
+     */
+    public Space deepCopy(){
+        Space cp = new Space(this.cellIdx, this.rowIdx, this.piece);
+        return cp;
     }
 }

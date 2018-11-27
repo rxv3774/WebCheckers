@@ -1,5 +1,6 @@
 package com.webcheckers.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -105,6 +106,40 @@ public class Board implements Iterable<Row> {
     }
 
     /**
+     * Gets possible moves.
+     * @param color the color
+     * @return the possible moves for color player
+     */
+    public ArrayList<Move> getPossibleMoves(Piece.Color color) {
+        ArrayList<Move> moves = new ArrayList<>();
+        for(Row row: board){
+            for(Space sp: row){
+                if(sp.hasPiece() && sp.getPieceColor() == color){
+                    moves.addAll(sp.getPossibleMoves(color, this));
+                }
+            }
+        }
+        if(this.isJumpAvailible(color)){
+            moves.removeIf(m -> !m.isJumpMove());
+        }
+        return moves;
+    }
+
+    /**
+     * Is jump availible.
+     * @param color the color
+     * @return true if color player has a jump availible
+     */
+    public boolean isJumpAvailible(Piece.Color color){
+        for(Row row : board){
+            if(row.hasPossibleJumpMove(color, this)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * get the space object at the given position
      *
      * @param position: coordinates of the desired space
@@ -167,5 +202,34 @@ public class Board implements Iterable<Row> {
 
     public int getRowsSize() {
         return board.length;
+    }
+
+    /**
+     * Get white player piece advantage int.
+     * @return white pieces - red pieces
+     */
+    public int getWhitePlayerPieceAdvantage(){
+        int c = 0;
+        for(Row row: board){
+            for(Space sp: row){
+                if(sp.hasPiece()){
+                    int pieceVal = sp.getPieceType() == Piece.Type.KING ? 2 : 1;
+                    c += sp.getPieceColor() == Piece.Color.WHITE ? pieceVal : -pieceVal;
+                }
+            }
+        }
+        return c;
+    }
+
+    /**
+     * Deep copy game board.
+     * @return a deep copy of the game board
+     */
+    public Board deepCopy(){
+        Board cp = new Board();
+        for (int i = 0; i < board.length; i++) {
+            cp.board[i] = board[i].deepCopy();
+        }
+        return cp;
     }
 }

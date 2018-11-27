@@ -93,9 +93,15 @@ public class GetGameRoute implements Route {
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
-            gameCenter.createGame(player, opponent);
-            response.redirect(WebServer.START_GAME);
-            halt();
+            if (opponentPlayerName.equals("Artificial Intelligence")){ //AI Mode Selected
+
+
+
+            } else {
+                gameCenter.createGame(player, opponent);
+                response.redirect(WebServer.START_GAME);
+                halt();
+            }
         }
         Match match = player.getMatch();
 

@@ -8,6 +8,8 @@ public class Player {
     private String name;
     private Match match;
 
+    boolean isAI;
+
     private int gamesWon;
     private int gamesDrawed;
     private int gamesLost;
@@ -20,11 +22,18 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.match = null;
+        this.isAI = false;
 
         gamesWon = 0;
         gamesDrawed = 0;
         gamesLost = 0;
 
+    }
+
+    public Player(String name, boolean isAI){
+        this.name = name;
+        this.match = null;
+        this.isAI = isAI;
     }
 
     /**

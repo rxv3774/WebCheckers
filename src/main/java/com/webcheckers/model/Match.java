@@ -282,4 +282,17 @@ public class Match {
         return p1.equals(p2);
     }
 
+    /**
+     * Deep copy game.
+     * @return deep copy of the game.
+     */
+    public Match deepCopy() {
+        Match cp = new Match();
+        cp.board = this.board.deepCopy();
+        cp.activePlayer = this.activePlayer;
+        cp.redPlayer = redPlayer;
+        cp.whitePlayer = whitePlayer;
+        return cp;
+    }
+
 }
