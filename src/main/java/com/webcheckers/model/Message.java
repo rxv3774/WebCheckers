@@ -71,7 +71,7 @@ public class Message {
     /**
      * The constant WINNER.
      */
-    public static final Message WINNER = new Message("<a href='" + URL_HOME + "'>You win!Click here to return home.</a>", Type.info);
+    public static final Message WINNER = new Message("<a href='" + URL_HOME + "'>You win! Click here to return home.</a>", Type.info);
 
     /**
      * The constant LOSER.

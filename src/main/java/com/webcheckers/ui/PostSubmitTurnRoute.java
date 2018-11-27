@@ -1,7 +1,7 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
-import com.webcheckers.appl.AI;
+import com.webcheckers.model.AI;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.*;
 import spark.Request;
@@ -63,9 +63,6 @@ public class PostSubmitTurnRoute implements Route {
                         }
                         game.doPendingMoves();
                         game.changeActivePlayer();
-                        if(!game.canPlay()) {
-                            game.declareWinner();
-                        }
                     }
 
                     return gson.toJson(Message.MOVE_SUBMITTED);

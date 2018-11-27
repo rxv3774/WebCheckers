@@ -1,6 +1,5 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.appl.AI;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Match;
@@ -113,18 +112,14 @@ public class GetGameRoute implements Route {
         if (!match.canPlay()) {
             match.declareWinner();
         }
-        if (match.hasWinner()) {
-            if (match.isWinner(player)) {
-                vm.put("message", Message.WINNER);
-            } else {
-                gameCenter.endGame(match);
-                vm.put("message", Message.LOSER);
-
-            }
+        if (match.hasWinner() && match.isWinner(player)) {
+            gameCenter.endGame(match);
+            vm.put("message", Message.WINNER);
         } else if (!match.isRunning() && gameCenter.containsMatch(match)) {
             gameCenter.endGame(match);
-            vm.put("message", Message.RESIGNED);
-        }
+            vm.put("message", Message.OPPONENT_RESIGN);
+        } else if (!match.isRunning() && !gameCenter.containsMatch(match))
+            vm.put("message", Message.LOSER);
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }

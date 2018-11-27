@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import java.util.List;
+
 /*
  * Object for the data of the match between two players
  *
@@ -184,6 +186,10 @@ public class Match {
         Position end = pendingMove.getEnd();
         Space space = board.getSpace(end);
         return space.AIChooseSecondJump(getActiveColor(), board, pendingMove);
+    }
+
+    public List<Move> getPossibleMoves() {
+        return board.getPossibleMoves(getActiveColor());
     }
 
     /**

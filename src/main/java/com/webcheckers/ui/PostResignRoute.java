@@ -52,16 +52,11 @@ public class PostResignRoute implements Route {
 
         final Session session = request.session();
 
-
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
         Player player = playerLobby.getPlayerObject( currentPlayerName );
 
-        //The player has resigned so they should lose.
-        player.increaseGamesLost();
-
         //This prevents an error happening when a player tries resigning an already deleted match
         if( player.getMatch() != null) {
-            player.getMatch().end();
             gameCenter.endGame(player.getMatch());
         }
 

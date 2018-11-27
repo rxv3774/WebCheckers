@@ -1,11 +1,11 @@
-package com.webcheckers.appl;
+package com.webcheckers.model;
 
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class AI {
@@ -20,10 +20,9 @@ public class AI {
      */
     public static Move getAIMove(Match match) {
         Match match_copy = match.deepCopy();
-        Player us = match.getActivePlayer();
 
-        ArrayList<Move> moves = match_copy.getBoard().getPossibleMoves(match_copy.getActiveColor());
-        ArrayList<Move> moves_out = match.getBoard().getPossibleMoves(match.getActiveColor());
+        List<Move> moves = match_copy.getPossibleMoves();
+        List<Move> moves_out = match.getPossibleMoves();
 
         return moves_out.get(random.nextInt(moves.size()));
     }
