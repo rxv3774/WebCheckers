@@ -68,7 +68,33 @@ public class Move {
             } else
                 return false;
         } else {
-            System.out.println("failed");
+            return false;
+        }
+    }
+
+    /**
+     * check is the second move performed is valid
+     *
+     * @param board:       board object to check spaces from
+     * @param isRedPlayer: if the current player is red
+     * @param pendingMove: the first move, before the second move.
+     * @return true if the move is valid
+     */
+    public boolean isValidSecondMove(Board board, boolean isRedPlayer, Move pendingMove) {
+        if (end.isOutOfBounds())
+            return false;
+        if (isSingleMove()) {
+            return false;
+        } else if (isJumpMove()) {
+            Position middle = start.getMiddle(end);
+            if (!board.spaceHasPiece(end) && board.spaceHasEnemyPiece(middle, isRedPlayer)) {
+                if (!pendingMove.isKingMove(board))
+                    return movingBackwards(isRedPlayer);
+                else
+                    return true;
+            } else
+                return false;
+        } else {
             return false;
         }
     }

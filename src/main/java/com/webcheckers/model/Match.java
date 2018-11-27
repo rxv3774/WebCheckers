@@ -110,11 +110,22 @@ public class Match {
             this.DJsecondPendingMove = move;
     }
 
+    /**
+     * remove one of the pending moves, starting with the second move iof it exists
+     */
     public void removePendingMove(){
         if(DJsecondPendingMove != null)
             DJsecondPendingMove = null;
         else
             pendingMove = null;
+    }
+
+    /**
+     * return pending move
+     * @return: pending move
+     */
+    public Move getPendingMove() {
+        return pendingMove;
     }
 
     /**
@@ -164,7 +175,7 @@ public class Match {
         if(pendingMove.isJumpMove() && DJsecondPendingMove == null) {
             Position end = pendingMove.getEnd();
             Space space = board.getSpace(end);
-            return space.hasSecondJumpAvailable(getActiveColor(), board, pendingMove.isKingMove(board));
+            return space.hasSecondJumpAvailable(getActiveColor(), board, pendingMove);
         } else
             return false;
     }

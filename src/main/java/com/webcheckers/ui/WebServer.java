@@ -166,7 +166,7 @@ public class WebServer {
         get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
 
         // Sign out player and redirect them home
-        get(SIGN_OUT_URL, new GetSignOutRoute(playerLobby));
+        get(SIGN_OUT_URL, new GetSignOutRoute(playerLobby, gameCenter));
 
         // Sends the player name to the player lobby
         post(SIGN_IN_URL, new PostSignInRoute(playerLobby, templateEngine));
