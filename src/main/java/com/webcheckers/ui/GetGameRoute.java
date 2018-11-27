@@ -86,8 +86,8 @@ public class GetGameRoute implements Route {
                 halt();
             }
             if (opponent.isInGame()) {
-                if (user.getMatch() != null && gameCenter.containsMatch(user.getMatch())) {
-                    user.getMatch().joinSpectator((Spectator) user);
+                if (opponent.getMatch() != null && gameCenter.containsMatch(user.getMatch())) {
+                    opponent.getMatch().joinSpectator((Spectator) user);
                     response.redirect(WebServer.SPECTATOR_GAME);
                 }
                 // TODO: Handle possible error in joining spectator

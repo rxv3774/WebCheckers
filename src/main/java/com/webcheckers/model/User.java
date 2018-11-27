@@ -3,14 +3,15 @@ package com.webcheckers.model;
 /**
  * Abstract User class
  */
-public abstract class User {
+public class User {
     private String name;
     private Match match;
     private ViewMode viewMode;
 
     public enum ViewMode {
         SPECTATOR,
-        PLAYER
+        PLAYER,
+        NONE
     }
 
     /**
@@ -91,7 +92,14 @@ public abstract class User {
         return match;
     }
 
-    public abstract String toString();
+    public String toString() {
+        return String.format("{User: %s}", name);
+    }
 
-    public abstract boolean equals(Object object);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        else if (object instanceof User) {
+            return this.getName().equals(((User) object).getName());
+        } else return false;
+    }
 }
