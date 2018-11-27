@@ -59,7 +59,10 @@ public class WebServer {
     public static final String VALIDATE_MOVE = "/validateMove";
     public static final String SUBMIT_TURN = "/submitTurn";
     public static final String CHECK_TURN = "/checkTurn";
-    public static final String BACKUPMOVE = "backupMove";
+    public static final String BACKUP_MOVE = "/backupMove";
+    public static final String SPECTATOR_CHECK_TURN = "/spectator/checkTurn";
+    public static final String SPECTATOR_GAME = "/spectator/game";
+    public static final String SPECTATOR_STOP_WATCHING = "/spectator/stopWatching";
 
 
     public static final String SIGN_OUT_URL = "/signOut";
@@ -184,7 +187,7 @@ public class WebServer {
         post( RESIGN, new PostResignRoute( playerLobby, gameCenter, gson) );
 
         //This handles the undo move request.
-        post( BACKUPMOVE, new PostBackUpMoveRoute( gson, gameCenter, playerLobby) );
+        post(BACKUP_MOVE, new PostBackUpMoveRoute( gson, gameCenter, playerLobby) );
 
         LOG.config("WebServer is initialized.");
     }
