@@ -78,7 +78,7 @@ public class PostSignInRouteTest {
     public void invalid_username_emptySpaces() {
         playerMock = new Player("");
         when(request.queryParams(any(String.class))).thenReturn("");
-        playerLobby.addPlayer(playerMock);
+        playerLobby.addUser(playerMock);
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
@@ -101,7 +101,7 @@ public class PostSignInRouteTest {
     @Test
     public void invalid_username_specialCharacters() {
         when(request.queryParams(any(String.class))).thenReturn("@#$");
-        playerLobby.addPlayer(new Player("@#$"));
+        playerLobby.addUser(new Player("@#$"));
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());

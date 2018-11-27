@@ -1,7 +1,7 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.model.Player;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import com.webcheckers.model.User;
 import spark.*;
 
@@ -62,26 +62,26 @@ public class PostSignInRoute implements Route {
     public String handle(Request request, Response response) {
         final Session session = request.session();
         final Map<String, Object> vm = new HashMap<>();
-        final String username = request.queryParams(PLAYER_NAME_ATTR);
+        final String playerName = request.queryParams(PLAYER_NAME_ATTR);
 
         vm.put(TITLE_ATTR, TITLE);
 
         // Check name validity
-        if (!playerLobby.isValidName(username)) {
+        if (!playerLobby.isValidName(playerName)) {
             vm.put(MESSAGE_TYPE_ATTR, ERROR);
             vm.put(ERROR_MESSAGE_ATTR, "The name you entered contains illegal characters.");
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
         }
 
         // Checks if name is in use
-        if (!playerLobby.playerNameInUse(username)) {
+        if (!playerLobby.usernameInUse(playerName)) {
 
-            User newUser = new User(username, User.ViewMode.NONE);
+            Player newPlayer = new Player(playerName);
 
             session.attribute(PLAYER_NAMES_ATTR, playerLobby.getPlayersNamesAsArrayList());
-            session.attribute(SESSION_NAME_ATTR, username);
+            session.attribute(SESSION_NAME_ATTR, playerName);
 
-            playerLobby.addPlayer(newUser);
+            playerLobby.addUser(newPlayer);
 
             response.redirect(WebServer.HOME_URL);
             halt();

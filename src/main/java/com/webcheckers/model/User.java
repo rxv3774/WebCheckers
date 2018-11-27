@@ -3,7 +3,7 @@ package com.webcheckers.model;
 /**
  * Abstract User class
  */
-public class User {
+public abstract class User {
     private String name;
     private Match match;
     private ViewMode viewMode;
@@ -92,14 +92,18 @@ public class User {
         return match;
     }
 
-    public String toString() {
-        return String.format("{User: %s}", name);
-    }
+    public abstract String toString();
 
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        else if (object instanceof User) {
-            return this.getName().equals(((User) object).getName());
-        } else return false;
-    }
+    public abstract boolean equals(Object object);
+
+//    public String toString() {
+//        return String.format("{User: %s}", name);
+//    }
+
+//    public boolean equals(Object object) {
+//        if (this == object) return true;
+//        else if (object instanceof User) {
+//            return this.getName().equals(((User) object).getName());
+//        } else return false;
+//    }
 }

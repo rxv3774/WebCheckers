@@ -20,9 +20,14 @@ public class PlayerLobby {
      *
      * @param user The new user that is being added.
      */
-    public void addPlayer(User user) throws NullPointerException {
+    public void addUser(User user) throws NullPointerException {
         Objects.requireNonNull(user);
         users.add(user);
+    }
+
+    public void removeUser(User user) throws NullPointerException {
+        Objects.requireNonNull(user);
+        users.remove(user);
     }
 
     public void signOut(User user){
@@ -54,7 +59,7 @@ public class PlayerLobby {
      * @param name The name of the player that is trying to be created.
      * @return Whether or not the user is taken.
      */
-    public boolean playerNameInUse(String name) {
+    public boolean usernameInUse(String name) {
         Player other = new Player(name);
         for (User user : users) {
             if (other.equals(user)) {
