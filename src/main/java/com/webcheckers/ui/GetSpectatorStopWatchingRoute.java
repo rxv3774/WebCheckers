@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Spectator;
 import spark.*;
@@ -17,14 +18,14 @@ public class GetSpectatorStopWatchingRoute implements Route {
     private static final String NAME_ATTR = "name";
 
     private PlayerLobby playerLobby;
-    private TemplateEngine templateEngine;
+    private GameCenter gameCenter;
 
-    public GetSpectatorStopWatchingRoute(PlayerLobby playerLobby, TemplateEngine templateEngine) {
+    public GetSpectatorStopWatchingRoute(PlayerLobby playerLobby, GameCenter gameCenter) {
         Objects.requireNonNull(playerLobby);
-        Objects.requireNonNull(templateEngine);
+        Objects.requireNonNull(gameCenter);
 
         this.playerLobby = playerLobby;
-        this.templateEngine = templateEngine;
+        this.gameCenter = gameCenter;
 
         LOG.config("GetSpectatorStopWatchingRoute initialized.");
     }
@@ -38,10 +39,7 @@ public class GetSpectatorStopWatchingRoute implements Route {
         String spectatorName = session.attribute(NAME_ATTR);
         Spectator spectator = (Spectator) playerLobby.getUserObject(spectatorName);
 
-        if (spectator.getMatch() == null) {
-            response.redirect(WebServer.HOME_URL);
-            halt();
-        }
+        response.redirect(WebServer.HOME_URL);
 
         return null;
     }

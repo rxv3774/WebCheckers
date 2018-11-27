@@ -92,7 +92,7 @@ public class GetHomeRoute implements Route {
             String currentPlayer = session.attribute(NAME_ATTR);
             User user = playerLobby.getUserObject(currentPlayer);
 
-            if (gameCenter.containsPlayer((Player) user)) {
+            if (user instanceof Player && gameCenter.containsPlayer((Player) user)) {
                 System.out.println(REDIRECT);
 
                 response.redirect(WebServer.START_GAME);

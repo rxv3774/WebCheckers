@@ -58,7 +58,8 @@ define(function(require){
       // check for special case messages
       if (message.text === 'true') {
         // tell the browser to redisplay the Game View to get the updated board
-        window.location = window.location + '&splat=' + new Date().getTime();
+        window.location.reload(true)
+        // window.location = window.location + '&splat=' + new Date().getTime();
       }
       // otherwise, check to see if there is a message to display
       else {

@@ -51,14 +51,12 @@ public class Match {
         return false;
     }
 
-    public boolean joinSpectator(Spectator spectator) {
+    public void joinSpectator(Spectator spectator) {
         if (spectator != null) {
             if (spectator.joinGame(this)) {
                 spectators.add(spectator);
-                return true;
             }
         }
-        return false;
     }
 
     /*

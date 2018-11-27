@@ -113,6 +113,10 @@ public class GetGameRoute implements Route {
         //Board
         vm.put("board", match.getBoard());
 
+        if (user instanceof Spectator) {
+            response.redirect(WebServer.HOME_URL);
+            halt();
+        }
         if (!match.canPlay()) {
             match.declareWinner();
         }
@@ -122,7 +126,6 @@ public class GetGameRoute implements Route {
             } else {
                 gameCenter.endGame(match);
                 vm.put("message", Message.LOSER);
-
             }
         } else if (!match.isRunning() && gameCenter.containsMatch(match)) {
             gameCenter.endGame(match);

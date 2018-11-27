@@ -171,10 +171,11 @@ public class WebServer {
         // Sign out player and redirect them home
         get(SIGN_OUT_URL, new GetSignOutRoute(playerLobby, gameCenter));
 
-        // Sends the spectator to the game
+        // Sends the spectator to the game page
         get(SPECTATOR_GAME, new GetSpectatorGameRoute(playerLobby, templateEngine));
 
-        get(SPECTATOR_STOP_WATCHING, new GetSpectatorStopWatchingRoute(playerLobby, templateEngine));
+        // Sends the spectator to the home page
+        get(SPECTATOR_STOP_WATCHING, new GetSpectatorStopWatchingRoute(playerLobby, gameCenter));
 
         // Sends the player name to the player lobby
         post(SIGN_IN_URL, new PostSignInRoute(playerLobby, templateEngine));
@@ -191,9 +192,10 @@ public class WebServer {
         // This handles the resignation request of a player
         post(RESIGN, new PostResignRoute(playerLobby, gameCenter, gson));
 
-        //This handles the undo move request.
+        // This handles the undo move request.
         post(BACKUP_MOVE, new PostBackUpMoveRoute(gson, gameCenter, playerLobby));
 
+        // Handles the spectator checking the turn
         post(SPECTATOR_CHECK_TURN, new PostSpectatorCheckTurnRoute(gson, playerLobby));
 
         LOG.config("WebServer is initialized.");

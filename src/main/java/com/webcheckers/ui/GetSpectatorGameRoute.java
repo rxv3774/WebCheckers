@@ -25,7 +25,6 @@ public class GetSpectatorGameRoute implements Route {
     private static final String VIEW_MODE_ATTR = "viewMode";
     private static final String ACTIVE_COLOR_ATTR = "activeColor";
     private static final String BOARD_ATTR = "board";
-    private static final String MESSAGE_ATTR = "message";
 
     private static final String TITLE = "Game!";
 
