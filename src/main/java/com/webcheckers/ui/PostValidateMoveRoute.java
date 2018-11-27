@@ -59,7 +59,7 @@ public class PostValidateMoveRoute implements Route {
             Match game = player.getMatch();
 
             if (game == null) {
-                return gson.toJson(Message.ERR_NO_OPPONENT);
+                return gson.toJson(Message.OPPONENT_RESIGN);
             }
 
             Move move = moveFromJson(request.body());
