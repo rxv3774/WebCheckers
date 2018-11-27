@@ -1,10 +1,9 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
+import com.webcheckers.model.AI;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Match;
-import com.webcheckers.model.Message;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -51,6 +50,20 @@ public class PostSubmitTurnRoute implements Route {
 
                     game.doPendingMoves();
                     game.changeActivePlayer(); //end turn
+
+                    if(game.canPlay() && game.getWhitePlayer().isAI()){
+                        //Select AI move
+                        Move pendingMove = AI.getAIMove(game);
+                        game.addPendingMove(pendingMove);
+
+                        //checking for double jump move
+                        if(game.doubleJumpAvailable()){
+                            Move secondMove = game.chooseAISecondJump();
+                            game.addPendingMove(secondMove);
+                        }
+                        game.doPendingMoves();
+                        game.changeActivePlayer();
+                    }
 
                     return gson.toJson(Message.MOVE_SUBMITTED);
                 } else

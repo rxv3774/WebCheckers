@@ -65,12 +65,7 @@ public class PostCheckTurnRoute implements Route {
                     return gson.toJson(Message.TRUE);
                 }
                 return gson.toJson(Message.FALSE);
-            }
-            else {
-                // Since the other player Quit, player wins.
-                player.increaseGamesWon();
-
-                // This tells the client to refresh the page.
+            } else {
                 return gson.toJson( Message.OPPONENT_RESIGN );
             }
         }
