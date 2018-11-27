@@ -11,9 +11,12 @@ public abstract class User {
         NONE
     }
 
-    public User(String name, Match match, ViewMode viewMode) {
+    public User(String name) {
         this.name = name;
-        this.match = match;
+        this.match = null;
+    }
+
+    public void setViewMode(ViewMode viewMode) {
         this.viewMode = viewMode;
     }
 
@@ -26,6 +29,10 @@ public abstract class User {
 
     public String getName() {
         return name;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
     }
 
     public Match getMatch() {
