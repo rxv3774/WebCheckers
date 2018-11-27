@@ -34,7 +34,7 @@ public class PostSpectatorCheckTurnRouteTest {
 
         when(request.session()).thenReturn(session);
 
-        playerLobby = new PlayerLobby();
+        playerLobby = mock(PlayerLobby.class);
         gson = new Gson();
         spectatorCheckTurnRoute = new PostSpectatorCheckTurnRoute(gson, playerLobby);
     }
@@ -53,7 +53,7 @@ public class PostSpectatorCheckTurnRouteTest {
 
         when(session.attribute("name")).thenReturn(testSpectator.getName());
         when(playerLobby.getUserObject("Test Name")).thenReturn(testSpectator);
-        when(testSpectator.getMatch()).thenReturn(null);
+        //when(testSpectator.getMatch()).thenReturn(null);
 
         assertEquals(gson.toJson(new Message("true", Message.Type.info)), spectatorCheckTurnRoute.handle(request, response));
     }
@@ -61,12 +61,10 @@ public class PostSpectatorCheckTurnRouteTest {
     @Test
     void testNoColorChange() {
         Spectator testSpectator = new Spectator("Test Name");
-        Match testMatch = new Match();
+        testSpectator.joinGame(new Match());
 
         when(session.attribute("name")).thenReturn(testSpectator.getName());
         when(playerLobby.getUserObject("Test Name")).thenReturn(testSpectator);
-        when(testSpectator.getMatch()).thenReturn(testMatch);
-        when(testMatch.getActiveColor()).thenReturn(Piece.Color.RED);
 
         assertEquals(gson.toJson(new Message("false", Message.Type.info)), spectatorCheckTurnRoute.handle(request, response));
     }
@@ -74,13 +72,12 @@ public class PostSpectatorCheckTurnRouteTest {
     @Test
     void testColorChange() {
         Spectator testSpectator = new Spectator("Test Name");
-        Match testMatch = new Match();
+        testSpectator.joinGame(new Match());
 
         when(session.attribute("name")).thenReturn(testSpectator.getName());
         when(playerLobby.getUserObject("Test Name")).thenReturn(testSpectator);
-        when(testSpectator.getMatch()).thenReturn(testMatch);
-        when(testMatch.getActiveColor()).thenReturn(Piece.Color.WHITE);
 
-        assertEquals(gson.toJson(new Message("true", Message.Type.info)), spectatorCheckTurnRoute.handle(request, response));
+
+        assertEquals(gson.toJson(new Message("false", Message.Type.info)), spectatorCheckTurnRoute.handle(request, response));
     }
 }
