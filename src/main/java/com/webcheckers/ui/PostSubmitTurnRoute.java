@@ -52,8 +52,6 @@ public class PostSubmitTurnRoute implements Route {
                     game.changeActivePlayer(); //end turn
 
                     if(game.canPlay() && game.getWhitePlayer().isAI()){
-                        Board board = game.getBoard();
-
                         //Select AI move
                         Move pendingMove = AI.getAIMove(game);
                         game.addPendingMove(pendingMove);
