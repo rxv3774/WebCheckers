@@ -75,7 +75,7 @@ class GetSignOutRouteTest {
 
         getSignOutRoute.handle(request, response);
 
-        assertFalse(playerLobby.playerNameInUse(name));
+        assertFalse(playerLobby.usernameInUse(name));
 
     }
 

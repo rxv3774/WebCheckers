@@ -20,7 +20,7 @@ class PlayerTest {
     @Test
     void test_constructor() {
         final Player player = new Player(TEST_PLAYER_NAME);
-        assertEquals(player.toString(), "{Player: " + TEST_PLAYER_NAME + "}");
+        assertEquals(player.toString(), "{Player{Name: " + TEST_PLAYER_NAME + ", Won: 0, Tied: 0, Lost: 0}");
     }
 
     /**
@@ -115,10 +115,7 @@ class PlayerTest {
         //Test2 p1 is a player
         assertEquals("PLAY", p1.getViewMode());
 
-        //Test3 p3 is a Spectator
-        assertEquals("SPECTATOR", p3.getViewMode());
     }
-
 
     @Test
     public void endGameWorks() {

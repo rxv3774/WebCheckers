@@ -77,7 +77,7 @@ public class PlayerLobbyTest {
     @Test
     void test_getPlayerNamesAsString() {
         playerLobby.addUser(validPlayer);
-        assertEquals(String.format("Number of players signed in: %d", playerLobby.getLobbySize()),
+        assertEquals(String.format("Number of users signed in: %d", playerLobby.getLobbySize()),
                 playerLobby.getUserNamesAsString(VALID_NAME));
         assertEquals(String.format("Other Players signed in: %s", validPlayer.getName()),
                 playerLobby.getUserNamesAsString(INVALID_NAME));
