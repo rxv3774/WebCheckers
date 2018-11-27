@@ -86,7 +86,7 @@ class GetGameRouteTest {
     void playerExistsNoOpponent() {
 
         Player p1 = new Player("Tom");
-        playerLobby.addPlayer(p1);
+        playerLobby.addUser(p1);
 
         //This is for the current Player
         when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
@@ -103,7 +103,7 @@ class GetGameRouteTest {
     void playerExistsOpponentIsPlayer() {
 
         Player p1 = new Player("Tom");
-        playerLobby.addPlayer(p1);
+        playerLobby.addUser(p1);
 
         //This is for the current Player
         when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
@@ -121,9 +121,9 @@ class GetGameRouteTest {
         Player p2 = new Player("Tom Brady");
         Player p3 = new Player("Adam West");
 
-        playerLobby.addPlayer(p1);
-        playerLobby.addPlayer(p2);
-        playerLobby.addPlayer(p3);
+        playerLobby.addUser(p1);
+        playerLobby.addUser(p2);
+        playerLobby.addUser(p3);
 
         gameCenter.createGame(p2, p3);
 
@@ -143,8 +143,8 @@ class GetGameRouteTest {
         Player p1 = new Player("Tom");
         Player p2 = new Player("Tom Brady");
 
-        playerLobby.addPlayer(p1);
-        playerLobby.addPlayer(p2);
+        playerLobby.addUser(p1);
+        playerLobby.addUser(p2);
 
         //This is for the current Player
         when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
@@ -162,8 +162,8 @@ class GetGameRouteTest {
         Player p1 = new Player("Tom");
         Player p2 = new Player("Tom Brady");
 
-        playerLobby.addPlayer(p1);
-        playerLobby.addPlayer(p2);
+        playerLobby.addUser(p1);
+        playerLobby.addUser(p2);
 
         gameCenter.createGame(p1, p2);
 
@@ -189,8 +189,8 @@ class GetGameRouteTest {
     void playerCantPlayTest() {
         Player p1 = new Player("Tom");
         Match match = mock(Match.class);
-        p1.playGame(match);
-        playerLobby.addPlayer(p1);
+        p1.joinGame(match);
+        playerLobby.addUser(p1);
 
         //This is for the current Player
         when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
@@ -206,8 +206,8 @@ class GetGameRouteTest {
     void hasWinnerTest() {
         Player p1 = new Player("Tom");
         Match match = mock(Match.class);
-        p1.playGame(match);
-        playerLobby.addPlayer(p1);
+        p1.joinGame(match);
+        playerLobby.addUser(p1);
 
         //This is for the current Player
         when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());

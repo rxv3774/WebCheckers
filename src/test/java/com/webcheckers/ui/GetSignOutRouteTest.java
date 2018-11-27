@@ -54,13 +54,13 @@ class GetSignOutRouteTest {
     void handlePlayerAtHome() {
         String name = "Billy";
         Player player = new Player(name);
-        playerLobby.addPlayer(player);
+        playerLobby.addUser(player);
 
         when( session.attribute("name")).thenReturn(name);
 
         getSignOutRoute.handle(request, response);
 
-        assertNull(playerLobby.getPlayerObject(name));
+        assertNull(playerLobby.getUserObject(name));
     }
 
     @Test
@@ -68,8 +68,8 @@ class GetSignOutRouteTest {
         String name = "Billy";
         Match match = new Match();
         Player player = new Player(name);
-        player.playGame(match);
-        playerLobby.addPlayer(player);
+        player.joinGame(match);
+        playerLobby.addUser(player);
 
         when(request.session().attribute("name")).thenReturn(name);
 

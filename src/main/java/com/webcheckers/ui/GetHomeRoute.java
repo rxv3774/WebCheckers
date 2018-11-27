@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.model.Player;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.User;
 import spark.*;
 
 import java.util.HashMap;
@@ -61,8 +62,6 @@ public class GetHomeRoute implements Route {
         LOG.finer("GetHomeRoute is invoked.");
 
         final Session session = request.session();
-        session.attribute(WebServer.PLAYER_LOBBY, playerLobby);
-        session.attribute(WebServer.GAME_CENTER, gameCenter);
 
         Map<String, Object> vm = new HashMap<>();
         vm.put(TITLE_ATTR, "Welcome!");
@@ -74,7 +73,7 @@ public class GetHomeRoute implements Route {
 
             if (currentPlayer != null) {
                 vm.put(WebServer.SIGNED_IN, "The current signed in user is: " + currentPlayer);
-                vm.put(WebServer.PLAYER_LIST, playerLobby.getPlayerNamesAsString(currentPlayer));
+                vm.put(WebServer.PLAYER_LIST, playerLobby.getUserNamesAsString(currentPlayer));
             } else {
                 vm.put(WebServer.PLAYER_LIST, "The number of players signed in is: " + playerLobby.getLobbySize());
             }
@@ -88,9 +87,9 @@ public class GetHomeRoute implements Route {
             vm.put(WebServer.SHOW_BUTTON, true);
 
             String currentPlayer = session.attribute(NAME_ATTR);
-            Player player = playerLobby.getPlayerObject(currentPlayer);
+            User user = playerLobby.getUserObject(currentPlayer);
 
-            if (gameCenter.containsPlayer(player)) {
+            if (user instanceof Player && gameCenter.containsPlayer((Player) user)) {
                 response.redirect(WebServer.START_GAME);
                 halt();
             }

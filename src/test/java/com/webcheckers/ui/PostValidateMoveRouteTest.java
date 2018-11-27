@@ -1,15 +1,11 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
-import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.*;
-import javafx.beans.binding.When;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import spark.Request;
 import spark.Response;
 import spark.Session;
@@ -88,7 +84,7 @@ public class PostValidateMoveRouteTest {
     public void handleGameIsNull(){
 
         Player p1 = new Player( "Mr Robot" );
-        playerLobby.addPlayer(p1);
+        playerLobby.addUser(p1);
 
         when( session.attribute( SESSION_NAME_ATTR) ).thenReturn( p1.getName() );
 

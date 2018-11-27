@@ -2,9 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Match;
-import com.webcheckers.model.Message;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import spark.*;
 
 import java.util.HashMap;
@@ -18,6 +16,8 @@ import static spark.Spark.halt;
  * UI controller to post the game
  */
 public class GetGameRoute implements Route {
+    private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
+
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
     private final GameCenter gameCenter;
@@ -25,12 +25,10 @@ public class GetGameRoute implements Route {
     private static final String VIEW_NAME = "game.ftl";
     private static final String ERROR = "error";
 
-    private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
-
     /**
      * The constructor for the {@code Get /game} route handler.
      *
-     * @param playerLobby    {@Link playerLobby} CHANGE ME!!!
+     * @param playerLobby the {@code playerLobby}
      * @param templateEngine template engine to use for rendering HTML page
      * @throws NullPointerException when the {@code gameCenter} or {@code templateEngine} parameter is null
      */
@@ -59,10 +57,10 @@ public class GetGameRoute implements Route {
 
         vm.put("title", "Game!");
 
-        String currentPlayerName = session.attribute("name");
-        Player player = playerLobby.getPlayerObject(currentPlayerName);
+        String currentUserName = session.attribute("name");
+        User user = playerLobby.getUserObject(currentUserName);
 
-        if (player == null) {
+        if (user == null) {
             response.redirect(WebServer.SIGN_IN_URL);
             halt();
             return null;
@@ -71,39 +69,44 @@ public class GetGameRoute implements Route {
         /*
          *Checks if current player isn't apart of a game with a board that's been initialized
          */
-        if (!player.isInGame()) {
+        if (!user.isInGame()) {
 
             String opponentPlayerName = request.queryParams("name");
-            Player opponent = playerLobby.getPlayerObject(opponentPlayerName);
+            User opponent = playerLobby.getUserObject(opponentPlayerName);
 
             if (opponent == null) {
                 request.session().attribute("errorMessage", "Player doesn't exist.");
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
-            if (opponent.equals(player)) {
+            if (opponent.equals(user)) {
                 request.session().attribute("errorMessage", "Must play with player other than yourself.");
                 request.session().attribute("messageType", ERROR);
                 response.redirect(WebServer.HOME_URL);
                 halt();
             }
             if (opponent.isInGame()) {
-                //add code about spectator
-                request.session().attribute("errorMessage", "Player is already in a game.");
-                response.redirect(WebServer.HOME_URL);
+                playerLobby.removeUser(user);
+                user = new Spectator(user.getName());
+                playerLobby.addUser(user);
+                opponent.getMatch().joinSpectator((Spectator) user);
+                response.redirect(WebServer.SPECTATOR_GAME);
+                // TODO: Handle possible error in joining spectator
+//                request.session().attribute("errorMessage", "Player is already in a game.");
+//                response.redirect(WebServer.HOME_URL);
                 halt();
             }
-            gameCenter.createGame(player, opponent);
+            gameCenter.createGame((Player) user, (Player) opponent);
             response.redirect(WebServer.START_GAME);
             halt();
         }
-        Match match = player.getMatch();
+        Match match = user.getMatch();
 
-        vm.put("currentPlayer", player);
+        vm.put("currentPlayer", user);
         vm.put("redPlayer", match.getRedPlayer());
         vm.put("whitePlayer", match.getWhitePlayer());
-        vm.put("isWhitePlayer", match.getWhitePlayer() == player);
-        vm.put("viewMode", player.getViewMode());
+        vm.put("isWhitePlayer", match.getWhitePlayer() == user);
+        vm.put("viewMode", user.getViewMode());
         vm.put("activeColor", match.getActiveColor());
 
         //Board
@@ -113,6 +116,11 @@ public class GetGameRoute implements Route {
             match.declareWinner();
         }
         if (match.hasWinner() && match.isWinner(player)) {
+            if (user instanceof Spectator) {
+                response.redirect(WebServer.HOME_URL);
+                halt();
+                return null;
+            }
             gameCenter.endGame(match);
             vm.put("message", Message.WINNER);
         } else if (!match.isRunning() && gameCenter.containsMatch(match)) {

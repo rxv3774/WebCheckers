@@ -63,9 +63,9 @@ public class Message {
 
 
     /**
-     * The constant BACKUPMOVE
+     * The constant BACKUP_MOVE
      */
-    public static final Message BACKUPMOVE = new Message( "Backup Move requested", Type.info );
+    public static final Message BACKUP_MOVE = new Message( "Backup Move requested", Type.info );
 
 
     /**

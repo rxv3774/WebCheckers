@@ -62,7 +62,7 @@ public class PostBackUpMoveRouteTest {
 
         when( session.attribute( SESSION_NAME_ATTR ) ).thenReturn( NAME );
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( player );
+        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( player );
 
 
         when( player.getMatch() ).thenReturn( match );
@@ -72,7 +72,7 @@ public class PostBackUpMoveRouteTest {
         assertNotNull( CuT.handle( request, response) ) ;
 
         //Test2 This checks to make sure it returns the correct value.
-        assertEquals( gson.toJson(Message.BACKUPMOVE) , CuT.handle( request, response) );
+        assertEquals( gson.toJson(Message.BACKUP_MOVE) , CuT.handle( request, response) );
     }
 
 }

@@ -100,7 +100,7 @@ class GetHomeRouteTest {
 
     @Test
     void test_lobbySizeOneNotSignedIn() {
-        playerLobby.addPlayer(new Player(VALID_NAME_ONE));
+        playerLobby.addUser(new Player(VALID_NAME_ONE));
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
@@ -117,7 +117,7 @@ class GetHomeRouteTest {
     @Test
     void test_lobbySizeOneSignedIn() {
         final Player testPlayer = new Player(VALID_NAME_ONE);
-        playerLobby.addPlayer(testPlayer);
+        playerLobby.addUser(testPlayer);
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
@@ -137,7 +137,7 @@ class GetHomeRouteTest {
         final String errorMsg = "This is an error message";
 
         final Player testPlayer = new Player(VALID_NAME_ONE);
-        playerLobby.addPlayer(testPlayer);
+        playerLobby.addUser(testPlayer);
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
 
@@ -158,8 +158,8 @@ class GetHomeRouteTest {
     void test_lobbySizeMoreThanOneNoGame() {
         final Player testPlayer1 = new Player(VALID_NAME_ONE);
         final Player testPlayer2 = new Player(VALID_NAME_TWO);
-        playerLobby.addPlayer(testPlayer1);
-        playerLobby.addPlayer(testPlayer2);
+        playerLobby.addUser(testPlayer1);
+        playerLobby.addUser(testPlayer2);
 
         final TemplateEngineTest testHelper = new TemplateEngineTest();
 
@@ -180,8 +180,8 @@ class GetHomeRouteTest {
     public void gameCenterContainsPlayer(){
         final Player testPlayer1 = new Player(VALID_NAME_ONE);
         final Player testPlayer2 = new Player(VALID_NAME_TWO);
-        playerLobby.addPlayer(testPlayer1);
-        playerLobby.addPlayer(testPlayer2);
+        playerLobby.addUser(testPlayer1);
+        playerLobby.addUser(testPlayer2);
 
         gameCenter.createGame( testPlayer1, testPlayer2);
 
