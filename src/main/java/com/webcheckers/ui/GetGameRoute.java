@@ -57,8 +57,8 @@ public class GetGameRoute implements Route {
 
         vm.put("title", "Game!");
 
-        String currentPlayerName = session.attribute("name");
-        User user = playerLobby.getUserObject(currentPlayerName);
+        String currentUserName = session.attribute("name");
+        User user = playerLobby.getUserObject(currentUserName);
 
         if (user == null) {
             response.redirect(WebServer.SIGN_IN_URL);
