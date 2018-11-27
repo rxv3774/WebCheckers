@@ -2,6 +2,7 @@ package com.webcheckers.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Board implements Iterable<Row> {
@@ -119,7 +120,7 @@ public class Board implements Iterable<Row> {
                 }
             }
         }
-        if(this.isJumpAvailable(color)){
+        if(this.isJumpAvailable(moves)){
             moves.removeIf(m -> !m.isJumpMove());
         }
         return moves;
@@ -127,12 +128,12 @@ public class Board implements Iterable<Row> {
 
     /**
      * Is jump availible.
-     * @param color the color
+     * @param moves: possible, valid moves
      * @return true if color player has a jump availible
      */
-    public boolean isJumpAvailable(Piece.Color color){
-        for(Row row : board){
-            if(row.hasPossibleJumpMove(color, this)){
+    public boolean isJumpAvailable(List<Move> moves){
+        for(Move move: moves){
+            if(move.isJumpMove()){
                 return true;
             }
         }

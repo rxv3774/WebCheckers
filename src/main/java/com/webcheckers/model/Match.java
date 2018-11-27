@@ -180,6 +180,12 @@ public class Match {
             return false;
     }
 
+    public Move chooseAISecondJump() {
+        Position end = pendingMove.getEnd();
+        Space space = board.getSpace(end);
+        return space.AIChooseSecondJump(getActiveColor(), board, pendingMove);
+    }
+
     /**
      * end game and set the winner to the player whose turn it is not.
      */

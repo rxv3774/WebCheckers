@@ -3,9 +3,7 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.AI;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Match;
-import com.webcheckers.model.Message;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -54,7 +52,17 @@ public class PostSubmitTurnRoute implements Route {
                     game.changeActivePlayer(); //end turn
 
                     if(game.canPlay() && game.getWhitePlayer().isAI()){
-                        game.addPendingMove(AI.getAIMove(game));
+                        Board board = game.getBoard();
+
+                        //Select AI move
+                        Move pendingMove = AI.getAIMove(game);
+                        game.addPendingMove(pendingMove);
+
+                        //checking for double jump move
+                        if(game.doubleJumpAvailable()){
+                            Move secondMove = game.chooseAISecondJump();
+                            game.addPendingMove(secondMove);
+                        }
                         game.doPendingMoves();
                         game.changeActivePlayer();
                         if(!game.canPlay()) {

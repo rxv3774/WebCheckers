@@ -56,21 +56,6 @@ public class Row implements Iterable<Space> {
     }
 
     /**
-     * checks the color's pieces in each space to see if it has a possible jump move
-     *
-     * @param color: active color
-     * @param board: board with all the pieces
-     * @return true if a piece has a possible move
-     */
-    public boolean hasPossibleJumpMove(Piece.Color color, Board board) {
-        for (Space space : row) {
-            if (space.hasPossibleJumpMove(color, board))
-                return true;
-        }
-        return false;
-    }
-
-    /**
      * Deep copy row.
      * @return deepcopy of the row
      */

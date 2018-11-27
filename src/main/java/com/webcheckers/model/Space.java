@@ -176,15 +176,6 @@ public class Space {
         return null;
     }
 
-    public boolean hasPossibleJumpMove(Piece.Color color, Board board){
-        List<Move> moves = getPossibleMoves(color, board);
-        for (Move move : moves) {
-            if (move.isJumpMove())
-                return true;
-        }
-        return false;
-    }
-
     /**
      * helper method for getting possible moves, checks if moves are valid
      *
@@ -203,10 +194,11 @@ public class Space {
     }
 
     /**
-     * Checks to see if there is a valid jump move available, used to check for required double jump
+     * Checks to see if there is a valid second jump move available, used to check for required double jump
      *
      * @param color: color of the current player
      * @param board: board with all of the pieces
+     * @param pendingMove: first move in double jump
      * @return true if there is a jump available
      */
     public boolean hasSecondJumpAvailable(Piece.Color color, Board board, Move pendingMove) {
@@ -240,6 +232,67 @@ public class Space {
     }
 
     /**
+     * Choose a Second Jump for the AI, used to check for required double jump
+     *
+     * @param color: color of the current player
+     * @param board: board with all of the pieces
+     * @param pendingMove: first move in double jump
+     * @return true if there is a jump available
+     */
+    public Move AIChooseSecondJump(Piece.Color color, Board board, Move pendingMove) {
+        Position start = new Position(rowIdx, cellIdx);
+        Move jumpUR, jumpUL, jumpDR, jumpDL; // similar to previous method however, only need to check for jumps.
+        if (color == Piece.Color.WHITE) {
+            jumpUR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
+            jumpUL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
+            if (pendingMove.isKingMove(board)) {
+                jumpDR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
+                jumpDL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
+                List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
+                return AISecondJumpHelper(moves, board, false, pendingMove);
+            } else {
+                List<Move> moves = Arrays.asList(jumpUR, jumpUL);
+                return AISecondJumpHelper(moves, board, false, pendingMove);
+            }
+        } else {
+            jumpUR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
+            jumpUL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
+            if (pendingMove.isKingMove(board)) {
+                jumpDR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
+                jumpDL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
+                List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
+                return AISecondJumpHelper(moves, board, true, pendingMove);
+            } else {
+                List<Move> moves = Arrays.asList(jumpUR, jumpUL);
+                return AISecondJumpHelper(moves, board, true, pendingMove);
+            }
+        }
+    }
+
+    /**
+     * helper method for getting second jump move for AI, checks if moves are valid
+     *
+     * @param moves: list of possible moves to check
+     * @param board: board with all the pieces
+     * @param isRed: if the moved piece is red
+     * @param pendingMove: first move in double jump
+     * @return true if any of the moves are valid
+     */
+    public Move AISecondJumpHelper(List<Move> moves, Board board, boolean isRed, Move pendingMove) {
+        List<Move> validMoves = new ArrayList<>();
+        for (Move move : moves) {
+            if (move.isValidSecondMove(board, isRed, pendingMove))
+                validMoves.add(move);
+        }
+
+        if(validMoves.size() > 1){
+            int random = (int)(Math.random() * validMoves.size());
+            return validMoves.get(random);
+        }
+        return validMoves.get(0);
+    }
+
+    /**
      * helper method for possible moves, checks if moves are valid
      *
      * @param moves: list of possible moves to check
@@ -261,6 +314,7 @@ public class Space {
      * @param moves: list of possible moves to check
      * @param board: board with all the pieces
      * @param isRed: if the moved piece is red
+     * @param pendingMove: first move for Double Jump
      * @return true if any of the moves are valid
      */
     public boolean possibleSecondJumpHelper(List<Move> moves, Board board, boolean isRed, Move pendingMove) {
