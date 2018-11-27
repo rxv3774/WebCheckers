@@ -110,6 +110,13 @@ public class Match {
             this.DJsecondPendingMove = move;
     }
 
+    public void removePendingMove(){
+        if(DJsecondPendingMove != null)
+            DJsecondPendingMove = null;
+        else
+            pendingMove = null;
+    }
+
     /**
      * Do pending moves.
      */

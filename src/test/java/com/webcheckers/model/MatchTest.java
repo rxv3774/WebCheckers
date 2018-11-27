@@ -22,6 +22,9 @@ public class MatchTest {
     private TemplateEngine engine;
     private Match match;
 
+    private Move pendingMove, DJsecondPendingMove;
+    private boolean running;
+
 
     @BeforeEach
     void setup() {
@@ -57,6 +60,127 @@ public class MatchTest {
 
         //Test4 the player is null, should be false
         assertFalse(match.join(nullPlayer));
+    }
+
+    @Test
+    void addPendingMoveWorks() {
+        Match match = new Match();
+
+        assertFalse(match.hasPendingMoves());
+
+        Move move1 = new Move(new Position(0,0), new Position(1,1));
+        match.addPendingMove(move1);
+
+        assertTrue(match.hasPendingMoves());
+
+        Move move2 = new Move(new Position(1,1), new Position(2,2));
+        match.addPendingMove(move2);
+
+        assertTrue(match.hasPendingDJMoves());
+    }
+
+    @Test
+    void removePendingMoveWorks() {
+        Match match = new Match();
+
+        Move move1 = new Move(new Position(0,0), new Position(1,1));
+        Move move2 = new Move(new Position(1,1), new Position(2,2));
+        match.addPendingMove(move1);
+        match.addPendingMove(move2);
+
+        assertTrue(match.hasPendingDJMoves());
+        assertTrue(match.hasPendingMoves());
+
+        match.removePendingMove();
+
+        assertFalse(match.hasPendingDJMoves());
+
+        match.removePendingMove();
+
+        assertFalse(match.hasPendingMoves());
+    }
+
+    @Test
+    void doubleJumpAvailableWorks() {
+        Match match = new Match();
+
+        Move move1 = new Move(new Position(0,0), new Position(1,1));
+        match.addPendingMove(move1);
+
+        assertFalse(match.doubleJumpAvailable());
+    }
+
+    @Test
+    void doPendingMovesTest(){
+        Match match = new Match();
+        match.getBoard().initialize(Piece.Color.RED);
+
+        Move move1 = new Move(new Position(2,3), new Position(3,4));
+        match.addPendingMove(move1);
+        match.doPendingMoves();
+
+        assertTrue(match.getBoard().spaceHasPiece(new Position(3, 4)));
+
+        Move move2 = new Move(new Position(2,1), new Position(3,0));
+        Move move3 = new Move(new Position(3,0), new Position(4,1));
+        match.addPendingMove(move2);
+        match.addPendingMove(move3);
+        match.doPendingMoves();
+
+        assertTrue(match.getBoard().spaceHasPiece(new Position(4, 1)));
+    }
+
+    @Test
+    void canPlayTest() {
+        Match match = new Match();
+        match.getBoard().initialize(Piece.Color.RED);
+
+        assertTrue(match.canPlay());
+    }
+
+    @Test
+    void declareWinnerTest(){
+        Match match = new Match();
+        Player red = new Player("redBoi");
+        Player white = new Player("whiteBoi");
+        match.join(red);
+        match.join(white);
+
+        match.start();
+        match.declareWinner();
+
+        assertTrue(match.isWinner(white));
+
+        match.start();
+        match.changeActivePlayer();
+        match.declareWinner();
+
+        assertTrue(match.isWinner(red));
+
+    }
+
+    @Test
+    void hasWinnerTest() {
+        Match match = new Match();
+        Player red = new Player("redBoi");
+        Player white = new Player("whiteBoi");
+        match.join(red);
+        match.join(white);
+
+        match.start();
+        match.declareWinner();
+
+        assertTrue(match.hasWinner());
+
+    }
+
+    @Test
+    void doPlayersMatchTest() {
+        Match match = new Match();
+        Player red = new Player("redBoi");
+        Player white = new Player("whiteBoi");
+
+        assertFalse(match.doPlayersMatch(red, white));
     }
 
     @Test

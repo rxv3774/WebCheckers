@@ -68,13 +68,6 @@ public class PostValidateMoveRoute implements Route {
 //            boolean redPlayer = game.getRedPlayer().equals(player);
             boolean redPlayer = game.doPlayersMatch(game.getRedPlayer(), player);
 
-            System.out.println("one");
-            System.out.println(!game.hasPendingMoves());
-            System.out.println("two");
-
-
-            System.out.println(move.isValid(board, redPlayer));
-
             if (!game.hasPendingMoves() && move.isValid(board, redPlayer)) { //single move or single jump
                 game.addPendingMove(move);
                 return gson.toJson(Message.VALID_MOVE);
