@@ -60,12 +60,10 @@ public class PostValidateMoveRoute implements Route {
 
             if (game == null) {
                 return gson.toJson(Message.ERR_NO_OPPONENT);
-//                return gson.toJson(Message.TRUE );
             }
 
             Move move = moveFromJson(request.body());
             Board board = game.getBoard();
-//            boolean redPlayer = game.getRedPlayer().equals(player);
             boolean redPlayer = game.doPlayersMatch(game.getRedPlayer(), player);
 
             if (!game.hasPendingMoves() && move.isValid(board, redPlayer)) { //single move or single jump

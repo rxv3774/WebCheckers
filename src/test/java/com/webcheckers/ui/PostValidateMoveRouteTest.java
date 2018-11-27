@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.*;
+import javafx.beans.binding.When;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ public class PostValidateMoveRouteTest {
     void setup() {
 
         gson = new Gson();
-        playerLobby = mock( PlayerLobby.class );
+        playerLobby = new PlayerLobby();
         board = mock( Board.class );
 
         move = mock( Move.class );
@@ -75,10 +76,6 @@ public class PostValidateMoveRouteTest {
 
     @Test
     public void handlePlayerIsNull(){
-
-        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when( playerLobby.getPlayerObject(currentPlayerName) ).thenReturn( null );
-
         //Test1 makes sure response isn't null
         assertNotNull( CuT.handle(request, response) );
 
@@ -91,10 +88,9 @@ public class PostValidateMoveRouteTest {
     public void handleGameIsNull(){
 
         Player p1 = new Player( "Mr Robot" );
+        playerLobby.addPlayer(p1);
 
         when( session.attribute( SESSION_NAME_ATTR) ).thenReturn( p1.getName() );
-        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when( playerLobby.getPlayerObject(currentPlayerName) ).thenReturn( p1 );
 
         //Test1 makes sure response isn't null
         assertNotNull( CuT.handle(request, response) );
@@ -106,56 +102,32 @@ public class PostValidateMoveRouteTest {
     @Test
     public void handleRegMove(){
 
-        Player player = mock( Player.class );
-//        Player p1 = new Player( "DeadPool" );
-//        Player p2 = new Player( "Bob" );
-        Player p2 = mock( Player.class );
-
-
-        final String p1Name = "DeadPool";
-        final String p2Name = "Bob";
-
-        when( session.attribute( SESSION_NAME_ATTR) ).thenReturn( p1Name );
-        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when( playerLobby.getPlayerObject(currentPlayerName) ).thenReturn( player );
-
-        Match game = mock( Match.class );
-
-        when( player.getMatch() ).thenReturn( game );
-
-        when( request.body() ).thenReturn( JSON_STRING );
-//        when( CuT.moveFromJson(request.body() )).thenReturn( JSON_STRING );
-
-//        doReturn(answer).when(mockedObject).methodToMock(param1, param2);
-//        doReturn( move ).when( mock( PostValidateMoveRoute.class ) ).moveFromJson( request.body() );
-
-//        when( mock( PostValidateMoveRoute.class ).moveFromJson( request.body() ) ).thenReturn( move );
-
-
-        when( game.getBoard() ).thenReturn( board );
-
-
-
-//        when( game.getRedPlayer() ).thenReturn( player );
-        when( game.doPlayersMatch( game.getRedPlayer(), player) ).thenReturn( true );
-        when( !game.hasPendingMoves() ).thenReturn( false );
-
-        boolean redPlayer = true;
-        when( move.isValid( board, redPlayer ) ).thenReturn( true );
-
-
-//        System.out.println("one");
-//        System.out.println( !game.hasPendingMoves() );
-//        System.out.println("two");
-//        System.out.println( move.isValid(board, redPlayer));
-
-
-
-        //Test1 makes sure response isn't null
-//        assertNotNull( CuT.handle(request, response) );
-
-        //Test2 makes sure returned value is what we expected
-//        assertEquals( gson.toJson(Message.VALID_MOVE), CuT.handle(request, response ) );
+//        final String p1Name = "DeadPool";
+//
+//        Player player1 = mock(Player.class);
+//
+//        PlayerLobby playerLobby1 = mock(PlayerLobby.class);
+//
+//        when( session.attribute( SESSION_NAME_ATTR) ).thenReturn( p1Name );
+//        when( playerLobby1.getPlayerObject( p1Name ) ).thenReturn( player1 );
+//
+//
+//        Match match = mock(Match.class);
+//
+//        when ( player1.getMatch() ).thenReturn(match);
+//
+//        when( match.getBoard() ).thenReturn(board);
+//        when( match.getRedPlayer() ).thenReturn(player1);
+//
+//        boolean redPlayer = true;
+//        when( match.doPlayersMatch( player1, player1) ).thenReturn(redPlayer);
+//
+//        when( match.hasPendingMoves() ).thenReturn(false);
+//
+//        when( move.isValid(board, redPlayer) ).thenReturn(true);
+//
+//        CuT.handle(request, response);
+//        assertNotNull(match);
     }
 
 
