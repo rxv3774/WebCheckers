@@ -288,8 +288,10 @@ public class Space {
         if (validMoves.size() > 1) {
             int random = (int) (Math.random() * validMoves.size());
             return validMoves.get(random);
-        }
-        return validMoves.get(0);
+        } else if (validMoves.size() == 1)
+            return validMoves.get(0);
+        else
+            return null;
     }
 
     /**

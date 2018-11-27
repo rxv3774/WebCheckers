@@ -424,7 +424,17 @@ class SpaceTest {
     }
 
     @Test
-    void AIChooseSecondJumpWorks() {}
+    void AIChooseSecondJumpWorks() {
+        final Board board = new Board();
+        board.initialize(Piece.Color.RED);
+        board.initialize(Piece.Color.WHITE);
+
+        Space redSpace = board.getSpace(new Position(2, 1)); //red
+        Space whiteSpace = board.getSpace(new Position(5, 2)); //white
+
+        Move pendingMove = new Move(new Position(2, 1), new Position(4, 3));
+        assertTrue(redSpace.AIChooseSecondJump(Piece.Color.RED, board, pendingMove) instanceof Move);
+    }
 
 
     @Test
