@@ -131,32 +131,32 @@ public class Space {
      * @param board: board with all of the pieces
      * @return true if there is a jump available
      */
-    public boolean hasSecondJumpAvailable(Piece.Color color, Board board, boolean isKingPiece) {
+    public boolean hasSecondJumpAvailable(Piece.Color color, Board board, Move pendingMove) {
         Position start = new Position(rowIdx, cellIdx);
         Move jumpUR, jumpUL, jumpDR, jumpDL; // similar to previous method however, only need to check for jumps.
         if (color == Piece.Color.WHITE) {
             jumpUR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
             jumpUL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
-            if (isKingPiece) {
+            if (pendingMove.isKingMove(board)) {
                 jumpDR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
                 jumpDL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
                 List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
-                return possibleMovesHelper(moves, board, false);
+                return possibleSecondJumpHelper(moves, board, false, pendingMove);
             } else {
                 List<Move> moves = Arrays.asList(jumpUR, jumpUL);
-                return possibleMovesHelper(moves, board, false);
+                return possibleSecondJumpHelper(moves, board, false, pendingMove);
             }
         } else {
             jumpUR = new Move(start, new Position(rowIdx + 2, cellIdx + 2));
             jumpUL = new Move(start, new Position(rowIdx + 2, cellIdx - 2));
-            if (isKingPiece) {
+            if (pendingMove.isKingMove(board)) {
                 jumpDR = new Move(start, new Position(rowIdx - 2, cellIdx + 2));
                 jumpDL = new Move(start, new Position(rowIdx - 2, cellIdx - 2));
                 List<Move> moves = Arrays.asList(jumpUR, jumpUL, jumpDR, jumpDL);
-                return possibleMovesHelper(moves, board, true);
+                return possibleSecondJumpHelper(moves, board, true, pendingMove);
             } else {
                 List<Move> moves = Arrays.asList(jumpUR, jumpUL);
-                return possibleMovesHelper(moves, board, true);
+                return possibleSecondJumpHelper(moves, board, true, pendingMove);
             }
         }
     }
@@ -172,6 +172,22 @@ public class Space {
     public boolean possibleMovesHelper(List<Move> moves, Board board, boolean isRed) {
         for (Move move : moves) {
             if (move.isValid(board, isRed))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * helper method for possible second jump move, checks if moves are valid
+     *
+     * @param moves: list of possible moves to check
+     * @param board: board with all the pieces
+     * @param isRed: if the moved piece is red
+     * @return true if any of the moves are valid
+     */
+    public boolean possibleSecondJumpHelper(List<Move> moves, Board board, boolean isRed, Move pendingMove) {
+        for (Move move : moves) {
+            if (move.isValidSecondMove(board, isRed, pendingMove))
                 return true;
         }
         return false;
