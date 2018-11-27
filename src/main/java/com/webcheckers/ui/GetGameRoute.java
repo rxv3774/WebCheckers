@@ -91,9 +91,7 @@ public class GetGameRoute implements Route {
                 playerLobby.addUser(user);
                 opponent.getMatch().joinSpectator((Spectator) user);
                 response.redirect(WebServer.SPECTATOR_GAME);
-                // TODO: Handle possible error in joining spectator
-//                request.session().attribute("errorMessage", "Player is already in a game.");
-//                response.redirect(WebServer.HOME_URL);
+
                 halt();
             }
             gameCenter.createGame((Player) user, (Player) opponent);

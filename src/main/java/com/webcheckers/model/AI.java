@@ -1,10 +1,5 @@
 package com.webcheckers.model;
 
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Match;
-import com.webcheckers.model.Move;
-import com.webcheckers.model.Player;
-
 import java.util.List;
 import java.util.Random;
 
@@ -13,8 +8,9 @@ public class AI {
     private static Random random = new Random();
 
     /**
-     * Gets ai move.
-     * Simulates 10000+ 15 moves and check which initial move is the best.
+     * Gets ai move. selects random from provided possible, valid moves
+     *  getPossibleMoves method will only send the jump moves if there are any available, prioritizing
+     *  them about regular moves.
      *
      * @param match the match
      * @return the ai move

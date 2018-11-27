@@ -184,9 +184,9 @@ public class Board implements Iterable<Row> {
         Space space = this.getSpace(position);
         if (space.hasPiece()) {
             if (isRedPlayer) {
-                return (space.getPieceColor() == Piece.Color.WHITE);
+                return (space.pieceColorMatch(Piece.Color.WHITE));
             } else {
-                return (space.getPieceColor() == Piece.Color.RED);
+                return (space.pieceColorMatch(Piece.Color.RED));
             }
         } else
             return false;
@@ -198,35 +198,22 @@ public class Board implements Iterable<Row> {
      * @param position: coordinates of desired space
      * @return removed piece
      */
-    public Piece removePieceAtPosition(Position position) {
+    public void removePieceAtPosition(Position position) {
         Space space = this.getSpace(position);
-        return space.removePiece();
+        space.removePiece();
     }
 
+    /**
+     * Strictly for unit testing
+     * @return size of rows array
+     */
     public int getRowsSize() {
         return board.length;
     }
 
-    /**
-     * Get white player piece advantage int.
-     *
-     * @return white pieces - red pieces
-     */
-    public int getWhitePlayerPieceAdvantage() {
-        int c = 0;
-        for (Row row : board) {
-            for (Space sp : row) {
-                if (sp.hasPiece()) {
-                    int pieceVal = sp.getPieceType() == Piece.Type.KING ? 2 : 1;
-                    c += sp.getPieceColor() == Piece.Color.WHITE ? pieceVal : -pieceVal;
-                }
-            }
-        }
-        return c;
-    }
 
     /**
-     * Deep copy game board.
+     * Deep copy game board, used for AI.
      *
      * @return a deep copy of the game board
      */

@@ -9,6 +9,10 @@ public class Row implements Iterable<Space> {
     private int index, current;
     private Space row[];
 
+    /**
+     * Row object of eight spaces
+     * @param index: index of current row, within the boundaries of the board
+     */
     public Row(int index) {
         if (index < 0 || index > 7) {
             throw new IllegalArgumentException();
@@ -22,8 +26,7 @@ public class Row implements Iterable<Space> {
     }
 
     /**
-     * Initialize.
-     * Initialize spaces.
+     * Initialize spaces in the current row object
      */
     public void initialize() {
         for (Space space : row) {
@@ -56,7 +59,7 @@ public class Row implements Iterable<Space> {
     }
 
     /**
-     * Deep copy row.
+     * Deep copy row, used for AI.
      *
      * @return deepcopy of the row
      */

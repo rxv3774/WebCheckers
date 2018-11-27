@@ -1,14 +1,14 @@
 package com.webcheckers.model;
 
 /**
- * Player class, extends User
+ * Player class, extends User. This class includes framework for tournament play, in the case we want to implement a third enhancement.
  */
 public class Player extends User {
     private int gamesWon;
     private int gamesTied;
     private int gamesLost;
 
-    boolean isAI;
+    private boolean isAI;
 
     /**
      * Player constructor
@@ -18,10 +18,6 @@ public class Player extends User {
     public Player(String name) {
         super(name, ViewMode.PLAYER);
         this.isAI = false;
-
-        gamesWon = 0;
-        gamesTied = 0;
-        gamesLost = 0;
     }
 
     public Player(String name, boolean isAI) {

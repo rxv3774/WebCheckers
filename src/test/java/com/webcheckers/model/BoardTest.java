@@ -119,6 +119,15 @@ class BoardTest {
     }
 
     @Test
+    void getPossibleMovesWorks() {
+        Board board = new Board();
+        board.initialize(Piece.Color.RED);
+        board.initialize(Piece.Color.WHITE);
+
+        assertNotNull(board.getPossibleMoves(Piece.Color.RED));
+    }
+
+    @Test
     public void getSpaceWorks() {
         Board board = new Board();
 

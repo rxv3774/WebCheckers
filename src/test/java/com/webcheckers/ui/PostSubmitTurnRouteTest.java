@@ -92,4 +92,5 @@ class PostSubmitTurnRouteTest {
         assertEquals(gson.toJson(Message.MOVE_SUBMITTED), postSubmitTurnRoute.handle(request, response));
 
     }
+
 }

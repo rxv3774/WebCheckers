@@ -183,12 +183,20 @@ public class Match {
             return false;
     }
 
+    /**
+     * use the method in Space to choose a second jump, if available, for the AI
+     * @return a move object, if a second jump is possible, null otherwise
+     */
     public Move chooseAISecondJump() {
         Position end = pendingMove.getEnd();
         Space space = board.getSpace(end);
         return space.AIChooseSecondJump(getActiveColor(), board, pendingMove);
     }
 
+    /**
+     * use the descending connection to create a list of possible moves, used for AI
+     * @return List of valid moves
+     */
     public List<Move> getPossibleMoves() {
         return board.getPossibleMoves(getActiveColor());
     }

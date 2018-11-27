@@ -9,12 +9,23 @@ public class Space {
     private int cellIdx, rowIdx;
     private Piece piece;
 
+    /**
+     * normal definition of space object
+     * @param rowIdx: row index
+     * @param cellIdx: column index
+     */
     public Space(int rowIdx, int cellIdx) {
         this.cellIdx = cellIdx;
         this.rowIdx = rowIdx;
         this.piece = null;
     }
 
+    /**
+     * Spaxe object for creating specific board layouts
+     * @param cellIdx: column index
+     * @param rowIdx: row index
+     * @param piece: Piece object that starts on this space
+     */
     public Space(int cellIdx, int rowIdx, Piece piece) {
         this.cellIdx = cellIdx;
         this.rowIdx = rowIdx;
@@ -342,6 +353,10 @@ public class Space {
         }
     }
 
+    /**
+     * get the Type of piece at this space object
+     * @return the piece type, if the space object has a piece, null otherwise
+     */
     public Piece.Type getPieceType() {
         if (this.hasPiece())
             return this.piece.getType();
@@ -373,6 +388,10 @@ public class Space {
         return (this.rowIdx == 0 || this.rowIdx == 7);
     }
 
+    /**
+     * checks if the current space has a king piece
+     * @return true is current space has a king piece
+     */
     public boolean hasKingPiece() {
         if (this.hasPiece())
             return piece.isKing();

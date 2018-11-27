@@ -433,7 +433,25 @@ class SpaceTest {
         Space whiteSpace = board.getSpace(new Position(5, 2)); //white
 
         Move pendingMove = new Move(new Position(2, 1), new Position(4, 3));
-        assertTrue(redSpace.AIChooseSecondJump(Piece.Color.RED, board, pendingMove) instanceof Move);
+        assertFalse(redSpace.AIChooseSecondJump(Piece.Color.RED, board, pendingMove) instanceof Move);
+
+        Move pendingMove2 = new Move(new Position(5, 2), new Position(3, 0));
+        assertFalse(whiteSpace.AIChooseSecondJump(Piece.Color.WHITE, board, pendingMove2) instanceof Move);
+
+        redSpace.getPiece().makeKing();
+        Move pendingMove3 = new Move(new Position(2, 1), new Position(4, 3));
+        assertFalse(redSpace.AIChooseSecondJump(Piece.Color.RED, board, pendingMove) instanceof Move);
+
+        whiteSpace.getPiece().makeKing();
+        Move pendingMove4 = new Move(new Position(5, 2), new Position(3, 0));
+        assertFalse(whiteSpace.AIChooseSecondJump(Piece.Color.WHITE, board, pendingMove2) instanceof Move);
+    }
+
+    @Test
+    void getPieceTypeWorks() {
+        Space space1 = new Space(0, 0, new Piece(Piece.Type.KING, Piece.Color.RED));
+        assertNotNull(space1.getPieceType());
+        assertNull(space.getPieceType());
     }
 
 
