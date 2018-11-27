@@ -66,8 +66,8 @@ public class MoveTest {
 
     @Test
     void testIsKingMove() {
-        assertTrue(kingMove.isKingMove(board));
-        assertTrue(singleMove.isKingMove(board));
+        assertFalse(kingMove.isKingMove(board));
+        assertFalse(singleMove.isKingMove(board));
 
         /*
         This assert should fail, it doesn't

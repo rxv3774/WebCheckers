@@ -26,9 +26,6 @@ public class GetHomeRoute implements Route {
     private static final String NAME_ATTR = "name";
     private static final String ERROR_ATTR = "errorMessage";
 
-    private static final String REDIRECT = "REDIRECT";
-    private static final String NO_REDIRECT = "NO REDIRECT";
-
 //    private static final String VIEW_NAME = "home.ftl";
 
     private final TemplateEngine templateEngine;
@@ -94,12 +91,8 @@ public class GetHomeRoute implements Route {
             Player player = playerLobby.getPlayerObject(currentPlayer);
 
             if (gameCenter.containsPlayer(player)) {
-                System.out.println(REDIRECT);
-
                 response.redirect(WebServer.START_GAME);
                 halt();
-            } else {
-                System.out.println(NO_REDIRECT);
             }
         } else {
             vm.put(WebServer.SHOW_BUTTON, false);
