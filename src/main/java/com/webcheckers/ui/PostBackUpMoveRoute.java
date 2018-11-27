@@ -5,7 +5,6 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Message;
-import com.webcheckers.model.Player;
 import com.webcheckers.model.User;
 import spark.Request;
 import spark.Response;
@@ -60,7 +59,7 @@ public class PostBackUpMoveRoute implements Route {
 
         match.removePendingMove();
 
-        return gson.toJson( Message.BACKUPMOVE );
+        return gson.toJson( Message.BACKUP_MOVE);
     }
 
 }

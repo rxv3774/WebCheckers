@@ -65,8 +65,6 @@ public class GetHomeRoute implements Route {
         LOG.finer("GetHomeRoute is invoked.");
 
         final Session session = request.session();
-        session.attribute(WebServer.PLAYER_LOBBY, playerLobby);
-        session.attribute(WebServer.GAME_CENTER, gameCenter);
 
         Map<String, Object> vm = new HashMap<>();
         vm.put(TITLE_ATTR, "Welcome!");

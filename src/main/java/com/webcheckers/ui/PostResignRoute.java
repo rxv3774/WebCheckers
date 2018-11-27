@@ -53,7 +53,6 @@ public class PostResignRoute implements Route {
 
         final Session session = request.session();
 
-
         String currentPlayerName = session.attribute(SESSION_NAME_ATTR);
         Player player = (Player) playerLobby.getUserObject(currentPlayerName);
 

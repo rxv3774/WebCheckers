@@ -174,6 +174,8 @@ public class WebServer {
         // Sends the spectator to the game
         get(SPECTATOR_GAME, new GetSpectatorGameRoute(playerLobby, templateEngine));
 
+        get(SPECTATOR_STOP_WATCHING, new GetSpectatorStopWatchingRoute(playerLobby, templateEngine));
+
         // Sends the player name to the player lobby
         post(SIGN_IN_URL, new PostSignInRoute(playerLobby, templateEngine));
 
@@ -187,10 +189,12 @@ public class WebServer {
         post(CHECK_TURN, new PostCheckTurnRoute(gson, playerLobby));
 
         // This handles the resignation request of a player
-        post( RESIGN, new PostResignRoute( playerLobby, gameCenter, gson) );
+        post(RESIGN, new PostResignRoute(playerLobby, gameCenter, gson));
 
         //This handles the undo move request.
-        post(BACKUP_MOVE, new PostBackUpMoveRoute( gson, gameCenter, playerLobby) );
+        post(BACKUP_MOVE, new PostBackUpMoveRoute(gson, gameCenter, playerLobby));
+
+        post(SPECTATOR_CHECK_TURN, new PostSpectatorCheckTurnRoute(gson, playerLobby));
 
         LOG.config("WebServer is initialized.");
     }

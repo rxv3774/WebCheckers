@@ -14,8 +14,9 @@ import java.util.logging.Logger;
 import static spark.Spark.halt;
 
 public class GetSignOutRoute implements Route {
-
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
+
+    private static final String NAME_ATTR = "name";
 
     private final PlayerLobby playerLobby;
     private final GameCenter gameCenter;
@@ -34,10 +35,8 @@ public class GetSignOutRoute implements Route {
         LOG.config("GetSignOutRoute is invoked.");
 
         final Session session = request.session();
-        final Map<String, Object> vm = new HashMap<>();
 
-
-        String currentPlayerName = session.attribute("name");
+        String currentPlayerName = session.attribute(NAME_ATTR);
         User currentUser = playerLobby.getUserObject( currentPlayerName );
 
         if(currentUser != null) {
@@ -46,7 +45,7 @@ public class GetSignOutRoute implements Route {
                 currentUser.endGame();
             }
             playerLobby.signOut(currentUser);
-            session.removeAttribute("name");
+            session.removeAttribute(NAME_ATTR);
         }
         response.redirect(WebServer.HOME_URL);
         return null;

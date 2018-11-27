@@ -72,7 +72,7 @@ public class PostBackUpMoveRouteTest {
         assertNotNull( CuT.handle( request, response) ) ;
 
         //Test2 This checks to make sure it returns the correct value.
-        assertEquals( gson.toJson(Message.BACKUPMOVE) , CuT.handle( request, response) );
+        assertEquals( gson.toJson(Message.BACKUP_MOVE) , CuT.handle( request, response) );
     }
 
 }

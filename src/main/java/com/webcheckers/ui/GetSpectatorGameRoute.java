@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import static spark.Spark.halt;
 
 public class GetSpectatorGameRoute implements Route {
-    private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
+    private static final Logger LOG = Logger.getLogger(GetSpectatorGameRoute.class.getName());
     private static final String VIEW_NAME = "game.ftl";
 
     private static final String TITLE_ATTR = "title";
@@ -44,6 +44,8 @@ public class GetSpectatorGameRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
+        LOG.finer("GetSpectatorGameRoute is invoked.");
+
         final Map<String, Object> vm = new HashMap<>();
         final Session session = request.session();
 
@@ -67,8 +69,6 @@ public class GetSpectatorGameRoute implements Route {
         vm.put(VIEW_MODE_ATTR, spectator.getViewMode());
         vm.put(ACTIVE_COLOR_ATTR, match.getActiveColor());
         vm.put(BOARD_ATTR, match.getBoard());
-
-        // TODO: Inform spectators of win/loss/resignation
 
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
