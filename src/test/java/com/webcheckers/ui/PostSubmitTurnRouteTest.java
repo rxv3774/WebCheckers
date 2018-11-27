@@ -43,7 +43,7 @@ class PostSubmitTurnRouteTest {
 
     @Test
     void handleCurrentPlayerNull() {
-        assertEquals( gson.toJson(Message.ERR_NOT_SIGNED_IN), postSubmitTurnRoute.handle(request, response));
+        assertEquals(gson.toJson(Message.ERR_NOT_SIGNED_IN), postSubmitTurnRoute.handle(request, response));
     }
 
     @Test
@@ -51,12 +51,12 @@ class PostSubmitTurnRouteTest {
         String name = "Billy";
         Match match = mock(Match.class);
         Player player = new Player(name);
-        player.playGame(match);
+        player.joinGame(match);
 
         when(request.session().attribute("name")).thenReturn(name);
-        when( playerLobby.getPlayerObject( name ) ).thenReturn( player );
+        when(playerLobby.getUserObject(name)).thenReturn(player);
 
-        assertEquals( gson.toJson(Message.ERR_NO_PENDING_MOVES), postSubmitTurnRoute.handle(request, response));
+        assertEquals(gson.toJson(Message.ERR_NO_PENDING_MOVES), postSubmitTurnRoute.handle(request, response));
     }
 
     @Test
@@ -64,15 +64,15 @@ class PostSubmitTurnRouteTest {
         String name = "Billy";
         Match match = mock(Match.class);
         Player player = new Player(name);
-        player.playGame(match);
+        player.joinGame(match);
 
         when(request.session().attribute("name")).thenReturn(name);
-        when( playerLobby.getPlayerObject( name ) ).thenReturn( player );
+        when(playerLobby.getUserObject(name)).thenReturn(player);
 
-        when( match.hasPendingMoves() ).thenReturn(true);
-        when( match.doubleJumpAvailable() ).thenReturn(true);
+        when(match.hasPendingMoves()).thenReturn(true);
+        when(match.doubleJumpAvailable()).thenReturn(true);
 
-        assertEquals( gson.toJson(Message.ERR_DJ_AVAILABLE), postSubmitTurnRoute.handle(request, response));
+        assertEquals(gson.toJson(Message.ERR_DJ_AVAILABLE), postSubmitTurnRoute.handle(request, response));
 
     }
 
@@ -81,15 +81,15 @@ class PostSubmitTurnRouteTest {
         String name = "Billy";
         Match match = mock(Match.class);
         Player player = new Player(name);
-        player.playGame(match);
+        player.joinGame(match);
 
         when(request.session().attribute("name")).thenReturn(name);
-        when( playerLobby.getPlayerObject( name ) ).thenReturn( player );
+        when(playerLobby.getUserObject(name)).thenReturn(player);
 
-        when( match.hasPendingMoves() ).thenReturn(true);
-        when( match.doubleJumpAvailable() ).thenReturn(false);
+        when(match.hasPendingMoves()).thenReturn(true);
+        when(match.doubleJumpAvailable()).thenReturn(false);
 
-        assertEquals( gson.toJson(Message.MOVE_SUBMITTED), postSubmitTurnRoute.handle(request, response));
+        assertEquals(gson.toJson(Message.MOVE_SUBMITTED), postSubmitTurnRoute.handle(request, response));
 
     }
 }

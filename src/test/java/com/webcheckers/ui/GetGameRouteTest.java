@@ -189,7 +189,7 @@ class GetGameRouteTest {
     void playerCantPlayTest() {
         Player p1 = new Player("Tom");
         Match match = mock(Match.class);
-        p1.playGame(match);
+        p1.joinGame(match);
         playerLobby.addPlayer(p1);
 
         //This is for the current Player
@@ -206,7 +206,7 @@ class GetGameRouteTest {
     void hasWinnerTest() {
         Player p1 = new Player("Tom");
         Match match = mock(Match.class);
-        p1.playGame(match);
+        p1.joinGame(match);
         playerLobby.addPlayer(p1);
 
         //This is for the current Player

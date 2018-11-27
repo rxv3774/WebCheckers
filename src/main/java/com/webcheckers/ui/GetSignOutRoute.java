@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.model.User;
@@ -39,10 +40,10 @@ public class GetSignOutRoute implements Route {
         String currentPlayerName = session.attribute("name");
         User currentUser = playerLobby.getUserObject( currentPlayerName );
 
-        if(currentPlayer != null) {
-            if(currentPlayer.isInGame()) {
-                gameCenter.endGame(currentPlayer.getMatch());
-                currentPlayer.endGame();
+        if(currentUser != null) {
+            if(currentUser.isInGame()) {
+                gameCenter.endGame(currentUser.getMatch());
+                currentUser.endGame();
             }
             playerLobby.signOut(currentUser);
             session.removeAttribute("name");
