@@ -77,7 +77,7 @@ public class PlayerLobby {
     /**
      * Gets player object given name of player
      */
-    public User getPlayerObject(String name) {
+    public User getUserObject(String name) {
         for (User user : users) {
             if (user.getName().equals(name))
                 return user;

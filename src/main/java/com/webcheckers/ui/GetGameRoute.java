@@ -58,7 +58,7 @@ public class GetGameRoute implements Route {
         vm.put("title", "Game!");
 
         String currentPlayerName = session.attribute("name");
-        User user = playerLobby.getPlayerObject(currentPlayerName);
+        User user = playerLobby.getUserObject(currentPlayerName);
 
         if (user == null) {
             response.redirect(WebServer.SIGN_IN_URL);
@@ -72,7 +72,7 @@ public class GetGameRoute implements Route {
         if (!user.isInGame()) {
 
             String opponentPlayerName = request.queryParams("name");
-            User opponent = playerLobby.getPlayerObject(opponentPlayerName);
+            User opponent = playerLobby.getUserObject(opponentPlayerName);
 
             if (opponent == null) {
                 request.session().attribute("errorMessage", "Player doesn't exist.");

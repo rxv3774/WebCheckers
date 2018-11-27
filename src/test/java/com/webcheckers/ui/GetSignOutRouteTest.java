@@ -57,7 +57,7 @@ class GetSignOutRouteTest {
 
         getSignOutRoute.handle(request, response);
 
-        assertNull(playerLobby.getPlayerObject(name));
+        assertNull(playerLobby.getUserObject(name));
     }
 
     @Test

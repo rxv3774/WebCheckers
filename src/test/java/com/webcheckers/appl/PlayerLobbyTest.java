@@ -52,12 +52,12 @@ public class PlayerLobbyTest {
 
     @Test
     void test_getPlayerObject() {
-        assertSame(null, playerLobby.getPlayerObject(VALID_NAME));
+        assertSame(null, playerLobby.getUserObject(VALID_NAME));
 
         playerLobby.addPlayer(validPlayer);
-        assertSame(validPlayer, playerLobby.getPlayerObject(VALID_NAME));
+        assertSame(validPlayer, playerLobby.getUserObject(VALID_NAME));
 
-        assertSame(null, playerLobby.getPlayerObject(NO_EXIST_NAME));
+        assertSame(null, playerLobby.getUserObject(NO_EXIST_NAME));
     }
 
     @Test

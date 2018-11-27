@@ -53,10 +53,10 @@ public class PostValidateMoveRoute implements Route {
 
         final Session session = request.session();
         String currentPlayerName = session.attribute(SESSION_NAME_ATTR);
-        Player player = playerLobby.getPlayerObject(currentPlayerName);
+        User user = playerLobby.getUserObject(currentPlayerName);
 
-        if (player != null) {
-            Match game = player.getMatch();
+        if (user != null) {
+            Match game = user.getMatch();
 
             if (game == null) {
                 return gson.toJson(Message.ERR_NO_OPPONENT);
@@ -66,7 +66,7 @@ public class PostValidateMoveRoute implements Route {
             Move move = moveFromJson(request.body());
             Board board = game.getBoard();
 //            boolean redPlayer = game.getRedPlayer().equals(player);
-            boolean redPlayer = game.doPlayersMatch(game.getRedPlayer(), player);
+            boolean redPlayer = game.doPlayersMatch(game.getRedPlayer(), (Player) user);
 
             if (!game.hasPendingMoves() && move.isValid(board, redPlayer)) { //single move or single jump
                 game.addPendingMove(move);

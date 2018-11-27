@@ -5,6 +5,7 @@ import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Message;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.User;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -42,10 +43,10 @@ public class PostSubmitTurnRoute implements Route {
 
         final Session session = request.session();
         String currentPlayerName = session.attribute("name");
-        Player player = playerLobby.getPlayerObject(currentPlayerName);
+        User user = playerLobby.getUserObject(currentPlayerName);
 
-        if (player != null) {
-            Match game = player.getMatch();
+        if (user != null) {
+            Match game = user.getMatch();
             if(game.hasPendingMoves()) {
                 if(!game.doubleJumpAvailable()) {
 

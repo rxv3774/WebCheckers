@@ -1,14 +1,11 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
-import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import spark.Request;
 import spark.Response;
 import spark.Session;
@@ -77,7 +74,7 @@ public class PostValidateMoveRouteTest {
     public void handlePlayerIsNull(){
 
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when( playerLobby.getPlayerObject(currentPlayerName) ).thenReturn( null );
+        when( playerLobby.getUserObject(currentPlayerName) ).thenReturn( null );
 
         //Test1 makes sure response isn't null
         assertNotNull( CuT.handle(request, response) );
@@ -94,7 +91,7 @@ public class PostValidateMoveRouteTest {
 
         when( session.attribute( SESSION_NAME_ATTR) ).thenReturn( p1.getName() );
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when( playerLobby.getPlayerObject(currentPlayerName) ).thenReturn( p1 );
+        when( playerLobby.getUserObject(currentPlayerName) ).thenReturn( p1 );
 
         //Test1 makes sure response isn't null
         assertNotNull( CuT.handle(request, response) );
@@ -117,7 +114,7 @@ public class PostValidateMoveRouteTest {
 
         when( session.attribute( SESSION_NAME_ATTR) ).thenReturn( p1Name );
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when( playerLobby.getPlayerObject(currentPlayerName) ).thenReturn( player );
+        when( playerLobby.getUserObject(currentPlayerName) ).thenReturn( player );
 
         Match game = mock( Match.class );
 

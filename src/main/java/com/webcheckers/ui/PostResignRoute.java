@@ -5,6 +5,7 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Message;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.User;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -27,11 +28,11 @@ public class PostResignRoute implements Route {
     private static final String SESSION_NAME_ATTR = "name";
 
 
-    public PostResignRoute(PlayerLobby playerLobby, GameCenter gameCenter, Gson gson){
+    public PostResignRoute(PlayerLobby playerLobby, GameCenter gameCenter, Gson gson) {
         // validation
-        Objects.requireNonNull( playerLobby, "playerLobby must not be null");
-        Objects.requireNonNull( gameCenter, "gameCenter must not be null");
-        Objects.requireNonNull( gson, "gson must not be null");
+        Objects.requireNonNull(playerLobby, "playerLobby must not be null");
+        Objects.requireNonNull(gameCenter, "gameCenter must not be null");
+        Objects.requireNonNull(gson, "gson must not be null");
         //
         this.playerLobby = playerLobby;
         this.gameCenter = gameCenter;
@@ -53,18 +54,18 @@ public class PostResignRoute implements Route {
         final Session session = request.session();
 
 
-        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        Player player = playerLobby.getPlayerObject( currentPlayerName );
+        String currentPlayerName = session.attribute(SESSION_NAME_ATTR);
+        Player player = (Player) playerLobby.getUserObject(currentPlayerName);
 
         //The player has resigned so they should lose.
         player.increaseGamesLost();
 
         //This prevents an error happening when a player tries resigning an already deleted match
-        if( player.getMatch() != null) {
+        if (player.getMatch() != null) {
             gameCenter.endGame(player.getMatch());
         }
 
-        return gson.toJson( Message.PLAYER_RESIGNATION );
+        return gson.toJson(Message.PLAYER_RESIGNATION);
     }
 
 

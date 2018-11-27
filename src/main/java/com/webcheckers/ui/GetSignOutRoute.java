@@ -1,9 +1,8 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Match;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.User;
 import spark.*;
 
 import java.util.HashMap;
@@ -35,13 +34,13 @@ public class GetSignOutRoute implements Route {
 
 
         String currentPlayerName = session.attribute("name");
-        Player currentPlayer = playerLobby.getPlayerObject( currentPlayerName );
+        User currentUser = playerLobby.getUserObject( currentPlayerName );
 
-        if(currentPlayer != null) {
-            if(currentPlayer.isInGame()) {
-                currentPlayer.endGame();
+        if(currentUser != null) {
+            if(currentUser.isInGame()) {
+                currentUser.endGame();
             }
-            playerLobby.signOut(currentPlayer);
+            playerLobby.signOut(currentUser);
             session.removeAttribute("name");
         }
         response.redirect(WebServer.HOME_URL);

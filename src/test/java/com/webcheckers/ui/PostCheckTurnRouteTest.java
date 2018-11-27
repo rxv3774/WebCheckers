@@ -57,7 +57,7 @@ public class PostCheckTurnRouteTest {
 
         when( session.attribute( NAME_ATTR ) ).thenReturn( null );
         String currentPlayerName = null;
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( null );
+        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( null );
 
         //Test1 this checks to make sure that the handle returns a null.
         assertNull( CuT.handle(request, response ) );
@@ -71,7 +71,7 @@ public class PostCheckTurnRouteTest {
 
         when( session.attribute( NAME_ATTR ) ).thenReturn( p1.getName() );
         String currentPlayerName = p1.getName();
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p1 );
+        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( p1 );
 
         //Test1 This should return null because the player isn't in a match
         assertEquals( gson.toJson(Message.OPPONENT_RESIGN), CuT.handle(request, response));
@@ -91,7 +91,7 @@ public class PostCheckTurnRouteTest {
 
         when( session.attribute( NAME_ATTR ) ).thenReturn( p1.getName() );
         String currentPlayerName = p1.getName();
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p1 );
+        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( p1 );
 
         //Test1 This checks if the current player is the active player
         assertEquals( gson.toJson(Message.TRUE), CuT.handle(request, response) );
@@ -113,7 +113,7 @@ public class PostCheckTurnRouteTest {
 
         when( session.attribute( NAME_ATTR ) ).thenReturn( p2Name );
         String currentPlayerName = p2Name;
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p2 );
+        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( p2 );
 
         Player player = mock( Player.class );
         when( player.getMatch() ).thenReturn( game );
@@ -134,7 +134,7 @@ public class PostCheckTurnRouteTest {
 
         when( session.attribute( NAME_ATTR ) ).thenReturn( p2.getName() );
         String currentPlayerName = p2.getName();
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p2 );
+        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( p2 );
 
         //Test1 Player isn't the active player so it's null
         assertEquals( gson.toJson( Message.FALSE), CuT.handle(request, response) );

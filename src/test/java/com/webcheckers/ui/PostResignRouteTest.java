@@ -67,7 +67,7 @@ public class PostResignRouteTest {
 
         when( session.attribute( SESSION_NAME_ATTR ) ).thenReturn( NAME );
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when(playerLobby.getPlayerObject( currentPlayerName )).thenReturn( new Player( NAME ) );
+        when(playerLobby.getUserObject( currentPlayerName )).thenReturn( new Player( NAME ) );
 
 
         //Test1 This checks to make sure a null isn't returned
@@ -88,7 +88,7 @@ public class PostResignRouteTest {
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
 
         Player player = mock( Player.class );
-        when(playerLobby.getPlayerObject( currentPlayerName )).thenReturn( player );
+        when(playerLobby.getUserObject( currentPlayerName )).thenReturn( player );
 
         Match match = mock( Match.class );
 

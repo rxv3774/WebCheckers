@@ -62,7 +62,7 @@ public class PostBackUpMoveRouteTest {
 
         when( session.attribute( SESSION_NAME_ATTR ) ).thenReturn( NAME );
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( player );
+        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( player );
 
 
         when( player.getMatch() ).thenReturn( match );

@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.model.Player;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.User;
 import spark.*;
 
 import java.util.HashMap;
@@ -91,9 +92,9 @@ public class GetHomeRoute implements Route {
             vm.put(WebServer.SHOW_BUTTON, true);
 
             String currentPlayer = session.attribute(NAME_ATTR);
-            Player player = playerLobby.getPlayerObject(currentPlayer);
+            User user = playerLobby.getUserObject(currentPlayer);
 
-            if (gameCenter.containsPlayer(player)) {
+            if (gameCenter.containsPlayer((Player) user)) {
                 System.out.println(REDIRECT);
 
                 response.redirect(WebServer.START_GAME);
