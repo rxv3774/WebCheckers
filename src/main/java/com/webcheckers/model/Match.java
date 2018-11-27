@@ -123,6 +123,7 @@ public class Match {
 
     /**
      * return pending move
+     *
      * @return: pending move
      */
     public Move getPendingMove() {
@@ -294,6 +295,7 @@ public class Match {
 
     /**
      * Deep copy game.
+     *
      * @return deep copy of the game.
      */
     public Match deepCopy() {

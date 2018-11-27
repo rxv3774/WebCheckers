@@ -57,6 +57,7 @@ public class Row implements Iterable<Space> {
 
     /**
      * Deep copy row.
+     *
      * @return deepcopy of the row
      */
     public Row deepCopy() {

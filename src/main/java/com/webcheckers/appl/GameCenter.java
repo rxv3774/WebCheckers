@@ -61,8 +61,8 @@ public class GameCenter {
     /**
      * If the player is already in a match
      *
-     * @Param player: player object in question
      * @return boolean if the player is in a match already
+     * @Param player: player object in question
      */
     public boolean containsPlayer(Player player) {
         for (Match match : matches) {

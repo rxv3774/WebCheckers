@@ -56,7 +56,7 @@ class GetSignOutRouteTest {
         Player player = new Player(name);
         playerLobby.addUser(player);
 
-        when( session.attribute("name")).thenReturn(name);
+        when(session.attribute("name")).thenReturn(name);
 
         getSignOutRoute.handle(request, response);
 

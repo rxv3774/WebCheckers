@@ -196,8 +196,8 @@ public class Space {
     /**
      * Checks to see if there is a valid second jump move available, used to check for required double jump
      *
-     * @param color: color of the current player
-     * @param board: board with all of the pieces
+     * @param color:       color of the current player
+     * @param board:       board with all of the pieces
      * @param pendingMove: first move in double jump
      * @return true if there is a jump available
      */
@@ -234,8 +234,8 @@ public class Space {
     /**
      * Choose a Second Jump for the AI, used to check for required double jump
      *
-     * @param color: color of the current player
-     * @param board: board with all of the pieces
+     * @param color:       color of the current player
+     * @param board:       board with all of the pieces
      * @param pendingMove: first move in double jump
      * @return true if there is a jump available
      */
@@ -272,9 +272,9 @@ public class Space {
     /**
      * helper method for getting second jump move for AI, checks if moves are valid
      *
-     * @param moves: list of possible moves to check
-     * @param board: board with all the pieces
-     * @param isRed: if the moved piece is red
+     * @param moves:       list of possible moves to check
+     * @param board:       board with all the pieces
+     * @param isRed:       if the moved piece is red
      * @param pendingMove: first move in double jump
      * @return true if any of the moves are valid
      */
@@ -285,8 +285,8 @@ public class Space {
                 validMoves.add(move);
         }
 
-        if(validMoves.size() > 1){
-            int random = (int)(Math.random() * validMoves.size());
+        if (validMoves.size() > 1) {
+            int random = (int) (Math.random() * validMoves.size());
             return validMoves.get(random);
         }
         return validMoves.get(0);
@@ -311,9 +311,9 @@ public class Space {
     /**
      * helper method for possible second jump move, checks if moves are valid
      *
-     * @param moves: list of possible moves to check
-     * @param board: board with all the pieces
-     * @param isRed: if the moved piece is red
+     * @param moves:       list of possible moves to check
+     * @param board:       board with all the pieces
+     * @param isRed:       if the moved piece is red
      * @param pendingMove: first move for Double Jump
      * @return true if any of the moves are valid
      */
@@ -409,9 +409,10 @@ public class Space {
 
     /**
      * Deep copy space.
+     *
      * @return deep copy of the space
      */
-    public Space deepCopy(){
+    public Space deepCopy() {
         Space cp = new Space(this.cellIdx, this.rowIdx, this.piece);
         return cp;
     }

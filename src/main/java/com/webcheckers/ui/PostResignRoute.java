@@ -57,7 +57,7 @@ public class PostResignRoute implements Route {
         Player player = (Player) playerLobby.getUserObject(currentPlayerName);
 
         //This prevents an error happening when a player tries resigning an already deleted match
-        if( player.getMatch() != null) {
+        if (player.getMatch() != null) {
             gameCenter.endGame(player.getMatch());
         }
 

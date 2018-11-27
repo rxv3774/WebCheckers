@@ -24,24 +24,9 @@ public class Player extends User {
         gamesLost = 0;
     }
 
-    public Player(String name, boolean isAI){
-        this.name = name;
-        this.match = null;
+    public Player(String name, boolean isAI) {
+        super(name, ViewMode.PLAYER);
         this.isAI = isAI;
-    }
-
-    /**
-     * Defines the player's match when a player joins a game
-     *
-     * @param match the match
-     * @return true if the player was able to join the match.
-     */
-    public boolean playGame(Match match) {
-        if (this.match == null) {
-            this.match = match;
-            return true;
-        }
-        return false;
     }
 
     public boolean isAI(){

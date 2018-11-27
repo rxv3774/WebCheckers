@@ -64,7 +64,7 @@ public class PostCheckTurnRoute implements Route {
                 }
                 return gson.toJson(Message.FALSE);
             } else {
-                return gson.toJson( Message.OPPONENT_RESIGN );
+                return gson.toJson(Message.OPPONENT_RESIGN);
             }
         }
         return null;

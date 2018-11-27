@@ -15,6 +15,7 @@ public class AI {
     /**
      * Gets ai move.
      * Simulates 10000+ 15 moves and check which initial move is the best.
+     *
      * @param match the match
      * @return the ai move
      */

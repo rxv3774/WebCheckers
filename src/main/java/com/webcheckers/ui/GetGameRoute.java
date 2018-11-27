@@ -115,12 +115,12 @@ public class GetGameRoute implements Route {
         if (!match.canPlay()) {
             match.declareWinner();
         }
-        if (match.hasWinner() && match.isWinner(player)) {
-            if (user instanceof Spectator) {
-                response.redirect(WebServer.HOME_URL);
-                halt();
-                return null;
-            }
+        if (match.hasWinner() && user instanceof Spectator) {
+            response.redirect(WebServer.HOME_URL);
+            halt();
+            return null;
+        }
+        if (match.hasWinner() && match.isWinner((Player) user)) {
             gameCenter.endGame(match);
             vm.put("message", Message.WINNER);
         } else if (!match.isRunning() && gameCenter.containsMatch(match)) {

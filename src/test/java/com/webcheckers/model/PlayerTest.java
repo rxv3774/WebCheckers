@@ -148,46 +148,45 @@ class PlayerTest {
 
 
     @Test
-    public void GamesWonWorks(){
-        Player p1 = new Player( "FRED" );
+    public void GamesWonWorks() {
+        Player p1 = new Player("FRED");
 
         //Test1 The player should have 0 wins
-        assertEquals( 0, p1.getGamesWon() );
+        assertEquals(0, p1.getGamesWon());
 
         p1.increaseGamesWon();
 
         //Test2 The player should have 1 wins
-        assertEquals( 1, p1.getGamesWon() );
+        assertEquals(1, p1.getGamesWon());
     }
 
 
     @Test
-    public void GamesDrawedWorks(){
-        Player p1 = new Player( "FRED" );
+    public void GamesDrawedWorks() {
+        Player p1 = new Player("FRED");
 
         //Test1 The player should have 0 draws
-        assertEquals( 0, p1.getGamesDrawed() );
+        assertEquals(0, p1.getGamesTied());
 
-        p1.increaseGamesDrawed();
+        p1.increaseGamesTied();
 
         //Test2 The player should have 1 draws
-        assertEquals( 1, p1.getGamesDrawed() );
+        assertEquals(1, p1.getGamesTied());
     }
 
 
     @Test
-    public void GamesLostWorks(){
-        Player p1 = new Player( "FRED" );
+    public void GamesLostWorks() {
+        Player p1 = new Player("FRED");
 
         //Test1 The player should have 0 lost
-        assertEquals( 0, p1.getGamesLost() );
+        assertEquals(0, p1.getGamesLost());
 
         p1.increaseGamesLost();
 
         //Test2 The player should have 1 lost
-        assertEquals( 1, p1.getGamesLost() );
+        assertEquals(1, p1.getGamesLost());
     }
-
 
 
 }

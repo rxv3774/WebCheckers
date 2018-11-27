@@ -15,7 +15,6 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 
-
 public class PostBackUpMoveRoute implements Route {
 
     private static final String SESSION_NAME_ATTR = "name";
@@ -40,17 +39,12 @@ public class PostBackUpMoveRoute implements Route {
     }
 
     /**
-     *
-     * @param request
-     *  The http request
-     * @param response
-     *  The http response
-     * @return
-     *  The returned HTML page
-     *
+     * @param request  The http request
+     * @param response The http response
+     * @return The returned HTML page
      */
     @Override
-    public String handle( Request request, Response response ) {
+    public String handle(Request request, Response response) {
 
         final Session session = request.session();
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );

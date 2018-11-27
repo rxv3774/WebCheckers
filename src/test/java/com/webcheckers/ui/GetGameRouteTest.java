@@ -82,7 +82,8 @@ class GetGameRouteTest {
     }
 
 
-    @Test //Player isn't in a match but the Opponent doesn't exist
+    @Test
+        //Player isn't in a match but the Opponent doesn't exist
     void playerExistsNoOpponent() {
 
         Player p1 = new Player("Tom");
@@ -99,7 +100,8 @@ class GetGameRouteTest {
     }
 
 
-    @Test //Player isn't in a match and Opponent doesn't exist
+    @Test
+        //Player isn't in a match and Opponent doesn't exist
     void playerExistsOpponentIsPlayer() {
 
         Player p1 = new Player("Tom");
@@ -115,7 +117,8 @@ class GetGameRouteTest {
         assertThrows(spark.HaltException.class, () -> getGameRoute.handle(request, response));
     }
 
-    @Test // Player isn't in a match and the Opponent is in a match
+    @Test
+        // Player isn't in a match and the Opponent is in a match
     void playerExistsOpponentInMatch() {
         Player p1 = new Player("Tom");
         Player p2 = new Player("Tom Brady");
@@ -138,7 +141,8 @@ class GetGameRouteTest {
     }
 
 
-    @Test // Player isn't in a match and the Opponent isn't in a match
+    @Test
+        // Player isn't in a match and the Opponent isn't in a match
     void playerExistsOpponentNotInMatch() {
         Player p1 = new Player("Tom");
         Player p2 = new Player("Tom Brady");
@@ -157,7 +161,8 @@ class GetGameRouteTest {
 
     }
 
-    @Test //Player is in a match
+    @Test
+        //Player is in a match
     void playerInMatch() {
         Player p1 = new Player("Tom");
         Player p2 = new Player("Tom Brady");
@@ -195,7 +200,7 @@ class GetGameRouteTest {
         //This is for the current Player
         when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
 
-        when ( match.canPlay() ).thenReturn(false);
+        when(match.canPlay()).thenReturn(false);
 
         getGameRoute.handle(request, response);
 
@@ -212,12 +217,12 @@ class GetGameRouteTest {
         //This is for the current Player
         when(session.attribute(SESSION_ATTRIBUTE_NAME)).thenReturn(p1.getName());
 
-        when ( match.canPlay() ).thenReturn(true);
-        when ( match.hasWinner() ).thenReturn(true);
+        when(match.canPlay()).thenReturn(true);
+        when(match.hasWinner()).thenReturn(true);
 
-        when ( match.isWinner(p1) ).thenReturn(false);
+        when(match.isWinner(p1)).thenReturn(false);
 
-        getGameRoute.handle(request,response);
+        getGameRoute.handle(request, response);
         assertFalse(gameCenter.containsMatch(match));
 
     }

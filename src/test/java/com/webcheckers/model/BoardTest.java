@@ -78,33 +78,32 @@ class BoardTest {
     }
 
     @Test
-    public void hasPossibleMoves(){
+    public void hasPossibleMoves() {
 
         Board board = new Board();
-        board.initialize( Piece.Color.RED);
-        board.initialize( Piece.Color.WHITE);
+        board.initialize(Piece.Color.RED);
+        board.initialize(Piece.Color.WHITE);
 
         //This hot mess fills up the board so it's super easy to test if someone has a possible move
-        for( int row = 2; row < 6; row++){
-            for( int col = 0; col < 8; col++){
+        for (int row = 2; row < 6; row++) {
+            for (int col = 0; col < 8; col++) {
 
-                if( row != 3 && row != 4){
+                if (row != 3 && row != 4) {
                     Space s1;
                     Space s2;
-                    if( row == 2){
-                        if( col % 2 == 1) {
+                    if (row == 2) {
+                        if (col % 2 == 1) {
                             s1 = board.getSpace(new Position(row, col));
                             s2 = board.getSpace(new Position(row + 1, col - 1));
                             s1.movePieceTo(s2);
-                            board.getSpace( new Position( row, col ) ).initialize();
+                            board.getSpace(new Position(row, col)).initialize();
                         }
-                    }
-                    else{
-                        if( col % 2 == 0) {
+                    } else {
+                        if (col % 2 == 0) {
                             s1 = board.getSpace(new Position(row, col));
                             s2 = board.getSpace(new Position(row - 1, col + 1));
                             s1.movePieceTo(s2);
-                            board.getSpace( new Position( row, col ) ).initialize();
+                            board.getSpace(new Position(row, col)).initialize();
                         }
                     }
 
@@ -113,55 +112,55 @@ class BoardTest {
         }
 
         //Test1 this checks if red player has any possible moves
-        assertFalse( board.hasPossibleMoves( Piece.Color.RED) );
+        assertFalse(board.hasPossibleMoves(Piece.Color.RED));
 
         //Test2 this checks if white player has any possible moves
-        assertFalse( board.hasPossibleMoves( Piece.Color.WHITE) );
+        assertFalse(board.hasPossibleMoves(Piece.Color.WHITE));
     }
 
     @Test
-    public void getSpaceWorks(){
+    public void getSpaceWorks() {
         Board board = new Board();
 
         //Test1 this checks to see if it returns null for a non existent row
-        assertNull( board.getSpace( new Position( -1, -1) ) );
+        assertNull(board.getSpace(new Position(-1, -1)));
     }
 
     @Test
-    public void spaceHasEnemyPlayerWorks(){
+    public void spaceHasEnemyPlayerWorks() {
 
         Board board = new Board();
-        board.initialize( Piece.Color.RED);
-        board.initialize( Piece.Color.WHITE);
+        board.initialize(Piece.Color.RED);
+        board.initialize(Piece.Color.WHITE);
 
         //Test1 this should return false since the next piece is red
-        assertFalse( board.spaceHasEnemyPiece( new Position(0,1), true ) );
+        assertFalse(board.spaceHasEnemyPiece(new Position(0, 1), true));
 
         //Test2 has no one around it so it's false
-        assertFalse( board.spaceHasEnemyPiece( new Position(2,0), true ) );
+        assertFalse(board.spaceHasEnemyPiece(new Position(2, 0), true));
 
 
         //Test3 this should return false since the next piece is white
-        assertFalse( board.spaceHasEnemyPiece( new Position(7,0), false ) );
+        assertFalse(board.spaceHasEnemyPiece(new Position(7, 0), false));
 
         //Test4 has no one around it so it's false
-        assertFalse( board.spaceHasEnemyPiece( new Position(5,0), false ) );
+        assertFalse(board.spaceHasEnemyPiece(new Position(5, 0), false));
     }
 
 
     @Test
-    public void removePieceWorks(){
+    public void removePieceWorks() {
 
         Board board = new Board();
-        board.initialize( Piece.Color.RED );
+        board.initialize(Piece.Color.RED);
 
         //Test1 this proves a piece is there
-        assertTrue( board.getSpace( new Position(0,1) ).hasPiece() );
+        assertTrue(board.getSpace(new Position(0, 1)).hasPiece());
 
-        board.removePieceAtPosition( new Position( 0,1) );
+        board.removePieceAtPosition(new Position(0, 1));
 
         //Test2 this proves a piece is no longer there
-        assertFalse( board.getSpace( new Position(0,1) ).hasPiece() );
+        assertFalse(board.getSpace(new Position(0, 1)).hasPiece());
 
 
     }

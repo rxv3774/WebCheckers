@@ -108,19 +108,20 @@ public class Board implements Iterable<Row> {
 
     /**
      * Gets possible moves.
+     *
      * @param color the color
      * @return the possible moves for color player
      */
     public ArrayList<Move> getPossibleMoves(Piece.Color color) {
         ArrayList<Move> moves = new ArrayList<>();
-        for(Row row: board){
-            for(Space sp: row){
-                if(sp.hasPiece() && sp.getPieceColor() == color){
+        for (Row row : board) {
+            for (Space sp : row) {
+                if (sp.hasPiece() && sp.getPieceColor() == color) {
                     moves.addAll(sp.getPossibleMoves(color, this));
                 }
             }
         }
-        if(this.isJumpAvailable(moves)){
+        if (this.isJumpAvailable(moves)) {
             moves.removeIf(m -> !m.isJumpMove());
         }
         return moves;
@@ -128,12 +129,13 @@ public class Board implements Iterable<Row> {
 
     /**
      * Is jump availible.
+     *
      * @param moves: possible, valid moves
      * @return true if color player has a jump availible
      */
-    public boolean isJumpAvailable(List<Move> moves){
-        for(Move move: moves){
-            if(move.isJumpMove()){
+    public boolean isJumpAvailable(List<Move> moves) {
+        for (Move move : moves) {
+            if (move.isJumpMove()) {
                 return true;
             }
         }
@@ -207,13 +209,14 @@ public class Board implements Iterable<Row> {
 
     /**
      * Get white player piece advantage int.
+     *
      * @return white pieces - red pieces
      */
-    public int getWhitePlayerPieceAdvantage(){
+    public int getWhitePlayerPieceAdvantage() {
         int c = 0;
-        for(Row row: board){
-            for(Space sp: row){
-                if(sp.hasPiece()){
+        for (Row row : board) {
+            for (Space sp : row) {
+                if (sp.hasPiece()) {
                     int pieceVal = sp.getPieceType() == Piece.Type.KING ? 2 : 1;
                     c += sp.getPieceColor() == Piece.Color.WHITE ? pieceVal : -pieceVal;
                 }
@@ -224,9 +227,10 @@ public class Board implements Iterable<Row> {
 
     /**
      * Deep copy game board.
+     *
      * @return a deep copy of the game board
      */
-    public Board deepCopy(){
+    public Board deepCopy() {
         Board cp = new Board();
         for (int i = 0; i < board.length; i++) {
             cp.board[i] = board[i].deepCopy();

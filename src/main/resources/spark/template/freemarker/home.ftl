@@ -16,7 +16,7 @@
         <#if signedin?? == false>
             <a href="/signIn">Sign-In</a>
         <#else>
-           <a href="/signOut">Sign Out</a>
+            <a href="/signOut">Sign Out</a>
         </#if>
     </div>
 

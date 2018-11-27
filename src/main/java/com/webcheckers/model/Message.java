@@ -61,7 +61,6 @@ public class Message {
     public static final Message FALSE = new Message("false", Type.info);
 
 
-
     /**
      * The constant BACKUP_MOVE
      */
@@ -87,12 +86,12 @@ public class Message {
     /**
      * The constant PLAYER_RESIGNATION
      */
-    public static final Message PLAYER_RESIGNATION = new Message( "You quit the game", Type.info );
+    public static final Message PLAYER_RESIGNATION = new Message("You quit the game", Type.info);
 
     /**
      * The constant OPPONENT_RESIGN
      */
-    public static final Message OPPONENT_RESIGN = new Message( "<a href='" + URL_HOME + "'>Your opponent quit the game.</a>", Type.error);
+    public static final Message OPPONENT_RESIGN = new Message("<a href='" + URL_HOME + "'>Your opponent quit the game.</a>", Type.error);
 
 
     public Message(String text, Type type) {

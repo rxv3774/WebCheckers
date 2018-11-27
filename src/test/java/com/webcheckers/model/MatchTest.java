@@ -69,12 +69,12 @@ public class MatchTest {
 
         assertFalse(match.hasPendingMoves());
 
-        Move move1 = new Move(new Position(0,0), new Position(1,1));
+        Move move1 = new Move(new Position(0, 0), new Position(1, 1));
         match.addPendingMove(move1);
 
         assertTrue(match.hasPendingMoves());
 
-        Move move2 = new Move(new Position(1,1), new Position(2,2));
+        Move move2 = new Move(new Position(1, 1), new Position(2, 2));
         match.addPendingMove(move2);
 
         assertTrue(match.hasPendingDJMoves());
@@ -84,8 +84,8 @@ public class MatchTest {
     void removePendingMoveWorks() {
         Match match = new Match();
 
-        Move move1 = new Move(new Position(0,0), new Position(1,1));
-        Move move2 = new Move(new Position(1,1), new Position(2,2));
+        Move move1 = new Move(new Position(0, 0), new Position(1, 1));
+        Move move2 = new Move(new Position(1, 1), new Position(2, 2));
         match.addPendingMove(move1);
         match.addPendingMove(move2);
 
@@ -105,25 +105,25 @@ public class MatchTest {
     void doubleJumpAvailableWorks() {
         Match match = new Match();
 
-        Move move1 = new Move(new Position(0,0), new Position(1,1));
+        Move move1 = new Move(new Position(0, 0), new Position(1, 1));
         match.addPendingMove(move1);
 
         assertFalse(match.doubleJumpAvailable());
     }
 
     @Test
-    void doPendingMovesTest(){
+    void doPendingMovesTest() {
         Match match = new Match();
         match.getBoard().initialize(Piece.Color.RED);
 
-        Move move1 = new Move(new Position(2,3), new Position(3,4));
+        Move move1 = new Move(new Position(2, 3), new Position(3, 4));
         match.addPendingMove(move1);
         match.doPendingMoves();
 
         assertTrue(match.getBoard().spaceHasPiece(new Position(3, 4)));
 
-        Move move2 = new Move(new Position(2,1), new Position(3,0));
-        Move move3 = new Move(new Position(3,0), new Position(4,1));
+        Move move2 = new Move(new Position(2, 1), new Position(3, 0));
+        Move move3 = new Move(new Position(3, 0), new Position(4, 1));
         match.addPendingMove(move2);
         match.addPendingMove(move3);
         match.doPendingMoves();
@@ -140,7 +140,7 @@ public class MatchTest {
     }
 
     @Test
-    void declareWinnerTest(){
+    void declareWinnerTest() {
         Match match = new Match();
         Player red = new Player("redBoi");
         Player white = new Player("whiteBoi");
@@ -456,25 +456,25 @@ public class MatchTest {
 
 
     @Test
-    public void isWinnerWorks(){
-        Player p1 = new Player( "Snoopy");
-        Player p2 = new Player( "Charlie");
+    public void isWinnerWorks() {
+        Player p1 = new Player("Snoopy");
+        Player p2 = new Player("Charlie");
 
         GameCenter gameCenter = new GameCenter();
-        Match match = gameCenter.createGame( p1, p2);
+        Match match = gameCenter.createGame(p1, p2);
 
         match.start();
         match.declareWinner();
 
         //Test this shows the other player wins
-        assertTrue( match.isWinner( p2 ) );
+        assertTrue(match.isWinner(p2));
 
 
-        Player p3 = new Player( "Agent Cooper");
-        Player p4 = new Player( "Danno");
+        Player p3 = new Player("Agent Cooper");
+        Player p4 = new Player("Danno");
 
         GameCenter gC = new GameCenter();
-        Match m = gC.createGame( p3, p4);
+        Match m = gC.createGame(p3, p4);
 
         m.start();
 
@@ -483,58 +483,58 @@ public class MatchTest {
         m.declareWinner();
 
         //Test2 this hows the other player wins
-        assertTrue( m.isWinner( p3 ) );
+        assertTrue(m.isWinner(p3));
     }
 
 
     @Test
-    public void dJAvailiableWorks(){
+    public void dJAvailiableWorks() {
         GameCenter gameCenter = new GameCenter();
 
-        Player p1 = new Player( "Archie" );
-        Player p2 = new Player( "JugHead" );
+        Player p1 = new Player("Archie");
+        Player p2 = new Player("JugHead");
 
-        Match match = gameCenter.createGame( p1, p2 );
+        Match match = gameCenter.createGame(p1, p2);
 
         match.start();
 
-        match.addPendingMove( new Move( new Position(2,1), new Position( 3,2) ) );
+        match.addPendingMove(new Move(new Position(2, 1), new Position(3, 2)));
         match.doPendingMoves();
 
-        match.addPendingMove( new Move( new Position(1,2), new Position( 2,1) ) );
+        match.addPendingMove(new Move(new Position(1, 2), new Position(2, 1)));
         match.doPendingMoves();
 
-        match.addPendingMove( new Move( new Position(2,5), new Position( 3,4) ) );
+        match.addPendingMove(new Move(new Position(2, 5), new Position(3, 4)));
         match.doPendingMoves();
 
-        match.addPendingMove( new Move( new Position(3,4), new Position( 4,5) ) );
+        match.addPendingMove(new Move(new Position(3, 4), new Position(4, 5)));
         match.doPendingMoves();
 
         match.changeActivePlayer();
 
-        match.addPendingMove( new Move( new Position(5,6), new Position( 3,4) ) );
+        match.addPendingMove(new Move(new Position(5, 6), new Position(3, 4)));
 
-        assertTrue( match.doubleJumpAvailable() );
+        assertTrue(match.doubleJumpAvailable());
     }
 
 
     @Test
-    public void getPendingMoveWorks(){
+    public void getPendingMoveWorks() {
         GameCenter gameCenter = new GameCenter();
 
-        Player p1 = new Player( "Archie" );
-        Player p2 = new Player( "JugHead" );
+        Player p1 = new Player("Archie");
+        Player p2 = new Player("JugHead");
 
-        Match match = gameCenter.createGame( p1, p2 );
+        Match match = gameCenter.createGame(p1, p2);
 
         match.start();
 
-        Move move = new Move( new Position(2,1), new Position( 3,2) );
+        Move move = new Move(new Position(2, 1), new Position(3, 2));
 
-        match.addPendingMove( move );
+        match.addPendingMove(move);
 
         //Test1 This checks to make sure what we get is what we expected
-        assertEquals( move, match.getPendingMove() );
+        assertEquals(move, match.getPendingMove());
     }
 
 
