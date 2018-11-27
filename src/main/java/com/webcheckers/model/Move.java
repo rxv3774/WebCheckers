@@ -52,7 +52,7 @@ public class Move {
             return false;
         if (isSingleMove()) {
             if (!board.spaceHasPiece(end)) {
-                if (isKingMove(board))
+                if (!isKingMove(board))
                     return movingBackwards(isRedPlayer);
                 else
                     return true;
@@ -61,7 +61,7 @@ public class Move {
         } else if (isJumpMove()) {
             Position middle = start.getMiddle(end);
             if (!board.spaceHasPiece(end) && board.spaceHasEnemyPiece(middle, isRedPlayer)) {
-                if (isKingMove(board))
+                if (!isKingMove(board))
                     return movingBackwards(isRedPlayer);
                 else
                     return true;
@@ -73,9 +73,10 @@ public class Move {
         }
     }
 
+
     public boolean isKingMove(Board board) {
         Space space = board.getSpace(start);
-        return !space.hasKingPiece();
+        return space.hasKingPiece();
     }
 
     /**

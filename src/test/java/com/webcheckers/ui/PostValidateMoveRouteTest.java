@@ -102,33 +102,32 @@ public class PostValidateMoveRouteTest {
     @Test
     public void handleRegMove(){
 
-        final String p1Name = "DeadPool";
-        final String p2Name = "Bob";
-
-        Player player1 = new Player( p1Name );
-        Player player2 = new Player( p2Name );
-        playerLobby.addPlayer(player1);
-        playerLobby.addPlayer(player2);
-
-        when( session.attribute( SESSION_NAME_ATTR) ).thenReturn( p1Name );
-
-        when( request.body() ).thenReturn(JSON_STRING);
-
-        Match match = mock(Match.class);
-        player1.playGame(match);
-
-        boolean redPlayer = true;
-        when( match.getBoard() ).thenReturn(board);
-        when( match.getRedPlayer() ).thenReturn(player1);
-        when( match.doPlayersMatch( player1, player1) ).thenReturn(redPlayer);
-
-        when( match.hasPendingMoves() ).thenReturn(false);
-
-        when( move.isValid(board, redPlayer) ).thenReturn(true);
-
-//        assertEquals( gson.toJson(Message.VALID_MOVE), CuT.handle(request, response));
-//        assertTrue(match.hasPendingMoves());
-
+//        final String p1Name = "DeadPool";
+//
+//        Player player1 = mock(Player.class);
+//
+//        PlayerLobby playerLobby1 = mock(PlayerLobby.class);
+//
+//        when( session.attribute( SESSION_NAME_ATTR) ).thenReturn( p1Name );
+//        when( playerLobby1.getPlayerObject( p1Name ) ).thenReturn( player1 );
+//
+//
+//        Match match = mock(Match.class);
+//
+//        when ( player1.getMatch() ).thenReturn(match);
+//
+//        when( match.getBoard() ).thenReturn(board);
+//        when( match.getRedPlayer() ).thenReturn(player1);
+//
+//        boolean redPlayer = true;
+//        when( match.doPlayersMatch( player1, player1) ).thenReturn(redPlayer);
+//
+//        when( match.hasPendingMoves() ).thenReturn(false);
+//
+//        when( move.isValid(board, redPlayer) ).thenReturn(true);
+//
+//        CuT.handle(request, response);
+//        assertNotNull(match);
     }
 
 
