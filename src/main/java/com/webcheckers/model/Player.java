@@ -9,7 +9,7 @@ public class Player {
     private Match match;
 
     private int gamesWon;
-    private int gamesDrawed;
+    private int gamesTied;
     private int gamesLost;
 
     /**
@@ -22,7 +22,7 @@ public class Player {
         this.match = null;
 
         gamesWon = 0;
-        gamesDrawed = 0;
+        gamesTied = 0;
         gamesLost = 0;
 
     }
@@ -125,15 +125,15 @@ public class Player {
      * Desc: Get method for how many times the player has drawed
      * @return the number of times drawed
      */
-    public int getGamesDrawed() {
-        return gamesDrawed;
+    public int getGamesTied() {
+        return gamesTied;
     }
 
     /**
      * Desc: This increments the number of times the player has drawed.
      */
     public void increaseGamesDrawed() {
-        gamesDrawed++;
+        gamesTied++;
     }
 
     /**
