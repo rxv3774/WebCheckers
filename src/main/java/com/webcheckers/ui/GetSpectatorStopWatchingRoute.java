@@ -17,27 +17,13 @@ public class GetSpectatorStopWatchingRoute implements Route {
 
     private static final String NAME_ATTR = "name";
 
-    private PlayerLobby playerLobby;
-    private GameCenter gameCenter;
-
-    public GetSpectatorStopWatchingRoute(PlayerLobby playerLobby, GameCenter gameCenter) {
-        Objects.requireNonNull(playerLobby);
-        Objects.requireNonNull(gameCenter);
-
-        this.playerLobby = playerLobby;
-        this.gameCenter = gameCenter;
-
+    public GetSpectatorStopWatchingRoute() {
         LOG.config("GetSpectatorStopWatchingRoute initialized.");
     }
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
         LOG.finer("GetSpectatorStopWatchingRoute is invoked.");
-
-        final Session session = request.session();
-
-        String spectatorName = session.attribute(NAME_ATTR);
-        Spectator spectator = (Spectator) playerLobby.getUserObject(spectatorName);
 
         response.redirect(WebServer.HOME_URL);
 

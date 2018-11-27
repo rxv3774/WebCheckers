@@ -53,7 +53,7 @@ public class GetSpectatorGameRoute implements Route {
         String currentSpectatorName = session.attribute(NAME_ATTR);
         Spectator spectator = (Spectator) playerLobby.getUserObject(currentSpectatorName);
 
-        if (spectator == null || !spectator.isInGame()) {
+        if (spectator == null || !spectator.isInGame() || !spectator.getMatch().isRunning()) {
             response.redirect(WebServer.HOME_URL);
             halt();
             return null;

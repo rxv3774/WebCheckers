@@ -175,7 +175,7 @@ public class WebServer {
         get(SPECTATOR_GAME, new GetSpectatorGameRoute(playerLobby, templateEngine));
 
         // Sends the spectator to the home page
-        get(SPECTATOR_STOP_WATCHING, new GetSpectatorStopWatchingRoute(playerLobby, gameCenter));
+        get(SPECTATOR_STOP_WATCHING, new GetSpectatorStopWatchingRoute());
 
         // Sends the player name to the player lobby
         post(SIGN_IN_URL, new PostSignInRoute(playerLobby, templateEngine));

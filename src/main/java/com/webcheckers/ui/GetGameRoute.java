@@ -113,14 +113,15 @@ public class GetGameRoute implements Route {
         //Board
         vm.put("board", match.getBoard());
 
-        if (user instanceof Spectator) {
-            response.redirect(WebServer.HOME_URL);
-            halt();
-        }
         if (!match.canPlay()) {
             match.declareWinner();
         }
         if (match.hasWinner()) {
+            if (user instanceof Spectator) {
+                response.redirect(WebServer.HOME_URL);
+                halt();
+                return null;
+            }
             if (match.isWinner((Player) user)) {
                 vm.put("message", Message.WINNER);
             } else {
