@@ -159,7 +159,7 @@ class PlayerTest {
 
 
     @Test
-    public void GamesDrawedWorks() {
+    public void GamesTiedWorks() {
         Player p1 = new Player("FRED");
 
         //Test1 The player should have 0 draws

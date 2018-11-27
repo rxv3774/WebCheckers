@@ -37,7 +37,7 @@ public class PostSpectatorCheckTurnRoute implements Route {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         LOG.fine("PostSpectatorCheckTurnRoute is invoked");
 
         final Session session = request.session();

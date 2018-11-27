@@ -1,13 +1,9 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.appl.GameCenter;
-import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Spectator;
-import spark.*;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import static spark.Spark.halt;
@@ -22,10 +18,11 @@ public class GetSpectatorStopWatchingRoute implements Route {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         LOG.finer("GetSpectatorStopWatchingRoute is invoked.");
 
         response.redirect(WebServer.HOME_URL);
+        halt();
 
         return null;
     }

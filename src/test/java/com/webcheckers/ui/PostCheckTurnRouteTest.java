@@ -22,10 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @Tag("UI-tier")
 public class PostCheckTurnRouteTest {
-
-
     private static final String NAME_ATTR = "name";
-
 
     PostCheckTurnRoute CuT;
 
@@ -38,7 +35,6 @@ public class PostCheckTurnRouteTest {
 
     @BeforeEach
     void setup() {
-
         gson = new Gson();
 
         request = mock(Request.class);
@@ -54,10 +50,9 @@ public class PostCheckTurnRouteTest {
 
     @Test
     public void handlePlayerIsNull() {
-
         when(session.attribute(NAME_ATTR)).thenReturn(null);
         String currentPlayerName = null;
-        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( null );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(null);
 
         //Test1 this checks to make sure that the handle returns a null.
         assertNull(CuT.handle(request, response));
@@ -66,12 +61,11 @@ public class PostCheckTurnRouteTest {
 
     @Test
     public void handleGameIsNull() {
-
         Player p1 = new Player("Smith");
 
         when(session.attribute(NAME_ATTR)).thenReturn(p1.getName());
         String currentPlayerName = p1.getName();
-        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( p1 );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(p1);
 
         //Test1 This should return null because the player isn't in a match
         assertEquals(gson.toJson(Message.OPPONENT_RESIGN), CuT.handle(request, response));
@@ -79,7 +73,6 @@ public class PostCheckTurnRouteTest {
 
     @Test
     public void handleActivePlayer() {
-
         Player p1 = new Player("Rick");
         Player p2 = new Player("Morty");
 
@@ -91,7 +84,7 @@ public class PostCheckTurnRouteTest {
 
         when(session.attribute(NAME_ATTR)).thenReturn(p1.getName());
         String currentPlayerName = p1.getName();
-        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( p1 );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(p1);
 
         //Test1 This checks if the current player is the active player
         assertEquals(gson.toJson(Message.TRUE), CuT.handle(request, response));
@@ -100,7 +93,6 @@ public class PostCheckTurnRouteTest {
 
     @Test
     public void handleHasWinner() {
-
         Player p2 = mock(Player.class);
 
         final String p2Name = "Potter";
@@ -113,7 +105,7 @@ public class PostCheckTurnRouteTest {
 
         when(session.attribute(NAME_ATTR)).thenReturn(p2Name);
         String currentPlayerName = p2Name;
-        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( p2 );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(p2);
 
         Player player = mock(Player.class);
         when(player.getMatch()).thenReturn(game);
@@ -124,8 +116,7 @@ public class PostCheckTurnRouteTest {
 
 
     @Test
-    public void handlePlayerIsntActive() {
-
+    public void handlePlayerIsNotActive() {
         Player p1 = new Player("Jelly");
         Player p2 = new Player("Bob");
 
@@ -134,7 +125,7 @@ public class PostCheckTurnRouteTest {
 
         when(session.attribute(NAME_ATTR)).thenReturn(p2.getName());
         String currentPlayerName = p2.getName();
-        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( p2 );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(p2);
 
         //Test1 Player isn't the active player so it's null
         assertEquals(gson.toJson(Message.FALSE), CuT.handle(request, response));
