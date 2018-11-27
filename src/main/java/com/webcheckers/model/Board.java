@@ -1,6 +1,8 @@
 package com.webcheckers.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Board implements Iterable<Row> {
@@ -105,6 +107,42 @@ public class Board implements Iterable<Row> {
     }
 
     /**
+     * Gets possible moves.
+     *
+     * @param color the color
+     * @return the possible moves for color player
+     */
+    public ArrayList<Move> getPossibleMoves(Piece.Color color) {
+        ArrayList<Move> moves = new ArrayList<>();
+        for (Row row : board) {
+            for (Space sp : row) {
+                if (sp.hasPiece() && sp.getPieceColor() == color) {
+                    moves.addAll(sp.getPossibleMoves(color, this));
+                }
+            }
+        }
+        if (this.isJumpAvailable(moves)) {
+            moves.removeIf(m -> !m.isJumpMove());
+        }
+        return moves;
+    }
+
+    /**
+     * Is jump availible.
+     *
+     * @param moves: possible, valid moves
+     * @return true if color player has a jump availible
+     */
+    public boolean isJumpAvailable(List<Move> moves) {
+        for (Move move : moves) {
+            if (move.isJumpMove()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * get the space object at the given position
      *
      * @param position: coordinates of the desired space
@@ -146,9 +184,9 @@ public class Board implements Iterable<Row> {
         Space space = this.getSpace(position);
         if (space.hasPiece()) {
             if (isRedPlayer) {
-                return (space.getPieceColor() == Piece.Color.WHITE);
+                return (space.pieceColorMatch(Piece.Color.WHITE));
             } else {
-                return (space.getPieceColor() == Piece.Color.RED);
+                return (space.pieceColorMatch(Piece.Color.RED));
             }
         } else
             return false;
@@ -160,12 +198,30 @@ public class Board implements Iterable<Row> {
      * @param position: coordinates of desired space
      * @return removed piece
      */
-    public Piece removePieceAtPosition(Position position) {
+    public void removePieceAtPosition(Position position) {
         Space space = this.getSpace(position);
-        return space.removePiece();
+        space.removePiece();
     }
 
+    /**
+     * Strictly for unit testing
+     * @return size of rows array
+     */
     public int getRowsSize() {
         return board.length;
+    }
+
+
+    /**
+     * Deep copy game board, used for AI.
+     *
+     * @return a deep copy of the game board
+     */
+    public Board deepCopy() {
+        Board cp = new Board();
+        for (int i = 0; i < board.length; i++) {
+            cp.board[i] = board[i].deepCopy();
+        }
+        return cp;
     }
 }

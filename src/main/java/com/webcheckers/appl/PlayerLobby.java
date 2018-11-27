@@ -1,6 +1,7 @@
 package com.webcheckers.appl;
 
 import com.webcheckers.model.Player;
+import com.webcheckers.model.User;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -10,22 +11,27 @@ import java.util.Objects;
  */
 public class PlayerLobby {
     /**
-     * Array of all the players in the current lobby.
+     * Array of all the users in the current lobby.
      */
-    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
 
     /**
-     * Attempts to add a player to the array of players. Only works if new username is not already taken.
+     * Attempts to add a user to the array of users. Only works if new username is not already taken.
      *
-     * @param player The new player that is being added.
+     * @param user The new user that is being added.
      */
-    public void addPlayer(Player player) throws NullPointerException {
-        Objects.requireNonNull(player);
-        players.add(player);
+    public void addUser(User user) throws NullPointerException {
+        Objects.requireNonNull(user);
+        users.add(user);
     }
 
-    public void signOut(Player player){
-        players.remove(player);
+    public void removeUser(User user) throws NullPointerException {
+        Objects.requireNonNull(user);
+        users.remove(user);
+    }
+
+    public void signOut(User user){
+        users.remove(user);
     }
 
     /**
@@ -53,10 +59,10 @@ public class PlayerLobby {
      * @param name The name of the player that is trying to be created.
      * @return Whether or not the user is taken.
      */
-    public boolean playerNameInUse(String name) {
+    public boolean usernameInUse(String name) {
         Player other = new Player(name);
-        for (Player player : players) {
-            if (other.equals(player)) {
+        for (User user : users) {
+            if (other.equals(user)) {
                 return true;
             }
         }
@@ -66,8 +72,8 @@ public class PlayerLobby {
     public ArrayList<String> getPlayersNamesAsArrayList() {
         ArrayList<String> names = new ArrayList<>();
 
-        for (Player player : players) {
-            names.add(player.getName());
+        for (User user : users) {
+            names.add(user.getName());
         }
 
         return names;
@@ -76,42 +82,42 @@ public class PlayerLobby {
     /**
      * Gets player object given name of player
      */
-    public Player getPlayerObject(String name) {
-        for (Player player : players) {
-            if (player.getName().equals(name))
-                return player;
+    public User getUserObject(String name) {
+        for (User user : users) {
+            if (user.getName().equals(name))
+                return user;
         }
         return null;
     }
 
     /**
-     * Gets the number of players in the lobby.
+     * Gets the number of users in the lobby.
      *
      * @return Size of lobby.
      */
     public int getLobbySize() {
-        return players.size();
+        return users.size();
     }
 
-    public String getPlayerNamesAsString(String name) {
-        ArrayList<String> playerNameLst = new ArrayList<>(getPlayersNamesAsArrayList());
-        playerNameLst.remove(name);
+    public String getUserNamesAsString(String name) {
+        ArrayList<String> usernameList = new ArrayList<>(getPlayersNamesAsArrayList());
+        usernameList.remove(name);
 
         StringBuilder names = new StringBuilder();
-        if (playerNameLst.size() > 0) {
+        if (usernameList.size() > 0) {
 
             names.append("Other Players signed in: ");
 
-            for (int x = 0; x < playerNameLst.size(); x++) {
+            for (int x = 0; x < usernameList.size(); x++) {
 
-                if (x < playerNameLst.size() - 1) {
-                    names.append(playerNameLst.get(x)).append(", ");
+                if (x < usernameList.size() - 1) {
+                    names.append(usernameList.get(x)).append(", ");
                 } else {
-                    names.append(playerNameLst.get(x));
+                    names.append(usernameList.get(x));
                 }
             }
         } else {
-            names.append("Number of players signed in: ").append(getLobbySize());
+            names.append("Number of users signed in: ").append(getLobbySize());
         }
         return names.toString();
     }

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import spark.Request;
 import spark.Response;
 import spark.Session;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.mock;
@@ -36,7 +37,6 @@ public class PostResignRouteTest {
     private static final String SESSION_NAME_ATTR = "name";
 
 
-
     /**
      * SetUp new mock objects for each test.
      */
@@ -44,8 +44,8 @@ public class PostResignRouteTest {
     public void setup() {
 
 
-        playerLobby = mock( PlayerLobby.class );
-        gameCenter = mock( GameCenter.class );
+        playerLobby = mock(PlayerLobby.class);
+        gameCenter = mock(GameCenter.class);
         gson = new Gson();
 
 
@@ -60,49 +60,47 @@ public class PostResignRouteTest {
 
 
     @Test
-    public void handleMatchIsNull(){
+    public void handleMatchIsNull() {
 
         final String NAME = "Caterpillar";
 
 
         when( session.attribute( SESSION_NAME_ATTR ) ).thenReturn( NAME );
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when(playerLobby.getPlayerObject( currentPlayerName )).thenReturn( new Player( NAME ) );
+        when(playerLobby.getUserObject( currentPlayerName )).thenReturn( new Player( NAME ) );
 
 
         //Test1 This checks to make sure a null isn't returned
-        assertNotNull( CuT.handle(request, response) );
+        assertNotNull(CuT.handle(request, response));
 
         //Test2 This checks to see if we get the desired response
-        assertEquals( gson.toJson( Message.PLAYER_RESIGNATION ), CuT.handle(request, response) );
+        assertEquals(gson.toJson(Message.PLAYER_RESIGNATION), CuT.handle(request, response));
     }
 
 
     @Test
-    public void handleMatchIsntNull(){
+    public void handleMatchIsntNull() {
 
         final String NAME = "Joker";
 
 
-        when( session.attribute( SESSION_NAME_ATTR ) ).thenReturn( NAME );
-        String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
+        when(session.attribute(SESSION_NAME_ATTR)).thenReturn(NAME);
+        String currentPlayerName = session.attribute(SESSION_NAME_ATTR);
 
         Player player = mock( Player.class );
-        when(playerLobby.getPlayerObject( currentPlayerName )).thenReturn( player );
+        when(playerLobby.getUserObject( currentPlayerName )).thenReturn( player );
 
-        Match match = mock( Match.class );
+        Match match = mock(Match.class);
 
-        when( player.getMatch() ).thenReturn( match );
+        when(player.getMatch()).thenReturn(match);
 
 
         //Test1 This checks to make sure a null isn't returned
-        assertNotNull( CuT.handle(request, response) );
+        assertNotNull(CuT.handle(request, response));
 
         //Test2 This checks to see if we get the desired response
-        assertEquals( gson.toJson( Message.PLAYER_RESIGNATION ), CuT.handle(request, response) );
+        assertEquals(gson.toJson(Message.PLAYER_RESIGNATION), CuT.handle(request, response));
     }
-
-
 
 
 //    public void handleMatchIsntNull(){}

@@ -45,7 +45,7 @@ public class MoveTest {
     }
 
     @Test
-    // TODO - Write assertions for other move types
+        // TODO - Write assertions for other move types
     void testIsValid() {
         assertTrue(singleMove.isValid(board, true));
     }

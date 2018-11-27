@@ -20,7 +20,7 @@ class PlayerTest {
     @Test
     void test_constructor() {
         final Player player = new Player(TEST_PLAYER_NAME);
-        assertEquals(player.toString(), "{Player: " + TEST_PLAYER_NAME + "}");
+        assertEquals(player.toString(), "{Player{Name: " + TEST_PLAYER_NAME + ", Won: 0, Tied: 0, Lost: 0}");
     }
 
     /**
@@ -40,8 +40,8 @@ class PlayerTest {
         Player p2 = new Player("Kevin");
         Player p3 = new Player("Larry");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 
@@ -64,17 +64,17 @@ class PlayerTest {
         Player p1 = new Player("Brett");
         Player p2 = new Player("Kevin");
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
-        //Test1 playGame doesn't return a null
-        assertNotNull(p1.playGame(match));
+        //Test1 joinGame doesn't return a null
+        assertNotNull(p1.joinGame(match));
 
-        //Test2 playGame has a valid match so it should return false
-        assertFalse(p1.playGame(match));
+        //Test2 joinGame has a valid match so it should return false
+        assertFalse(p1.joinGame(match));
 
-        //Test3 playGame has a valid match so it should return true
-        assertFalse(p1.playGame(nullMatch));
+        //Test3 joinGame has a valid match so it should return true
+        assertFalse(p1.joinGame(nullMatch));
     }
 
     @Test
@@ -104,8 +104,8 @@ class PlayerTest {
 
         Match match = new Match();
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 
@@ -115,10 +115,7 @@ class PlayerTest {
         //Test2 p1 is a player
         assertEquals("PLAY", p1.getViewMode());
 
-        //Test3 p3 is a Spectator
-        assertEquals("SPECTATOR", p3.getViewMode());
     }
-
 
     @Test
     public void endGameWorks() {
@@ -128,8 +125,8 @@ class PlayerTest {
 
         Match match = new Match();
 
-        match.join(p1);
-        match.join(p2);
+        match.joinPlayer(p1);
+        match.joinPlayer(p2);
 
         match.start();
 
@@ -145,4 +142,48 @@ class PlayerTest {
         //Test3 never had a match so it's still null
         assertNull(p3.getMatch());
     }
+
+
+    @Test
+    public void GamesWonWorks() {
+        Player p1 = new Player("FRED");
+
+        //Test1 The player should have 0 wins
+        assertEquals(0, p1.getGamesWon());
+
+        p1.increaseGamesWon();
+
+        //Test2 The player should have 1 wins
+        assertEquals(1, p1.getGamesWon());
+    }
+
+
+    @Test
+    public void GamesTiedWorks() {
+        Player p1 = new Player("FRED");
+
+        //Test1 The player should have 0 draws
+        assertEquals(0, p1.getGamesTied());
+
+        p1.increaseGamesTied();
+
+        //Test2 The player should have 1 draws
+        assertEquals(1, p1.getGamesTied());
+    }
+
+
+    @Test
+    public void GamesLostWorks() {
+        Player p1 = new Player("FRED");
+
+        //Test1 The player should have 0 lost
+        assertEquals(0, p1.getGamesLost());
+
+        p1.increaseGamesLost();
+
+        //Test2 The player should have 1 lost
+        assertEquals(1, p1.getGamesLost());
+    }
+
+
 }

@@ -1,113 +1,65 @@
 package com.webcheckers.model;
 
-public class Player {
-
-    /**
-     * The players username.
-     */
-    private String name;
-    private Match match;
-
+/**
+ * Player class, extends User. This class includes framework for tournament play, in the case we want to implement a third enhancement.
+ */
+public class Player extends User {
     private int gamesWon;
-    private int gamesDrawed;
+    private int gamesTied;
     private int gamesLost;
+
+    private boolean isAI;
 
     /**
      * Player constructor
      *
-     * @param name
+     * @param name player's name
      */
     public Player(String name) {
-        this.name = name;
-        this.match = null;
-
-        gamesWon = 0;
-        gamesDrawed = 0;
-        gamesLost = 0;
-
+        super(name, ViewMode.PLAYER);
+        this.isAI = false;
     }
 
-    /**
-     * Defines the player's match when a player joins a game
-     *
-     * @param match the match
-     * @return true if the player was able to join the match.
-     */
-    public boolean playGame(Match match) {
-        if (this.match == null) {
-            this.match = match;
-            return true;
-        }
-        return false;
+    public Player(String name, boolean isAI) {
+        super(name, ViewMode.PLAYER);
+        this.isAI = isAI;
     }
 
-    /**
-     * if the player is in a game return true.
-     *
-     * @return true if player is in game
-     */
-    public boolean isInGame() {
-        return match != null;
-    }
-
-    /**
-     * End game.
-     */
-    public void endGame() {
-        if (match != null)
-            this.match.end();
-        this.match = null;
+    public boolean isAI(){
+        return isAI;
     }
 
     /**
      * Player objects with the same name
      * are considered equal.
      *
-     * @param obj object ot compare to
-     * @return true if Player's have the same name
+     * @param object object to be compared to
+     * @return true if the players have the same name
      */
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof Player)) return false;
-        Player that = (Player) obj;
-        return this.name.equals(that.name);
+    public boolean equals(Object object) {
+        if (object == this) return true;
+        else if (object instanceof Player) {
+            return this.getName().equals(((Player) object).getName());
+        } else return false;
     }
 
     /**
-     * Get view mode string.
+     * Returns the string translation of the player
      *
-     * @return the string
+     * @return string translation of the player
      */
-    public String getViewMode() {
-        if (match == null /*!match.getWhitePlayer().equals(this) && !match.getRedPlayer().equals(this)*/) {
-//        if ( !match.getWhitePlayer().equals(this) && !match.getRedPlayer().equals(this) ) {
-            return "SPECTATOR";
-        } else {
-            return "PLAY";
-        }
-    }
-
-    /**
-     * Gets the Player's username.
-     *
-     * @return Player username.
-     */
-    public String getName() {
-        return this.name;
-    }
-
-
-    public Match getMatch() {
-        return match;
-    }
-
     public String toString() {
-        return "{Player: " + name + "}";
+        return String.format("{Player{Name: %s, Won: %d, Tied: %d, Lost: %d}",
+                getName(),
+                gamesWon,
+                gamesTied,
+                gamesLost
+        );
     }
 
-
     /**
-     *  Desc: Get method for how many times the player has Won
+     * Get method for how many times the player has Won
+     *
      * @return the number of times Won
      */
     public int getGamesWon() {
@@ -115,29 +67,31 @@ public class Player {
     }
 
     /**
-     * Desc: This increments the number of times the player has won.
+     * This increments the number of times the player has won.
      */
     public void increaseGamesWon() {
         gamesWon++;
     }
 
     /**
-     * Desc: Get method for how many times the player has drawed
+     * Get method for how many times the player has drawed
+     *
      * @return the number of times drawed
      */
-    public int getGamesDrawed() {
-        return gamesDrawed;
+    public int getGamesTied() {
+        return gamesTied;
     }
 
     /**
-     * Desc: This increments the number of times the player has drawed.
+     * This increments the number of times the player has drawed.
      */
-    public void increaseGamesDrawed() {
-        gamesDrawed++;
+    public void increaseGamesTied() {
+        gamesTied++;
     }
 
     /**
-     * Desc: Get method for how many times the player has lost
+     * Get method for how many times the player has lost
+     *
      * @return the number of times lost
      */
     public int getGamesLost() {
@@ -145,7 +99,7 @@ public class Player {
     }
 
     /**
-     * Desc: This increments the number of times the player has Lost.
+     * This increments the number of times the player has Lost.
      */
     public void increaseGamesLost() {
         gamesLost++;

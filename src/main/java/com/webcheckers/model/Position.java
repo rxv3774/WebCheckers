@@ -4,6 +4,11 @@ public class Position {
     private int row;
     private int cell;
 
+    /**
+     * Position object holding a row and column
+     * @param row: row index
+     * @param cell: column index
+     */
     public Position(int row, int cell) {
         this.row = row;
         this.cell = cell;
@@ -31,6 +36,10 @@ public class Position {
         }
     }
 
+    /**
+     * checks if the position object is out of bounds of the board
+     * @return true if the position is out of bounds
+     */
     public boolean isOutOfBounds() {
         return (row < 0 || row > 7 || cell < 0 || cell > 7);
     }

@@ -30,8 +30,8 @@ public class GameCenter {
      */
     public Match createGame(Player player1, Player player2) {
         Match game = new Match();
-        game.join(player1);
-        game.join(player2);
+        game.joinPlayer(player1);
+        game.joinPlayer(player2);
         matches.add(game);
         game.start();
         return game;
@@ -61,8 +61,8 @@ public class GameCenter {
     /**
      * If the player is already in a match
      *
-     * @Param player: player object in question
      * @return boolean if the player is in a match already
+     * @Param player: player object in question
      */
     public boolean containsPlayer(Player player) {
         for (Match match : matches) {

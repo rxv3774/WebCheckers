@@ -5,7 +5,7 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Message;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.User;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -13,7 +13,6 @@ import spark.Session;
 
 import java.util.Objects;
 import java.util.logging.Logger;
-
 
 
 public class PostBackUpMoveRoute implements Route {
@@ -40,26 +39,21 @@ public class PostBackUpMoveRoute implements Route {
     }
 
     /**
-     *
-     * @param request
-     *  The http request
-     * @param response
-     *  The http response
-     * @return
-     *  The returned HTML page
-     *
+     * @param request  The http request
+     * @param response The http response
+     * @return The returned HTML page
      */
     @Override
-    public String handle( Request request, Response response ) {
+    public String handle(Request request, Response response) {
 
         final Session session = request.session();
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        Player player = playerLobby.getPlayerObject(currentPlayerName);
-        Match match = player.getMatch();
+        User user = playerLobby.getUserObject(currentPlayerName);
+        Match match = user.getMatch();
 
         match.removePendingMove();
 
-        return gson.toJson( Message.BACKUPMOVE );
+        return gson.toJson( Message.BACKUP_MOVE);
     }
 
 }

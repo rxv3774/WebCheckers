@@ -180,7 +180,7 @@ class SpaceTest {
         assertFalse(tmpSpace1.pieceColorMatch(Piece.Color.RED));
     }
 
-    /*
+
     @Test
     public void deepCopyWorks(){
         Piece piece = new Piece( Piece.Type.SINGLE, Piece.Color.RED);
@@ -208,7 +208,7 @@ class SpaceTest {
         //Test7
         assertEquals( tmp.getPieceColor() , deepCopy.getPieceColor() );
     }
-    */
+
 
     @Test
     void removePieceWorks() {
@@ -378,21 +378,82 @@ class SpaceTest {
         assertTrue(s6.hasPossibleMoves(Piece.Color.WHITE, board));
     }
 
+    @Test
+    void getPossibleMovesWorks() {
+        final Board board = new Board();
+        board.initialize(Piece.Color.RED);
+        board.initialize(Piece.Color.WHITE);
+
+        Space redSpace = board.getSpace(new Position(2, 1)); //red
+        assertNull(redSpace.getPossibleMoves(Piece.Color.WHITE, board));
+        assertNotNull(redSpace.getPossibleMoves(Piece.Color.RED, board));
+
+        Space whiteSpace = board.getSpace(new Position(5, 2)); //white
+        assertNotNull(whiteSpace.getPossibleMoves(Piece.Color.WHITE, board));
+
+        redSpace.getPiece().makeKing();
+        assertNotNull(redSpace.getPossibleMoves(Piece.Color.RED, board));
+
+        whiteSpace.getPiece().makeKing();
+        assertNotNull(whiteSpace.getPossibleMoves(Piece.Color.WHITE, board));
+    }
+
 
     @Test
     void hasSecondJumpAvailableWorks() {
         final Board board = new Board();
-        final Space redSpace = board.getSpace(new Position(3, 2));
-        final Space whiteSpace = board.getSpace(new Position(3, 5));
-//        assertFalse(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, false));
-//        assertFalse(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, true));
-//
-//        assertFalse(whiteSpace.hasSecondJumpAvailable(Piece.Color.WHITE, board, false));
-//        assertFalse(whiteSpace.hasSecondJumpAvailable(Piece.Color.WHITE, board, true));
+        board.initialize(Piece.Color.RED);
+        board.initialize(Piece.Color.WHITE);
 
-//        whiteSpace.movePieceTo(board.getSpace(new Position(2, 3)));
-//        assertTrue(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, false));
+        Space redSpace = board.getSpace(new Position(2, 1)); //red
+        Space whiteSpace = board.getSpace(new Position(5, 2)); //white
+
+        Move pendingMove = new Move(new Position(2, 1), new Position(3, 0));
+        assertFalse(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, pendingMove));
+
+        Move pendingMove2 = new Move(new Position(5, 2), new Position(4, 1));
+        assertFalse(whiteSpace.hasSecondJumpAvailable(Piece.Color.WHITE, board, pendingMove2));
+
+        redSpace.getPiece().makeKing();
+        Move pendingMove3 = new Move(new Position(2, 1), new Position(3, 0));
+        assertFalse(redSpace.hasSecondJumpAvailable(Piece.Color.RED, board, pendingMove3));
+
+        whiteSpace.getPiece().makeKing();
+        Move pendingMove4 = new Move(new Position(5, 2), new Position(4, 1));
+        assertFalse(redSpace.hasSecondJumpAvailable(Piece.Color.WHITE, board, pendingMove4));
     }
+
+    @Test
+    void AIChooseSecondJumpWorks() {
+        final Board board = new Board();
+        board.initialize(Piece.Color.RED);
+        board.initialize(Piece.Color.WHITE);
+
+        Space redSpace = board.getSpace(new Position(2, 1)); //red
+        Space whiteSpace = board.getSpace(new Position(5, 2)); //white
+
+        Move pendingMove = new Move(new Position(2, 1), new Position(4, 3));
+        assertFalse(redSpace.AIChooseSecondJump(Piece.Color.RED, board, pendingMove) instanceof Move);
+
+        Move pendingMove2 = new Move(new Position(5, 2), new Position(3, 0));
+        assertFalse(whiteSpace.AIChooseSecondJump(Piece.Color.WHITE, board, pendingMove2) instanceof Move);
+
+        redSpace.getPiece().makeKing();
+        Move pendingMove3 = new Move(new Position(2, 1), new Position(4, 3));
+        assertFalse(redSpace.AIChooseSecondJump(Piece.Color.RED, board, pendingMove) instanceof Move);
+
+        whiteSpace.getPiece().makeKing();
+        Move pendingMove4 = new Move(new Position(5, 2), new Position(3, 0));
+        assertFalse(whiteSpace.AIChooseSecondJump(Piece.Color.WHITE, board, pendingMove2) instanceof Move);
+    }
+
+    @Test
+    void getPieceTypeWorks() {
+        Space space1 = new Space(0, 0, new Piece(Piece.Type.KING, Piece.Color.RED));
+        assertNotNull(space1.getPieceType());
+        assertNull(space.getPieceType());
+    }
+
 
     @Test
     void toStringWorks() {

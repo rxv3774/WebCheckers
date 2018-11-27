@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import spark.TemplateEngine;
 
 import java.util.Objects;
@@ -59,7 +60,10 @@ public class WebServer {
     public static final String VALIDATE_MOVE = "/validateMove";
     public static final String SUBMIT_TURN = "/submitTurn";
     public static final String CHECK_TURN = "/checkTurn";
-    public static final String BACKUPMOVE = "backupMove";
+    public static final String BACKUP_MOVE = "/backupMove";
+    public static final String SPECTATOR_CHECK_TURN = "/spectator/checkTurn";
+    public static final String SPECTATOR_GAME = "/spectator/game";
+    public static final String SPECTATOR_STOP_WATCHING = "/spectator/stopWatching";
 
 
     public static final String SIGN_OUT_URL = "/signOut";
@@ -100,6 +104,7 @@ public class WebServer {
         //
         this.templateEngine = templateEngine;
         this.playerLobby = new PlayerLobby();
+        playerLobby.addUser(new Player("AI", true)); //add AI Player
         this.gameCenter = new GameCenter();
         this.gson = gson;
     }
@@ -168,6 +173,12 @@ public class WebServer {
         // Sign out player and redirect them home
         get(SIGN_OUT_URL, new GetSignOutRoute(playerLobby, gameCenter));
 
+        // Sends the spectator to the game page
+        get(SPECTATOR_GAME, new GetSpectatorGameRoute(playerLobby, templateEngine));
+
+        // Sends the spectator to the home page
+        get(SPECTATOR_STOP_WATCHING, new GetSpectatorStopWatchingRoute());
+
         // Sends the player name to the player lobby
         post(SIGN_IN_URL, new PostSignInRoute(playerLobby, templateEngine));
 
@@ -181,10 +192,13 @@ public class WebServer {
         post(CHECK_TURN, new PostCheckTurnRoute(gson, playerLobby));
 
         // This handles the resignation request of a player
-        post( RESIGN, new PostResignRoute( playerLobby, gameCenter, gson) );
+        post(RESIGN, new PostResignRoute(playerLobby, gameCenter, gson));
 
-        //This handles the undo move request.
-        post( BACKUPMOVE, new PostBackUpMoveRoute( gson, gameCenter, playerLobby) );
+        // This handles the undo move request.
+        post(BACKUP_MOVE, new PostBackUpMoveRoute(gson, gameCenter, playerLobby));
+
+        // Handles the spectator checking the turn
+        post(SPECTATOR_CHECK_TURN, new PostSpectatorCheckTurnRoute(gson, playerLobby));
 
         LOG.config("WebServer is initialized.");
     }

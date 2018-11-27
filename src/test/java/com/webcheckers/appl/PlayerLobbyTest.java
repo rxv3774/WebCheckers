@@ -33,7 +33,7 @@ public class PlayerLobbyTest {
 
     @Test
     void test_addPlayer() {
-        assertThrows(NullPointerException.class, () -> playerLobby.addPlayer(null));
+        assertThrows(NullPointerException.class, () -> playerLobby.addUser(null));
     }
 
     @Test
@@ -45,30 +45,30 @@ public class PlayerLobbyTest {
 
     @Test
     void test_playerNameInUse() {
-        playerLobby.addPlayer(validPlayer);
-        assertTrue(playerLobby.playerNameInUse(VALID_NAME));
-        assertFalse(playerLobby.playerNameInUse(NO_EXIST_NAME));
+        playerLobby.addUser(validPlayer);
+        assertTrue(playerLobby.usernameInUse(VALID_NAME));
+        assertFalse(playerLobby.usernameInUse(NO_EXIST_NAME));
     }
 
     @Test
     void test_getPlayerObject() {
-        assertSame(null, playerLobby.getPlayerObject(VALID_NAME));
+        assertSame(null, playerLobby.getUserObject(VALID_NAME));
 
-        playerLobby.addPlayer(validPlayer);
-        assertSame(validPlayer, playerLobby.getPlayerObject(VALID_NAME));
+        playerLobby.addUser(validPlayer);
+        assertSame(validPlayer, playerLobby.getUserObject(VALID_NAME));
 
-        assertSame(null, playerLobby.getPlayerObject(NO_EXIST_NAME));
+        assertSame(null, playerLobby.getUserObject(NO_EXIST_NAME));
     }
 
     @Test
     void test_getLobbySize() {
-        playerLobby.addPlayer(validPlayer);
+        playerLobby.addUser(validPlayer);
         assertSame(1, playerLobby.getLobbySize());
     }
 
     @Test
     void test_getPlayerNamesAsArrayList() {
-        playerLobby.addPlayer(validPlayer);
+        playerLobby.addUser(validPlayer);
         assertEquals(new ArrayList<String>() {{
             add(validPlayer.getName());
         }}, playerLobby.getPlayersNamesAsArrayList());
@@ -76,15 +76,15 @@ public class PlayerLobbyTest {
 
     @Test
     void test_getPlayerNamesAsString() {
-        playerLobby.addPlayer(validPlayer);
-        assertEquals(String.format("Number of players signed in: %d", playerLobby.getLobbySize()),
-                playerLobby.getPlayerNamesAsString(VALID_NAME));
+        playerLobby.addUser(validPlayer);
+        assertEquals(String.format("Number of users signed in: %d", playerLobby.getLobbySize()),
+                playerLobby.getUserNamesAsString(VALID_NAME));
         assertEquals(String.format("Other Players signed in: %s", validPlayer.getName()),
-                playerLobby.getPlayerNamesAsString(INVALID_NAME));
+                playerLobby.getUserNamesAsString(INVALID_NAME));
 
-        playerLobby.addPlayer(new Player(NO_EXIST_NAME));
-        playerLobby.addPlayer(new Player("Chad"));
+        playerLobby.addUser(new Player(NO_EXIST_NAME));
+        playerLobby.addUser(new Player("Chad"));
 
-        assertEquals("Other Players signed in: " + validPlayer.getName() + ", " + "Chad", playerLobby.getPlayerNamesAsString(NO_EXIST_NAME));
+        assertEquals("Other Players signed in: " + validPlayer.getName() + ", " + "Chad", playerLobby.getUserNamesAsString(NO_EXIST_NAME));
     }
 }

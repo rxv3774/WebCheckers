@@ -22,10 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @Tag("UI-tier")
 public class PostCheckTurnRouteTest {
-
-
     private static final String NAME_ATTR = "name";
-
 
     PostCheckTurnRoute CuT;
 
@@ -38,105 +35,99 @@ public class PostCheckTurnRouteTest {
 
     @BeforeEach
     void setup() {
-
         gson = new Gson();
 
-        request = mock( Request.class );
-        response = mock( Response.class );
-        playerLobby = mock( PlayerLobby.class );
+        request = mock(Request.class);
+        response = mock(Response.class);
+        playerLobby = mock(PlayerLobby.class);
 
-        session = mock( Session.class );
-        when( request.session() ).thenReturn( session );
+        session = mock(Session.class);
+        when(request.session()).thenReturn(session);
 
-        CuT = new PostCheckTurnRoute( gson, playerLobby );
+        CuT = new PostCheckTurnRoute(gson, playerLobby);
     }
 
 
     @Test
-    public void handlePlayerIsNull(){
-
-        when( session.attribute( NAME_ATTR ) ).thenReturn( null );
+    public void handlePlayerIsNull() {
+        when(session.attribute(NAME_ATTR)).thenReturn(null);
         String currentPlayerName = null;
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( null );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(null);
 
         //Test1 this checks to make sure that the handle returns a null.
-        assertNull( CuT.handle(request, response ) );
+        assertNull(CuT.handle(request, response));
     }
 
 
     @Test
-    public void handleGameIsNull(){
+    public void handleGameIsNull() {
+        Player p1 = new Player("Smith");
 
-        Player p1 = new Player( "Smith" );
-
-        when( session.attribute( NAME_ATTR ) ).thenReturn( p1.getName() );
+        when(session.attribute(NAME_ATTR)).thenReturn(p1.getName());
         String currentPlayerName = p1.getName();
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p1 );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(p1);
 
         //Test1 This should return null because the player isn't in a match
-        assertEquals( gson.toJson(Message.OPPONENT_RESIGN), CuT.handle(request, response));
+        assertEquals(gson.toJson(Message.OPPONENT_RESIGN), CuT.handle(request, response));
     }
 
     @Test
-    public void handleActivePlayer(){
-
-        Player p1 = new Player("Rick" );
-        Player p2 = new Player("Morty" );
+    public void handleActivePlayer() {
+        Player p1 = new Player("Rick");
+        Player p2 = new Player("Morty");
 
         GameCenter gameCenter = new GameCenter();
 
-        gameCenter.createGame( p1, p2 );
+        gameCenter.createGame(p1, p2);
 
-        System.out.println( p2.getMatch() != null );
+        System.out.println(p2.getMatch() != null);
 
-        when( session.attribute( NAME_ATTR ) ).thenReturn( p1.getName() );
+        when(session.attribute(NAME_ATTR)).thenReturn(p1.getName());
         String currentPlayerName = p1.getName();
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p1 );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(p1);
 
         //Test1 This checks if the current player is the active player
-        assertEquals( gson.toJson(Message.TRUE), CuT.handle(request, response) );
+        assertEquals(gson.toJson(Message.TRUE), CuT.handle(request, response));
     }
 
 
     @Test
-    public void handleHasWinner(){
-
-        Player p2 = mock( Player.class );
+    public void handleHasWinner() {
+        Player p2 = mock(Player.class);
 
         final String p2Name = "Potter";
 
-        Match game = mock( Match.class );
-        when( game.hasWinner() ).thenReturn( true );
+        Match game = mock(Match.class);
+        when(game.hasWinner()).thenReturn(true);
 
-        when( p2.getName() ).thenReturn( p2Name );
-        when( p2.getMatch() ).thenReturn( game );
+        when(p2.getName()).thenReturn(p2Name);
+        when(p2.getMatch()).thenReturn(game);
 
-        when( session.attribute( NAME_ATTR ) ).thenReturn( p2Name );
+        when(session.attribute(NAME_ATTR)).thenReturn(p2Name);
         String currentPlayerName = p2Name;
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p2 );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(p2);
 
-        Player player = mock( Player.class );
-        when( player.getMatch() ).thenReturn( game );
+        Player player = mock(Player.class);
+        when(player.getMatch()).thenReturn(game);
 
         //Test1 This checks if their is a winner
-        assertEquals( gson.toJson(Message.TRUE), CuT.handle(request, response) );
+        assertEquals(gson.toJson(Message.TRUE), CuT.handle(request, response));
     }
 
 
     @Test
-    public void handlePlayerIsntActive(){
-
-        Player p1 = new Player("Jelly" );
-        Player p2 = new Player("Bob" );
+    public void handlePlayerIsNotActive() {
+        Player p1 = new Player("Jelly");
+        Player p2 = new Player("Bob");
 
         GameCenter gameCenter = new GameCenter();
-        gameCenter.createGame( p1, p2 );
+        gameCenter.createGame(p1, p2);
 
-        when( session.attribute( NAME_ATTR ) ).thenReturn( p2.getName() );
+        when(session.attribute(NAME_ATTR)).thenReturn(p2.getName());
         String currentPlayerName = p2.getName();
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( p2 );
+        when(playerLobby.getUserObject(currentPlayerName)).thenReturn(p2);
 
         //Test1 Player isn't the active player so it's null
-        assertEquals( gson.toJson( Message.FALSE), CuT.handle(request, response) );
+        assertEquals(gson.toJson(Message.FALSE), CuT.handle(request, response));
     }
 }

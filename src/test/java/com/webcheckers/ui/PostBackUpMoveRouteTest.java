@@ -41,38 +41,38 @@ public class PostBackUpMoveRouteTest {
 
         gson = new Gson(); // can't make a mock object of Gson
 
-        gameCenter = mock( GameCenter.class );
-        playerLobby = mock( PlayerLobby.class );
-        match = mock( Match.class );
+        gameCenter = mock(GameCenter.class);
+        playerLobby = mock(PlayerLobby.class);
+        match = mock(Match.class);
 
-        request = mock( Request.class );
-        response = mock( Response.class );
-        session = mock( Session.class );
+        request = mock(Request.class);
+        response = mock(Response.class);
+        session = mock(Session.class);
 
-        when( request.session() ).thenReturn( session );
+        when(request.session()).thenReturn(session);
 
-        CuT = new PostBackUpMoveRoute( gson, gameCenter, playerLobby );
+        CuT = new PostBackUpMoveRoute(gson, gameCenter, playerLobby);
     }
 
     @Test
-    public void handleWorks(){
+    public void handleWorks() {
 
         final String NAME = "JEFF";
-        Player player = mock( Player.class );
+        Player player = mock(Player.class);
 
         when( session.attribute( SESSION_NAME_ATTR ) ).thenReturn( NAME );
         String currentPlayerName = session.attribute( SESSION_NAME_ATTR );
-        when( playerLobby.getPlayerObject( currentPlayerName ) ).thenReturn( player );
+        when( playerLobby.getUserObject( currentPlayerName ) ).thenReturn( player );
 
 
-        when( player.getMatch() ).thenReturn( match );
+        when(player.getMatch()).thenReturn(match);
 
 
         //Test1 This checks to make sure the handle doesn't return a null.
-        assertNotNull( CuT.handle( request, response) ) ;
+        assertNotNull(CuT.handle(request, response));
 
         //Test2 This checks to make sure it returns the correct value.
-        assertEquals( gson.toJson(Message.BACKUPMOVE) , CuT.handle( request, response) );
+        assertEquals( gson.toJson(Message.BACKUP_MOVE) , CuT.handle( request, response) );
     }
 
 }

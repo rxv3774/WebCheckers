@@ -96,5 +96,4 @@ public final class Application {
 
         LOG.config("WebCheckers initialization complete.");
     }
-
 }

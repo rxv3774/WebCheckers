@@ -1,15 +1,11 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
-import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.*;
-import javafx.beans.binding.When;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import spark.Request;
 import spark.Response;
 import spark.Session;
@@ -39,7 +35,7 @@ public class PostValidateMoveRouteTest {
 
     private PostValidateMoveRoute CuT;
 
-    private Move VALID_MOVE = new Move( new Position(2,3), new Position(3,4) );
+    private Move VALID_MOVE = new Move(new Position(2, 3), new Position(3, 4));
 
 
     private final String JSON_STRING = "{\"start\":{\"row\":2,\"cell\":3},\"end\":{\"row\":3,\"cell\":4}}";
@@ -50,57 +46,57 @@ public class PostValidateMoveRouteTest {
 
         gson = new Gson();
         playerLobby = new PlayerLobby();
-        board = mock( Board.class );
+        board = mock(Board.class);
 
-        move = mock( Move.class );
-        request = mock( Request.class );
-        response = mock( Response.class );
+        move = mock(Move.class);
+        request = mock(Request.class);
+        response = mock(Response.class);
 
-        session = mock( Session.class );
-        when( request.session() ).thenReturn( session );
+        session = mock(Session.class);
+        when(request.session()).thenReturn(session);
 
-        CuT = new PostValidateMoveRoute( gson, playerLobby );
+        CuT = new PostValidateMoveRoute(gson, playerLobby);
     }
 
 
     @Test
-    public void moveFromJsonWorks(){
+    public void moveFromJsonWorks() {
 
         //Test1 checks to make sure null isn't returned
-        assertNotNull( CuT.moveFromJson( JSON_STRING ) );
+        assertNotNull(CuT.moveFromJson(JSON_STRING));
 
         //Test2 checks to see if the expected value is returned
-        assertEquals( VALID_MOVE, CuT.moveFromJson( JSON_STRING ));
+        assertEquals(VALID_MOVE, CuT.moveFromJson(JSON_STRING));
     }
 
 
     @Test
-    public void handlePlayerIsNull(){
+    public void handlePlayerIsNull() {
         //Test1 makes sure response isn't null
-        assertNotNull( CuT.handle(request, response) );
+        assertNotNull(CuT.handle(request, response));
 
         //Test2 makes sure returned value is what we expected
-        assertEquals( gson.toJson(Message.ERR_NOT_SIGNED_IN), CuT.handle(request, response ) );
+        assertEquals(gson.toJson(Message.ERR_NOT_SIGNED_IN), CuT.handle(request, response));
     }
 
 
     @Test
-    public void handleGameIsNull(){
+    public void handleGameIsNull() {
 
         Player p1 = new Player( "Mr Robot" );
-        playerLobby.addPlayer(p1);
+        playerLobby.addUser(p1);
 
-        when( session.attribute( SESSION_NAME_ATTR) ).thenReturn( p1.getName() );
+        when(session.attribute(SESSION_NAME_ATTR)).thenReturn(p1.getName());
 
         //Test1 makes sure response isn't null
-        assertNotNull( CuT.handle(request, response) );
+        assertNotNull(CuT.handle(request, response));
 
         //Test2 makes sure returned value is what we expected
-        assertEquals( gson.toJson(Message.OPPONENT_RESIGN), CuT.handle(request, response ) );
+        assertEquals(gson.toJson(Message.OPPONENT_RESIGN), CuT.handle(request, response));
     }
 
     @Test
-    public void handleRegMove(){
+    public void handleRegMove() {
 
 //        final String p1Name = "DeadPool";
 //
@@ -129,7 +125,6 @@ public class PostValidateMoveRouteTest {
 //        CuT.handle(request, response);
 //        assertNotNull(match);
     }
-
 
 
 }

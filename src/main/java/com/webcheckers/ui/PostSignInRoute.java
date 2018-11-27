@@ -1,7 +1,8 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.model.Player;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
+import com.webcheckers.model.User;
 import spark.*;
 
 import java.util.HashMap;
@@ -73,14 +74,14 @@ public class PostSignInRoute implements Route {
         }
 
         // Checks if name is in use
-        if (!playerLobby.playerNameInUse(playerName)) {
+        if (!playerLobby.usernameInUse(playerName)) {
 
             Player newPlayer = new Player(playerName);
 
             session.attribute(PLAYER_NAMES_ATTR, playerLobby.getPlayersNamesAsArrayList());
             session.attribute(SESSION_NAME_ATTR, playerName);
 
-            playerLobby.addPlayer(newPlayer);
+            playerLobby.addUser(newPlayer);
 
             response.redirect(WebServer.HOME_URL);
             halt();

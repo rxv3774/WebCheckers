@@ -1,9 +1,10 @@
 package com.webcheckers.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
- * Object for the data of the match between two players
- *
- * Author: TeamD
+ * Match class, contains data for a game between two players and spectators
  */
 public class Match {
     private Player redPlayer;
@@ -12,7 +13,9 @@ public class Match {
     private Player winner;
     private Board board;
 
-    private Move pendingMove, DJsecondPendingMove;
+    private ArrayList<Spectator> spectators;
+
+    private Move pendingMove, DJSecondPendingMove;
     private boolean running;
 
     /**
@@ -21,6 +24,8 @@ public class Match {
     public Match() {
         this.board = new Board();
         this.running = false;
+
+        spectators = new ArrayList<>();
     }
 
     /**
@@ -29,9 +34,9 @@ public class Match {
      * @param player the player to add
      * @return true if the player could be added, false if not.
      */
-    public boolean join(Player player) {
+    public boolean joinPlayer(Player player) {
         if (player != null) {
-            if (player.playGame(this)) {
+            if (player.joinGame(this)) {
 
                 if (this.redPlayer == null) {
                     this.redPlayer = player;
@@ -43,12 +48,19 @@ public class Match {
                     return true;
                 }
             }
-            return false;
         }
         return false;
     }
 
-    /*
+    public void joinSpectator(Spectator spectator) {
+        if (spectator != null) {
+            if (spectator.joinGame(this)) {
+                spectators.add(spectator);
+            }
+        }
+    }
+
+    /**
      * Check if match contains the specified player
      *
      * @param player the player to check for
@@ -91,11 +103,7 @@ public class Match {
      * @return the piece color
      */
     public Piece.Color getActiveColor() {
-        if (redPlayer == activePlayer) {
-            return Piece.Color.RED;
-        } else {
-            return Piece.Color.WHITE;
-        }
+        return (redPlayer == activePlayer) ? Piece.Color.RED : Piece.Color.WHITE;
     }
 
     /**
@@ -104,24 +112,18 @@ public class Match {
      * @param move: the move to add
      */
     public void addPendingMove(Move move) {
-        if (pendingMove == null)
-            this.pendingMove = move;
-        else
-            this.DJsecondPendingMove = move;
+        if (pendingMove == null) this.pendingMove = move;
+        else this.DJSecondPendingMove = move;
     }
 
-    /**
-     * remove one of the pending moves, starting with the second move iof it exists
-     */
-    public void removePendingMove(){
-        if(DJsecondPendingMove != null)
-            DJsecondPendingMove = null;
-        else
-            pendingMove = null;
+    public void removePendingMove() {
+        if (DJSecondPendingMove != null) DJSecondPendingMove = null;
+        else pendingMove = null;
     }
 
     /**
      * return pending move
+     *
      * @return: pending move
      */
     public Move getPendingMove() {
@@ -134,9 +136,9 @@ public class Match {
     public void doPendingMoves() {
         pendingMove.makeMove(this.board);
         this.pendingMove = null;
-        if (DJsecondPendingMove != null) {
-            DJsecondPendingMove.makeMove(this.board);
-            this.DJsecondPendingMove = null;
+        if (DJSecondPendingMove != null) {
+            DJSecondPendingMove.makeMove(this.board);
+            this.DJSecondPendingMove = null;
         }
     }
 
@@ -155,7 +157,7 @@ public class Match {
      * @return true if there is a pending move
      */
     public boolean hasPendingDJMoves() {
-        return this.DJsecondPendingMove != null;
+        return this.DJSecondPendingMove != null;
     }
 
     /**
@@ -169,15 +171,34 @@ public class Match {
 
     /**
      * checks if a double jump is available
+     *
      * @return true is there is an available second jump
      */
-    public boolean doubleJumpAvailable(){
-        if(pendingMove.isJumpMove() && DJsecondPendingMove == null) {
+    public boolean doubleJumpAvailable() {
+        if (pendingMove.isJumpMove() && DJSecondPendingMove == null) {
             Position end = pendingMove.getEnd();
             Space space = board.getSpace(end);
             return space.hasSecondJumpAvailable(getActiveColor(), board, pendingMove);
         } else
             return false;
+    }
+
+    /**
+     * use the method in Space to choose a second jump, if available, for the AI
+     * @return a move object, if a second jump is possible, null otherwise
+     */
+    public Move chooseAISecondJump() {
+        Position end = pendingMove.getEnd();
+        Space space = board.getSpace(end);
+        return space.AIChooseSecondJump(getActiveColor(), board, pendingMove);
+    }
+
+    /**
+     * use the descending connection to create a list of possible moves, used for AI
+     * @return List of valid moves
+     */
+    public List<Move> getPossibleMoves() {
+        return board.getPossibleMoves(getActiveColor());
     }
 
     /**
@@ -213,14 +234,13 @@ public class Match {
     }
 
     /**
-     * Checks for both players joining.
+     * Checks if both players have joined
      *
      * @return true if both players have joined.
      */
     public boolean ready() {
         return redPlayer != null && whitePlayer != null;
     }
-
 
     /**
      * Start match.
@@ -249,6 +269,7 @@ public class Match {
         if (whitePlayer != null) whitePlayer.endGame();
         redPlayer = null;
         whitePlayer = null;
+        spectators.clear();
     }
 
     /**
@@ -269,7 +290,6 @@ public class Match {
         return winner != null;
     }
 
-
     /**
      * Changes the current player. if it's red, makes it white and vise versa
      */
@@ -277,9 +297,22 @@ public class Match {
         activePlayer = activePlayer == redPlayer ? whitePlayer : redPlayer;
     }
 
-
     public boolean doPlayersMatch(Player p1, Player p2) {
         return p1.equals(p2);
+    }
+
+    /**
+     * Deep copy game.
+     *
+     * @return deep copy of the game.
+     */
+    public Match deepCopy() {
+        Match cp = new Match();
+        cp.board = this.board.deepCopy();
+        cp.activePlayer = this.activePlayer;
+        cp.redPlayer = redPlayer;
+        cp.whitePlayer = whitePlayer;
+        return cp;
     }
 
 }

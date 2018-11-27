@@ -73,7 +73,7 @@ public class Move {
     }
 
     /**
-     * check is the second move performed is valid
+     * check if the second move performed is valid
      *
      * @param board:       board object to check spaces from
      * @param isRedPlayer: if the current player is red
@@ -100,6 +100,11 @@ public class Move {
     }
 
 
+    /**
+     * checks if the piece involved in this move is a King Piece
+     * @param board: board containing all of the pieces
+     * @return true is the piece is a king
+     */
     public boolean isKingMove(Board board) {
         Space space = board.getSpace(start);
         return space.hasKingPiece();
@@ -136,7 +141,7 @@ public class Move {
     }
 
     /**
-     * string representation of the move
+     * string representation of the move, used for testing
      *
      * @return string rep
      */
