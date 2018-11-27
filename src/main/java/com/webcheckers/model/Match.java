@@ -48,7 +48,7 @@ public class Match {
         return false;
     }
 
-    /*
+    /**
      * Check if match contains the specified player
      *
      * @param player the player to check for
