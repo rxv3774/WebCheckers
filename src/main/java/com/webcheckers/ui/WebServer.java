@@ -101,7 +101,7 @@ public class WebServer {
         //
         this.templateEngine = templateEngine;
         this.playerLobby = new PlayerLobby();
-        playerLobby.addPlayer(new Player("Artificial Intelligence"));
+        playerLobby.addPlayer(new Player("AI", true)); //add AI Player
         this.gameCenter = new GameCenter();
         this.gson = gson;
     }

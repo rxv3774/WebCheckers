@@ -119,7 +119,7 @@ public class Board implements Iterable<Row> {
                 }
             }
         }
-        if(this.isJumpAvailible(color)){
+        if(this.isJumpAvailable(color)){
             moves.removeIf(m -> !m.isJumpMove());
         }
         return moves;
@@ -130,7 +130,7 @@ public class Board implements Iterable<Row> {
      * @param color the color
      * @return true if color player has a jump availible
      */
-    public boolean isJumpAvailible(Piece.Color color){
+    public boolean isJumpAvailable(Piece.Color color){
         for(Row row : board){
             if(row.hasPossibleJumpMove(color, this)){
                 return true;

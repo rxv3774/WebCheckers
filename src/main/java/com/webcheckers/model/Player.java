@@ -60,6 +60,14 @@ public class Player {
     }
 
     /**
+     * check if play is an AI player
+     * @return true if player is AI
+     */
+    public boolean isAI(){
+        return isAI;
+    }
+
+    /**
      * End game.
      */
     public void endGame() {

@@ -102,14 +102,4 @@ public class AI {
             return monteCarlo(match, mv2, diff, moves-1);
         }
     }
-
-    /**
-     * Get ai player player.
-     *
-     * @param name the name
-     * @return the player
-     */
-    public static Player getAIPlayer(String name){
-        return new Player(name, true);
-    }
 }

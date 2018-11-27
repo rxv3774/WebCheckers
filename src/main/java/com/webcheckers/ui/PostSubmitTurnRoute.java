@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
+import com.webcheckers.appl.AI;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Match;
 import com.webcheckers.model.Message;
@@ -51,6 +52,15 @@ public class PostSubmitTurnRoute implements Route {
 
                     game.doPendingMoves();
                     game.changeActivePlayer(); //end turn
+
+                    if(game.canPlay() && game.getWhitePlayer().isAI()){
+                        game.addPendingMove(AI.getAIMove(game));
+                        game.doPendingMoves();
+                        game.changeActivePlayer();
+                        if(!game.canPlay()) {
+                            game.declareWinner();
+                        }
+                    }
 
                     return gson.toJson(Message.MOVE_SUBMITTED);
                 } else
