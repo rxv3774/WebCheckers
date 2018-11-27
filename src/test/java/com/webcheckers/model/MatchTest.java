@@ -6,6 +6,7 @@ package com.webcheckers.model;
  * Author: TeamD
  */
 
+import com.webcheckers.appl.GameCenter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -452,4 +453,89 @@ public class MatchTest {
         assertTrue(testMatch.matchContains(redTestPlayer));
         assertTrue(testMatch.matchContains(whiteTestPlayer));
     }
+
+
+    @Test
+    public void isWinnerWorks(){
+        Player p1 = new Player( "Snoopy");
+        Player p2 = new Player( "Charlie");
+
+        GameCenter gameCenter = new GameCenter();
+        Match match = gameCenter.createGame( p1, p2);
+
+        match.start();
+        match.declareWinner();
+
+        //Test this shows the other player wins
+        assertTrue( match.isWinner( p2 ) );
+
+
+        Player p3 = new Player( "Agent Cooper");
+        Player p4 = new Player( "Danno");
+
+        GameCenter gC = new GameCenter();
+        Match m = gC.createGame( p3, p4);
+
+        m.start();
+
+        m.changeActivePlayer(); //simulates a move made
+
+        m.declareWinner();
+
+        //Test2 this hows the other player wins
+        assertTrue( m.isWinner( p3 ) );
+    }
+
+
+    @Test
+    public void dJAvailiableWorks(){
+        GameCenter gameCenter = new GameCenter();
+
+        Player p1 = new Player( "Archie" );
+        Player p2 = new Player( "JugHead" );
+
+        Match match = gameCenter.createGame( p1, p2 );
+
+        match.start();
+
+        match.addPendingMove( new Move( new Position(2,1), new Position( 3,2) ) );
+        match.doPendingMoves();
+
+        match.addPendingMove( new Move( new Position(1,2), new Position( 2,1) ) );
+        match.doPendingMoves();
+
+        match.addPendingMove( new Move( new Position(2,5), new Position( 3,4) ) );
+        match.doPendingMoves();
+
+        match.addPendingMove( new Move( new Position(3,4), new Position( 4,5) ) );
+        match.doPendingMoves();
+
+        match.changeActivePlayer();
+
+        match.addPendingMove( new Move( new Position(5,6), new Position( 3,4) ) );
+
+        assertTrue( match.doubleJumpAvailable() );
+    }
+
+
+    @Test
+    public void getPendingMoveWorks(){
+        GameCenter gameCenter = new GameCenter();
+
+        Player p1 = new Player( "Archie" );
+        Player p2 = new Player( "JugHead" );
+
+        Match match = gameCenter.createGame( p1, p2 );
+
+        match.start();
+
+        Move move = new Move( new Position(2,1), new Position( 3,2) );
+
+        match.addPendingMove( move );
+
+        //Test1 This checks to make sure what we get is what we expected
+        assertEquals( move, match.getPendingMove() );
+    }
+
+
 }

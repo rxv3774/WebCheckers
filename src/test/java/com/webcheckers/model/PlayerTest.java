@@ -145,4 +145,49 @@ class PlayerTest {
         //Test3 never had a match so it's still null
         assertNull(p3.getMatch());
     }
+
+
+    @Test
+    public void GamesWonWorks(){
+        Player p1 = new Player( "FRED" );
+
+        //Test1 The player should have 0 wins
+        assertEquals( 0, p1.getGamesWon() );
+
+        p1.increaseGamesWon();
+
+        //Test2 The player should have 1 wins
+        assertEquals( 1, p1.getGamesWon() );
+    }
+
+
+    @Test
+    public void GamesDrawedWorks(){
+        Player p1 = new Player( "FRED" );
+
+        //Test1 The player should have 0 draws
+        assertEquals( 0, p1.getGamesDrawed() );
+
+        p1.increaseGamesDrawed();
+
+        //Test2 The player should have 1 draws
+        assertEquals( 1, p1.getGamesDrawed() );
+    }
+
+
+    @Test
+    public void GamesLostWorks(){
+        Player p1 = new Player( "FRED" );
+
+        //Test1 The player should have 0 lost
+        assertEquals( 0, p1.getGamesLost() );
+
+        p1.increaseGamesLost();
+
+        //Test2 The player should have 1 lost
+        assertEquals( 1, p1.getGamesLost() );
+    }
+
+
+
 }
