@@ -18,12 +18,15 @@ public class GetSignOutRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
     private final PlayerLobby playerLobby;
+    private final GameCenter gameCenter;
 
-    public GetSignOutRoute(PlayerLobby playerLobby) {
+    public GetSignOutRoute(PlayerLobby playerLobby, GameCenter gameCenter) {
         // validation
         Objects.requireNonNull(playerLobby, "playerLobby must not be null");
         //
         this.playerLobby = playerLobby;
+        this.gameCenter = gameCenter;
+
         LOG.config("GetSignOutRoute is initialized.");
     }
 
@@ -39,6 +42,7 @@ public class GetSignOutRoute implements Route {
 
         if(currentPlayer != null) {
             if(currentPlayer.isInGame()) {
+                gameCenter.endGame(currentPlayer.getMatch());
                 currentPlayer.endGame();
             }
             playerLobby.signOut(currentPlayer);
