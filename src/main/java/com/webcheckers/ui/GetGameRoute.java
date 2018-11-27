@@ -90,7 +90,6 @@ public class GetGameRoute implements Route {
                 user = new Spectator(user.getName());
                 playerLobby.addUser(user);
                 opponent.getMatch().joinSpectator((Spectator) user);
-                System.out.println(user.getViewMode());
                 response.redirect(WebServer.SPECTATOR_GAME);
                 // TODO: Handle possible error in joining spectator
 //                request.session().attribute("errorMessage", "Player is already in a game.");
