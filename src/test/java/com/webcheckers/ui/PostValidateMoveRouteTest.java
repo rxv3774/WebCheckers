@@ -96,7 +96,7 @@ public class PostValidateMoveRouteTest {
         assertNotNull( CuT.handle(request, response) );
 
         //Test2 makes sure returned value is what we expected
-        assertEquals( gson.toJson(Message.ERR_NO_OPPONENT), CuT.handle(request, response ) );
+        assertEquals( gson.toJson(Message.OPPONENT_RESIGN), CuT.handle(request, response ) );
     }
 
     @Test

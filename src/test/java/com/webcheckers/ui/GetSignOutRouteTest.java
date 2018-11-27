@@ -39,6 +39,7 @@ class GetSignOutRouteTest {
         when(request.session()).thenReturn(session);
         response = mock(Response.class);
         playerLobby = new PlayerLobby();
+        gameCenter = mock(GameCenter.class);
 
         // create a unique getSignOutRoute for each test
         getSignOutRoute = new GetSignOutRoute(playerLobby, gameCenter);
