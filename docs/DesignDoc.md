@@ -246,10 +246,12 @@ __Chidamber and Kemerer Metrics:__
 Chidamber and Kemerer Metrics check for coupling between objects and lack of cohesion in methods. First, _coupling between objects_
 represents the number of object classes to which that class is coupled. Second, _Lack of Cohesion in Methods_
 is a count of the difference between the method pairs that are not similar and those that are similar within a given class; 
-this metric characterizes the lack of cohesion of a class. The following WebCheckers classes were __above average__ for their category.
+this metric characterizes the lack of cohesion of a class and high values may indicate that the class is doing too much and needs to shift some of its responsibility. 
+The following WebCheckers classes were __above average__ for their category.
 
     Coupling Between Objects:
 	
+	    Average - 10.94 dependencies
  
         PlayerLobby – 27 dependencies
         Match – 29 dependencies
@@ -257,9 +259,27 @@ this metric characterizes the lack of cohesion of a class. The following WebChec
         User – 28 dependencies
 		
 	Lack of Cohesion of Methods:
+	
+	    Average - 1.12 LCOM
 
         Player – 4 LCOM
         User – 3 LCOM
+
+_Analysis of Data:_
+
+The metrics indicate that PlayerLobby, Player, Match, and User have high coupling between objects. I believe this is because of the way we obtain the current
+player during operations in the User Interface Tier. Because we are only storing the name of the current player in the session, and not the actual Player object, we have to
+depend on PLayerLobby to give us the Player object associated with the player name. This means that PlayerLobby has to be injected in all but two Get/Post methods in the User Interface Tier, 
+creating a dependency. As for Match... in many of these same UI Tier classes, we need to also obtain the match to check important conditions, and we do so by retrieving the match from the Player object.
+In other words, we are "getting" the player object and then "getting" the match object which then may do things like "getting" the active player, and this is all done within the same class.
+So, we are creating dependencies on Player and Match when we do this; and, since User is the parent class for Player (needed for the spectator implementation), we are also creating a dependency on User.
+
+_Recommendation based on Analysis:_
+
+Our solution to this would be to store the current player's Player object in the session so we would not need to send PlayerLobby with multiple classes in the User Interface Tier.
+Additionally, we should use Law of Demeter by creating methods in the Player object that do the checking for things like active player instead of having the UI retrieve the match
+and then call a bunch of different get methods. Since the Player object has the match, it should be responsible for checking those conditions. This would lower the coupling within the WebCheckers
+application.
 
 __Complexity Metrics:__
 
@@ -269,10 +289,12 @@ more prone it is to errors. The _Average Operation Complexity_ calculates the av
 The _Essential Cyclomatic Complexity_ a graph-theoretic measure of just how ill-structured a method's control flow is; this ranges from 1 to v(G), v(G) being the cyclomatic complexity of the method.
 The _Design Complexity_ is related to how interlinked a methods control flow is with calls to other methods. The _Cyclomatic Complexity_
 is a measure of the number of distinct execution paths through each method. (In practice, this is 1 + the number of if's, while's, for's, 
-do's, switch cases, catches, conditional expressions, &&'s and ||'s in the method). The following WebCheckers classes and methods were __above average__ for their category.
-
+do's, switch cases, catches, conditional expressions, &&'s and ||'s in the method). In other terms, the Cyclomatic Complexity measures the structural design complexity within the program. 
+The following WebCheckers classes and methods were __above average__ for their category, indicated with the color red in the code metrics.
 
     Weighted Method Complexity:
+    
+        Average - 10.24
 
 	    Board – 39 
 	    Match – 49 
@@ -280,11 +302,15 @@ do's, switch cases, catches, conditional expressions, &&'s and ||'s in the metho
 
 	Average Operation Complexity:
 
+        Average - 1.90
+
 	    GetGameRoute – 6.00 
 	    GetHomeRoute – 4.00 
 	    PostSubmitTurnRoute – 3.50 
 
     Essential Cyclomatic Complexity:
+    
+        Average - 1.56
 
         Match.join(Player) – 5 
         PostValidateMoveRoute.handle(request, response) – 6 
@@ -301,16 +327,30 @@ do's, switch cases, catches, conditional expressions, &&'s and ||'s in the metho
         Position.getMiddle(Position) – 4 
 
     Design Complexity:
+    
+        Average - 1.85
 
         GetGameRoute.handle(Request, Response) – 15 
         PostValidateMoveRoute.handle(request, response) – 10 
 
     Cyclomatic Complexity:
+    
+        Average - 2.13
 
         GetGameRoute.handle(Request, Response) – 15 
         
 
+_Analysis of Data:_
 
+In the GetGameRoute handle method, we see an inflated Cyclomatic Complexity because there are too many different paths of execution that can be taken within the method.
+For example, there are five different possible redirects in the method and each of these possible redirects creates a branch in the structure of the method.
+This also means that these different possibilities need to be tested, as well as a greater risk factor associated with the design. Because of what I just described,
+the Cyclomatic Complexity of the GetGameRoute handle method is inflated beyond a safe range. 
+
+In the PostValidateMoveRoute handle method, we see an inflated Design Complexity because of the conditions at the end of the method that check for what type of move was made.
+To check if a pending move needs to be added to the match, the handle method makes numerous calls to other methods from the move and match class. The results of these 
+method calls affect which of the paths will be taken. Since these conditions use so many methods calls to determine the path, we see an inflated Design Complexity that must be addressed.
+        
 __Javadoc Coverage Metrics:__
 
 Javadoc Coverage Metrics simply counts the number of methods or number or lines of Javadoc in an application's tiers and classes.
@@ -377,16 +417,8 @@ from inside of the package. The following reports the ratios or coupling of each
         Model: 31
         UI: 15
 
-
 ### Design Improvements
-If given the opportunity to improve upon our current design, there are a few design details that we would change.
-For example, we have had some issues with our implementation of our board. We created our board using an iterable 
-of iterables, this caused some issues in our unit tests. Our tests helped us realize that our implementation could 
-have been improved by maybe using a collection when creating our board. Our original code metrics 
-measurements were not great, however, after going back and fixing our implementation and unit tests, we were able 
-to improve them significantly. Our main issues in testing was our iterators. As you can see, the iterators had caused 
-us more than one problem, however, we were able to get past this issue. Another improvement we could make is implementing
-single responsibility for a Piece, by creating separate Single and King Piece classes.
+
 
 ## Testing
 Some of the tests that are performed: 
