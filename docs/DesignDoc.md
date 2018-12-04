@@ -79,12 +79,11 @@ _(Figure 1)_
 The main elements of the domain are the Player, Game, and Tournament entities. The Player entity represents the player,
 whether they are human or a spectator. A player plays the game and makes moves, but only watches if they are
 a spectator. The Move entity has multiple sub-types: single, single jump, multi jump, and multi direction moves. Each 
-move is validated by the rules of the game. The jump rule determines the validity of all the moves besides the multi 
-direction move, which is validated by the king rule. Before the player can even make a move, the board must be created.
-The Game entity creates a Board, which then creates eight Row entities, which creates eight Space entities for each row. The Space
-entity creates a single Piece entity if it is initialized to contain one. There are two types of pieces: single pieces
-and king pieces. A Tournament entity is a series of games played by multiple different players. The functionality of the
-tournament follows the basic principle of a regular sports tournament.
+move is validated by the rules of the game. The single move rule validates single moves, the jump rule determines the 
+validity of all jump moves, and the king rule validates the multi-direction move. Before the player can even make a move, 
+the board must be created. The Game entity creates a Board, which then creates eight Row entities, which creates eight 
+Space entities for each row. The Space entity creates a single Piece entity if it is initialized to contain one. There 
+are two types of pieces: single pieces and king pieces.
 
 ## Architecture and Design
 The Web Checkers webapp uses a Java-based web server and was built using the Spark web micro framework and the 
