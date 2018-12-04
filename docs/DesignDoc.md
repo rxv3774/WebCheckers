@@ -126,10 +126,6 @@ is valid. This cycle repeats, and the players remain on this page, until there i
 
 
 ### UI Tier
-This tier of the Web Checkers application can be shown in the following class diagram:
-
-:![UI Tier Class Diagram](user-interface-tier-class-diagram.png)
-_(Figure 4)_
 
 *Class Structure of UI Tier:*\
 The User Interface Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP 
@@ -154,8 +150,22 @@ button, the client is sent to GetGameRoute. GetGameRoute is responsible for crea
 (if one does not already exist) and displaying the game page to the client. More about the sign-in process can be found 
 in the "Significant Features" section (Figure 11).
 
-*Get Spectator Game Route*\
+*PostCheckTurnRoute Component of UI Tier*\
+When a player is in a game, if it is not their turn then they will be waiting in PostCheckTurnRoute. Once the enemy chooses a move and the active player 
+changes in the match, the waiting player will know that it is their turn. With this information, the player will update the board on their game page and they 
+are now able to pick up and move their pieces on the board. However, the player doesnt only check for it to be their turn when in PostCheckTurnRoute; the player must
+also check to see if the game has a winner or if the opponent resigned.
 
+*PostValidateMoveRoute Component of UI Tier*\
+When it is a player's turn, they have the ability to pick up and move their pieces to dark spaces on the board. When a player props their piece, 
+PostValidateMoveRoute is called to see if this move it called, and it must inform the player of just that. A player cannot submit their turn until the move
+has been declared as valid, so the PostValidateMoveRoute is responsible for making sure the system receives the message that distinguishes whether or not the move is valid.
+More about this component can be seen in the sequence diagram in Significant Features, Figure 12 "Validate a Move".
+
+*PostSubmitTurnRoute Component of UI Tier*\
+When a player's move has been declared valid by PostValidateMoveRoute, the player can then click the "Submit Turn" button. This component is responsible
+for doing the pending moves in match and changing the active player. Additionally, this component must stop the player from submitting their turn if there is
+a double jump available, since players are required to complete available double jumps. More about this component can be seen in the sequence diagram in Significant Features, Figure 13 "Submit a Turn".
 
 ### Application Tier
 The application tier contains two components: GameCenter and PlayerLobby. These components can be seen in the following class diagram:
