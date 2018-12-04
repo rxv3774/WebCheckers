@@ -117,7 +117,13 @@ where the user can see his name as the current player, along with a number or li
 is signed in, the player lobby will only show a message saying one player is signed in, but not a list of names). When 
 the user chooses a player to enter a game with or a different player chooses the user to play a game with, 
 the user is transitioned to the game page, where the board is laid out in game form. If a player wins or 
-if either player resigns, both are taken back to the home page.  
+if either player resigns, both are taken back to the home page. 
+
+When the player is in a game with a rendered game board, it initially determines if it is their turn or not. If not, it waits until it is their turn,
+sitting on the game page with the current state of the board but not able to move any pieces. When it is their turn, the player's game page updates to reflect
+the move made by the opponent. At this point, the player can attempt to move pieces and submit their turn, through the "submit turn" button, if the move
+is valid. This cycle repeats, and the players remain on this page, until there is a winner or one of the players resigns. 
+
 
 ### UI Tier
 This tier of the Web Checkers application can be shown in the following class diagram:
@@ -148,6 +154,9 @@ button, the client is sent to GetGameRoute. GetGameRoute is responsible for crea
 (if one does not already exist) and displaying the game page to the client. More about the sign-in process can be found 
 in the "Significant Features" section (Figure 11).
 
+*Get Spectator Game Route*\
+
+
 ### Application Tier
 The application tier contains two components: GameCenter and PlayerLobby. These components can be seen in the following class diagram:
 
@@ -167,8 +176,7 @@ We chose this design so that the responsibility of managing players is kept in a
 This supports high-cohesion by keeping classes, like Player or GameCenter, small and with narrowly defined responsibilities.
 
 *GameCenter Component of Application Tier:*\
-GameCenter is responsible for managing the matches between players. A match can be created in GameCenter, at which point the match is stored and can be accessed
-by other related components. When a player wants to start a game with another signed-in player, the chosen player is checked to see if it is already in a match;
+GameCenter is responsible for managing the matches between players. A match can be created in GameCenter, at which point the match is stored. When a player wants to start a game with another signed-in player, the chosen player is checked to see if it is already in a match;
 if it is not, a match is created through GameCenter between the two players. This is an example of a Controller, because the GameCenter is beyond the UI and handles the creation
 of a game; more specifically, it does this by using methods in other classes such as Match. After the game is finished, or if a player resigns, GameCenter ends the match. 
 This sequence of events involving GameCenter can be seen in the following diagram:
@@ -242,9 +250,8 @@ _(Figure 11)_
 
 This sequence of events begins when a player clicks the "Start A Game" button on the home page, sending the user to GetGameRoute.
 In GetGameRoute, the opponent player object is obtained using the name submitted when the initial player clicked the "Start A Game" button.
-If the opponent doesn't exist or is already in a game, the player is sent back to the home page with an error message.
-If the opponent exists and isn't already in a game, a new match is created in GameCenter with the two players and the player is sent to the game page. 
-While this is happening, the opponent is still in GetHomeRoute and consistently checking its status. Once the opponent is added to the match that's
+If the opponent doesn't exist (the name provided doesn't correspond to any player in the player lobby) or is already in a game, the player is sent back to the home page with an error message.
+If the opponent exists and isn't already in a game, a new match is created in GameCenter with the two players and the player is sent to the game page. Once the opponent is added to the match that's
 created in GameCenter, the opponent sees that it now exists in GameCenter and sends the user to the game page. 
 
 __Validate a Move:__
@@ -522,14 +529,10 @@ _"missed branches" refers to the lack of missed branches, so to say a tier has 1
 
 ### Acceptance Testing
 Currently we have completed and passed all necessary acceptance criteria tests for 
-the first two user stories. All acceptance criteria tests for the Player sign-in and start 
-game user stories are complete and functional. We are currently working on tests for further 
-user stories.
+all user stories pertaining to the minimum viable product, as was at the AI and Spectator enhancements.
 
 ### Unit Testing and Code Coverage
 For our unit tests, our goal was to reach at least 90% coverage on all tiers(model, application, and UI). 
 We decided on 90% because, it would give us confidence that we are properly implementing the different tiers. 
-As we created tests, we began to realize that we had certain coupling issues which we were able to quickly fix. 
-This fix was necessary, as these issues were preventing us from creating a proper testing seam between our classes. 
-This was due to that fact that we had not followed the Pure Fabrication pattern. These issues helped us improve our 
-code, as we realized that hard to test code is code that could use some improvements.
+We did reach this goal and, in doing so, found value and efficiency in completing unit tests directly after a class is written. Staying on 
+top of the unit testing made it less of a chore, and we began to reap the benefits that it provided.
