@@ -467,7 +467,10 @@ necessary.
 ### Design Improvements
 If we were given the opportunity to improve our design, we would start with the reducing the coupling between the Model and UI Tier; specifically, we would
 rework how the Player object is obtained by UI Tier classes. This new design would store the Player object in the session instead of just the player name, this would 
-alleviate the need to inject dependency on PlayerLobby when 
+alleviate the need to use dependency injection with PlayerLobby, which was previously used to get the player object by providing the name of the player. Additionally,
+our Artificial Intelligence enhancement would be improved to allow more than one player to play it at a time. With the current design, the AI player is just seen as a regular Player
+object, so when it is in a game nobody else can play with it. This could be fixed by adjusting the match joining conditions to make the AI player exempt from such rules that limit
+a player to one game. Since the AI player isnt communicating over JSon, it would not be affected by being in more than one game. 
 
 ## Testing
 Some of the tests that are performed: 
