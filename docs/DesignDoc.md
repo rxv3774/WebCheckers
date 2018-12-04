@@ -426,7 +426,7 @@ This metric has a range of [0,1]: 0 indicates a maximally stable category and 1 
 calculates the number of abstract classes and interfaces divided by all classes for each package, essentially this is a ratio of abstract classes (and interfaces)
 to the number of classes in the whole of the package. _Fan-Out Coupling_ measures the coupling in the case that a class inside a package
 needs something outside of the package. _Fan-In Coupling_ measures the coupling in the case that a class outside of a package needs something
-from inside of the package. The following reports the ratios or coupling of each Webcheckers package/tier, depending on the category.
+from inside of the package. The following reports the ratios or coupling of each WebCheckers package/tier, depending on the category.
 
     Instability:
     
@@ -461,11 +461,13 @@ _Recommendation Based on Analysis:_
 
 This problem stems from the Coupling issue that was addressed in the "Chidamber and Kemerer Metrics" section. Because of the way that the current Player object
 and Match object are obtained by the User Interface Tier, the User Interface Tier fails to fails to follow Low Coupling principals. The solution that we proposed for this
-problem in the "Chidamber and Kemerer Metrics" section will also solve the instability issue in this section. So, no further change, beyond what we have already discussed, is 
+problem in the "Chidamber and Kemerer Metrics" section will also solve the Instability issue in this section. So, no further change, beyond what we have already discussed, is 
 necessary. 
 
 ### Design Improvements
-
+If we were given the opportunity to improve our design, we would start with the reducing the coupling between the Model and UI Tier; specifically, we would
+rework how the Player object is obtained by UI Tier classes. This new design would store the Player object in the session instead of just the player name, this would 
+alleviate the need to inject dependency on PlayerLobby when 
 
 ## Testing
 Some of the tests that are performed: 
