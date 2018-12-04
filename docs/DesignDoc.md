@@ -49,26 +49,19 @@ American rules, and resign at any point which ends the game.
 
 ### MVP Features
 
-###### Epics: 
-* Checker movement
-* Resignation
-
-###### User Stories: 
-* Start a game
-* Player Sign-in
-* Move first
-* Move on turn
-* Single move
-* Multi direction
-* Single jump move
-* Multi jump move
-* Resignation
+The Minimum Viable Product of the WebChecker Application starts with the feature where a player can sign-in to the WebCheckers player lobby.
+From here, a player has the option to either start a game with another player who isn't already in a game or sign-out of the player lobby. When
+a player is in a game, the red player will move first and then the players will go back-and-forth taking turns. On a player's turn, they can either
+make a single diagonal move, single diagonal jump, or multiple diagonal jump. If the piece is a King Piece, which is achieved when a piece reaches
+the last row of the opposite side, then the piece may move both diagonally forwards and diagonally backwards, where as a single piece is restricted to only moving diagonally forwards.
+During a game, a player can resign, which ends the game and takes both players back to the lobby, or sign-out, which ends the game and signs out the current player
+while the opponent player is taken back to the lobby.
 
 ### Roadmap of Enhancements
 * Spectator: User can enter a game already in progress and watch, but not play.
 
-* Tournament play: User can choose to play in tournament mode, where a group of players compete in a system of games
-that ends with one winner. 
+* Artificial Intelligence: An AI Player is an object of the application that competitively plays a traditional game of WebCheckers against any player who requests to 
+start a game with it.
 
 ## Application Domain
 This section describes the application domain:
@@ -87,7 +80,7 @@ are two types of pieces: single pieces and king pieces.
 
 ## Architecture and Design
 The Web Checkers webapp uses a Java-based web server and was built using the Spark web micro framework and the 
-FreeMarker template engine to handle HTTP requests and generate HTML responses.
+FreeMarker template engine to handle HTTP requests and generate HTML or AJAX responses.
 
 ### Summary
 The following Tiers/Layers model shows a high-level view of the webapp's architecture:
@@ -116,9 +109,10 @@ _(Figure 3)_
 From the Perspective of the user, the Application's user interface begins on the home page
 where the user will see a welcome screen and a button to sign in. When the user clicks the button,
 the interface then flows to the sign-in page, where the user is prompted to enter a unique name.
-If the user enters an invalid name or a name that's already being used, the user will stay on the sign-in
+If the user enters an invalid name, meaning it uses illegal characters, or a name that's already being used, the user will stay on the sign-in
 page but with the appropriate error message. If the user enters a valid name, the interface flows back to the home page,
-where the user can see his name as the current player, along with a number or list of other players in the lobby. When 
+where the user can see his name as the current player, along with a number or list of other players in the lobby (when only one player
+is signed in, the player lobby will only show a message saying one player is signed in, but not a list of names). When 
 the user chooses a player to enter a game with or a different player chooses the user to play a game with, 
 the user is transitioned to the game page, where the board is laid out in game form. If a player wins or 
 if either player resigns, both are taken back to the home page.  
@@ -132,8 +126,8 @@ _(Figure 4)_
 *Class Structure of UI Tier:*\
 The User Interface Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP 
 Routes that make up the web application. When a client navigates to the Web Checkers page, he will be starting in the 
-GetHomeRoute component of the UI Tier. If client attempts to start at a page that is not the home page, the client will 
-be redirected to the sign in page. GetHomeRoute is responsible for displaying the home page, with a Sign In button at 
+GetHomeRoute component of the UI Tier. If a client, who isn't signed in, attempts to start at a page that is not the home page, the client will 
+be redirected to the sign in page so the player can then retry with accessing their desired page. GetHomeRoute is responsible for displaying the home page, with a Sign In button at 
 the top and additional information in the body, as well as checking if a player is already in a game and redirecting to 
 the game page if so. When the Sign In button is clicked, the client will be sent to GetSignInRoute, which is responsible
 for displaying the sign in page. On the sign in page, the client can type a name into the space provided and press the 
@@ -187,15 +181,22 @@ instead of calling get methods from Match and doing the comparison in GameCenter
 that the responsibility should be assigned to the class that contains the information. 
 
 ### Model Tier
-The Model tier contains 8 components which include:
+The Model tier contains 12 components which include:
 * Board
 * Match
 * Message
 * Move
 * Piece
 * Player
+* User
 * Row
 * Space
+* Position
+* AI
+* Spectator
+
+The design of these components is discussed under the following Model Tier Diagram.
+
 
 :![Model Tier Class Diagram](model-tier-class-diagram.png)
 _(Figure 9)_
