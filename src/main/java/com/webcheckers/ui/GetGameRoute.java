@@ -91,7 +91,6 @@ public class GetGameRoute implements Route {
                 playerLobby.addUser(user);
                 opponent.getMatch().joinSpectator((Spectator) user);
                 response.redirect(WebServer.SPECTATOR_GAME);
-
                 halt();
             }
             gameCenter.createGame((Player) user, (Player) opponent);
