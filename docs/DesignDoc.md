@@ -274,7 +274,7 @@ creating a dependency. As for Match... in many of these same UI Tier classes, we
 In other words, we are "getting" the player object and then "getting" the match object which then may do things like "getting" the active player, and this is all done within the same class.
 So, we are creating dependencies on Player and Match when we do this; and, since User is the parent class for Player (needed for the spectator implementation), we are also creating a dependency on User.
 
-_Recommendation based on Analysis:_
+_Recommendation Based on Analysis:_
 
 Our solution to this would be to store the current player's Player object in the session so we would not need to send PlayerLobby with multiple classes in the User Interface Tier.
 Additionally, we should use Law of Demeter by creating methods in the Player object that do the checking for things like active player instead of having the UI retrieve the match
@@ -350,6 +350,14 @@ the Cyclomatic Complexity of the GetGameRoute handle method is inflated beyond a
 In the PostValidateMoveRoute handle method, we see an inflated Design Complexity because of the conditions at the end of the method that check for what type of move was made.
 To check if a pending move needs to be added to the match, the handle method makes numerous calls to other methods from the move and match class. The results of these 
 method calls affect which of the paths will be taken. Since these conditions use so many methods calls to determine the path, we see an inflated Design Complexity that must be addressed.
+
+_Recommendation Based on Analysis:_
+
+In the GetGameRoute handle method, the code is trying to do too much, causing the Cyclomatic Complexity to inflate. A simple solution to this is to break the method up using helper methods,
+especially the parts of the method that handle the different possible paths. This change will reduce the Cyclomatic Complexity of the handle method in GetGameRoute.
+
+For the PostValidateMoveRoute handle method, the string of method calls in each if-condition should be moved to a separate, more efficient helper-method. This helper method should be
+the only method called in each if-condition, this will reduce the design complexity in the handle method of the PostValidateMoveRoute.
         
 __Javadoc Coverage Metrics:__
 
@@ -371,6 +379,22 @@ The following is a report on the Javadoc Coverage for WebCheckers.
             Position: 50%
             GetSignOutRoute: 0%
             PostResignRoute: 50%
+            GetSpectatorGameRoute: 0%
+            PostSpectatorCheckTurnRoute: 0%
+            GetSpectatorStopWatchingRoute: 0%
+
+_Analysis of Data:_
+
+For the method coverage of the Application Tier, we neglected to make sure all of the methods had Javadocs in the Application class. We can see through the data that
+the cause for the low Application Tier coverage was strict due to the Application class and not any other class in that tier.
+
+Additionally, The UI Tier lacked in Javadocs coverage due to negligence on the GetSignOutRoute class as well as all of the Spectator Get/Post classes. While some of the other
+Get/Post methods in the UI Tier weren't fully covered, the Spectator enhancement classes were a bulk of the missing percentage points for coverage.
+
+_Recommendation Based on Analysis:_
+
+Based on the data, it is evident that we need to be mindful about writing Javadocs as we create the methods instead of counting on ourselves
+to come back to write the method Javadocs at a later time.
 
 __Lines of Code Metrics:__
 
