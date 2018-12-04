@@ -3,6 +3,8 @@ geometry: margin=1in
 ---
 # Web Checkers Design Documentation
 
+__Note: All diagrams are formatted to increase in quality as you zoom in on them. If diagrams are hard to read, simply zoom in and the clarity should improve.__
+
 ## Team Information
 * Team name: TeamD
 * Team members
@@ -198,35 +200,43 @@ The Model tier contains 12 components which include:
 The design of these components is discussed under the following Model Tier Diagram.
 
 
-:![Model Tier Class Diagram](model-tier-class-diagram.png)
+:![Model Tier Class Diagram](Model%20UML%20Diagram.png)
 _(Figure 9)_
 
 *Class Structure of Model Tier:*\
 In the Model Tier we have a Match, which is an object that can start and end a game. A match is compromised of 
-two players. A player is an object that has a name and a current match that they are in. A player is not initially 
+two players; however, a spectator can view a match, having no control over any of it's aspects. 
+A player is an object that has a name and the match they are in, if they are in one. A player is the child of a User, which is an abstract 
+ object class that aids in the differentiation between players and spectators. A player is not initially 
 in a match, but can get pulled into one by another player. A match is responsible for holding a board and both 
-players(red and white). A board is an object comprised of 8 rows. Each row is an object which is comprised of 8 spaces.
+players(red and white), as well as controlling the status of a game. A board is an object comprised of 8 rows. Each row is an object which is comprised of 8 spaces.
 When a board is being initialized, it iterates through the rows and initializes each of them. In turn, each row 
 iterates through the spaces and creates a new piece on each valid space location, this creates the board object. Each piece has 
-an an owner: red player or white player, and a type: single or king. These features may be seen in the sequence diagram 
+an an owner: red player or white player, and a type: single or king. This feature of creating a board may be seen in the sequence diagram 
 below: 
 
 :![Make A Board Sequence Diagram](make-a-board-sequence-diagram.png)
 _(Figure 10)_
 
-*Design Elements of Model Tier:*\
-This implementation of the Model Tier follows High Cohesion by creating smaller classes that have specific responsibilities. 
-Additionally, by separating these responsibilities, change in one of the classes has a lower impact on the other classes.
-
 *Move Component of Model Tier:*\
-When a player wants to make a move, the move object holds the responsibility of moving the piece from its starting 
-space to ending space. The red player always makes the first move. When a move is available then it must be made, 
-the same goes for double jumps. When a move is attempted, the message object lets the board know whether or not the move 
-is valid or not. The message will contain a text, and a type: info or error. 
+The Move object is a representation of a possible move on the board; it contains the start and end Position of the the move, as well as methods to determine
+what type of move the object is (Single Move, Single Jump, Double Jump, Multi Direction). The Position object is a representation of a row and column on the board, which is used for moves as mentioned before. The Space object
+is also used for moves, as it is used to determine if any more moves are possible and even complies a list of possible moves when requested. This function of compiling a list of
+possible moves is used by the AI object, which chooses a move for the Artificial Intelligence player when a given match is between a regular player and an AI player. Finally, a Message object
+contains the standard messages that are used throughout the duration of the WebCheckers application. 
+
+*Design Elements of Model Tier:*\
+This implementation of the Model Tier follows High Cohesion by creating smaller classes that have specific responsibilities; for example,
+the Position Object is a small class but is very useful for organizing the row and column positions for the start and end of moves.
+Law of Demeter is followed in this tier with the connection between Board, Row, Space, and Piece; each of these classes only communicates with
+their direct child, ensuring that coupling coupling remains low and cohesion remains high. Additionally, Match acts as a controlled that stands between
+the User Interface Tier and the Model Tier. Match receives commands from UI classes that execute moves and Match does the work of telling business objects in the Model Tier
+what they need to do to accomplish this move.
 
 ### Significant Features
 The process for starting a game can be seen by the following sequence diagram:
 
+__Start a Game:__
 :![Start A Game Sequence Diagram](start-a-game-sequence-diagram.png)
 _(Figure 11)_
 
@@ -236,6 +246,32 @@ If the opponent doesn't exist or is already in a game, the player is sent back t
 If the opponent exists and isn't already in a game, a new match is created in GameCenter with the two players and the player is sent to the game page. 
 While this is happening, the opponent is still in GetHomeRoute and consistently checking its status. Once the opponent is added to the match that's
 created in GameCenter, the opponent sees that it now exists in GameCenter and sends the user to the game page. 
+
+__Validate a Move:__
+:![Validate Move Sequence Diagram](Validate_Move_Sequence_Diagram.png)
+_(Figure 12)_
+
+This sequence of events begins when a player drops a piece in a game, given that it's their turn. Once the piece is dropped, PostValidateMoveRoute
+is called, having been sent the Move object via Gson, and then works to get the basics like the current user object and the match. If the user object is null, then
+ an error message is sent back to Gson indicating that the player is not signed in. After the basics are obtained, the method retrieves the Move object 
+that was sent over Gson and starts to work through conditions that determine what type of move it is and if the move is valid. If the move is valid, it is added to
+the Match's pending moves and a "Valid Move" info message is sent back to Gson. If the move isnt valid or if the user has a double jump available, then an error message
+that describes the situation is sent back to Gson.
+
+__Submit a Turn:__
+:![Submit Turn Sequence Diagram](Submit_Turn_Sequence_Diagram.png)
+_(Figure 13)_
+
+This sequence of events begins when the user clicks the "Submit Turn" button, given it's his turn and the pending move is valid. Once the button is clicked,
+PostSubmitTurnRoute is called and it then works to get the basics like the current user object and the match. If the user object is null, then
+an error message is sent back to Gson indicating that the player is not signed in. After the basics are obtained, the method double checks that there are indeed pending moves to execute,
+if not then an error message is sent back to Gson indicating that there are no pending moves to execute. From here, the method also checks to make sure no double jump moves are available, since 
+a player must do this move if it's available. Given that all these conditions are passed, the pending moves are then executed and the active player changes, indicating that the current player's turn is over.
+The next condition in this sequence pertains to the Artificial Intelligence enhancement, as it checks to see if the other player is an AI and if the game can still be played (meaning more moves are possible).
+If the other player is not AI, then the method simply send an info message back to Gson saying that the move was submitted. If the other play is AI, however, and the game can still be played, then
+the AI method to pick a move is called and this move is added to the match's pending moves. Also, just as it did with the current player, the method will check if any double jump moves are available;
+if there are, then the AI will choose such a move and also add it to the match's pending moves. It is at this point that the AI's pending moves are executed and the active player is changed back to the non-AI player.
+Finally, since the AI move was completed, the method can now send the info message back to Gson saying that the move was submitted.
 
 ### Code Metrics
 A code-analysis was performed on the WebCheckers Application using the MetricsReloaded plugin in IntelliJ. This code-analysis checked the 
@@ -481,6 +517,8 @@ appropriately and requests are being halted.
 At the current moment, we have the UI tier at 87% code coverage and 92% missed branches.
 The model tier is at 97% code coverage and 90% missed branches. 
 The application tier is at 100% code coverage and the missed branches is at 100%.
+
+_"missed branches" refers to the lack of missed branches, so to say a tier has 100% missed branches means it does not miss any of the branches_
 
 ### Acceptance Testing
 Currently we have completed and passed all necessary acceptance criteria tests for 
