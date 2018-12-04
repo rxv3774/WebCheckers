@@ -407,6 +407,17 @@ larger modules are more prone to errors. The following is a report on the line c
         UI – 939
         Application – 169
         
+_Analysis of Data:_
+
+It is clear that there is a sharp divide between the amount of work done by Model versus UI versus Application Tier. Most of the code
+is contained in Model, while application barely has any code in comparison. UI seems to be somewhat in the middle of the two, sort of acting as the average
+in this case.
+
+_Recommendation Based on Analysis:_
+
+We would not recommend any changes to this structure. Model will of course have the most code because it is the business logic of the WebCheckers application. Application
+is going to have the least because it just controls the flow of the WebCheckers application and restricts it responsibility/reach to that.
+
 __Martin Package Metrics:__
 
 Martin Package Metrics check the WebChecker tiers/packages for Instability, Abstractness, Fan-Out Coupling, Fan-In Coupling. 
@@ -440,6 +451,18 @@ from inside of the package. The following reports the ratios or coupling of each
         Application: 5
         Model: 31
         UI: 15
+
+_Analysis of Data:_
+
+As we can see in the Fan-Out Coupling and Instability, the UI Tier of the WebCheckers application consistently depends on objects outside of
+the UI Tier. This causes the Instability of the UI Tier to increase, since the Fan-Out coupling is high.
+
+_Recommendation Based on Analysis:_
+
+This problem stems from the Coupling issue that was addressed in the "Chidamber and Kemerer Metrics" section. Because of the way that the current Player object
+and Match object are obtained by the User Interface Tier, the User Interface Tier fails to fails to follow Low Coupling principals. The solution that we proposed for this
+problem in the "Chidamber and Kemerer Metrics" section will also solve the instability issue in this section. So, no further change, beyond what we have already discussed, is 
+necessary. 
 
 ### Design Improvements
 
