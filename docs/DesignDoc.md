@@ -73,7 +73,7 @@ that ends with one winner.
 ## Application Domain
 This section describes the application domain:
 
-:![The WebCheckers Domain Model](domain-model.png)
+:![The WebCheckers Domain Model](Domain-Model.png)
 _(Figure 1)_
 
 The main elements of the domain are the Player, Game, and Tournament entities. The Player entity represents the player,
@@ -235,7 +235,148 @@ In GetGameRoute, the opponent player object is obtained using the name submitted
 If the opponent doesn't exist or is already in a game, the player is sent back to the home page with an error message.
 If the opponent exists and isn't already in a game, a new match is created in GameCenter with the two players and the player is sent to the game page. 
 While this is happening, the opponent is still in GetHomeRoute and consistently checking its status. Once the opponent is added to the match that's
-created in GameCenter, the opponent sees that it now exists in GameCenter and sends the user to the game page.  
+created in GameCenter, the opponent sees that it now exists in GameCenter and sends the user to the game page. 
+
+### Code Metrics
+A code-analysis was performed on the WebCheckers Application using the MetricsReloaded plugin in IntelliJ. This code-analysis checked the 
+design of the application, measuring cohesion, coupling, complexity, etc. 
+
+__Chidamber and Kemerer Metrics:__
+
+Chidamber and Kemerer Metrics check for coupling between objects and lack of cohesion in methods. First, _coupling between objects_
+represents the number of object classes to which that class is coupled. Second, _Lack of Cohesion in Methods_
+is a count of the difference between the method pairs that are not similar and those that are similar within a given class; 
+this metric characterizes the lack of cohesion of a class. The following WebCheckers classes were __above average__ for their category.
+
+    Coupling Between Objects:
+	
+ 
+        PlayerLobby – 27 dependencies
+        Match – 29 dependencies
+        Player – 27 dependencies
+        User – 28 dependencies
+		
+	Lack of Cohesion of Methods:
+
+        Player – 4 LCOM
+        User – 3 LCOM
+
+__Complexity Metrics:__
+
+Complexity Metrics check for Weighted Method Complexity, Average Operation Complexity, Essential Cyclomatic Complexity, Design Complexity,
+and Cyclomatic Complexity. The _Weighted Method Complexity_ is a weighted sum of all the methods in a class; we tend to find that the larger the module, the 
+more prone it is to errors. The _Average Operation Complexity_ calculates the average cyclomatic complexity of the non-abstract methods in each class.
+The _Essential Cyclomatic Complexity_ a graph-theoretic measure of just how ill-structured a method's control flow is; this ranges from 1 to v(G), v(G) being the cyclomatic complexity of the method.
+The _Design Complexity_ is related to how interlinked a methods control flow is with calls to other methods. The _Cyclomatic Complexity_
+is a measure of the number of distinct execution paths through each method. (In practice, this is 1 + the number of if's, while's, for's, 
+do's, switch cases, catches, conditional expressions, &&'s and ||'s in the method). The following WebCheckers classes and methods were __above average__ for their category.
+
+
+    Weighted Method Complexity:
+
+	    Board – 39 
+	    Match – 49 
+	    Space – 58 
+
+	Average Operation Complexity:
+
+	    GetGameRoute – 6.00 
+	    GetHomeRoute – 4.00 
+	    PostSubmitTurnRoute – 3.50 
+
+    Essential Cyclomatic Complexity:
+
+        Match.join(Player) – 5 
+        PostValidateMoveRoute.handle(request, response) – 6 
+        Move.isValid(Board, Boolean) – 8 
+        Move.isValidSecondMove(Board, Boolean, Move) – 6 
+        PostSubmitTurnRoute.handle(Request, Response) – 4 
+        Board.getSpace(Position) – 5 
+        Space.hasPossibleMoves(Color, Board) – 5 
+        PostCheckTurnRoute.handle(Request, Response) – 5 
+        Space.AIChooseSecondJump(Color, Board, Move) – 4 
+        User.getViewMove() – 4 
+        PostSpectatorCheckTurnRoute.handle(Request, Response) – 4 
+        Space.hasSecondJumpAvailable(Color, Board, Move) – 4 
+        Position.getMiddle(Position) – 4 
+
+    Design Complexity:
+
+        GetGameRoute.handle(Request, Response) – 15 
+        PostValidateMoveRoute.handle(request, response) – 10 
+
+    Cyclomatic Complexity:
+
+        GetGameRoute.handle(Request, Response) – 15 
+        
+
+
+__Javadoc Coverage Metrics:__
+
+Javadoc Coverage Metrics simply counts the number of methods or number or lines of Javadoc in an application's tiers and classes.
+The following is a report on the Javadoc Coverage for WebCheckers.
+
+    Javadoc coverage:
+    
+        Project Method Coverage: 76.74%
+        
+        Application Tier Method Coverage: 64.29%
+        Model Tier Method Coverage: 81.75%
+        UI Tier Method Coverage: 65.52%
+    
+        Classes Lacking Method/Field Coverage:
+        
+            Application: 33.33%
+            Piece: 40%
+            Position: 50%
+            GetSignOutRoute: 0%
+            PostResignRoute: 50%
+
+__Lines of Code Metrics:__
+
+Lines of Code Metrics simply count the number of lines of code; this is used to keep track of the size of the module, since we know that 
+larger modules are more prone to errors. The following is a report on the line coverage for each WebCheckers tier
+
+    Lines of Product Code:
+
+        Model – 1,579
+        UI – 939
+        Application – 169
+        
+__Martin Package Metrics:__
+
+Martin Package Metrics check the WebChecker tiers/packages for Instability, Abstractness, Fan-Out Coupling, Fan-In Coupling. 
+_Instability_ is the package's Fan-Out Couplings divided by the sum of the package's Fan-In Coupling and Fan-Out Coupling (Ce÷(Ca+Ce)). 
+This metric has a range of [0,1]: 0 indicates a maximally stable category and 1 indicates a maximally unstable category. _Abstractness_ 
+calculates the number of abstract classes and interfaces divided by all classes for each package, essentially this is a ratio of abstract classes (and interfaces)
+to the number of classes in the whole of the package. _Fan-Out Coupling_ measures the coupling in the case that a class inside a package
+needs something outside of the package. _Fan-In Coupling_ measures the coupling in the case that a class outside of a package needs something
+from inside of the package. The following reports the ratios or coupling of each Webcheckers package/tier, depending on the category.
+
+    Instability:
+    
+        Application: 0.29
+        Model: 0.31
+        UI: 0.71
+    
+    Abstractness: 
+    
+        Application: 0.00
+        Model: 0.06
+        UI: 0.00
+    
+    Fan-Out Coupling:
+    
+        Application: 2
+        Model: 11
+        UI: 37
+    
+    Fan-In Coupling: 
+    
+        Application: 5
+        Model: 31
+        UI: 15
+
 
 ### Design Improvements
 If given the opportunity to improve upon our current design, there are a few design details that we would change.
