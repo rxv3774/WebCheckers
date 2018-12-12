@@ -3,6 +3,8 @@ geometry: margin=1in
 ---
 # Web Checkers Design Documentation
 
+__Note: All diagrams are formatted to increase in quality as you zoom in on them. If diagrams are hard to read, simply zoom in and the clarity should improve.__
+
 ## Team Information
 * Team name: TeamD
 * Team members
@@ -49,26 +51,19 @@ American rules, and resign at any point which ends the game.
 
 ### MVP Features
 
-###### Epics: 
-* Checker movement
-* Resignation
-
-###### User Stories: 
-* Start a game
-* Player Sign-in
-* Move first
-* Move on turn
-* Single move
-* Multi direction
-* Single jump move
-* Multi jump move
-* Resignation
+The Minimum Viable Product of the WebChecker Application starts with the feature where a player can sign-in to the WebCheckers player lobby.
+From here, a player has the option to either start a game with another player who isn't already in a game or sign-out of the player lobby. When
+a player is in a game, the red player will move first and then the players will go back-and-forth taking turns. On a player's turn, they can either
+make a single diagonal move, single diagonal jump, or multiple diagonal jump. If the piece is a King Piece, which is achieved when a piece reaches
+the last row of the opposite side, then the piece may move both diagonally forwards and diagonally backwards, where as a single piece is restricted to only moving diagonally forwards.
+During a game, a player can resign, which ends the game and takes both players back to the lobby, or sign-out, which ends the game and signs out the current player
+while the opponent player is taken back to the lobby.
 
 ### Roadmap of Enhancements
 * Spectator: User can enter a game already in progress and watch, but not play.
 
-* Tournament play: User can choose to play in tournament mode, where a group of players compete in a system of games
-that ends with one winner. 
+* Artificial Intelligence: An AI Player is an object of the application that competitively plays a traditional game of WebCheckers against any player who requests to 
+start a game with it.
 
 ## Application Domain
 This section describes the application domain:
@@ -79,16 +74,15 @@ _(Figure 1)_
 The main elements of the domain are the Player, Game, and Tournament entities. The Player entity represents the player,
 whether they are human or a spectator. A player plays the game and makes moves, but only watches if they are
 a spectator. The Move entity has multiple sub-types: single, single jump, multi jump, and multi direction moves. Each 
-move is validated by the rules of the game. The jump rule determines the validity of all the moves besides the multi 
-direction move, which is validated by the king rule. Before the player can even make a move, the board must be created.
-The Game entity creates a Board, which then creates eight Row entities, which creates eight Space entities for each row. The Space
-entity creates a single Piece entity if it is initialized to contain one. There are two types of pieces: single pieces
-and king pieces. A Tournament entity is a series of games played by multiple different players. The functionality of the
-tournament follows the basic principle of a regular sports tournament.
+move is validated by the rules of the game. The single move rule validates single moves, the jump rule determines the 
+validity of all jump moves, and the king rule validates the multi-direction move. Before the player can even make a move, 
+the board must be created. The Game entity creates a Board, which then creates eight Row entities, which creates eight 
+Space entities for each row. The Space entity creates a single Piece entity if it is initialized to contain one. There 
+are two types of pieces: single pieces and king pieces.
 
 ## Architecture and Design
 The Web Checkers webapp uses a Java-based web server and was built using the Spark web micro framework and the 
-FreeMarker template engine to handle HTTP requests and generate HTML responses.
+FreeMarker template engine to handle HTTP requests and generate HTML or AJAX responses.
 
 ### Summary
 The following Tiers/Layers model shows a high-level view of the webapp's architecture:
@@ -117,24 +111,27 @@ _(Figure 3)_
 From the Perspective of the user, the Application's user interface begins on the home page
 where the user will see a welcome screen and a button to sign in. When the user clicks the button,
 the interface then flows to the sign-in page, where the user is prompted to enter a unique name.
-If the user enters an invalid name or a name that's already being used, the user will stay on the sign-in
+If the user enters an invalid name, meaning it uses illegal characters, or a name that's already being used, the user will stay on the sign-in
 page but with the appropriate error message. If the user enters a valid name, the interface flows back to the home page,
-where the user can see his name as the current player, along with a number or list of other players in the lobby. When 
+where the user can see his name as the current player, along with a number or list of other players in the lobby (when only one player
+is signed in, the player lobby will only show a message saying one player is signed in, but not a list of names). When 
 the user chooses a player to enter a game with or a different player chooses the user to play a game with, 
 the user is transitioned to the game page, where the board is laid out in game form. If a player wins or 
-if either player resigns, both are taken back to the home page.  
+if either player resigns, both are taken back to the home page. 
+
+When the player is in a game with a rendered game board, it initially determines if it is their turn or not. If not, it waits until it is their turn,
+sitting on the game page with the current state of the board but not able to move any pieces. When it is their turn, the player's game page updates to reflect
+the move made by the opponent. At this point, the player can attempt to move pieces and submit their turn, through the "submit turn" button, if the move
+is valid. This cycle repeats, and the players remain on this page, until there is a winner or one of the players resigns. 
+
 
 ### UI Tier
-This tier of the Web Checkers application can be shown in the following class diagram:
-
-:![UI Tier Class Diagram](user-interface-tier-class-diagram.png)
-_(Figure 4)_
 
 *Class Structure of UI Tier:*\
 The User Interface Tier of Web Checkers begins with WebServer, which is responsible for initializing all of the HTTP 
 Routes that make up the web application. When a client navigates to the Web Checkers page, he will be starting in the 
-GetHomeRoute component of the UI Tier. If client attempts to start at a page that is not the home page, the client will 
-be redirected to the sign in page. GetHomeRoute is responsible for displaying the home page, with a Sign In button at 
+GetHomeRoute component of the UI Tier. If a client, who isn't signed in, attempts to start at a page that is not the home page, the client will 
+be redirected to the sign in page so the player can then retry with accessing their desired page. GetHomeRoute is responsible for displaying the home page, with a Sign In button at 
 the top and additional information in the body, as well as checking if a player is already in a game and redirecting to 
 the game page if so. When the Sign In button is clicked, the client will be sent to GetSignInRoute, which is responsible
 for displaying the sign in page. On the sign in page, the client can type a name into the space provided and press the 
@@ -152,6 +149,23 @@ will be an option to select a player and start a game. Once the client chooses a
 button, the client is sent to GetGameRoute. GetGameRoute is responsible for creating a match in GameCenter 
 (if one does not already exist) and displaying the game page to the client. More about the sign-in process can be found 
 in the "Significant Features" section (Figure 11).
+
+*PostCheckTurnRoute Component of UI Tier*\
+When a player is in a game, if it is not their turn then they will be waiting in PostCheckTurnRoute. Once the enemy chooses a move and the active player 
+changes in the match, the waiting player will know that it is their turn. With this information, the player will update the board on their game page and they 
+are now able to pick up and move their pieces on the board. However, the player doesnt only check for it to be their turn when in PostCheckTurnRoute; the player must
+also check to see if the game has a winner or if the opponent resigned.
+
+*PostValidateMoveRoute Component of UI Tier*\
+When it is a player's turn, they have the ability to pick up and move their pieces to dark spaces on the board. When a player props their piece, 
+PostValidateMoveRoute is called to see if this move it called, and it must inform the player of just that. A player cannot submit their turn until the move
+has been declared as valid, so the PostValidateMoveRoute is responsible for making sure the system receives the message that distinguishes whether or not the move is valid.
+More about this component can be seen in the sequence diagram in Significant Features, Figure 12 "Validate a Move".
+
+*PostSubmitTurnRoute Component of UI Tier*\
+When a player's move has been declared valid by PostValidateMoveRoute, the player can then click the "Submit Turn" button. This component is responsible
+for doing the pending moves in match and changing the active player. Additionally, this component must stop the player from submitting their turn if there is
+a double jump available, since players are required to complete available double jumps. More about this component can be seen in the sequence diagram in Significant Features, Figure 13 "Submit a Turn".
 
 ### Application Tier
 The application tier contains two components: GameCenter and PlayerLobby. These components can be seen in the following class diagram:
@@ -172,8 +186,7 @@ We chose this design so that the responsibility of managing players is kept in a
 This supports high-cohesion by keeping classes, like Player or GameCenter, small and with narrowly defined responsibilities.
 
 *GameCenter Component of Application Tier:*\
-GameCenter is responsible for managing the matches between players. A match can be created in GameCenter, at which point the match is stored and can be accessed
-by other related components. When a player wants to start a game with another signed-in player, the chosen player is checked to see if it is already in a match;
+GameCenter is responsible for managing the matches between players. A match can be created in GameCenter, at which point the match is stored. When a player wants to start a game with another signed-in player, the chosen player is checked to see if it is already in a match;
 if it is not, a match is created through GameCenter between the two players. This is an example of a Controller, because the GameCenter is beyond the UI and handles the creation
 of a game; more specifically, it does this by using methods in other classes such as Match. After the game is finished, or if a player resigns, GameCenter ends the match. 
 This sequence of events involving GameCenter can be seen in the following diagram:
@@ -188,54 +201,94 @@ instead of calling get methods from Match and doing the comparison in GameCenter
 that the responsibility should be assigned to the class that contains the information. 
 
 ### Model Tier
-The Model tier contains 8 components which include:
+The Model tier contains 12 components which include:
 * Board
 * Match
 * Message
 * Move
 * Piece
 * Player
+* User
 * Row
 * Space
+* Position
+* AI
+* Spectator
 
-:![Model Tier Class Diagram](model-tier-class-diagram.png)
+The design of these components is discussed under the following Model Tier Diagram.
+
+
+:![Model Tier Class Diagram](Model%20UML%20Diagram.png)
 _(Figure 9)_
 
 *Class Structure of Model Tier:*\
 In the Model Tier we have a Match, which is an object that can start and end a game. A match is compromised of 
-two players. A player is an object that has a name and a current match that they are in. A player is not initially 
+two players; however, a spectator can view a match, having no control over any of it's aspects. 
+A player is an object that has a name and the match they are in, if they are in one. A player is the child of a User, which is an abstract 
+ object class that aids in the differentiation between players and spectators. A player is not initially 
 in a match, but can get pulled into one by another player. A match is responsible for holding a board and both 
-players(red and white). A board is an object comprised of 8 rows. Each row is an object which is comprised of 8 spaces.
+players(red and white), as well as controlling the status of a game. A board is an object comprised of 8 rows. Each row is an object which is comprised of 8 spaces.
 When a board is being initialized, it iterates through the rows and initializes each of them. In turn, each row 
 iterates through the spaces and creates a new piece on each valid space location, this creates the board object. Each piece has 
-an an owner: red player or white player, and a type: single or king. These features may be seen in the sequence diagram 
+an an owner: red player or white player, and a type: single or king. This feature of creating a board may be seen in the sequence diagram 
 below: 
 
 :![Make A Board Sequence Diagram](make-a-board-sequence-diagram.png)
 _(Figure 10)_
 
-*Design Elements of Model Tier:*\
-This implementation of the Model Tier follows High Cohesion by creating smaller classes that have specific responsibilities. 
-Additionally, by separating these responsibilities, change in one of the classes has a lower impact on the other classes.
-
 *Move Component of Model Tier:*\
-When a player wants to make a move, the move object holds the responsibility of moving the piece from its starting 
-space to ending space. The red player always makes the first move. When a move is available then it must be made, 
-the same goes for double jumps. When a move is attempted, the message object lets the board know whether or not the move 
-is valid or not. The message will contain a text, and a type: info or error. 
+The Move object is a representation of a possible move on the board; it contains the start and end Position of the the move, as well as methods to determine
+what type of move the object is (Single Move, Single Jump, Double Jump, Multi Direction). The Position object is a representation of a row and column on the board, which is used for moves as mentioned before. The Space object
+is also used for moves, as it is used to determine if any more moves are possible and even complies a list of possible moves when requested. This function of compiling a list of
+possible moves is used by the AI object, which chooses a move for the Artificial Intelligence player when a given match is between a regular player and an AI player. Finally, a Message object
+contains the standard messages that are used throughout the duration of the WebCheckers application. 
+
+*Design Elements of Model Tier:*\
+This implementation of the Model Tier follows High Cohesion by creating smaller classes that have specific responsibilities; for example,
+the Position Object is a small class but is very useful for organizing the row and column positions for the start and end of moves.
+Law of Demeter is followed in this tier with the connection between Board, Row, Space, and Piece; each of these classes only communicates with
+their direct child, ensuring that coupling coupling remains low and cohesion remains high. Additionally, Match acts as a controlled that stands between
+the User Interface Tier and the Model Tier. Match receives commands from UI classes that execute moves and Match does the work of telling business objects in the Model Tier
+what they need to do to accomplish this move.
 
 ### Significant Features
 The process for starting a game can be seen by the following sequence diagram:
 
+__Start a Game:__
 :![Start A Game Sequence Diagram](start-a-game-sequence-diagram.png)
 _(Figure 11)_
 
 This sequence of events begins when a player clicks the "Start A Game" button on the home page, sending the user to GetGameRoute.
 In GetGameRoute, the opponent player object is obtained using the name submitted when the initial player clicked the "Start A Game" button.
-If the opponent doesn't exist or is already in a game, the player is sent back to the home page with an error message.
-If the opponent exists and isn't already in a game, a new match is created in GameCenter with the two players and the player is sent to the game page. 
-While this is happening, the opponent is still in GetHomeRoute and consistently checking its status. Once the opponent is added to the match that's
+If the opponent doesn't exist (the name provided doesn't correspond to any player in the player lobby) or is already in a game, the player is sent back to the home page with an error message.
+If the opponent exists and isn't already in a game, a new match is created in GameCenter with the two players and the player is sent to the game page. Once the opponent is added to the match that's
 created in GameCenter, the opponent sees that it now exists in GameCenter and sends the user to the game page. 
+
+__Validate a Move:__
+:![Validate Move Sequence Diagram](Validate_Move_Sequence_Diagram.png)
+_(Figure 12)_
+
+This sequence of events begins when a player drops a piece in a game, given that it's their turn. Once the piece is dropped, PostValidateMoveRoute
+is called, having been sent the Move object via Gson, and then works to get the basics like the current user object and the match. If the user object is null, then
+ an error message is sent back to Gson indicating that the player is not signed in. After the basics are obtained, the method retrieves the Move object 
+that was sent over Gson and starts to work through conditions that determine what type of move it is and if the move is valid. If the move is valid, it is added to
+the Match's pending moves and a "Valid Move" info message is sent back to Gson. If the move isnt valid or if the user has a double jump available, then an error message
+that describes the situation is sent back to Gson.
+
+__Submit a Turn:__
+:![Submit Turn Sequence Diagram](Submit_Turn_Sequence_Diagram.png)
+_(Figure 13)_
+
+This sequence of events begins when the user clicks the "Submit Turn" button, given it's his turn and the pending move is valid. Once the button is clicked,
+PostSubmitTurnRoute is called and it then works to get the basics like the current user object and the match. If the user object is null, then
+an error message is sent back to Gson indicating that the player is not signed in. After the basics are obtained, the method double checks that there are indeed pending moves to execute,
+if not then an error message is sent back to Gson indicating that there are no pending moves to execute. From here, the method also checks to make sure no double jump moves are available, since 
+a player must do this move if it's available. Given that all these conditions are passed, the pending moves are then executed and the active player changes, indicating that the current player's turn is over.
+The next condition in this sequence pertains to the Artificial Intelligence enhancement, as it checks to see if the other player is an AI and if the game can still be played (meaning more moves are possible).
+If the other player is not AI, then the method simply send an info message back to Gson saying that the move was submitted. If the other play is AI, however, and the game can still be played, then
+the AI method to pick a move is called and this move is added to the match's pending moves. Also, just as it did with the current player, the method will check if any double jump moves are available;
+if there are, then the AI will choose such a move and also add it to the match's pending moves. It is at this point that the AI's pending moves are executed and the active player is changed back to the non-AI player.
+Finally, since the AI move was completed, the method can now send the info message back to Gson saying that the move was submitted.
 
 ### Code Metrics
 A code-analysis was performed on the WebCheckers Application using the MetricsReloaded plugin in IntelliJ. This code-analysis checked the 
@@ -482,16 +535,14 @@ At the current moment, we have the UI tier at 87% code coverage and 92% missed b
 The model tier is at 97% code coverage and 90% missed branches. 
 The application tier is at 100% code coverage and the missed branches is at 100%.
 
+_"missed branches" refers to the lack of missed branches, so to say a tier has 100% missed branches means it does not miss any of the branches_
+
 ### Acceptance Testing
 Currently we have completed and passed all necessary acceptance criteria tests for 
-the first two user stories. All acceptance criteria tests for the Player sign-in and start 
-game user stories are complete and functional. We are currently working on tests for further 
-user stories.
+all user stories pertaining to the minimum viable product, as was at the AI and Spectator enhancements.
 
 ### Unit Testing and Code Coverage
 For our unit tests, our goal was to reach at least 90% coverage on all tiers(model, application, and UI). 
 We decided on 90% because, it would give us confidence that we are properly implementing the different tiers. 
-As we created tests, we began to realize that we had certain coupling issues which we were able to quickly fix. 
-This fix was necessary, as these issues were preventing us from creating a proper testing seam between our classes. 
-This was due to that fact that we had not followed the Pure Fabrication pattern. These issues helped us improve our 
-code, as we realized that hard to test code is code that could use some improvements.
+We did reach this goal and, in doing so, found value and efficiency in completing unit tests directly after a class is written. Staying on 
+top of the unit testing made it less of a chore, and we began to reap the benefits that it provided.
