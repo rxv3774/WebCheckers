@@ -64,8 +64,6 @@ public class WebServer {
     public static final String SPECTATOR_CHECK_TURN = "/spectator/checkTurn";
     public static final String SPECTATOR_GAME = "/spectator/game";
     public static final String SPECTATOR_STOP_WATCHING = "/spectator/stopWatching";
-
-
     public static final String SIGN_OUT_URL = "/signOut";
 
     public static final String HOME_FILE = "home.ftl";

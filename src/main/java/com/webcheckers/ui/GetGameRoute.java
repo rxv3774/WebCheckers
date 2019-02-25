@@ -117,7 +117,7 @@ public class GetGameRoute implements Route {
             halt();
             return null;
         }
-        if (match.hasWinner() && match.isWinner((Player) user)) {
+        if (match.hasWinner() && match.isWinner((Player) user)) { //once a winner has been declared
             gameCenter.endGame(match);
             vm.put("message", Message.WINNER);
         } else if (!match.isRunning() && gameCenter.containsMatch(match)) {
